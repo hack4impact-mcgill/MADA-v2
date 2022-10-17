@@ -7,7 +7,7 @@
 
 
 ## Developer Team
-**Devs**: 
+**Devs**: Jessica Li 
 
 **Project Managers**: 
 
