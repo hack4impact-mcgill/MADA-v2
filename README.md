@@ -32,7 +32,7 @@ The URL for the (development) database in container is "postgresql://mucrm:mucrm
 
 
 ## Developer Team
-**Devs**: 
+**Devs**: Jessica Li 
 
 **Project Managers**: Camilla Djamalov
 
