@@ -34,6 +34,6 @@ The URL for the (development) database in container is "postgresql://mucrm:mucrm
 ## Developer Team
 **Devs**: Jessica Li 
 
-**Project Managers**: Camilla Djamalov
+**Project Managers**: Camilla Djamalov, Kathleen Younge
 
 **Tech Lead**: Maite Kramarz
