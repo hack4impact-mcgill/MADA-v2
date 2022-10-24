@@ -1,21 +1,21 @@
 import {
   Column,
   Entity,
-  PrimaryGeneratedColumn,
+  PrimaryColumn,
 } from 'typeorm';
 
 @Entity()
 export class UserEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryColumn()
+  username: string;
 
   @Column()
   name: string;
 
-  @Column()
-  username: string;
-
-  @Column()
+  @Column({
+    unique: true,
+    nullable: false,
+  })
   email: string;
 
   @Column()
