@@ -29,7 +29,7 @@ The URL for the (development) database in container is "postgresql://mucrm:mucrm
 1. Database diagrams: https://drive.google.com/file/d/13aiD-ivql-npTbgwyLVry0ToKAMEZFpc/view
 2. API: https://docs.google.com/document/d/1IMIw5tTVAvfnxY7_No3z4CgpIFXdjOJUdFV8HtjSVxw/edit?usp=sharing
 3. Project board: https://github.com/orgs/hack4impact-mcgill/projects/1
-
+4. Design files: https://www.figma.com/file/wkaZhz34mkZOYyhIKs7BEj/ui-mockups?node-id=358%3A203
 
 ## Developer Team
 **Devs**: Jessica Li 
