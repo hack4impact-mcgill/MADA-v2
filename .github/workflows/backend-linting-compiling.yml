@@ -19,13 +19,3 @@ jobs:
         run: |
           cd backend
           npm run prettier-check-format
-  # tsc:
-  #   runs-on: ubuntu-latest
-  #   name: Check typescript
-  #   steps:
-  #     - uses: actions/checkout@v1
-  #     - uses: actions/setup-node@v1
-  #       with:
-  #         node-version: '13.x'
-  #     - run: yarn
-  #     - run: yarn tsc
