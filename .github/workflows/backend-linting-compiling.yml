@@ -19,4 +19,4 @@ jobs:
       - name: Prettier
         run: |
           cd backend
-          npm run
+          npm run-script prettier-check-format
