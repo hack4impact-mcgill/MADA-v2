@@ -1,4 +1,4 @@
-name: server-lint-and compilation
+name: server-lint-and-typecheck
 
 on: [pull_request]
 
@@ -34,7 +34,7 @@ jobs:
           cd backend
           npm install tsc
 
-      - name: Prettier
+      - name: Typecheck
         run: |
           cd backend
           tsc -p . -noEmit
