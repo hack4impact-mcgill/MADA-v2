@@ -1,15 +1,15 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 // Creates an entity
 // Entity is a class that maps to a database table : https://orkhan.gitbook.io/typeorm/docs/entities
 @Entity()
 export class ExampleEntity {
-	@PrimaryGeneratedColumn()
-	id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-	@Column()
-	stringColumn: string;
+  @Column()
+  stringColumn: string;
 
-	@Column()
-	boolColumn: boolean;
+  @Column()
+  boolColumn: boolean;
 }
