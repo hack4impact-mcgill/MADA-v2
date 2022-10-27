@@ -1,20 +1,21 @@
+name: server-lint
+
 on: [pull_request]
 
 jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
 
       - name: Set up Node
-      - uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
 
       - name: Install Prettier
         run: |
-          cd backend
+          cd backend 
           npm install prettier
-
-      - name: Run prettier
+      - name: Prettier
         run: |
-          cd backend
+          cd frontend
           npm run prettier-check-format
