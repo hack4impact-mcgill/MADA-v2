@@ -1,4 +1,4 @@
-name: server-lint
+name: server-lint-and compilation
 
 on: [pull_request]
 
@@ -13,9 +13,10 @@ jobs:
 
       - name: Install Prettier
         run: |
-          cd backend 
+          cd backend
           npm install prettier
+
       - name: Prettier
         run: |
-          cd frontend
-          npm run prettier-check-format
+          cd backend
+          npm run
