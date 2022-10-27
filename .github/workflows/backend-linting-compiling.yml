@@ -1,31 +1,22 @@
+name: server-lint-and compilation
+
 on: [pull_request]
 
 jobs:
   lint:
     runs-on: ubuntu-latest
-    name: Run eslint
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
 
       - name: Set up Node
-      - uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
 
       - name: Install Prettier
         run: |
           cd backend
           npm install prettier
 
-      - name: Run prettier
+      - name: Prettier
         run: |
           cd backend
-          npm run prettier-check-format
-  # tsc:
-  #   runs-on: ubuntu-latest
-  #   name: Check typescript
-  #   steps:
-  #     - uses: actions/checkout@v1
-  #     - uses: actions/setup-node@v1
-  #       with:
-  #         node-version: '13.x'
-  #     - run: yarn
-  #     - run: yarn tsc
+          npm run-script prettier-check-format
