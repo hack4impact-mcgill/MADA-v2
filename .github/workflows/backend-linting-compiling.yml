@@ -1,23 +1,40 @@
+name: server-lint-and-typecheck
+
 on: [pull_request]
 
 jobs:
   lint:
     runs-on: ubuntu-latest
-    name: Run eslint
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '13.x'
-      - run: yarn
-      - run: yarn lint
-  tsc:
+      - uses: actions/checkout@v2
+
+      - name: Set up Node
+        uses: actions/setup-node@v2
+
+      - name: Install Prettier
+        run: |
+          cd backend
+          npm install prettier
+
+      - name: Prettier
+        run: |
+          cd backend
+          npm run-script prettier-check-format
+
+  typecheck:
     runs-on: ubuntu-latest
-    name: Check typescript
     steps:
-      - uses: actions/checkout@v1
-      - uses: actions/setup-node@v1
-        with:
-          node-version: '13.x'
-      - run: yarn
-      - run: yarn tsc
+      - uses: actions/checkout@v2
+
+      - name: Set up Node
+        uses: actions/setup-node@v2
+
+      - name: Install tsc
+        run: |
+          cd backend
+          npm install tsc
+
+      - name: Typecheck
+        run: |
+          cd backend
+          tsc -p . -noEmit
