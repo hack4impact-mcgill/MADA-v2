@@ -1,0 +1,40 @@
+name: server-lint-and-typecheck
+
+on: [pull_request]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Node
+        uses: actions/setup-node@v2
+
+      - name: Install Prettier
+        run: |
+          cd backend
+          npm install prettier
+
+      - name: Prettier
+        run: |
+          cd backend
+          npm run-script prettier-check-format
+
+  typecheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Node
+        uses: actions/setup-node@v2
+
+      - name: Install tsc
+        run: |
+          cd backend
+          npm install tsc
+
+      - name: Typecheck
+        run: |
+          cd backend
+          tsc -p . -noEmit
