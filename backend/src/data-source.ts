@@ -3,7 +3,7 @@ import 'reflect-metadata';
 import { DataSource } from 'typeorm';
 
 import { UserEntity } from './entities/UserEntity';
-import { AdminEntity } from './entities/UserEntity copy';
+import { AdminEntity } from './entities/AdminEntity';
 import { ExampleEntity } from './ExampleEntity';
 
 // Create a data source i.e connection settings: https://orkhan.gitbook.io/typeorm/docs/data-source#what-is-datasource
