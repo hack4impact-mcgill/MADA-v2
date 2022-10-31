@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 import { DataSource } from 'typeorm';
 import { Client } from './entities/ClientEntity';
+import { UserEntity } from './entities/UserEntity';
 import { ExampleEntity } from './ExampleEntity';
 
 // Create a data source i.e connection settings: https://orkhan.gitbook.io/typeorm/docs/data-source#what-is-datasource
@@ -13,7 +14,7 @@ export const AppDataSource = new DataSource({
   database: 'test',
   synchronize: true,
   logging: false,
-  entities: [Client],
+  entities: [Client, UserEntity],
   migrations: [],
   subscribers: []
 });
