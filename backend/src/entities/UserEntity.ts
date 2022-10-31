@@ -1,8 +1,4 @@
-import {
-  Column,
-  Entity,
-  PrimaryColumn,
-} from 'typeorm';
+import { Column, Entity, PrimaryColumn } from 'typeorm';
 
 @Entity()
 export class UserEntity {
@@ -14,7 +10,7 @@ export class UserEntity {
 
   @Column({
     unique: true,
-    nullable: false,
+    nullable: false
   })
   email: string;
 
