@@ -2,8 +2,9 @@ import 'reflect-metadata';
 
 import { DataSource } from 'typeorm';
 
-import { UserEntity } from './entities/UserEntity';
 import { AdminEntity } from './entities/AdminEntity';
+import { UserEntity } from './entities/UserEntity';
+import { VolunteerEntity } from './entities/VolunteerEntity';
 import { ExampleEntity } from './ExampleEntity';
 
 // Create a data source i.e connection settings: https://orkhan.gitbook.io/typeorm/docs/data-source#what-is-datasource
@@ -16,7 +17,7 @@ export const AppDataSource = new DataSource({
   database: 'test',
   synchronize: true,
   logging: false,
-  entities: [ExampleEntity, UserEntity, AdminEntity],
+  entities: [ExampleEntity, UserEntity, AdminEntity, VolunteerEntity],
   migrations: [],
   subscribers: []
 });
