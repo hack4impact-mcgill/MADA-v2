@@ -1,8 +1,4 @@
-import {
-  Column,
-  Entity,
-  PrimaryGeneratedColumn
-} from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 import { UserEntity } from './UserEntity';
 
