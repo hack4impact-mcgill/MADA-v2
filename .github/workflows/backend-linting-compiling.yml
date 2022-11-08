@@ -38,3 +38,21 @@ jobs:
         run: |
           cd backend
           tsc -p . -noEmit
+
+  jest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Node
+        uses: actions/setup-node@v2
+
+      - name: Install Jest
+        run: |
+          cd backend
+          npm install jest
+
+      - name: Jest
+        run: |
+          cd backend
+          npm jest
