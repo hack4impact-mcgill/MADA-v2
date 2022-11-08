@@ -1,24 +1,10 @@
-import {
-  Request,
-  Response
-} from 'express';
+import { Request, Response } from 'express';
 
 import { AppDataSource } from '../../data-source';
 import { VolunteerEntity } from '../../entities/VolunteerEntity';
 
 export class VolunteerController {
   private VolunteerRepository = AppDataSource.getRepository(VolunteerEntity);
-
-  // getAvailability = async (req: Request, res: Response) => {
-  //   const availability = await this.VolunteerRepository.find({
-  //     select: {
-  //       availability: true
-  //     }
-  //   });
-  //   response.status(200).json({ availability });
-  // };
-
-  // setAvailability = async (req: Request, res: Response) => {};
 
   getPersonalInformation = async (req: Request, res: Response) => {
     try {
