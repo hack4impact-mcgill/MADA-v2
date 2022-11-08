@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { MealDeliveryEntity } from './MealDelivery';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+
+import { MealDeliveryEntity } from './MealDeliveryEntity';
 
 @Entity()
 export class TaskEntity {
