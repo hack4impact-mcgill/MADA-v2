@@ -13,5 +13,5 @@ export class MealDeliveryEntity {
   mealType: string;
 
   @ManyToOne(() => TaskEntity, (task) => task.deliveries)
-  task: TaskEntity
+  task: TaskEntity;
 }
