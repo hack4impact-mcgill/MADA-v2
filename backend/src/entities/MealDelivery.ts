@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { TaskEntity } from './TaskEntity';
 
 @Entity()
 export class MealDeliveryEntity {
@@ -10,4 +11,7 @@ export class MealDeliveryEntity {
 
   @Column()
   mealType: string;
+
+  @ManyToOne(() => TaskEntity, (task) => task.deliveries)
+  task: TaskEntity;
 }
