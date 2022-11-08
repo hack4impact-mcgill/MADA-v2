@@ -2,6 +2,15 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 import { UserEntity } from './UserEntity';
 
+type DayOfWeek =
+  | 'Monday'
+  | 'Tuesday'
+  | 'Wednesday'
+  | 'Thursday'
+  | 'Friday'
+  | 'Saturday'
+  | 'Sunday';
+
 @Entity()
 export class VolunteerEntity extends UserEntity {
   @PrimaryGeneratedColumn()
@@ -17,5 +26,5 @@ export class VolunteerEntity extends UserEntity {
   profilePicture: string;
 
   @Column()
-  availability: Array<Date>;
+  availability: DayOfWeek;
 }
