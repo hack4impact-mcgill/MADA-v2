@@ -1,5 +1,5 @@
 import { expect, jest, test } from '@jest/globals';
-import { sum } from './sum';
+import { sum } from './ExampleTest';
 
 // example test //
 describe('sum module', () => {
