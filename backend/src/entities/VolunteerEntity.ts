@@ -1,4 +1,9 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import {
+  Column,
+  Entity,
+  PrimaryGeneratedColumn
+} from 'typeorm';
+
 import { UserEntity } from './UserEntity';
 
 @Entity()
@@ -14,4 +19,7 @@ export class VolunteerEntity extends UserEntity {
 
   @Column()
   profilePicture: string;
+
+  @Column()
+  availability: Array<Date>;
 }
