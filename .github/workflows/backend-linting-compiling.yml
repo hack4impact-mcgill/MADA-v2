@@ -55,4 +55,4 @@ jobs:
       - name: Jest
         run: |
           cd backend
-          npm jest
+          npm run test
