@@ -1,9 +1,11 @@
 import 'reflect-metadata';
 import { DataSource } from 'typeorm';
-import { ClientEntity } from './entities/ClientEntity';
-import { UserEntity } from './entities/UserEntity';
 import { AdminEntity } from './entities/AdminEntity';
+import { MealDeliveryEntity } from './entities/MealDeliveryEntity';
+import { TaskEntity } from './entities/TaskEntity';
+import { UserEntity } from './entities/UserEntity';
 import { VolunteerEntity } from './entities/VolunteerEntity';
+import { ClientEntity } from './entities/VolunteerEntity';
 
 // Create a data source i.e connection settings: https://orkhan.gitbook.io/typeorm/docs/data-source#what-is-datasource
 export const AppDataSource = new DataSource({
@@ -15,7 +17,15 @@ export const AppDataSource = new DataSource({
   database: 'test',
   synchronize: true,
   logging: false,
-  entities: [UserEntity, ClientEntity, AdminEntity,  VolunteerEntity],
+
+  entities: [
+    AdminEntity,
+    MealDeliveryEntity,
+    TaskEntity,
+    UserEntity,
+    VolunteerEntity,
+    ClientEntity
+  ],
   migrations: [],
   subscribers: []
 });
