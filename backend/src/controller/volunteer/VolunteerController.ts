@@ -1,10 +1,50 @@
-import { Request, Response } from 'express';
+import {
+  Request,
+  Response
+} from 'express';
 
 import { AppDataSource } from '../../data-source';
 import { VolunteerEntity } from '../../entities/VolunteerEntity';
 
 export class VolunteerController {
   private VolunteerRepository = AppDataSource.getRepository(VolunteerEntity);
+
+  getAvailability = async (req: Request, res: Response) => {
+    try {
+      const volunteer = await this.VolunteerRepository.findOneBy({
+        id: parseInt(req.params.id)
+      });
+
+      res.status(200).json(volunteer.availabilities);
+    } catch (error) {
+      res.status(400).json({
+        error
+      });
+    }
+  };
+
+  updateAvailabilities = async (req: Request, res: Response) => {
+    try {
+      const volunteer = await this.VolunteerRepository.findOneBy({
+        id: parseInt(req.params.id)
+      });
+
+      const oldAvailabilities = volunteer.availabilities;
+      const newAvailabilities = req.body;
+
+      for (let i = 0; i < newAvailabilities.length; i++) {
+        if (!(newAvailabilities[i] in oldAvailabilities)) {
+          oldAvailabilities.push(newAvailabilities[i]);
+        }
+      }
+
+      res.status(200).json(oldAvailabilities);
+    } catch (error) {
+      res.status(400).json({
+        error
+      });
+    }
+  };
 
   getPersonalInformation = async (req: Request, res: Response) => {
     try {
@@ -17,6 +57,7 @@ export class VolunteerController {
         username: volunteer.username,
         name: volunteer.name,
         email: volunteer.email,
+        availabilities: volunteer.availabilities,
         phoneNumber: volunteer.phoneNumber,
         startDate: volunteer.startDate,
         profilePicture: volunteer.profilePicture
