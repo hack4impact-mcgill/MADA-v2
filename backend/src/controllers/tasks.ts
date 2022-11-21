@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { AppDataSource } from '../src/data-source';
-import { TaskEntity } from '../src/entities/TaskEntity';
+import { AppDataSource } from '../data-source';
+import { TaskEntity } from '../entities/TaskEntity';
 
 export default class TaskController {
   private TaskRepository = AppDataSource.getRepository(TaskEntity);
