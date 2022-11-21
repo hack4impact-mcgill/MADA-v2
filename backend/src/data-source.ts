@@ -3,6 +3,7 @@ import 'reflect-metadata';
 import { DataSource } from 'typeorm';
 
 import { AdminEntity } from './entities/AdminEntity';
+import { ClientEntity } from './entities/ClientEntity';
 import { MealDeliveryEntity } from './entities/MealDeliveryEntity';
 import { TaskEntity } from './entities/TaskEntity';
 import { UserEntity } from './entities/UserEntity';
@@ -23,7 +24,8 @@ export const AppDataSource = new DataSource({
     MealDeliveryEntity,
     TaskEntity,
     UserEntity,
-    VolunteerEntity
+    VolunteerEntity,
+    ClientEntity
   ],
   migrations: [],
   subscribers: []
