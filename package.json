@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@types/supertest": "^2.0.12",
+    "supertest": "^6.3.1"
+  }
+}
