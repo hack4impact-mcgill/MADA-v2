@@ -3,8 +3,8 @@ import {
   Response
 } from 'express';
 
-import { AppDataSource } from '../../data-source';
-import { VolunteerEntity } from '../../entities/VolunteerEntity';
+import { AppDataSource } from '../data-source';
+import { VolunteerEntity } from '../entities/VolunteerEntity';
 
 export class VolunteerController {
   private VolunteerRepository = AppDataSource.getRepository(VolunteerEntity);
