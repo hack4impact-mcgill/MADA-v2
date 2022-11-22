@@ -2,6 +2,7 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
+import { api } from './routes';
 
 // Import from other .ts files
 import { AppDataSource } from './data-source';
@@ -17,6 +18,7 @@ AppDataSource.initialize().then(async () => {
 
   // Routes go here
   // Creating route : https://expressjs.com/en/guide/routing.html
+  app.use('/', api);
 
   // Starts server and listens on port 3001 for connections
   app.listen(3001);
