@@ -1,11 +1,10 @@
-// Import modules from node_modules
-import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
+// Import modules from node_modules
+import * as express from 'express';
 
 // Import from other .ts files
 import { AppDataSource } from './data-source';
-import { resolve } from 'path';
 
 AppDataSource.initialize().then(async () => {
   // Create express app
