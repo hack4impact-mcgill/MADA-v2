@@ -15,4 +15,8 @@ export default class TaskEntityHelper {
         newTask.isCompleted = isCompleted;
         return await this.TaskRepository.save(newTask);
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> separated app and index, fixed test, added test util
 }

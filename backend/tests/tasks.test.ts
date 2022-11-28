@@ -3,7 +3,10 @@ import { TaskEntity } from '../src/entities/TaskEntity';
 import { AppDataSource } from '../src/data-source';
 const supertest = require('supertest');
 import TaskEntityHelper from './task.utils';
+<<<<<<< HEAD
 import DataSourceHelper from './data.utils';
+=======
+>>>>>>> separated app and index, fixed test, added test util
 
 import app from '../src/app';
 const request = supertest(app)

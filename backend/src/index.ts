@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 import app from './app';
 import { AppDataSource } from './data-source';
+=======
+import app from "./app";
+import { AppDataSource } from "./data-source";
+>>>>>>> separated app and index, fixed test, added test util
 
 // Initalizes data source
 AppDataSource.initialize();
