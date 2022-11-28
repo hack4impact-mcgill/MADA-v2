@@ -13,6 +13,8 @@ export class TaskEntity {
   @Column()
   isCompleted: boolean;
 
-  @OneToMany(() => MealDeliveryEntity, (delivery) => delivery.task, {cascade: true})
+  @OneToMany(() => MealDeliveryEntity, (delivery) => delivery.task, {
+    cascade: true
+  })
   deliveries: MealDeliveryEntity[];
 }

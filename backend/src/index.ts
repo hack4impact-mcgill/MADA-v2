@@ -1,5 +1,5 @@
-import app from "./app";
-import { AppDataSource } from "./data-source";
+import app from './app';
+import { AppDataSource } from './data-source';
 
 // Initalizes data source
 AppDataSource.initialize();
