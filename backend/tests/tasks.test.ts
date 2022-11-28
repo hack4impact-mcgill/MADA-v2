@@ -1,14 +1,15 @@
 import {describe, it, beforeEach} from '@jest/globals';
 import { TaskEntity } from '../src/entities/TaskEntity';
 import { AppDataSource } from '../src/data-source';
-import TaskController from '../src/controllers/tasks';
-import * as request from 'supertest';
+const supertest = require('supertest');
+import TaskEntityHelper from './task.utils';
 
-import app from '../src/index';
+import app from '../src/app';
+const request = supertest(app)
 
 describe('Tasks tests', () => {
-  const taskController: TaskController = new TaskController();
   const taskRepository = AppDataSource.getRepository(TaskEntity);
+  const taskHelper = new TaskEntityHelper(taskRepository);
   
   beforeAll(async () => {
     await AppDataSource.initialize()
@@ -27,14 +28,8 @@ describe('Tasks tests', () => {
   });
 
   it('should update test', async () => {
-    // save a new task
-    const TaskRepository = AppDataSource.getRepository(TaskEntity);
-    const newTask = new TaskEntity();
-    newTask.deliveryTime = new Date('April 20, 2001 04:20:00');
-    newTask.deliveries = [];
-    newTask.isCompleted = false;
-    const savedTask = await TaskRepository.save(newTask);
-    const res = await request(app).put('/api/tasks/'+savedTask.id).send({isCompleted: true});
+    const savedTask = await taskHelper.createTask('April 20, 2001 04:20:00', [], false);
+    const res = await request.put('/api/tasks/'+savedTask.id).send({isCompleted: true});
     expect(res.statusCode).toBe(200);
     expect(res._body.task.isCompleted).toBe(true);
   });
