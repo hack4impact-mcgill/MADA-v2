@@ -12,6 +12,8 @@ export class MealDeliveryEntity {
   @Column()
   mealType: string;
 
-  @ManyToOne(() => TaskEntity, (task) => task.deliveries, {onDelete: 'CASCADE'})
+  @ManyToOne(() => TaskEntity, (task) => task.deliveries, {
+    onDelete: 'CASCADE'
+  })
   task: TaskEntity;
 }
