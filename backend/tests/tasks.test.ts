@@ -3,6 +3,7 @@ import { TaskEntity } from '../src/entities/TaskEntity';
 import { AppDataSource } from '../src/data-source';
 const supertest = require('supertest');
 import TaskEntityHelper from './task.utils';
+import DataSourceHelper from './data.utils';
 
 import app from '../src/app';
 const request = supertest(app)
@@ -11,20 +12,20 @@ describe('Tasks tests', () => {
   const taskRepository = AppDataSource.getRepository(TaskEntity);
   const taskHelper = new TaskEntityHelper(taskRepository);
   
+  // Before performing any tests, sets up the datasource and clears it
   beforeAll(async () => {
-    await AppDataSource.initialize()
+    await DataSourceHelper.setupDataSource()
+    await DataSourceHelper.clearDataSource()
   })
 
+  // After performing all the tests, destroys the datasource
   afterAll(async () => {
-    await AppDataSource.destroy()
+      await DataSourceHelper.destroyDataSource();
   })
 
-  beforeEach(async () => {
-    const entities = AppDataSource.entityMetadatas;
-    for (const entity of entities) {
-      const repository = await AppDataSource.getRepository(entity.name);
-      await repository.query(`TRUNCATE ${entity.tableName} RESTART IDENTITY CASCADE;`);
-    }
+  // After each test, clears the datasource
+  afterEach(async () => {
+      await DataSourceHelper.clearDataSource()
   });
 
   it('should update test', async () => {
