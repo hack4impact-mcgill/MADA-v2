@@ -1,38 +1,50 @@
-// import {
-//   beforeEach,
-//   describe,
-//   // test
-// } from '@jest/globals';
+import {
+  Request,
+  Response
+} from 'express';
 
-// import { VolunteerController } from '../src/controller/VolunteerController';
-// import { VolunteerEntity } from '../src/entities/VolunteerEntity';
+import {
+  beforeEach,
+  describe,
+  expect,
+  test
+} from '@jest/globals';
 
-// describe('volunteer module', () => {
-//   let volunteer: VolunteerEntity;
-//   let controller: VolunteerController;
+import { VolunteerController } from '../src/controller/VolunteerController';
+import { VolunteerEntity } from '../src/entities/VolunteerEntity';
 
-//   beforeEach(() => {
-//     volunteer = new VolunteerEntity();
-//     controller = new VolunteerController();
+describe('volunteer module', () => {
+  let volunteer: VolunteerEntity;
+  let controller: VolunteerController;
 
-//     volunteer.availabilities = ['Monday', 'Tuesday', 'Wednesday'];
-//   });
+  beforeEach(() => {
+    volunteer = new VolunteerEntity();
+    controller = new VolunteerController();
 
-//   test('get availability', async () => {
-//     // const req: Request = { params: { user: `${volunteer.id}` } };
-//     // const res: Response = {
-//     //   text: '',
-//     //   send: function (input) {
-//     //     this.text = input;
-//     //   }
-//     // };
-//     // const availability = await controller.getAvailability(req, res);
-//     // expect(availability).toBe(['Monday', 'Tuesday', 'Wednesday']);
-//   });
+    volunteer.availabilities = ['Monday', 'Tuesday', 'Wednesday'];
+  });
 
-//   // test('update availability', async () => {});
+  test('get availability', async () => {
+    const req: Request = { params: { user: `${volunteer.id}` } };
+    const res: Response = {
+      text: '',
+      send: function (input) {
+        this.text = input;
+      }
+    };
+    const availability = await controller.getAvailability(req, res);
+    expect(availability).toBe(['Monday', 'Tuesday', 'Wednesday']);
+  });
 
-//   // test('get personal information', async () => {});
+  test('update availability', async () => {
+    const newAvailabilities = ['Monday', 'Tuesday', 'Wednesday', 'Thursday'];
 
-//   // test('update personal information', async () => {});
-// });
+    const availability = await controller.updateAvailability(req, res);
+
+    expect(availability).toBe(['Monday', 'Tuesday', 'Wednesday', 'Thursday']);
+  });
+
+  test('get personal information', async () => {});
+
+  test('update personal information', async () => {});
+});
