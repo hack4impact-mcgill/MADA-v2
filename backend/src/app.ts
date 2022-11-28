@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> c7dc21a4fa3677d7bbcdca2c1e6c975350e8ae14
 // Import modules from node_modules
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
@@ -19,6 +22,7 @@ app.use(cors()); //
 app.use('/api', api);
 
 export default app;
+<<<<<<< HEAD
 =======
 // Import modules from node_modules
 import * as express from 'express';
@@ -41,3 +45,5 @@ app.use('/api', api);
 
 export default app;
 >>>>>>> separated app and index, fixed test, added test util
+=======
+>>>>>>> c7dc21a4fa3677d7bbcdca2c1e6c975350e8ae14
