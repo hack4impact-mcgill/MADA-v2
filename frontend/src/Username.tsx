@@ -13,11 +13,12 @@ const Username = () => {
   return (
     <div
       style={{
-        marginLeft: "30%"
+        marginLeft: "30%",
       }}
     >
       <Input placeholder="Username"
         type="text"
+        style={{width: "250px"}}
         onChange={handleUsernameChange("username")}
         value={values.username}
       />

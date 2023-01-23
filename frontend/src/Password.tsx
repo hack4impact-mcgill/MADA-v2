@@ -27,12 +27,13 @@ const Password = () => {
       <div
         style={{
           marginLeft: "30%",
-          marginTop: "1%"
+          marginTop: "1%",
         }}
       >
         <Input placeholder='Password'
           type={values.showPassword ? "text" : "password"}
           onChange={handlePasswordChange("password")}
+          style={{width: "250px"}}
           value={values.password}
           endAdornment={
             <InputAdornment position="end">
