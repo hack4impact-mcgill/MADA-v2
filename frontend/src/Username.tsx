@@ -16,7 +16,7 @@ const Username = () => {
         marginLeft: "30%",
       }}
     >
-      <Input placeholder="Username"
+      <Input placeholder="Username or Email"
         type="text"
         style={{width: "250px"}}
         onChange={handleUsernameChange("username")}
