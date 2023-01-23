@@ -2,5 +2,8 @@
   "dependencies": {
     "@types/supertest": "^2.0.12",
     "supertest": "^6.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.26"
   }
 }
