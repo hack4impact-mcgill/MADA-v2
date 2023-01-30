@@ -1,14 +1,6 @@
-import {
-  Request,
-  Response
-} from 'express';
+import { Request, Response } from 'express';
 
-import {
-  beforeEach,
-  describe,
-  expect,
-  test
-} from '@jest/globals';
+import { beforeEach, describe, expect, test } from '@jest/globals';
 
 import { VolunteerController } from '../src/controller/VolunteerController';
 import { VolunteerEntity } from '../src/entities/VolunteerEntity';
