@@ -1,10 +1,11 @@
 import React from 'react';
+import RouterComponent from './Router';
 
 // Create a functional component
 export default function App() {
 	return (
 		<div>
-			<p> my app </p>
+			<RouterComponent/>
 		</div>
 	);
 }
