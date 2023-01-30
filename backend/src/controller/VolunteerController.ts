@@ -1,7 +1,4 @@
-import {
-  Request,
-  Response
-} from 'express';
+import { Request, Response } from 'express';
 
 import { AppDataSource } from '../data-source';
 import { VolunteerEntity } from '../entities/VolunteerEntity';
