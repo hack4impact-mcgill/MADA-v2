@@ -24,7 +24,10 @@ export class VolunteerEntity extends UserEntity {
 
   @Column()
   profilePicture: string;
+<<<<<<< HEAD
 
   @Column('text', { array: true })
   availabilities: DayOfWeek[];
+=======
+>>>>>>> bda2e9e (thigns)
 }

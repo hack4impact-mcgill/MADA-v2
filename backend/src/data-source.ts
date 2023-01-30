@@ -13,7 +13,7 @@ import { VolunteerEntity } from './entities/VolunteerEntity';
 export const AppDataSource = new DataSource({
   type: 'postgres',
   host: 'localhost',
-  port: 5432,
+  port: 5433,
   username: 'test',
   password: 'test',
   database: 'test',
