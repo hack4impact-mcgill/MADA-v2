@@ -58,6 +58,18 @@ color: #666666;
     color: #666666;
 }
 
+.img {
+    position: absolute;
+    width: 131px;
+    height: 131px;
+    left: 98px;
+    top: 69px;
+
+    background: url(image.jpg);
+    box-shadow: 0px 4px 4px 2px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+}
+
 .Availabilities {
 
 position: absolute;

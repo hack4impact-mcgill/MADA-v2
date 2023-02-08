@@ -9,7 +9,7 @@ const User = () => {
     <div>
       <div className='userprofile'>
         <div className='User'></div>
-        <img src="image.jpg" alt=''/>
+        <div className='img'></div>
         <h2 className='VolunteerName'>John Doe</h2>
         <h3 className='Volunteer'>Volunteer</h3>
         <button className='help-button'>Help</button>
@@ -34,13 +34,6 @@ const User = () => {
               <input className='number' type="text" placeholder='Number'/>
               <input className='newNumber' type="text" placeholder='Add a new Number'/>
               <button className='addbutton'>+</button>
-              <button className='cancelbutton'>Cancel</button>
-              <button className='savechanges'>Save Changes</button>
-              <div className='footer'></div>
-        
-              <button className='today'><EventAvailableIcon/></button>
-              <button className='mytasks'>My Tasks</button>
-              <button className='meButton'>Me</button>
       </div>
     </div>
   )
