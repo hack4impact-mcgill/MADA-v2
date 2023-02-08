@@ -1,13 +1,13 @@
-import React from 'react';
+import React from 'react'
 import "./User.css"
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 
-const UserProfileContainer=()=>{
-    return(
-        <div>
-            <div className='userprofile'>
+const User = () => {
+  return (
+    <div>
+      <div className='userprofile'>
         <div className='User'></div>
         <div className='img'></div>
         <h2 className='VolunteerName'>John Doe</h2>
@@ -18,7 +18,7 @@ const UserProfileContainer=()=>{
         <h3 className='checkin'>Availability Check-in</h3>
         <h5 className='markAvailabilities'>Mark your weekly Availabilities</h5>
         <button className='updateAvailability'>Update Availability</button>
-        <a className='checkcircleAvailability' href="AvailabilitiesContainer"><CheckCircleOutlineIcon/></a>
+        <CheckCircleOutlineIcon className='checkcircleAvailability'/>
         <h4 className="account">Account</h4>
         <hr className='accountline'></hr>
           <div className='Email'></div>
@@ -35,8 +35,8 @@ const UserProfileContainer=()=>{
               <input className='newNumber' type="text" placeholder='Add a new Number'/>
               <button className='addbutton'>+</button>
       </div>
-        </div>
-    )
+    </div>
+  )
 }
 
-export default UserProfileContainer; 
+export default User
