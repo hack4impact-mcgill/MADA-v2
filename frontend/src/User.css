@@ -1,0 +1,438 @@
+.userprofile {
+    position: relative;
+    width: 428px;
+    height: 926px;
+    background: #FAF9F9;
+}
+
+.User {
+    box-sizing: border-box;
+    position: absolute;
+    width: 430px;
+    height: 141px;
+    left: 0px;
+    top: 5px;
+
+    background: #FDFDFD;
+    opacity: 0.3;
+    border: 1px solid #FFFFFF;
+    box-shadow: inset 0px -4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+}
+
+.VolunteerName {
+    position: absolute;
+width: 95px;
+height: 30px;
+left: 247px;
+top: 72px;
+
+font-family: 'Poppins', sans-serif;
+font-style: normal;
+font-weight: 500;
+font-size: 20px;
+line-height: 30px;
+/* identical to box height */
+
+text-align: center;
+
+color: #666666;
+}
+
+.Volunteer {
+    position: absolute;
+    width: 72px;
+    height: 23px;
+    left: 247px;
+    top: 102px;
+
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 22px;
+    /* identical to box height */
+
+    text-align: center;
+
+    color: #666666;
+}
+
+.Availabilities {
+
+position: absolute;
+width: 365px;
+height: 65px;
+left: 33px;
+top: 230px;
+
+background: #FFFFFF;
+border-radius: 10px;
+}
+
+.help-button {
+    
+box-sizing: border-box;
+
+position: absolute;
+width: 67px;
+height: 29px;
+left: 328px;
+top: 17px;
+color: #FFFFFF;
+background: #2E5CD3;
+border: 1px solid #3A71FF;
+box-shadow: 3px 6px 10px rgba(0, 0, 0, 0.25);
+border-radius: 10px;
+}
+
+.checkin {
+    position: absolute;
+    width: 178.71px;
+    height: 15.57px;
+    left: 57px;
+    top: 235px;
+
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 22px;
+
+    color: #666666;
+}
+
+.markAvailabilities {
+    position: absolute;
+width: 196.04px;
+height: 12.19px;
+left: 57px;
+top: 250px;
+
+font-family: 'Poppins', sans-serif;
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 18px;
+
+color: #666666;
+}
+
+.checkcircleAvailability {
+    box-sizing: border-box;
+    position: absolute;
+    width: 72px;
+    height: 72px;
+    left: 342px;
+    top: 252px;
+    color: #85CF27;
+    transform: scale(1.8);
+    
+}
+.updateAvailability {
+    position: absolute;
+    width: 131px;
+    height: 50px;
+    left: 253px;
+    top: 286px;
+
+    background: #FFFFFF;
+    box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+    border-color: white transparent transparent;
+    color: #666666;
+    font-family: 'Poppins', sans-serif;
+}
+
+.account {
+    position: absolute;
+width: 93px;
+height: 33px;
+left: 33px;
+top: 330px;
+
+font-family: 'Poppins', sans-serif;
+font-style: normal;
+font-weight: 500;
+font-size: 22px;
+line-height: 33px;
+/* identical to box height */
+
+
+color: #000000;
+}
+
+.username {
+    position: absolute;
+width: 80px;
+height: 23px;
+left: 34px;
+top: 385px;
+
+font-family: 'Poppins', sans-serif;
+font-style: normal;
+font-weight: 600;
+font-size: 15px;
+line-height: 22px;
+
+
+color: #666666;
+}
+
+.usernameInput {
+    box-sizing: border-box;
+
+    position: absolute;
+    width: 365px;
+    height: 36px;
+    left: 34px;
+    top: 430px;
+
+    border: 1px solid #D8D7D7;
+    border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 22px;
+}
+
+.email {
+    position: absolute;
+    width: 43px;
+    height: 23px;
+    left: 34px;
+    top: 468px;
+
+    font-family: 'Poppins', sans-serif;;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 22px;
+    /* identical to box height */
+
+
+    color: #666666;
+}
+
+.emailInput {
+    box-sizing: border-box;
+
+position: absolute;
+width: 365px;
+height: 36px;
+left: 33px;
+top: 512px;
+
+border: 1px solid #D8D7D7;
+font-family: 'Poppins', sans-serif;;
+border-radius: 10px;
+font-style: normal;
+font-weight: 400;
+font-size: 15px;
+line-height: 22px;
+
+}
+
+.accountline{
+    position: absolute;
+width: 366px;
+height: 0px;
+left: 33px;
+top: 379.11px;
+
+background: #FFFFFF;
+border: 3px solid #FFFFFF;
+box-shadow: 0px -2px 1px rgba(0, 0, 0, 0.1);
+transform: rotate(-0.17deg);
+    
+}
+
+.Contact {
+    position: absolute;
+width: 90px;
+height: 33px;
+left: 34px;
+top: 535px;
+
+font-family: 'Poppins', sans-serif;
+font-style: normal;
+font-weight: 500;
+font-size: 22px;
+line-height: 33px;
+/* identical to box height */
+
+
+color: #000000;
+}
+
+.contactline {
+    position: absolute;
+width: 366px;
+height: 0px;
+left: 34px;
+top: 583.11px;
+
+border: 3px solid #FFFFFF;
+box-shadow: 0px -2px 1px rgba(0, 0, 0, 0.1);
+transform: rotate(-0.17deg);
+}
+
+.phoneNumber {
+    position: absolute;
+width: 114px;
+height: 23px;
+left: 34px;
+top: 592px;
+
+font-family: 'Poppins', sans-serif;
+font-style: normal;
+font-weight: 600;
+font-size: 15px;
+line-height: 22px;
+/* identical to box height */
+
+
+color: #666666;
+}
+
+.number {
+    box-sizing: border-box;
+
+position: absolute;
+width: 365px;
+height: 36px;
+left: 34px;
+top: 637px;
+
+border: 1px solid #D8D7D7;
+border-radius: 10px;
+font-family: 'Poppins', sans-serif;
+font-style: normal;
+font-weight: 400;
+font-size: 15px;
+line-height: 22px;
+/* identical to box height */
+
+
+color: #666666;
+}
+
+.newNumber {
+    box-sizing: border-box;
+
+position: absolute;
+width: 365px;
+height: 36px;
+left: 34px;
+top: 690px;
+
+border: 1px solid #D8D7D7;
+border-radius: 10px;
+font-family: 'Poppins', sans-serif;
+font-style: normal;
+font-weight: 400;
+font-size: 15px;
+line-height: 22px;
+/* identical to box height */
+
+
+color: #666666;
+}
+
+.checkcircleUsername {
+    position: absolute;
+width: 24px;
+height: 24px;
+left: 363px;
+top: 405px;
+
+color: #33BE41;
+}
+
+.addbutton {
+    box-sizing: border-box;
+
+    position: absolute;
+    width: 35px;
+    height: 35px;
+    left: 33px;
+    top: 735px;
+    background: #FFFFFF;
+    color: #3060DC;
+    border: 1px solid #FFFFFF;
+    box-shadow: 2px 4px 7px rgba(0, 0, 0, 0.1);
+    border-radius: 17px;
+    font-size: x-large;
+}
+
+.cancelbutton {
+    box-sizing: border-box;
+
+    position: absolute;
+    width: 153px;
+    height: 51px;
+    left: 43px;
+    top: 780px;
+
+    border: 1px solid #666666;
+    border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 22px;
+    /* identical to box height */
+    color: #666666;
+}
+
+
+.savechanges {
+    position: absolute;
+    width: 153px;
+    height: 51px;
+    left: 223px;
+    top: 780px;
+
+    background: #33BE41;
+    border-radius: 10px;
+    font-family: 'Poppins', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 22px;
+    border-width: 0px;
+    color: #FFFFFF;
+}
+
+.footer {
+    position: absolute;
+    width: 428px;
+    height: 0px;
+    left: 0px;
+    top: 856px;
+
+    background: #FFFFFF;
+    border: 2px solid #FFFFFF;
+    box-shadow: 0px 4px 7px rgba(0, 0, 0, 0.25);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
