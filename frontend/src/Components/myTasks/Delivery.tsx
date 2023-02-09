@@ -12,6 +12,7 @@ const Delivery = (props: {
       sx={{
         display: "flex",
         justifyContent: 'space-between',
+        alignItems: 'center',
         fontFamily: "Poppins",
         bgcolor: !props.isCompleted ? "#FFFFFF" : "#DFDFDF",
         height: 99,
@@ -24,7 +25,7 @@ const Delivery = (props: {
         control={
           <Checkbox
             sx={{
-              "& .MuiSvgIcon-root": { fontSize: 36 },
+              "& .MuiSvgIcon-root": { fontSize: 40 },
               ml: 2,
               "&.Mui-checked": {
                 color: '',
@@ -41,7 +42,7 @@ const Delivery = (props: {
           />
         }
       />
-      <Box>arrow</Box>
+      <Box sx={{mr: 3}}>arrowIcon</Box>
     </Box>
   );
 };

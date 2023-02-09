@@ -8,7 +8,7 @@ const DeliveryLabel = (props: { isCompleted: boolean, deliveryTime: Date, name: 
         {props.name}
       </Typography>
       <Typography sx={{ fontFamily: "Poppins", fontWeight: 400, fontSize: 15 }}>
-        {props.deliveryTime.toDateString()}
+        {props.deliveryTime.toLocaleTimeString()}
       </Typography>
     </Box>
   );
