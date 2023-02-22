@@ -415,15 +415,3 @@ color: #33BE41;
     border-width: 0px;
     color: #FFFFFF;
 }
-
-.footer {
-    position: absolute;
-    width: 428px;
-    height: 0px;
-    left: 0px;
-    top: 856px;
-
-    background: #FFFFFF;
-    border: 2px solid #FFFFFF;
-    box-shadow: 0px 4px 7px rgba(0, 0, 0, 0.25);
-}
