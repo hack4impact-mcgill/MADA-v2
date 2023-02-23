@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, FormControlLabel, Checkbox, Typography } from "@mui/material";
 import DeliveryLabel from "./DeliveryLabel";
+import './Delivery.css';
 
 const Delivery = (props: {
   isCompleted: boolean;
@@ -15,6 +16,7 @@ const Delivery = (props: {
         alignItems: 'center',
         fontFamily: "Poppins",
         bgcolor: !props.isCompleted ? "#FFFFFF" : "#DFDFDF",
+        opacity: !props.isCompleted ? 1 : 0.7,
         height: 99,
         width: "100%",
         mb: 1,
@@ -28,8 +30,8 @@ const Delivery = (props: {
               "& .MuiSvgIcon-root": { fontSize: 40 },
               ml: 2,
               "&.Mui-checked": {
-                color: '',
-              },
+                color: 'white',
+              }
             }}
             checked={props.isCompleted} /*onChange*/
           />
@@ -42,7 +44,7 @@ const Delivery = (props: {
           />
         }
       />
-      <Box sx={{mr: 3}}>arrowIcon</Box>
+      <Box sx={{mr: 3, width: "15px", height: "25px", backgroundColor: "auto"}} className="Logo"><div className="Logo"></div></Box>
     </Box>
   );
 };

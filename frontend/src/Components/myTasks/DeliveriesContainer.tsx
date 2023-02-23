@@ -2,7 +2,7 @@ import React from "react";
 import Delivery from "./Delivery";
 import { Box } from "@mui/material";
 
-const Deliveries = () => {
+const DeliveriesContainer = () => {
   return (
     <Box sx={{mr: 2, ml: 2, borderRadius: 3}}>
       <Delivery
@@ -29,4 +29,4 @@ const Deliveries = () => {
   );
 };
 
-export default Deliveries;
+export default DeliveriesContainer;

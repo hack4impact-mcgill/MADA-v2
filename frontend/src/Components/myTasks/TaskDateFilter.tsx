@@ -1,4 +1,5 @@
 import React from "react";
+import { SelectChangeEvent } from '@mui/material/Select';
 import {
   Box,
   Typography,
@@ -12,21 +13,31 @@ import { useState } from "react";
 const TaskDateFilter = (props: {}) => {
   const [selectedDate, setSelectedDate] = useState("6 Dec 2023");
 
-  const taskDateChangeHandler = () => {
+  const taskDateChangeHandler = (event: SelectChangeEvent<string>) => {
     console.log("date changed");
+    setSelectedDate(event.target.value);
   };
+
   return (
     <FormControl sx={{ width: 140 }}>
       <InputLabel id="task-date-select-label">{selectedDate}</InputLabel>
       <Select
         labelId="task-date-select-label"
         id="task-date-select"
-        label="6 Dec 2023"
+        label={selectedDate}
         onChange={taskDateChangeHandler}
+        sx={{
+          bgcolor: "#FFFFFF",
+          borderTopRightRadius: "10px",
+          borderBottomRightRadius: "10px",
+          borderLeft: '0px',
+          boxShadow: 'none',
+          '.MuiOutlinedInput-notchedOutline': { border: 0 }
+        }}
       >
-        <MenuItem value={10}>6 Dec 2023</MenuItem>
-        <MenuItem value={20}>7 Dec 2023</MenuItem>
-        <MenuItem value={30}>7 Dec 2023</MenuItem>
+        <MenuItem value={"6 Dec 2023"}>6 Dec 2023</MenuItem>
+        <MenuItem value={"7 Dec 2023"}>7 Dec 2023</MenuItem>
+        <MenuItem value={"8 Dec 2023"}>8 Dec 2023</MenuItem>
       </Select>
     </FormControl>
   );

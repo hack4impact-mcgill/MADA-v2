@@ -14,7 +14,29 @@ const FiltersContainer = (props: {}) => {
         mb: 3,
       }}
     >
-      <TaskDateFilter />
+      <Box
+        sx={{
+          display: "flex",
+        }}
+      >
+        <Typography
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            backgroundColor: "white",
+            borderTopLeftRadius: "10px",
+            borderBottomLeftRadius: "10px",
+            borderRight: "10px",
+            width: "40px",
+            height: "56px",
+            marginRight: "3px",
+          }}
+        >
+          M
+        </Typography>
+        <TaskDateFilter />
+      </Box>
       <TaskCompletionFilter />
     </Box>
   );

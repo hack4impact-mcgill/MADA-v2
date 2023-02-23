@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
+import './TaskCompletionFilter.css';
+import { SelectChangeEvent } from '@mui/material/Select';
 import {
     Box,
     Typography,
@@ -9,13 +11,28 @@ import {
   } from "@mui/material";
 
 const TaskCompletionFilter = (props: {}) => {
+  const [taskCompletionType, setTaskCompletionType] = useState("allTasks");
+
+  const taskCompletionChangeHandler = (event: SelectChangeEvent<string>) => {
+    console.log("date changed");
+    setTaskCompletionType(event.target.value);
+  };
+
   return (
     <FormControl sx={{ width: 140 }}>
       <InputLabel id="task-date-select-label">All Tasks</InputLabel>
       <Select
         labelId="task-date-select-label"
         id="task-date-select"
-        label="6 Dec 2023"
+        label={taskCompletionType}
+        className="select"
+        onChange={taskCompletionChangeHandler}
+        sx={{
+          bgcolor: "#FFFFFF",
+          borderRadius: "10px",
+          boxShadow: 'none',
+          '.MuiOutlinedInput-notchedOutline': { border: 0 }
+        }}
       >
         <MenuItem value={"allTasks"}>All Tasks</MenuItem>
         <MenuItem value={"upcoming"}>Upcoming</MenuItem>
