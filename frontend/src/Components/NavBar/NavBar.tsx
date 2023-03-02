@@ -9,7 +9,7 @@ const NavBar = ()=> {
         window.location.href = '/today';
     };
 
-    const onClickTasks = async () => {
+    const onClickDeliveries = async () => {
         window.location.href = '/tasks';
     };
 
@@ -22,7 +22,7 @@ const NavBar = ()=> {
             <hr ></hr>
             <div className='horizontalBar'>
                 <button onClick={onClickToday}> <BsCalendarCheck className='icon'/> <br/> Today</button>
-                <button onClick={onClickTasks}> <BsCardList className='icon'/> <br/> My Tasks</button>
+                <button onClick={onClickDeliveries}> <BsCardList className='icon'/> <br/> My Deliveries</button>
                 <button onClick={onClickMe}> <BsFillPersonFill className='icon'/> <br/> Me</button>
             </div>
         </div>
