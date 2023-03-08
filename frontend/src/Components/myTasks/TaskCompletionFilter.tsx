@@ -10,6 +10,13 @@ import {
     InputLabel,
   } from "@mui/material";
 
+  // use enum to define named constants used for filtering by task completion type
+enum TaskCompletionOption {
+  AllTasks = "ALLTASKS",
+  Upcoming = "UPCOMING",
+  Completed = "COMPLETED"
+}
+
 const TaskCompletionFilter = (props: {}) => {
   const [taskCompletionType, setTaskCompletionType] = useState("allTasks");
 
@@ -34,9 +41,9 @@ const TaskCompletionFilter = (props: {}) => {
           '.MuiOutlinedInput-notchedOutline': { border: 0 }
         }}
       >
-        <MenuItem value={"allTasks"}>All Tasks</MenuItem>
-        <MenuItem value={"upcoming"}>Upcoming</MenuItem>
-        <MenuItem value={"completed"}>Completed</MenuItem>
+        <MenuItem value={TaskCompletionOption.AllTasks}>All Tasks</MenuItem>
+        <MenuItem value={TaskCompletionOption.Upcoming}>Upcoming</MenuItem>
+        <MenuItem value={TaskCompletionOption.Completed}>Completed</MenuItem>
       </Select>
     </FormControl>
   );

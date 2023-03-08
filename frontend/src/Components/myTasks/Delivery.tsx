@@ -3,6 +3,8 @@ import { Box, FormControlLabel, Checkbox, Typography } from "@mui/material";
 import DeliveryLabel from "./DeliveryLabel";
 import { TaskContext, TaskContextType, TaskInterface } from "../../contexts/Tasks";
 import { updateTask } from "../../services";
+import { MdOutlineArrowForwardIos } from 'react-icons/md';
+import { IoIosArrowForward } from 'react-icons/io';
 import './Delivery.css';
 
 const Delivery = (props: {
@@ -57,7 +59,8 @@ const Delivery = (props: {
           />
         }
       />
-      <Box sx={{mr: 3, width: "15px", height: "25px", backgroundColor: "auto"}} className="Logo"><div className="Logo"></div></Box>
+      {/* <MdOutlineArrowForwardIos size="30" style={{ marginRight: 20 }}></MdOutlineArrowForwardIos> */}
+      <IoIosArrowForward size="35" style={{ marginRight: 20 }}></IoIosArrowForward>
     </Box>
   );
 };
