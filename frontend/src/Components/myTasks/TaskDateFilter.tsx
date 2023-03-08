@@ -19,7 +19,7 @@ const TaskDateFilter = (props: {}) => {
   };
 
   return (
-    <FormControl sx={{ width: 140 }}>
+    <FormControl sx={{ width: 140, height: 47 }}>
       <InputLabel id="task-date-select-label">{selectedDate}</InputLabel>
       <Select
         labelId="task-date-select-label"
@@ -27,10 +27,11 @@ const TaskDateFilter = (props: {}) => {
         label={selectedDate}
         onChange={taskDateChangeHandler}
         sx={{
-          bgcolor: "#FFFFFF",
+          bgcolor: "white",
           borderTopRightRadius: "10px",
           borderBottomRightRadius: "10px",
-          borderLeft: '0px',
+          borderBottomLeft: '0px',
+          borderTopLeft: '0px',
           boxShadow: 'none',
           '.MuiOutlinedInput-notchedOutline': { border: 0 }
         }}

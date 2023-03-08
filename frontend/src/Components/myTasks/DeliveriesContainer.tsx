@@ -1,10 +1,10 @@
 import React from "react";
 import Delivery from "./Delivery";
-import { Box } from "@mui/material";
+import { Box, FormGroup } from "@mui/material";
 
 const DeliveriesContainer = () => {
   return (
-    <Box sx={{mr: 2, ml: 2, borderRadius: 3}}>
+    <FormGroup sx={{mr: 2, ml: 2, borderRadius: 3}}>
       <Delivery
         isCompleted={true}
         deliveryTime={new Date()}
@@ -25,7 +25,7 @@ const DeliveriesContainer = () => {
         deliveryTime={new Date()}
         name={"Zahara Lott"}
       ></Delivery>
-    </Box>
+    </FormGroup>
   );
 };
 
