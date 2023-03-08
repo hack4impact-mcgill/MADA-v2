@@ -11,7 +11,6 @@ export interface TaskInterface {
     id: number;
     quantity: number;
     mealType: string;
-    task: undefined; // assuming this field won't be populated
   };
 }
 
