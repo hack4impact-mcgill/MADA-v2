@@ -34,7 +34,8 @@ const FiltersContainer = (props: {}) => {
             marginRight: "3px",
           }}
         >
-          M
+          {/* get current day of the week, and display only the first letter. */}
+          {new Intl.DateTimeFormat("en-US", { weekday: "short" }).format(new Date().getDay()).charAt(0)}
         </Typography>
         <TaskDateFilter />
       </Box>

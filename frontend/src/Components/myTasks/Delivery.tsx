@@ -1,13 +1,26 @@
 import React from "react";
 import { Box, FormControlLabel, Checkbox, Typography } from "@mui/material";
 import DeliveryLabel from "./DeliveryLabel";
+import { TaskContext, TaskContextType, TaskInterface } from "../../contexts/Tasks";
+import { updateTask } from "../../services";
 import './Delivery.css';
 
 const Delivery = (props: {
-  isCompleted: boolean;
-  deliveryTime: Date;
-  name: string;
+  task : TaskInterface
 }) => {
+  // const { tasks, setTasks } = React.useContext(TaskContext) as TaskContextType;
+
+  // // handle delivery checkbox toggle
+  // const onCheckToggle = async () => {
+  //   // !props.task.isCompleted will toggle the checkbox state
+  //   const {updatedTask} = await updateTask({...props.task, isCompleted: !props.task.isCompleted} as TaskInterface);
+
+  //   // instead of fetching the whole updated tasks to set context, set context just by changing the only updated task
+  //   const taskIndex = tasks.findIndex(task => task.id === props.task.id)
+  //   const updatedTasks = [...tasks.slice(0, taskIndex), updatedTask, ...tasks.slice(taskIndex + 1)];
+  //   setTasks(updatedTasks); // update context
+  // }
+
   return (
     <Box
       sx={{
@@ -15,8 +28,8 @@ const Delivery = (props: {
         justifyContent: 'space-between',
         alignItems: 'center',
         fontFamily: "Poppins",
-        bgcolor: !props.isCompleted ? "#FFFFFF" : "#DFDFDF",
-        opacity: !props.isCompleted ? 1 : 0.7,
+        bgcolor: !props.task.isCompleted ? "#FFFFFF" : "#DFDFDF",
+        opacity: !props.task.isCompleted ? 1 : 0.7,
         height: 99,
         width: "100%",
         mb: 1,
@@ -33,14 +46,14 @@ const Delivery = (props: {
                 color: 'white',
               }
             }}
-            checked={props.isCompleted} /*onChange*/
+            checked={props.task.isCompleted} /*onChange*/
           />
         }
         label={
           <DeliveryLabel
-            isCompleted={props.isCompleted}
-            deliveryTime={props.deliveryTime}
-            name={props.name}
+            isCompleted={props.task.isCompleted}
+            deliveryTime={props.task.deliveryTime}
+            name={"DUMMY NAME"} // name should be passed???
           />
         }
       />
