@@ -11,6 +11,7 @@ export interface TaskInterface {
     id: number;
     quantity: number;
     mealType: string;
+    name: string;
   };
 }
 

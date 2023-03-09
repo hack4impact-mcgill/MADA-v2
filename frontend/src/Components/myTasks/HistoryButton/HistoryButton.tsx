@@ -9,7 +9,6 @@ const HistoryButton = () => {
             height: 35,
             boxShadow: "0px 2px 7px rgba(0, 0, 0, 0.15)",
             borderRadius: "10px",
-
             opacity: 1,
             bgcolor: "white",
             color: "#666666",

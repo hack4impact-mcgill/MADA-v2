@@ -5,7 +5,6 @@ import { TaskContext, TaskContextType, TaskInterface } from "../../contexts/Task
 import { updateTask } from "../../services";
 import { MdOutlineArrowForwardIos } from 'react-icons/md';
 import { IoIosArrowForward } from 'react-icons/io';
-import './Delivery.css';
 
 const Delivery = (props: {
   task : TaskInterface
@@ -55,7 +54,7 @@ const Delivery = (props: {
           <DeliveryLabel
             isCompleted={props.task.isCompleted}
             deliveryTime={props.task.deliveryTime}
-            name={"DUMMY NAME"} // name should be passed???
+            name={props.task.deliveries.name} // name should be passed???
           />
         }
       />
