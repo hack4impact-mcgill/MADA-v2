@@ -11,35 +11,16 @@ enum TaskCompletionOption {
   Completed = "COMPLETED",
 }
 
-const TaskCompletionFilter = (props: {}) => {
+const TaskCompletionFilter = (props: {updateCompletionFilter : Function}) => {
   // will use context later on
   // const {tasks} = React.useContext(TaskContext) as TaskContextType;
   const [taskCompletionType, setTaskCompletionType] = useState(TaskCompletionOption.AllTasks as string);
 
   const taskCompletionChangeHandler = (event: SelectChangeEvent<string>) => {
-    console.log("completion option changed", event.target.value);
     setTaskCompletionType(event.target.value);
+    props.updateCompletionFilter(event.target.value);
+    console.log("completion option changed", event.target.value);
   };
-
-// question: Is "upcoming" filter really needed? It can be confusing to apply Date filter and Completion Filter at the same time.
-// For example, what happens if the user puts date filter as "14 Mar 2023" and also applys "upcoming" filter?
-// I feel like it would be much less confusing to remove "upcoming" filter option and just have "All Tasks" and "Completed" for completion filter. 
-// After all, users can easily see upcoming tasks for upcoming days by changing dates using date Filter.
-
-  // //implements filtering logic
-  // const filterTasks = (taskCompletionType: TaskCompletionOption): TaskInterface[] {
-  //   // returned value will be an array of TaskInterface
-  //   switch (taskCompletionType) {
-  //     case TaskCompletionOption.AllTasks:
-  //       return tasks;
-  //     case TaskCompletionOption.Upcoming:
-  //       return tasks.filter(task => !task.isCompleted && task.deliveryTime > new Date()); // return all tasks within next 7 days
-  //     case TaskCompletionOption.Completed:
-  //       return tasks.filter(task => task.isCompleted);
-  //     default:
-  //       throw new Error(`Invalid task completion option: ${taskCompletionType}`);
-  //   }
-  // }
   
   return (
     <FormControl sx={{ width: 125 }}>

@@ -3,7 +3,7 @@ import { Box, Typography } from "@mui/material";
 import TaskDateFilter from "./TaskDateFilter";
 import TaskCompletionFilter from "./TaskCompletionFilter";
 
-const FiltersContainer = (props: { updateDateFilter : Function}) => {
+const FiltersContainer = (props: { updateDateFilter : Function, updateCompletionFilter : Function }) => {
   // selectedDayOfWeek is the first letter of a day. e.g. M for Monday,  R for Thursday, U for Sunday
   // but in my opinion first three letters looks better. U for Sunday or R for Thursday might be confusing.
   const [selectedDayOfWeek, setSelectedDayOfWeek] = useState(
@@ -53,7 +53,7 @@ const FiltersContainer = (props: { updateDateFilter : Function}) => {
         {/* pass down updateDateFilterFunction */}
         <TaskDateFilter updateDateFilter={props.updateDateFilter} updateDayOfWeek={selectedDayOfWeekUpdateHandler}/> 
       </Box>
-      <TaskCompletionFilter />
+      <TaskCompletionFilter updateCompletionFilter={props.updateCompletionFilter}/>
     </Box>
   );
 };

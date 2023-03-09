@@ -10,9 +10,10 @@ import { Typography } from "@mui/material";
 import { useState } from "react";
 
 const TasksContainer = () => {
-  // dateFilter state will be used to filter tasks. Current date is used to initialize.
-  // dateFilter state will be passed down to DeliviesContainer.
+  // dateFilter and completionFilter state will be used to filter tasks. Current date is used to initialize dateFilter.
+  // dateFilter and completionFilter state will be passed down to DeliviesContainer.
   // NOTE that dataFilter is in STRING type and not DATE type.
+  const [completionFilter, setCompletionFilter] = useState("ALLTASKS"); // set ALLTASKS as default
   const [dateFilter, setDateFilter] = useState(new Date().toLocaleString("en-GB", {
     day: "numeric",
     month: "short",
@@ -23,6 +24,12 @@ const TasksContainer = () => {
   const dateFilterUpdateHandler = (date: string) => {
     setDateFilter(date); // update dateFilter
     console.log("dateFilter updated!", date);
+  }
+
+  // this function will be passed down using props
+  const completionFilterUpdateHandler = (completionType: string) => {
+    setCompletionFilter(completionType); // update completionFilter
+    console.log("completionFilter updated!", completionType);
   }
 
   return (
@@ -44,8 +51,8 @@ const TasksContainer = () => {
         >
           My Deliveries
         </Typography>
-        <FiltersContainer updateDateFilter={dateFilterUpdateHandler} />
-        <DeliveriesContainer dateFilter={dateFilter} />
+        <FiltersContainer updateDateFilter={dateFilterUpdateHandler} updateCompletionFilter={completionFilterUpdateHandler}/>
+        <DeliveriesContainer dateFilter={dateFilter} completionFilter={completionFilter} />
       </TaskProvider>
     </div>
   );

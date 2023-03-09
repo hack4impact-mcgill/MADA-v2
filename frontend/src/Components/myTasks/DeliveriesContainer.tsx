@@ -4,7 +4,7 @@ import { TaskInterface } from "../../contexts/Tasks";
 import { FormGroup } from "@mui/material";
 
 
-const DeliveriesContainer = (props: { dateFilter : string}) => {
+const DeliveriesContainer = (props: { dateFilter : string, completionFilter : string}) => {
   // will use context later on
   // const {tasks} = React.useContext(TaskContext) as TaskContextType;
 
@@ -101,8 +101,6 @@ const DeliveriesContainer = (props: { dateFilter : string}) => {
     },
   ];
 
-  const [filteredTasks, setFilteredTasks] = useState(dummyTasks); // initialize with tasks Context later on!!
-
   // function that formats date to desired form: e.g. 8 Dec 2023
   const formatDate = (date: Date) => {
     return date.toLocaleString("en-GB", {
@@ -111,13 +109,21 @@ const DeliveriesContainer = (props: { dateFilter : string}) => {
       year: "numeric",
     });
   };
-  console.log(props.dateFilter);
-  const filTasks = dummyTasks.filter(task => formatDate(task.deliveryTime) == props.dateFilter); //filter !task.isCompleted for completion
 
+  // filtering logic
+  const dateFilteredTasks = dummyTasks.filter(task => formatDate(task.deliveryTime) == props.dateFilter);
+  let filteredTasks = dateFilteredTasks; // ALLTASKS filter
+  if (props.completionFilter === "COMPLETED") {
+    // if filter is set as COMPLETED, apply filter
+    filteredTasks = dateFilteredTasks.filter(task => task.isCompleted);
+  } else if (props.completionFilter === "UPCOMING") {
+    filteredTasks = dateFilteredTasks.filter(task => !task.isCompleted);
+  }
+  
   return (
     <FormGroup sx={{mr: "22px", ml: "22px", borderRadius: 3}}>
       {/* {use dummy tasks for now} */}
-      {filTasks.map((task: TaskInterface) => {
+      {filteredTasks.map((task: TaskInterface) => {
         return <Delivery task={task} key={task.id}/>
       })}
     </FormGroup>
