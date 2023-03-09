@@ -5,6 +5,7 @@ import { Box, FormGroup } from "@mui/material";
 
 
 const DeliveriesContainer = () => {
+  // will use context later on
   // const {tasks} = React.useContext(TaskContext) as TaskContextType;
   const dummyTasks = [{
     id:1,
@@ -31,10 +32,10 @@ const DeliveriesContainer = () => {
     deliveries: {id:4,quantity:2,mealType:"meals a partager", task: undefined}
   }]
   return (
-    <FormGroup sx={{mr: 2, ml: 2, borderRadius: 3}}>
+    <FormGroup sx={{mr: "22px", ml: "22px", borderRadius: 3}}>
       {/* {use dummy tasks for now} */}
       {dummyTasks.map((task: TaskInterface) => {
-        return <Delivery task={task} />
+        return <Delivery task={task} key={task.id}/>
       })}
     </FormGroup>
   );

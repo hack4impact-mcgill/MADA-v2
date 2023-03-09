@@ -9,8 +9,8 @@ const FiltersContainer = (props: {}) => {
       sx={{
         display: "flex",
         justifyContent: "space-between",
-        ml: 2,
-        mr: 2,
+        ml: "22px",
+        mr: "22px",
         mb: 3,
       }}
     >

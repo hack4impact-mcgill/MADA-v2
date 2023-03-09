@@ -5,7 +5,7 @@ const CheckInButton = () => {
   return (
     <Button
         sx={{
-            width: 131,
+            width: "30%",
             height: 50,
             boxShadow: "0px 2px 7px rgba(0, 0, 0, 0.15)",
             borderRadius: 3,

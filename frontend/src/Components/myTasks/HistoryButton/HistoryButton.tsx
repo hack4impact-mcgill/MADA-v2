@@ -14,13 +14,13 @@ const HistoryButton = () => {
             bgcolor: "white",
             color: "#666666",
             fontSize: 10,
-
         }}
       onClick={() => {
         alert("clicked");
+        // show History overlay when button clicked
       }}
     >
-      Check In
+      View History
     </Button>
   );
 };

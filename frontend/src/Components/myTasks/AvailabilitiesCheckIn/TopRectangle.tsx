@@ -12,7 +12,7 @@ const TopRectangle = () => {
         borderBottomLeftRadius: 20,
         borderBottom: 1,
         borderColor: "#E8E6E6",
-        marginBottom: 16
+        marginBottom: 15
       }}
     ></Box>
   );
