@@ -7,8 +7,24 @@ import CheckInButton from "../Components/myTasks/AvailabilitiesCheckIn/CheckInBu
 import HistoryButtonContainer from "../Components/myTasks/HistoryButton/HistoryButtonContainer";
 import { TaskProvider } from "../contexts/Tasks";
 import { Typography } from "@mui/material";
+import { useState } from "react";
 
 const TasksContainer = () => {
+  // dateFilter state will be used to filter tasks. Current date is used to initialize.
+  // dateFilter state will be passed down to DeliviesContainer.
+  // NOTE that dataFilter is in STRING type and not DATE type.
+  const [dateFilter, setDateFilter] = useState(new Date().toLocaleString("en-GB", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  }));
+
+  // this function will be passed down using props
+  const dateFilterUpdateHandler = (date: string) => {
+    setDateFilter(date); // update dateFilter
+    console.log("dateFilter updated!", date);
+  }
+
   return (
     <div className="tasks-container">
       {/* enable accessing Task Context by using TaskProvider */}
@@ -28,8 +44,8 @@ const TasksContainer = () => {
         >
           My Deliveries
         </Typography>
-        <FiltersContainer />
-        <DeliveriesContainer />
+        <FiltersContainer updateDateFilter={dateFilterUpdateHandler} />
+        <DeliveriesContainer dateFilter={dateFilter} />
       </TaskProvider>
     </div>
   );

@@ -3,7 +3,7 @@ import { Box, Typography } from "@mui/material";
 import TaskDateFilter from "./TaskDateFilter";
 import TaskCompletionFilter from "./TaskCompletionFilter";
 
-const FiltersContainer = (props: {}) => {
+const FiltersContainer = (props: { updateDateFilter : Function}) => {
   const [selectedDayOfWeek, setSelectedDayOfWeek] = useState(
     new Intl.DateTimeFormat("en-US", { weekday: "short" })
       .format(new Date().getDay())
@@ -45,7 +45,8 @@ const FiltersContainer = (props: {}) => {
             .format(new Date().getDay())
             .charAt(0)}
         </Typography>
-        <TaskDateFilter />
+        {/* pass down updateDateFilterFunction */}
+        <TaskDateFilter updateDateFilter={props.updateDateFilter}/> 
       </Box>
       <TaskCompletionFilter />
     </Box>

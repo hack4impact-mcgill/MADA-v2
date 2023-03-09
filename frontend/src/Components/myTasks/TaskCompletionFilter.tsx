@@ -21,7 +21,10 @@ const TaskCompletionFilter = (props: {}) => {
     setTaskCompletionType(event.target.value);
   };
 
-// question: when "upcoming" filter is used, does it show every tasks within the week and disregards date filter?
+// question: Is "upcoming" filter really needed? It can be confusing to apply Date filter and Completion Filter at the same time.
+// For example, what happens if the user puts date filter as "14 Mar 2023" and also applys "upcoming" filter?
+// I feel like it would be much less confusing to remove "upcoming" filter option and just have "All Tasks" and "Completed" for completion filter. 
+// After all, users can easily see upcoming tasks for upcoming days by changing dates using date Filter.
 
   // //implements filtering logic
   // const filterTasks = (taskCompletionType: TaskCompletionOption): TaskInterface[] {
