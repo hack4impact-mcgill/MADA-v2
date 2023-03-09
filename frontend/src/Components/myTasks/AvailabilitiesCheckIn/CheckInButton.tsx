@@ -8,7 +8,7 @@ const CheckInButton = () => {
             width: "30%",
             height: 50,
             boxShadow: "0px 2px 7px rgba(0, 0, 0, 0.15)",
-            borderRadius: 3,
+            borderRadius: "10px",
             position: "absolute",
             top: 171,
             left: "60%",

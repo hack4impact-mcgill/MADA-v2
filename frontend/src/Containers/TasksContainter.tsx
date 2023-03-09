@@ -6,12 +6,12 @@ import AvailabilitiesCheckIn from "../Components/myTasks/AvailabilitiesCheckIn/A
 import CheckInButton from "../Components/myTasks/AvailabilitiesCheckIn/CheckInButton";
 import HistoryButtonContainer from "../Components/myTasks/HistoryButton/HistoryButtonContainer";
 import { TaskProvider } from "../contexts/Tasks";
-import { Box, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 
 const TasksContainer = () => {
   return (
     <div className="tasks-container">
-      {/* enable accessing Task Context */}
+      {/* enable accessing Task Context by using TaskProvider */}
       <TaskProvider>
         <TopRectangle />
         <AvailabilitiesCheckIn />

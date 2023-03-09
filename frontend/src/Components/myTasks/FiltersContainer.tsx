@@ -1,14 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Typography } from "@mui/material";
 import TaskDateFilter from "./TaskDateFilter";
 import TaskCompletionFilter from "./TaskCompletionFilter";
 
 const FiltersContainer = (props: {}) => {
+  const [selectedDayOfWeek, setSelectedDayOfWeek] = useState(
+    new Intl.DateTimeFormat("en-US", { weekday: "short" })
+      .format(new Date().getDay())
+      .charAt(0)
+  );
   return (
     <Box
       sx={{
         display: "flex",
         justifyContent: "space-between",
+        alignItems: "center",
         ml: "22px",
         mr: "22px",
         mb: 3,
@@ -35,7 +41,9 @@ const FiltersContainer = (props: {}) => {
           }}
         >
           {/* get current day of the week, and display only the first letter. */}
-          {new Intl.DateTimeFormat("en-US", { weekday: "short" }).format(new Date().getDay()).charAt(0)}
+          {new Intl.DateTimeFormat("en-US", { weekday: "short" })
+            .format(new Date().getDay())
+            .charAt(0)}
         </Typography>
         <TaskDateFilter />
       </Box>

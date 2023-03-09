@@ -9,7 +9,7 @@ const AvailabilitiesCheckIn = () => {
         width: "85%",
         height: 80,
         bgcolor: "white",
-        borderRadius: 3,
+        borderRadius: "10px",
         borderBottom: 1,
         borderColor: "#E8E6E6",
         top: 106,

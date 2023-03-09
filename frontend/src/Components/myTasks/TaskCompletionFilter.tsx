@@ -1,44 +1,59 @@
 import React, { useState } from "react";
-import './TaskCompletionFilter.css';
-import { SelectChangeEvent } from '@mui/material/Select';
-import {
-    Box,
-    Typography,
-    Select,
-    MenuItem,
-    FormControl,
-    InputLabel,
-  } from "@mui/material";
+import { SelectChangeEvent } from "@mui/material/Select";
+import { Select, MenuItem, FormControl, InputLabel } from "@mui/material";
+import { TaskInterface } from "../../contexts/Tasks";
+import { CgEnter } from "react-icons/cg";
 
-  // use enum to define named constants used for filtering by task completion type
+// use enum to define named constants used for filtering by task completion type
 enum TaskCompletionOption {
   AllTasks = "ALLTASKS",
   Upcoming = "UPCOMING",
-  Completed = "COMPLETED"
+  Completed = "COMPLETED",
 }
 
 const TaskCompletionFilter = (props: {}) => {
-  const [taskCompletionType, setTaskCompletionType] = useState("allTasks");
+  // will use context later on
+  // const {tasks} = React.useContext(TaskContext) as TaskContextType;
+  const [taskCompletionType, setTaskCompletionType] = useState(TaskCompletionOption.AllTasks as string);
 
   const taskCompletionChangeHandler = (event: SelectChangeEvent<string>) => {
     console.log("date changed");
     setTaskCompletionType(event.target.value);
   };
 
+// question: when "upcoming" filter is used, does it show every tasks within the week and disregards date filter?
+
+  // //implements filtering logic
+  // const filterTasks = (taskCompletionType: TaskCompletionOption): TaskInterface[] {
+  //   // returned value will be an array of TaskInterface
+  //   switch (taskCompletionType) {
+  //     case TaskCompletionOption.AllTasks:
+  //       return tasks;
+  //     case TaskCompletionOption.Upcoming:
+  //       return tasks.filter(task => !task.isCompleted && task.deliveryTime > new Date()); // return all tasks within next 7 days
+  //     case TaskCompletionOption.Completed:
+  //       return tasks.filter(task => task.isCompleted);
+  //     default:
+  //       throw new Error(`Invalid task completion option: ${taskCompletionType}`);
+  //   }
+  // }
+  
   return (
-    <FormControl sx={{ width: 140 }}>
-      <InputLabel id="task-date-select-label">All Tasks</InputLabel>
+    <FormControl sx={{ width: 125 }}>
+      <InputLabel id="task-completion-select-label">Completion Filter</InputLabel>
       <Select
-        labelId="task-date-select-label"
-        id="task-date-select"
+        labelId="task-completion-select-label"
+        id="task-copmletion-select"
         label={taskCompletionType}
+        value={taskCompletionType}
         className="select"
         onChange={taskCompletionChangeHandler}
         sx={{
           bgcolor: "#FFFFFF",
           borderRadius: "10px",
-          boxShadow: 'none',
-          '.MuiOutlinedInput-notchedOutline': { border: 0 }
+          boxShadow: "none",
+          ".MuiOutlinedInput-notchedOutline": { border: 0 },
+          height: 50,
         }}
       >
         <MenuItem value={TaskCompletionOption.AllTasks}>All Tasks</MenuItem>
