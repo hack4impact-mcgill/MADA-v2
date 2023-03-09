@@ -5,6 +5,7 @@ import FiltersContainer from "../Components/myTasks/FiltersContainer";
 import TopRectangle from "../Components/myTasks/AvailabilitiesCheckIn/TopRectangle";
 import AvailabilitiesCheckIn from "../Components/myTasks/AvailabilitiesCheckIn/AvailabilitiesCheckIn";
 import CheckInButton from "../Components/myTasks/AvailabilitiesCheckIn/CheckInButton";
+import HistoryButton from "../Components/myTasks/HistoryButton";
 import { TaskProvider } from "../contexts/Tasks";
 import { Box, Typography } from "@mui/material";
 
@@ -16,6 +17,7 @@ const TasksContainer = () => {
         <TopRectangle />
         <AvailabilitiesCheckIn />
         <CheckInButton />
+        <HistoryButton />
         <Typography sx={{ fontFamily: "Poppins", fontWeight: 600, fontSize: 25, ml: 2, mb:1 }}>My Deliveries</Typography>
         <FiltersContainer />
         <DeliveriesContainer/>
