@@ -10,17 +10,23 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 
-const TaskDateFilter = (props: { updateDateFilter : Function }) => {
-  const [displayedDate, setDisplayedDate] = useState(
-    new Date().toLocaleString("en-GB", {
+const TaskDateFilter = (props: {
+  updateDateFilter: Function;
+  updateDayOfWeek: Function;
+}) => {
+  // function that formats date to desired form: e.g. 8 Dec 2023
+  const formatDate = (date: Date) => {
+    return date.toLocaleString("en-GB", {
       day: "numeric",
       month: "short",
       year: "numeric",
-    })
-  ); // use current date as default
+    });
+  };
+
+  const [displayedDate, setDisplayedDate] = useState(formatDate(new Date())); // use current date as default
 
   // define 7 upcoming days (including current date) that can be displayed
-  const date = new Date(); // date variable is used too get following 6 days
+  const date = new Date(); // date variable is used to get the following 6 days.
   const day1 = new Date();
   date.setDate(day1.getDate() + 1);
   const day2 = new Date(date);
@@ -35,19 +41,19 @@ const TaskDateFilter = (props: { updateDateFilter : Function }) => {
   date.setDate(day1.getDate() + 6);
   const day7 = new Date(date);
 
-  // function that formats date to desired form: e.g. 8 Dec 2023
-  const formatDate = (date: Date) => {
-    return date.toLocaleString("en-GB", {
-      day: "numeric",
-      month: "short",
-      year: "numeric",
-    });
-  };
-
   const taskDateChangeHandler = (event: SelectChangeEvent<string>) => {
     console.log("date changed");
     setDisplayedDate(event.target.value); // update date state with currently selected value
     props.updateDateFilter(event.target.value); // update date filter in the TasksContainer component!
+    props.updateDayOfWeek(
+      new Intl.DateTimeFormat("en-US", { weekday: "short" })
+        .format(new Date(event.target.value))
+    ); // update selectedDayOfWeek in FiltersCotainer component!
+    console.log(
+      new Intl.DateTimeFormat("en-US", { weekday: "short" }).format(
+        new Date(event.target.value)
+      )
+    );
   };
 
   return (

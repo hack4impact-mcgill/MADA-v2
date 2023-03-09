@@ -4,11 +4,18 @@ import TaskDateFilter from "./TaskDateFilter";
 import TaskCompletionFilter from "./TaskCompletionFilter";
 
 const FiltersContainer = (props: { updateDateFilter : Function}) => {
+  // selectedDayOfWeek is the first letter of a day. e.g. M for Monday,  R for Thursday, U for Sunday
+  // but in my opinion first three letters looks better. U for Sunday or R for Thursday might be confusing.
   const [selectedDayOfWeek, setSelectedDayOfWeek] = useState(
     new Intl.DateTimeFormat("en-US", { weekday: "short" })
-      .format(new Date().getDay())
-      .charAt(0)
+      .format(new Date())
   );
+
+  const selectedDayOfWeekUpdateHandler = (date : string) => {
+    setSelectedDayOfWeek(date);
+    console.log("Day of week updated", date);
+  }
+
   return (
     <Box
       sx={{
@@ -41,12 +48,10 @@ const FiltersContainer = (props: { updateDateFilter : Function}) => {
           }}
         >
           {/* get current day of the week, and display only the first letter. */}
-          {new Intl.DateTimeFormat("en-US", { weekday: "short" })
-            .format(new Date().getDay())
-            .charAt(0)}
+          {selectedDayOfWeek}
         </Typography>
         {/* pass down updateDateFilterFunction */}
-        <TaskDateFilter updateDateFilter={props.updateDateFilter}/> 
+        <TaskDateFilter updateDateFilter={props.updateDateFilter} updateDayOfWeek={selectedDayOfWeekUpdateHandler}/> 
       </Box>
       <TaskCompletionFilter />
     </Box>

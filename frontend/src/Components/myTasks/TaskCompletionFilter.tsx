@@ -17,7 +17,7 @@ const TaskCompletionFilter = (props: {}) => {
   const [taskCompletionType, setTaskCompletionType] = useState(TaskCompletionOption.AllTasks as string);
 
   const taskCompletionChangeHandler = (event: SelectChangeEvent<string>) => {
-    console.log("date changed");
+    console.log("completion option changed", event.target.value);
     setTaskCompletionType(event.target.value);
   };
 
