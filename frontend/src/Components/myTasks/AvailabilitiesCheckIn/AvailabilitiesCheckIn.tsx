@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
-import {CgDanger} from "react-icons/cg";
+import { CgDanger } from "react-icons/cg";
 
 const AvailabilitiesCheckIn = () => {
   return (
@@ -18,15 +18,21 @@ const AvailabilitiesCheckIn = () => {
         left: "50%",
         display: "flex",
         justifyContent: "space-between",
-        alignItems: "center"
+        alignItems: "center",
       }}
     >
-      <Box sx={{
-        marginLeft: 2,
-        
-      }}>
+      <Box
+        sx={{
+          marginLeft: 2,
+        }}
+      >
         <Typography
-          sx={{ fontFamily: "Poppins", fontWeight: 400, fontSize: 10, color: "#FB4B4B" }}
+          sx={{
+            fontFamily: "Poppins",
+            fontWeight: 400,
+            fontSize: 10,
+            color: "#FB4B4B",
+          }}
         >
           Not Completed
         </Typography>

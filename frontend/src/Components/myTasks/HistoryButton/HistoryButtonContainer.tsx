@@ -8,7 +8,7 @@ const HistoryButtonContainer = () => {
       sx={{
         display: "flex",
         justifyContent: "end",
-        marginRight: "22px"
+        marginRight: "22px",
       }}
     >
       <HistoryButton />

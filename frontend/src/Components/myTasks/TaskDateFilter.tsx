@@ -46,8 +46,9 @@ const TaskDateFilter = (props: {
     setDisplayedDate(event.target.value); // update date state with currently selected value
     props.updateDateFilter(event.target.value); // update date filter in the TasksContainer component!
     props.updateDayOfWeek(
-      new Intl.DateTimeFormat("en-US", { weekday: "short" })
-        .format(new Date(event.target.value))
+      new Intl.DateTimeFormat("en-US", { weekday: "short" }).format(
+        new Date(event.target.value)
+      )
     ); // update selectedDayOfWeek in FiltersCotainer component!
     console.log(
       new Intl.DateTimeFormat("en-US", { weekday: "short" }).format(

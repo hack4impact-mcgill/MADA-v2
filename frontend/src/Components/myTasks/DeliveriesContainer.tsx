@@ -3,8 +3,10 @@ import Delivery from "./Delivery";
 import { TaskInterface } from "../../contexts/Tasks";
 import { FormGroup } from "@mui/material";
 
-
-const DeliveriesContainer = (props: { dateFilter : string, completionFilter : string}) => {
+const DeliveriesContainer = (props: {
+  dateFilter: string;
+  completionFilter: string;
+}) => {
   // will use context later on
   // const {tasks} = React.useContext(TaskContext) as TaskContextType;
 
@@ -38,7 +40,7 @@ const DeliveriesContainer = (props: { dateFilter : string, completionFilter : st
         quantity: 1,
         mealType: "meals a partager",
         task: undefined,
-        name: "Leopold Bennett"
+        name: "Leopold Bennett",
       },
     },
     {
@@ -50,7 +52,7 @@ const DeliveriesContainer = (props: { dateFilter : string, completionFilter : st
         quantity: 1,
         mealType: "meals a partager",
         task: undefined,
-        name: "Avi Sharp"
+        name: "Avi Sharp",
       },
     },
     {
@@ -62,7 +64,7 @@ const DeliveriesContainer = (props: { dateFilter : string, completionFilter : st
         quantity: 3,
         mealType: "meals a partager",
         task: undefined,
-        name: "Zahara Lott"
+        name: "Zahara Lott",
       },
     },
     {
@@ -74,7 +76,7 @@ const DeliveriesContainer = (props: { dateFilter : string, completionFilter : st
         quantity: 2,
         mealType: "meals a partager",
         task: undefined,
-        name: "John Doe"
+        name: "John Doe",
       },
     },
     {
@@ -86,7 +88,7 @@ const DeliveriesContainer = (props: { dateFilter : string, completionFilter : st
         quantity: 1,
         mealType: "meals a partager",
         task: undefined,
-        name: "Jane Doe"
+        name: "Jane Doe",
       },
     },
     {
@@ -98,7 +100,7 @@ const DeliveriesContainer = (props: { dateFilter : string, completionFilter : st
         quantity: 3,
         mealType: "meals a partager",
         task: undefined,
-        name: "Thomas Walker"
+        name: "Thomas Walker",
       },
     },
     {
@@ -110,7 +112,7 @@ const DeliveriesContainer = (props: { dateFilter : string, completionFilter : st
         quantity: 2,
         mealType: "meals a partager",
         task: undefined,
-        name: "William Maguire"
+        name: "William Maguire",
       },
     },
     {
@@ -122,7 +124,7 @@ const DeliveriesContainer = (props: { dateFilter : string, completionFilter : st
         quantity: 6,
         mealType: "meals a partager",
         task: undefined,
-        name: "Tony McLennan"
+        name: "Tony McLennan",
       },
     },
     {
@@ -134,7 +136,7 @@ const DeliveriesContainer = (props: { dateFilter : string, completionFilter : st
         quantity: 2,
         mealType: "meals a partager",
         task: undefined,
-        name: "Harry Park"
+        name: "Harry Park",
       },
     },
     {
@@ -146,9 +148,9 @@ const DeliveriesContainer = (props: { dateFilter : string, completionFilter : st
         quantity: 6,
         mealType: "meals a partager",
         task: undefined,
-        name: "Chistian D'Silva"
-      }
-    }
+        name: "Chistian D'Silva",
+      },
+    },
   ];
   // ---------------------------------- LINES BEFORE THIS WILL BE REMOVED LATER ON ---------------------------------------//
 
@@ -162,20 +164,22 @@ const DeliveriesContainer = (props: { dateFilter : string, completionFilter : st
   };
 
   // filtering logic
-  const dateFilteredTasks = dummyTasks.filter(task => formatDate(task.deliveryTime) == props.dateFilter);
+  const dateFilteredTasks = dummyTasks.filter(
+    (task) => formatDate(task.deliveryTime) == props.dateFilter
+  );
   let filteredTasks = dateFilteredTasks; // ALLTASKS filter
   if (props.completionFilter === "COMPLETED") {
     // if filter is set as COMPLETED, apply filter
-    filteredTasks = dateFilteredTasks.filter(task => task.isCompleted);
+    filteredTasks = dateFilteredTasks.filter((task) => task.isCompleted);
   } else if (props.completionFilter === "UPCOMING") {
-    filteredTasks = dateFilteredTasks.filter(task => !task.isCompleted);
+    filteredTasks = dateFilteredTasks.filter((task) => !task.isCompleted);
   }
-  
+
   return (
-    <FormGroup sx={{mr: "22px", ml: "22px", borderRadius: 3}}>
+    <FormGroup sx={{ mr: "22px", ml: "22px", borderRadius: 3 }}>
       {/* {use dummy tasks for now} */}
       {filteredTasks.map((task: TaskInterface) => {
-        return <Delivery task={task} key={task.id}/>
+        return <Delivery task={task} key={task.id} />;
       })}
     </FormGroup>
   );

@@ -1,9 +1,13 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
 
-const DeliveryLabel = (props: { isCompleted: boolean, deliveryTime: Date, name: string}) => {
+const DeliveryLabel = (props: {
+  isCompleted: boolean;
+  deliveryTime: Date;
+  name: string;
+}) => {
   return (
-    <Box sx={{ml: 2}}>
+    <Box sx={{ ml: 2 }}>
       <Typography sx={{ fontFamily: "Poppins", fontWeight: 600, fontSize: 18 }}>
         {props.name}
       </Typography>

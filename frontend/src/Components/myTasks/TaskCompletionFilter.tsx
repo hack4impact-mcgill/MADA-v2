@@ -11,20 +11,24 @@ enum TaskCompletionOption {
   Completed = "COMPLETED",
 }
 
-const TaskCompletionFilter = (props: {updateCompletionFilter : Function}) => {
+const TaskCompletionFilter = (props: { updateCompletionFilter: Function }) => {
   // will use context later on
   // const {tasks} = React.useContext(TaskContext) as TaskContextType;
-  const [taskCompletionType, setTaskCompletionType] = useState(TaskCompletionOption.AllTasks as string);
+  const [taskCompletionType, setTaskCompletionType] = useState(
+    TaskCompletionOption.AllTasks as string
+  );
 
   const taskCompletionChangeHandler = (event: SelectChangeEvent<string>) => {
     setTaskCompletionType(event.target.value);
     props.updateCompletionFilter(event.target.value);
     console.log("completion option changed", event.target.value);
   };
-  
+
   return (
     <FormControl sx={{ width: 125 }}>
-      <InputLabel id="task-completion-select-label">Completion Filter</InputLabel>
+      <InputLabel id="task-completion-select-label">
+        Completion Filter
+      </InputLabel>
       <Select
         labelId="task-completion-select-label"
         id="task-copmletion-select"

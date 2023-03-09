@@ -1,14 +1,16 @@
 import React from "react";
 import { Box, FormControlLabel, Checkbox, Typography } from "@mui/material";
 import DeliveryLabel from "./DeliveryLabel";
-import { TaskContext, TaskContextType, TaskInterface } from "../../contexts/Tasks";
+import {
+  TaskContext,
+  TaskContextType,
+  TaskInterface,
+} from "../../contexts/Tasks";
 import { updateTask } from "../../services";
-import { MdOutlineArrowForwardIos } from 'react-icons/md';
-import { IoIosArrowForward } from 'react-icons/io';
+import { MdOutlineArrowForwardIos } from "react-icons/md";
+import { IoIosArrowForward } from "react-icons/io";
 
-const Delivery = (props: {
-  task : TaskInterface
-}) => {
+const Delivery = (props: { task: TaskInterface }) => {
   // const { tasks, setTasks } = React.useContext(TaskContext) as TaskContextType;
 
   // // handle delivery checkbox toggle
@@ -26,15 +28,15 @@ const Delivery = (props: {
     <Box
       sx={{
         display: "flex",
-        justifyContent: 'space-between',
-        alignItems: 'center',
+        justifyContent: "space-between",
+        alignItems: "center",
         fontFamily: "Poppins",
         bgcolor: !props.task.isCompleted ? "#FFFFFF" : "#DFDFDF",
         opacity: !props.task.isCompleted ? 1 : 0.7,
         height: 99,
         width: "100%",
         mb: 1,
-        borderRadius: 2
+        borderRadius: 2,
       }}
     >
       <FormControlLabel
@@ -44,8 +46,8 @@ const Delivery = (props: {
               "& .MuiSvgIcon-root": { fontSize: 40 },
               ml: 2,
               "&.Mui-checked": {
-                color: 'white',
-              }
+                color: "white",
+              },
             }}
             checked={props.task.isCompleted} /*onChange*/
           />
@@ -59,7 +61,10 @@ const Delivery = (props: {
         }
       />
       {/* <MdOutlineArrowForwardIos size="30" style={{ marginRight: 20 }}></MdOutlineArrowForwardIos> */}
-      <IoIosArrowForward size="35" style={{ marginRight: 20 }}></IoIosArrowForward>
+      <IoIosArrowForward
+        size="35"
+        style={{ marginRight: 20 }}
+      ></IoIosArrowForward>
     </Box>
   );
 };

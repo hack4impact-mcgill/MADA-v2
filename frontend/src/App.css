@@ -1,0 +1,9 @@
+
+.navBar{
+    bottom: 0;
+    position: absolute;
+}
+
+*{
+    font-family: Poppins;
+}
