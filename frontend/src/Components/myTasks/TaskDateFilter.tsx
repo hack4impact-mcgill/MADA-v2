@@ -25,21 +25,19 @@ const TaskDateFilter = (props: {
 
   const [displayedDate, setDisplayedDate] = useState(formatDate(new Date())); // use current date as default
 
-  // define 7 upcoming days (including current date) that can be displayed
-  const date = new Date(); // date variable is used to get the following 6 days.
-  const day1 = new Date();
-  date.setDate(day1.getDate() + 1);
-  const day2 = new Date(date);
-  date.setDate(day1.getDate() + 2);
-  const day3 = new Date(date);
-  date.setDate(day1.getDate() + 3);
-  const day4 = new Date(date);
-  date.setDate(day1.getDate() + 4);
-  const day5 = new Date(date);
-  date.setDate(day1.getDate() + 5);
-  const day6 = new Date(date);
-  date.setDate(day1.getDate() + 6);
-  const day7 = new Date(date);
+  // get 7 upcoming days (including current date) that can be displayed
+  // not sure if there is a better way to get dates for the current day and the next 6 days.
+  const getUpcoming7Days = () => {
+    const date = new Date(); // date variable is used to get the following 6 days.
+    const today = new Date(); // today's date
+    const upcoming7Days = [];
+    for (let numOfDaysfromToday = 0; numOfDaysfromToday < 7; numOfDaysfromToday++) {
+      date.setDate(today.getDate() + numOfDaysfromToday);
+      const followingDay = new Date(date);
+      upcoming7Days.push(followingDay);
+    }
+    return upcoming7Days;
+  }
 
   const taskDateChangeHandler = (event: SelectChangeEvent<string>) => {
     console.log("date changed");
@@ -77,13 +75,9 @@ const TaskDateFilter = (props: {
         }}
       >
         {/* Display upcoming 7 days as options, including current day */}
-        <MenuItem value={formatDate(day1)}>{formatDate(day1)}</MenuItem>
-        <MenuItem value={formatDate(day2)}>{formatDate(day2)}</MenuItem>
-        <MenuItem value={formatDate(day3)}>{formatDate(day3)}</MenuItem>
-        <MenuItem value={formatDate(day4)}>{formatDate(day4)}</MenuItem>
-        <MenuItem value={formatDate(day5)}>{formatDate(day5)}</MenuItem>
-        <MenuItem value={formatDate(day6)}>{formatDate(day6)}</MenuItem>
-        <MenuItem value={formatDate(day7)}>{formatDate(day7)}</MenuItem>
+        {getUpcoming7Days().map((date : Date) => {
+          return <MenuItem value={formatDate(date)}>{formatDate(date)}</MenuItem>
+        })}
       </Select>
     </FormControl>
   );
