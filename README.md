@@ -32,8 +32,8 @@ The URL for the (development) database in container is "postgresql://mucrm:mucrm
 4. Design files: https://www.figma.com/file/wkaZhz34mkZOYyhIKs7BEj/ui-mockups?node-id=358%3A203
 
 ## Developer Team
-**Devs**: Jessica Li 
+**Devs**: Peter Rong, Jessica Li, Hamza Farooq, Kihyeok Kim, Samantha Perez Hoffman
 
-**Project Managers**: Camilla Djamalov, Kathleen Younge
+**Project Managers**: Camilla Djamalov, Kathleen Younge, Oluchi Akinfenwa
 
-**Tech Lead**: Maite Kramarz
+**Tech Lead**: Maite Kramarz, Selena Jin, Stephanie Fontaine
