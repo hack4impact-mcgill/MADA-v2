@@ -9,10 +9,10 @@ import TimelineDot from "@mui/lab/TimelineDot";
 export function NoDeliveries() {
   return (
     <Typography textAlign={'center'}>
-      <Typography sx={{ color: "#666666", marginTop: "30%" }}>
+      <Typography sx={{ color: "#666666", marginTop: "15%" }}>
         Congratulations!
       </Typography>
-      <Typography sx={{ color: "#666666", marginBottom: "30%"}}>
+      <Typography sx={{ color: "#666666", marginBottom: "15%"}}>
         You're all done for today!
       </Typography>
     </Typography>

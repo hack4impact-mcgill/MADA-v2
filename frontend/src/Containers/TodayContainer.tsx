@@ -9,23 +9,40 @@ const TodayContainer = () => {
   let noDeliveries = false;
   return (
     <div>
-      <div className="welcome">
-        <Typography sx={{ font: "Poppins", color: "#666666", "font-weight": "400"}}>
-          Welcome back,
-        </Typography>
+      <Box
+        className="center"
+      >
+        <Box
+          className="welcome"
+          sx={{ display: "flex", flexDirection: "column", "margin-top": "15%" }}
+        >
+          <Typography
+            sx={{ font: "Poppins", color: "#666666", "font-weight": "400" }}
+          >
+            Welcome back,
+          </Typography>
+          <Typography
+            sx={{ font: "Poppins", color: "#666666", "font-weight": "500" }}
+          >
+            John
+          </Typography>
+          <Typography
+            sx={{
+              font: "Poppins",
+              color: "#666666",
+              "font-weight": "600",
+              "margin-top": "50px",
+            }}
+          >
+            Today's Deliveries
+          </Typography>
+          {!noDeliveries && <DeliveryTimeline />}{" "} {/* display the screen of the timeline */}
+        </Box>
+      </Box>
 
-        <Typography sx={{ font: "Poppins", color: "#666666", "font-weight": "500" }}>
-          John
-        </Typography>
+      {noDeliveries && <NoDeliveries />}{" "}
 
-        <Typography sx={{ font: "Poppins", color: "#666666", "font-weight": "600", "margin-top": "50px" }} >
-          Today's Deliveries
-        </Typography>
-      </div>
-
-      {noDeliveries && <NoDeliveries />} {/* display the screen for no deliveries  */}
-      {!noDeliveries && <DeliveryTimeline />}  {/* display the screen of the timeline */}
-
+      {/* display the screen for no deliveries  */}
       <Box display="flex" width={"100%"} justifyContent="center">
         <Button sx={{ backgroundColor: "#33BE41" }} variant="contained">
           Start Delivery

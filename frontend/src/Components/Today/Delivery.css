@@ -1,14 +1,15 @@
 .center {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
 }
 
 .welcome {
-  margin-left: 20%;
-  margin-top: 20%;
+  /* margin-left: 20%;
+  margin-top: 20%; */
+
 }
 
 .timeline {
-  margin-left: 15%;
+  /* margin-left: 5%; */
 }
