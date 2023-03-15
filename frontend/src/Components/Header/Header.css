@@ -10,4 +10,9 @@
     box-shadow: 3px 6px 10px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
     color: #FFFFFF;
+    position: absolute;
+    width: 67px;
+    height: 29px;
+    margin-top: 34px; 
+    margin-right: 32px;
 }
