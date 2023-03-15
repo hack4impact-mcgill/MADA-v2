@@ -1,66 +1,60 @@
 import React from "react";
 import DeliveriesContainer from "../Components/myTasks/DeliveriesContainer";
-import "./TasksContainer.css";
 import FiltersContainer from "../Components/myTasks/FiltersContainer";
 import TopRectangle from "../Components/myTasks/AvailabilitiesCheckIn/TopRectangle";
 import AvailabilitiesCheckIn from "../Components/myTasks/AvailabilitiesCheckIn/AvailabilitiesCheckIn";
 import CheckInButton from "../Components/myTasks/AvailabilitiesCheckIn/CheckInButton";
-import HistoryButton from "../Components/myTasks/HistoryButton";
+import HistoryButtonContainer from "../Components/myTasks/HistoryButton/HistoryButtonContainer";
 import { TaskProvider } from "../contexts/Tasks";
-import { Box, Typography, Modal } from "@mui/material";
-import HistoryContainer from "./HistoryContainer";
+import { Typography } from "@mui/material";
 import { useState } from "react";
 
 const TasksContainer = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false); // for history container modal
+  // dateFilter and completionFilter state will be used to filter tasks. Current date is used to initialize dateFilter.
+  // dateFilter and completionFilter state will be passed down to DeliviesContainer.
+  // NOTE that dataFilter is in STRING type and not DATE type.
+  const [completionFilter, setCompletionFilter] = useState("ALLTASKS"); // set ALLTASKS as default
+  const [dateFilter, setDateFilter] = useState(new Date().toLocaleString("en-GB", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  }));
 
-  const modalCloseHandler = () => {
-    setIsModalOpen(false);
-    console.log("history modal closed");
-  };
+  // this function will be passed down using props
+  const dateFilterUpdateHandler = (date: string) => {
+    setDateFilter(date); // update dateFilter
+    console.log("dateFilter updated!", date);
+  }
 
-  const modalOpenHandler = () => {
-    setIsModalOpen(true);
-    console.log("history modal opened");
-  };
+  // this function will be passed down using props
+  const completionFilterUpdateHandler = (completionType: string) => {
+    setCompletionFilter(completionType); // update completionFilter
+    console.log("completionFilter updated!", completionType);
+  }
 
   return (
     <div className="tasks-container">
-      {/* enable accessing Task Context */}
+      {/* enable accessing Task Context by using TaskProvider */}
       <TaskProvider>
         <TopRectangle />
         <AvailabilitiesCheckIn />
         <CheckInButton />
-        <HistoryButton />
+        <HistoryButtonContainer />
         <Typography
           sx={{
             fontFamily: "Poppins",
             fontWeight: 600,
             fontSize: 25,
-            ml: 2,
+            ml: "22px",
             mb: 1,
           }}
         >
           My Deliveries
         </Typography>
-        <FiltersContainer />
-        <DeliveriesContainer />
+        <FiltersContainer updateDateFilter={dateFilterUpdateHandler} updateCompletionFilter={completionFilterUpdateHandler}/>
+        <DeliveriesContainer dateFilter={dateFilter} completionFilter={completionFilter} />
       </TaskProvider>
-      <Modal
-        open={true}
-        onClose={modalCloseHandler}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={{}}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Text in a modal
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
-        </Box>
-      </Modal>
+
     </div>
   );
 };

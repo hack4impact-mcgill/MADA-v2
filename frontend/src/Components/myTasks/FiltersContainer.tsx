@@ -1,16 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, Typography } from "@mui/material";
 import TaskDateFilter from "./TaskDateFilter";
 import TaskCompletionFilter from "./TaskCompletionFilter";
 
-const FiltersContainer = (props: {}) => {
+const FiltersContainer = (props: {
+  updateDateFilter: Function;
+  updateCompletionFilter: Function;
+}) => {
+  // selectedDayOfWeek was supposed to be the first letter of a day according to the design.
+  // e.g. M for Monday,  R for Thursday, U for Sunday
+  // but first three letters seems to be better. U for Sunday or R for Thursday might be confusing.
+  const [selectedDayOfWeek, setSelectedDayOfWeek] = useState(
+    new Intl.DateTimeFormat("en-US", { weekday: "short" }).format(new Date())
+  );
+
+  const selectedDayOfWeekUpdateHandler = (date: string) => {
+    setSelectedDayOfWeek(date);
+    console.log("Day of week updated", date);
+  };
+
   return (
     <Box
       sx={{
         display: "flex",
         justifyContent: "space-between",
-        ml: 2,
-        mr: 2,
+        alignItems: "center",
+        ml: "22px",
+        mr: "22px",
         mb: 3,
       }}
     >
@@ -35,11 +51,17 @@ const FiltersContainer = (props: {}) => {
           }}
         >
           {/* get current day of the week, and display only the first letter. */}
-          {new Intl.DateTimeFormat("en-US", { weekday: "short" }).format(new Date().getDay()).charAt(0)}
+          {selectedDayOfWeek}
         </Typography>
-        <TaskDateFilter />
+        {/* pass down updateDateFilterFunction */}
+        <TaskDateFilter
+          updateDateFilter={props.updateDateFilter}
+          updateDayOfWeek={selectedDayOfWeekUpdateHandler}
+        />
       </Box>
-      <TaskCompletionFilter />
+      <TaskCompletionFilter
+        updateCompletionFilter={props.updateCompletionFilter}
+      />
     </Box>
   );
 };

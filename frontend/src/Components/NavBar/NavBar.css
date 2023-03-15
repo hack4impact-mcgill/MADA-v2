@@ -1,0 +1,23 @@
+
+.horizontalBar{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.navBar{
+    flex-direction: column;
+    width: 100%;
+    height: 100px;
+}
+
+button{
+    border: none;
+    color: #666666;
+    background-color: transparent;
+    justify-content: center;
+    font-size: medium;
+}
+
+.icon{
+    font-size: 30px;
+}

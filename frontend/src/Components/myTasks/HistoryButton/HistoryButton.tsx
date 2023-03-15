@@ -1,17 +1,14 @@
 import React from "react";
 import { Box, Button } from "@mui/material";
 
-const CheckInButton = () => {
+const HistoryButton = () => {
   return (
     <Button
       sx={{
-        width: "30%",
-        height: 50,
+        width: 107,
+        height: 35,
         boxShadow: "0px 2px 7px rgba(0, 0, 0, 0.15)",
         borderRadius: "10px",
-        position: "absolute",
-        top: 171,
-        left: "60%",
         opacity: 1,
         bgcolor: "white",
         color: "#666666",
@@ -19,11 +16,12 @@ const CheckInButton = () => {
       }}
       onClick={() => {
         alert("clicked");
+        // show History overlay when button clicked
       }}
     >
-      Check In
+      View History
     </Button>
   );
 };
 
-export default CheckInButton;
+export default HistoryButton;
