@@ -132,7 +132,6 @@ const MarkAvailability = () => {
     const [shouldRender, setShouldRender] = React.useState<boolean>(false);
 
     useEffect(() => {
-      console.log("hellooo");
       if (shouldRender) {
         setShouldRender(false);
       }
@@ -174,6 +173,7 @@ const MarkAvailability = () => {
             {/* delete button */}
             <MdDeleteOutline
               size="40"
+              cursor="pointer"
               onClick={() => {
                 var tmp: TimeRange[] = GetTimes(dayOfWeek);
                 if (tmp.length == 1) {
@@ -191,6 +191,7 @@ const MarkAvailability = () => {
             {/* add button  if it's the last element*/}
             <IoIosAddCircleOutline
               size="40"
+              cursor="pointer"
               visibility={
                 index == GetTimes(dayOfWeek).length - 1 ? "visible" : "hidden"
               }
@@ -216,12 +217,10 @@ const MarkAvailability = () => {
       event: React.ChangeEvent<HTMLInputElement>
     ) => {
       setDisabled(!event.target.checked);
-      console.log("hiii");
-      if (!event.target.checked) setExpanded(false);
+       if (!event.target.checked) setExpanded(false);
     };
 
     const handleChange = (event: React.SyntheticEvent, isExpanded: boolean) => {
-      console.log("hello");
       setExpanded(isExpanded);
     };
 
