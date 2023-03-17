@@ -6,8 +6,9 @@ import AvailabilitiesCheckIn from "../Components/myTasks/AvailabilitiesCheckIn/A
 import CheckInButton from "../Components/myTasks/AvailabilitiesCheckIn/CheckInButton";
 import HistoryButtonContainer from "../Components/myTasks/HistoryButton/HistoryButtonContainer";
 import { TaskProvider } from "../contexts/Tasks";
-import { Typography } from "@mui/material";
-import { useState } from "react";
+import { Box, Typography, Modal } from "@mui/material";
+import HistoryContainer from "./HistoryContainer";
+ import { useState } from "react";
 
 const TasksContainer = () => {
   // dateFilter and completionFilter state will be used to filter tasks. Current date is used to initialize dateFilter.
@@ -19,6 +20,17 @@ const TasksContainer = () => {
     month: "short",
     year: "numeric",
   }));
+  const [isModalOpen, setIsModalOpen] = useState(true); // for history container modal
+
+  const modalCloseHandler = () => {
+    setIsModalOpen(false);
+    console.log("history modal closed");
+  };
+
+  const modalOpenHandler = () => {
+    setIsModalOpen(true);
+    console.log("history modal opened");
+  };
 
   // this function will be passed down using props
   const dateFilterUpdateHandler = (date: string) => {
@@ -54,7 +66,14 @@ const TasksContainer = () => {
         <FiltersContainer updateDateFilter={dateFilterUpdateHandler} updateCompletionFilter={completionFilterUpdateHandler}/>
         <DeliveriesContainer dateFilter={dateFilter} completionFilter={completionFilter} />
       </TaskProvider>
-
+      <Modal
+         open={isModalOpen}
+         onClose={modalCloseHandler}
+        //  aria-labelledby="modal-modal-title"
+        //  aria-describedby="modal-modal-description"
+       >
+         <HistoryContainer modalCloseHandler={modalCloseHandler}/>
+       </Modal>
     </div>
   );
 };
