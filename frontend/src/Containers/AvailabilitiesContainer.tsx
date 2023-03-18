@@ -145,8 +145,6 @@ const MarkAvailability = () => {
         GetTimes(dayOfWeek)[index].endTime
       );
 
-    const [timeError, setTimeError] = React.useState<boolean>(false);
-
       return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
@@ -157,13 +155,9 @@ const MarkAvailability = () => {
                 var tmp: TimeRange[] = GetTimes(dayOfWeek);
                 tmp[index].startTime = startTime;
 
-                let error = endTime?.isBefore(startTime) as boolean
-                setTimeError(error);
-
-                if(!error){
-                  setTimes(dayOfWeek, tmp);
-                  setStartTime(startTime);
-                }
+                setTimes(dayOfWeek, tmp);
+                setStartTime(startTime);
+                
                 
               }}
               renderInput={(params) => <TextField {...params} />}
@@ -175,13 +169,9 @@ const MarkAvailability = () => {
                 var tmp: TimeRange[] = GetTimes(dayOfWeek);
                 tmp[index].endTime = endTime;
 
-                let error = endTime?.isBefore(startTime) as boolean
-                setTimeError(error);
-
-                if (!error) {
-                  setTimes(dayOfWeek, tmp);
-                  setEndTime(endTime);
-                }
+                setTimes(dayOfWeek, tmp);
+                setEndTime(endTime);
+                
               }}
               renderInput={(params) => <TextField {...params} />}
             />
@@ -221,7 +211,7 @@ const MarkAvailability = () => {
               }}
             />
           
-          {timeError &&    
+          {endTime?.isBefore(startTime) &&    
             <Typography
               sx={{ font: "Poppins", color: "#f55442", fontWeight: "400" }}
             >
@@ -291,6 +281,7 @@ const MarkAvailability = () => {
   const DateRangerPicker = () => {
     const [startDate, setStartDate] = useState<Dayjs | null>(null);
     const [endDate, setEndDate] = useState<Dayjs | null>(null);
+
     return (
       <>
         <Box sx={{ display: "flex", justifyContent: "space-between" }}>
@@ -302,15 +293,23 @@ const MarkAvailability = () => {
             }}
             renderInput={(params) => <TextField {...params} />}
           />
-
+         {endDate?.isBefore(startDate) &&
+            <Typography
+              sx={{ font: "Poppins", color: "#f55442", fontWeight: "400", pl:2, pr:2 }}
+            >
+              Start date must be before end date.
+            </Typography>
+          }
           <DatePicker
             label="End Date"
             value={endDate}
             onChange={(newValue) => {
-              setEndDate(newValue);
+              setEndDate(newValue);             
             }}
             renderInput={(params) => <TextField {...params} />}
-          />
+          /> 
+          
+          
         </Box>
       </>
     );
