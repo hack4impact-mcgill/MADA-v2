@@ -145,6 +145,8 @@ const MarkAvailability = () => {
         GetTimes(dayOfWeek)[index].endTime
       );
 
+    const [timeError, setTimeError] = React.useState<boolean>(false);
+
       return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
@@ -154,8 +156,15 @@ const MarkAvailability = () => {
               onChange={(startTime) => {
                 var tmp: TimeRange[] = GetTimes(dayOfWeek);
                 tmp[index].startTime = startTime;
-                setTimes(dayOfWeek, tmp);
-                setStartTime(startTime);
+
+                let error = endTime?.isBefore(startTime) as boolean
+                setTimeError(error);
+
+                if(!error){
+                  setTimes(dayOfWeek, tmp);
+                  setStartTime(startTime);
+                }
+                
               }}
               renderInput={(params) => <TextField {...params} />}
             />
@@ -165,8 +174,14 @@ const MarkAvailability = () => {
               onChange={(endTime) => {
                 var tmp: TimeRange[] = GetTimes(dayOfWeek);
                 tmp[index].endTime = endTime;
-                setTimes(dayOfWeek, tmp);
-                setEndTime(endTime);
+
+                let error = endTime?.isBefore(startTime) as boolean
+                setTimeError(error);
+
+                if (!error) {
+                  setTimes(dayOfWeek, tmp);
+                  setEndTime(endTime);
+                }
               }}
               renderInput={(params) => <TextField {...params} />}
             />
@@ -205,6 +220,15 @@ const MarkAvailability = () => {
                 setShouldRender(true);
               }}
             />
+          
+          {timeError &&    
+            <Typography
+              sx={{ font: "Poppins", color: "#f55442", fontWeight: "400" }}
+            >
+              End time must be after start time  
+            </Typography>
+          }
+
           </Box>
         </LocalizationProvider>
       );
