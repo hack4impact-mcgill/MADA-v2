@@ -156,9 +156,7 @@ const MarkAvailability = () => {
                 tmp[index].startTime = startTime;
 
                 setTimes(dayOfWeek, tmp);
-                setStartTime(startTime);
-                
-                
+                setStartTime(startTime);               
               }}
               renderInput={(params) => <TextField {...params} />}
             />
@@ -171,7 +169,6 @@ const MarkAvailability = () => {
 
                 setTimes(dayOfWeek, tmp);
                 setEndTime(endTime);
-                
               }}
               renderInput={(params) => <TextField {...params} />}
             />
@@ -215,7 +212,7 @@ const MarkAvailability = () => {
             <Typography
               sx={{ font: "Poppins", color: "#f55442", fontWeight: "400" }}
             >
-              End time must be after start time  
+              Start time must be before end time
             </Typography>
           }
 
@@ -307,9 +304,7 @@ const MarkAvailability = () => {
               setEndDate(newValue);             
             }}
             renderInput={(params) => <TextField {...params} />}
-          /> 
-          
-          
+          />           
         </Box>
       </>
     );
