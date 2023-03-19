@@ -78,6 +78,13 @@
         border-radius: 10px;
         }
 
+        .form {
+            display: flex;
+            max-width: 430px;
+            width: 90%;
+
+        }
+
         .details {
             width: 100%;
             max-width: 430px;
@@ -177,8 +184,6 @@
             box-sizing: border-box;
             width: 90%;
             height: 36px;
-            left: 34px;
-            top: 430px;
         
             border: 1px solid #D8D7D7;
             border-radius: 10px;
@@ -253,6 +258,7 @@
         font-size: 22px;
         line-height: 33px;
         margin: 0px;
+        margin-top: 10px;
         /* identical to box height */
         
         
@@ -319,6 +325,7 @@
         
         
         color: #666666;
+        margin-top: 10px;
         }
         
         .checkcircleUsername {
@@ -338,6 +345,7 @@
             box-shadow: 2px 4px 7px rgba(0, 0, 0, 0.1);
             border-radius: 17px;
             font-size: x-large;
+            margin-top: 10px;
         }
         
         .cancelbutton {
@@ -378,11 +386,9 @@
             display: flex;
             flex-direction: row;
             justify-content: space-around;
+            margin-top: 10px;
         }
         
-
-        
-
 
         .availabilities{
             position: relative;
