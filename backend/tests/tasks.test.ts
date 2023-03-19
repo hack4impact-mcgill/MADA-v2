@@ -10,6 +10,7 @@ import { StatusCode } from '../src/controllers/statusCode';
 
 describe('Tasks tests', () => {
   const taskRepository = AppDataSource.getRepository(TaskEntity);
+  const taskHelper = new TaskEntityHelper(taskRepository);
 
   // Before performing any tests, sets up the datasource and clears it
   beforeAll(async () => {
@@ -33,6 +34,25 @@ describe('Tasks tests', () => {
     expect(res.status).toBe(StatusCode.BAD_REQUEST);
     expect(res.body).toEqual({
       task: null
+    });
+  });
+
+  it('should return a task', async () => {
+    const date: Date = new Date('April 20, 2001 04:20:00');
+    const savedTask = await taskHelper.createTask(
+      date.toISOString(),
+      [],
+      false
+    );
+    const res = await request(app).get(`/api/tasks/${savedTask.id}`);
+    expect(res.status).toBe(StatusCode.OK);
+    expect(res.body).toEqual({
+      task: {
+        id: savedTask.id,
+        deliveryTime: date.toISOString(),
+        isCompleted: false,
+        deliveries: []
+      }
     });
   });
 
