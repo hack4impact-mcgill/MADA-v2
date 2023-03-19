@@ -7,3 +7,4 @@ const taskController = new TaskController();
 
 router.put('/tasks/:id', taskController.updateOrAddTask);
 router.get('/tasks/:id', taskController.getTask);
+router.delete('/tasks/:id', taskController.deleteTask);
