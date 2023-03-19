@@ -8,8 +8,13 @@ export default class TaskController {
 
   getTask = async (request: Request, response: Response) => {
     // console.log(request.params);
-    const task = await this.TaskRepository.findOneBy({
-      id: parseInt(request.params.id)
+    const task = await this.TaskRepository.findOne({
+      where: {
+        id: parseInt(request.params.id)
+      },
+      relations: {
+        deliveries: true
+      }
     });
     task
       ? response.status(StatusCode.OK).json({ task: task })
