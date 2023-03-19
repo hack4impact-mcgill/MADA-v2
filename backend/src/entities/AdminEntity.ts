@@ -4,6 +4,9 @@ import { UserEntity } from './UserEntity';
 // Entity is a class that maps to a database table : https://orkhan.gitbook.io/typeorm/docs/entities
 @Entity()
 export class AdminEntity extends UserEntity {
+  @PrimaryGeneratedColumn()
+  id: number;
+
   @Column()
   jobTitleColumn: string;
 }

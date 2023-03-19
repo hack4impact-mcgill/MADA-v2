@@ -5,4 +5,5 @@ import TaskController from '../controllers/tasks';
 export const router = express.Router();
 const taskController = new TaskController();
 
-router.put('/tasks/:id', taskController.updateTodo);
+router.put('/tasks/:id', taskController.updateOrAddTask);
+router.get('/tasks/:id', taskController.getTask);

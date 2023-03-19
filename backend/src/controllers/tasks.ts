@@ -1,11 +1,22 @@
 import { Request, Response } from 'express';
 import { AppDataSource } from '../data-source';
 import { TaskEntity } from '../entities/TaskEntity';
+import { StatusCode } from './statusCode';
 
 export default class TaskController {
   private TaskRepository = AppDataSource.getRepository(TaskEntity);
 
-  updateTodo = async (request: Request, response: Response) => {
+  getTask = async (request: Request, response: Response) => {
+    // console.log(request.params);
+    const task = await this.TaskRepository.findOneBy({
+      id: parseInt(request.params.id)
+    });
+    task
+      ? response.status(StatusCode.OK).json({ task: task })
+      : response.status(StatusCode.BAD_REQUEST).json({ task: null });
+  };
+
+  updateOrAddTask = async (request: Request, response: Response) => {
     const taskToUpdate = await this.TaskRepository.findOneBy({
       id: parseInt(request.params.id)
     });
@@ -13,6 +24,6 @@ export default class TaskController {
       ...taskToUpdate,
       ...request.body
     });
-    response.status(200).json({ task: task });
+    response.status(StatusCode.OK).json({ task: task });
   };
 }
