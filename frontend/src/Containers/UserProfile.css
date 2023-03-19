@@ -1,0 +1,394 @@
+
+
+
+.userprofile{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 20px;
+
+    }
+
+.User {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 430px;
+    height: 141px;
+    background: #FDFDFD;
+    opacity: 0.3;
+    border: 1px solid #FFFFFF;
+    box-shadow: inset 0px -4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    }
+
+    .VolunteerName {
+        width: 95px;
+        height: 30px;
+        font-family: 'Poppins', sans-serif;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 30px;
+        /* identical to box height */
+    
+        text-align: center;
+    
+        color: #666666;
+    }
+    
+    .Volunteer {
+        width: 72px;
+        height: 23px;
+        font-family: 'Poppins', sans-serif;
+        font-style: normal;
+        font-weight: 300;
+        font-size: 15px;
+        line-height: 22px;
+        /* identical to box height */
+    
+    
+        color: #666666;
+    }
+
+
+    .Availabilities {
+
+        width: 95%;
+        height: 65px;
+        display: flex;
+        flex-direction: column;
+        
+        background: #FFFFFF;
+        border-radius: 10px;
+        }
+        
+        .help-button {
+            
+        box-sizing: border-box;
+        width: 67px;
+        height: 29px;
+        color: #FFFFFF;
+        background: #2E5CD3;
+        border: 1px solid #3A71FF;
+        box-shadow: 3px 6px 10px rgba(0, 0, 0, 0.25);
+        border-radius: 10px;
+        }
+
+        .details {
+            width: 100%;
+            max-width: 430px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .checkin {
+ 
+            width: 178.71px;
+            height: 15.57px;
+        
+            font-family: 'Poppins', sans-serif;
+            font-style: normal;
+            font-weight: 700;
+            font-size: 15px;
+            line-height: 22px;
+        
+            color: #666666;
+        }
+
+        .availability-row {
+            display: flex;
+            flex-direction: row;
+        }
+        
+        .markAvailabilities {
+        width: 196.04px;
+        height: 12.19px;
+
+        
+        font-family: 'Poppins', sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 18px;
+        
+        color: #666666;
+        }
+        
+        .checkcircleAvailability {
+
+            width: 72px;
+            height: 72px;
+            color: #85CF27;
+            transform: scale(1.8);
+            border-color: #FFFFFF;  
+        }
+        .updateAvailability {
+            width: 131px;
+            height: 50px;
+            position: absolute;
+            right : 0px;
+            bottom : -30px;
+        
+            background: #FFFFFF;
+            box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.15);
+            border-radius: 10px;
+            border-color: white transparent transparent;
+            color: #666666;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .account {
+        width: 93px;
+        height: 33px;
+        
+        font-family: 'Poppins', sans-serif;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 22px;
+        line-height: 33px;
+        margin: 0px;
+        /* identical to box height */
+        
+        
+        color: #000000;
+        }
+        
+        .username {
+        width: 80px;
+        height: 23px;
+        left: 34px;
+        top: 385px;
+        
+        font-family: 'Poppins', sans-serif;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 15px;
+        line-height: 22px;
+        
+        
+        color: #666666;
+        }
+        
+        .usernameInput {
+            box-sizing: border-box;
+            width: 90%;
+            height: 36px;
+            left: 34px;
+            top: 430px;
+        
+            border: 1px solid #D8D7D7;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 15px;
+            line-height: 22px;
+            margin-bottom: 20px;
+        }
+        
+        .email {
+            width: 43px;
+            height: 23px;
+            left: 34px;
+            top: 468px;
+        
+            font-family: 'Poppins', sans-serif;;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 15px;
+            line-height: 22px;
+            /* identical to box height */
+        
+        
+            color: #666666;
+        }
+        
+        .emailInput {
+            box-sizing: border-box;
+        width: 90%;
+        height: 36px;
+        left: 33px;
+        top: 512px;
+        
+        border: 1px solid #D8D7D7;
+        font-family: 'Poppins', sans-serif;;
+        border-radius: 10px;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 22px;
+        
+        }
+        
+        .accountline{
+        width: 95%;
+        height: 0px;
+        background: #FFFFFF;
+        border: 3px solid #FFFFFF;
+        box-shadow: 0px -2px 1px rgba(0, 0, 0, 0.1);
+        transform: rotate(-0.17deg);
+            
+        }
+
+        .divider{
+            width: 95%;
+            height: 0px;
+            background: #FFFFFF;
+            border: 3px solid #FFFFFF;
+            box-shadow: 0px -2px 1px rgba(0, 0, 0, 0.1);
+            margin : 10px 0px;
+        }
+        
+        .Contact {
+        width: 90px;
+        height: 33px;
+        
+        font-family: 'Poppins', sans-serif;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 22px;
+        line-height: 33px;
+        margin: 0px;
+        /* identical to box height */
+        
+        
+        color: #000000;
+        }
+        
+        .contactline {
+        width: 366px;
+        height: 0px;
+        border: 3px solid #FFFFFF;
+        box-shadow: 0px -2px 1px rgba(0, 0, 0, 0.1);
+        transform: rotate(-0.17deg);
+        }
+        
+        .phoneNumber {
+        width: 114px;
+        height: 23px;
+ 
+        
+        font-family: 'Poppins', sans-serif;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 15px;
+        line-height: 22px;
+        /* identical to box height */
+        
+        
+        color: #666666;
+        }
+        
+        .number {
+            box-sizing: border-box;
+        
+        width: 90%;
+        height: 36px;
+        
+        border: 1px solid #D8D7D7;
+        border-radius: 10px;
+        font-family: 'Poppins', sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 22px;
+        /* identical to box height */
+        
+        
+        color: #666666;
+        }
+        
+        .newNumber {
+            box-sizing: border-box;
+        
+        width: 90%;
+        height: 36px;
+        
+        border: 1px solid #D8D7D7;
+        border-radius: 10px;
+        font-family: 'Poppins', sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 22px;
+        /* identical to box height */
+        
+        
+        color: #666666;
+        }
+        
+        .checkcircleUsername {
+        width: 24px;
+        height: 24px;
+        
+        color: #33BE41;
+        }
+        
+        .addbutton {
+            box-sizing: border-box;
+            width: 35px;
+            height: 35px;
+            background: #FFFFFF;
+            color: #3060DC;
+            border: 1px solid #FFFFFF;
+            box-shadow: 2px 4px 7px rgba(0, 0, 0, 0.1);
+            border-radius: 17px;
+            font-size: x-large;
+        }
+        
+        .cancelbutton {
+            box-sizing: border-box;
+            width: 153px;
+            height: 51px;
+        
+            border: 1px solid #666666;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+        
+            font-style: normal;
+            font-weight: 600;
+            font-size: 15px;
+            line-height: 22px;
+            /* identical to box height */
+        }
+        
+        
+        .savechanges {
+            width: 153px;
+            height: 51px;
+        
+            background: #33BE41;
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 15px;
+            line-height: 22px;
+            border-width: 0px;
+            color: #FFFFFF;
+        }
+
+        .endbuttons {
+            width: 100%;
+            max-width: 430px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+        }
+        
+
+        
+
+
+        .availabilities{
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0px 20px;
+            margin-bottom: 50px;
+        }

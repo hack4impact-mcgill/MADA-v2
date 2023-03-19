@@ -1,42 +1,94 @@
-import React from 'react';
-import "./User.css"
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import React, { useEffect, useState } from "react";
+import "./UserProfile.css";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
+import Box from "@mui/material/Box";
+import { useNavigate } from "react-router-dom";
+
+const UserProfileContainer = () => {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState<string>('');
+  const [validEmail, setValidEmail] = useState(false);
+
+  function validateEmail(email: string): boolean {
+    // regular expression for email validation
+    const emailRegex: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
+    // check if email matches the regex
+    if (email.match(emailRegex)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
+  useEffect(()=>{
+
+  },[])
 
 
-const UserProfileContainer=()=>{
-    return(
-        <div>
-            <div className='userprofile'>
-        <div className='User'></div>
-        <div className='img'></div>
-        <h2 className='VolunteerName'>John Doe</h2>
-        <h3 className='Volunteer'>Volunteer</h3>
-        <button className='help-button'>Help</button>
-        
-        <div className='Availabilities'></div>
-        <h3 className='checkin'>Availability Check-in</h3>
-        <h5 className='markAvailabilities'>Mark your weekly Availabilities</h5>
-        <button className='updateAvailability'>Update Availability</button>
-        <a className='checkcircleAvailability' href="AvailabilitiesContainer"><CheckCircleOutlineIcon/></a>
-        <h4 className="account">Account</h4>
-        <hr className='accountline'></hr>
-          <div className='Email'></div>
-          <h4 className='email'>Email</h4>
-          <input className="emailInput" type="text" placeholder="Email" />
-          <CheckCircleIcon className='checkcircleUsername'/>
-          <div className='Username'></div>
-          <h4 className='username'>Username</h4>
-          <input className='usernameInput' type="text" placeholder='Username'/>
-          <h4 className='Contact'>Contact</h4>
-          <hr className='contactline'></hr>
-          <h4 className="phoneNumber">Phone Number</h4>
-              <input className='number' type="text" placeholder='Number'/>
-              <input className='newNumber' type="text" placeholder='Add a new Number'/>
-              <button className='addbutton'>+</button>
-      </div>
-        </div>
-    )
-}
+  useEffect(()=>{
 
-export default UserProfileContainer; 
+    setValidEmail(validateEmail(email));
+
+  },[email])
+
+console.log('email', email);
+  const handleUpdateAvailability = ()=>{
+navigate('/availabilities')
+    
+  }
+
+  return (
+        <Box className="userprofile">
+          <Box className="User">
+            <h2 className="VolunteerName">John Doe</h2>
+            <h3 className="Volunteer">Volunteer</h3>
+            <Box className="initials"></Box>
+          </Box>
+          <Box className="details">
+            <Box className="availabilities">
+              <Box className='availabilities-left'>
+              <h3 className="checkin">Availability Check-in</h3>
+              <h5 className="markAvailabilities">
+              Mark your weekly Availabilities
+            </h5>
+              </Box>
+              <CheckCircleOutlineIcon className="checkcircleAvailability"/>
+            <button className="updateAvailability" onClick={handleUpdateAvailability}>Update Availability</button>
+            </Box>
+            
+            <h4 className="account">Account</h4>
+            <hr className="divider"></hr>
+            <Box className="Email"></Box>
+            <label className="email">Email</label>
+            <input className="emailInput" type="email" placeholder="Email" value = {email} onChange={(ev)=>setEmail(ev.target.value)}/>
+            {validEmail? <CheckCircleIcon className="checkcircleUsername" /> : null}
+            <Box className="Username"></Box>
+            <label className="username">Username</label>
+            <input
+              className="usernameInput"
+              type="text"
+              placeholder="Username"
+            />
+            <h4 className="Contact">Contact</h4>
+            <hr className="divider"></hr>
+            <label className="phoneNumber">Phone Number</label>
+            <input className="number" type="text" placeholder="Number" />
+            <input
+              className="newNumber"
+              type="text"
+              placeholder="Add a new Number"
+            />
+            <button className="addbutton">+</button>
+          </Box>
+          <Box className="endbuttons">
+            <button className="cancelbutton">Cancel</button>
+            <button className="savechanges" >Save Changes</button>
+          </Box>
+        </Box>
+  );
+};
+
+export default UserProfileContainer;
