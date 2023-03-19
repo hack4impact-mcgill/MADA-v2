@@ -29,7 +29,6 @@ describe('Tasks tests', () => {
   });
 
   it('should return task not found', async () => {
-    await DataSourceHelper.clearDataSource();
     const res = await request(app).get('/api/tasks/1');
     expect(res.status).toBe(StatusCode.BAD_REQUEST);
     expect(res.body).toEqual({
@@ -68,4 +67,17 @@ describe('Tasks tests', () => {
   //   expect(res.statusCode).toBe(200);
   //   expect(res._body.task.isCompleted).toBe(true);
   // });
+
+  it('should delete task', async () => {
+    await DataSourceHelper.clearDataSource();
+    const date: Date = new Date('April 20, 2001 04:20:00');
+    const savedTask = await taskHelper.createTask(
+      date.toISOString(),
+      [],
+      false
+    );
+    const res = await request(app).delete(`/api/tasks/${savedTask.id}`);
+    expect(res.status).toBe(StatusCode.OK);
+    expect(res.body).toEqual({});
+  });
 });

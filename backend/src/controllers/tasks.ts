@@ -31,4 +31,11 @@ export default class TaskController {
     });
     response.status(StatusCode.OK).json({ task: task });
   };
+
+  deleteTask = async (request: Request, response: Response) => {
+    const taskDeleted = await this.TaskRepository.delete({
+      id: parseInt(request.params.id)
+    });
+    response.status(StatusCode.OK).json({});
+  };
 }
