@@ -1,5 +1,4 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-
 import { MealDeliveryEntity } from './MealDeliveryEntity';
 
 @Entity()

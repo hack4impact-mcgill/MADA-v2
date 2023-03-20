@@ -1,5 +1,6 @@
-import { TaskEntity } from '../src/entities/TaskEntity';
+import { TaskEntity } from '../../src/entities/TaskEntity';
 import { Repository } from 'typeorm';
+import { MealDeliveryEntity } from '../../src/entities/MealDeliveryEntity';
 
 export default class TaskEntityHelper {
   TaskRepository: Repository<TaskEntity>;
@@ -10,7 +11,7 @@ export default class TaskEntityHelper {
 
   createTask = async (
     deliveryTime: string,
-    deliveries: [],
+    deliveries: MealDeliveryEntity[],
     isCompleted: boolean
   ) => {
     const newTask = new TaskEntity();
