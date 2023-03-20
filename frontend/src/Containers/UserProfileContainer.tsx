@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./UserProfile.css";
+import "../Styles/UserProfile.css";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";

@@ -5,7 +5,7 @@ import {
   TaskContext,
   TaskContextType,
   TaskInterface,
-} from "../../contexts/Tasks";
+} from "../../Contexts/Tasks";
 import { updateTask } from "../../services";
 import { MdOutlineArrowForwardIos } from "react-icons/md";
 import { IoIosArrowForward } from "react-icons/io";

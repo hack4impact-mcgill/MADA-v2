@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { SelectChangeEvent } from "@mui/material/Select";
 import { Select, MenuItem, FormControl, InputLabel } from "@mui/material";
-import { TaskInterface } from "../../contexts/Tasks";
+import { TaskInterface } from "../../Contexts/Tasks";
 import { CgEnter } from "react-icons/cg";
 
 // use enum to define named constants used for filtering by task completion type
