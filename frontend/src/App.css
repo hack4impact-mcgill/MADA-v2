@@ -1,7 +1,8 @@
 
 .navBar{
     bottom: 0;
-    position: absolute;
+    position: sticky;
+    background-color: white;
 }
 
 *{

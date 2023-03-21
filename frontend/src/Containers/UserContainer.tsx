@@ -15,7 +15,7 @@ const User = () => {
   };
 
   return (
-    <Box className="userprofile">
+    <Box className="user-container">
       <Box className="User">
         <h2 className="VolunteerName">John Doe</h2>
         <h3 className="Volunteer">Volunteer</h3>
@@ -24,7 +24,7 @@ const User = () => {
       <Box className="details">
         <Box className="account-edit">
         <h4 className="account">Account</h4>
-        <button className="edit-profile-button" onClick={handleEdit}>edit profile</button>
+        <button className="edit-profile-button" onClick={handleEdit}>Edit Profile</button>
         </Box>
         <hr className="divider"></hr>
         <Box className="Username">
@@ -42,11 +42,11 @@ const User = () => {
           <span className="phoneNumberValue">(123) 456-7890</span>
         </Box>
         <Box className="PhoneNumber">
-          <label className="phoneNumber">other Phone Number: </label>
+          <label className="phoneNumber">Other Phone Number: </label>
           <span className="phoneNumberValue">(123) 456-7890</span>
         </Box>
         <Box className="PhoneNumber">
-          <label className="phoneNumber">other Phone Number: </label>
+          <label className="phoneNumber">Other Phone Number: </label>
           <span className="phoneNumberValue">(123) 456-7890</span>
         </Box>
         {/* <Box className="NewNumbers">

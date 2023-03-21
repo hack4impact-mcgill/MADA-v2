@@ -6,7 +6,7 @@
     flex-direction: column;
     align-items: center;
     box-sizing: border-box;
-    padding: 20px;
+    padding: 65px;
 
     }
 
@@ -87,9 +87,10 @@
 
         .details {
             width: 100%;
-            max-width: 430px;
+            max-width: 450px;
             display: flex;
             flex-direction: column;
+
         }
         
         .checkin {
@@ -134,9 +135,9 @@
             border-color: #FFFFFF;  
         }
         .updateAvailability {
+            display: flex;
             width: 131px;
             height: 50px;
-            position: absolute;
             right : 0px;
             bottom : -30px;
         
@@ -216,8 +217,6 @@
             box-sizing: border-box;
         width: 90%;
         height: 36px;
-        left: 33px;
-        top: 512px;
         
         border: 1px solid #D8D7D7;
         font-family: 'Poppins', sans-serif;;
@@ -227,6 +226,11 @@
         font-size: 15px;
         line-height: 22px;
         
+        }
+
+        .checkEmail{
+            display: flex;
+            flex-direction: row;
         }
         
         .accountline{
@@ -307,6 +311,10 @@
         
         color: #666666;
         }
+        .checkPhoneNumber{
+            display: flex;
+            flex-direction: row;
+        }
         
         .newNumber {
             box-sizing: border-box;
@@ -331,8 +339,8 @@
         .checkcircleUsername {
         width: 24px;
         height: 24px;
-        
         color: #33BE41;
+        transform: scale(1.1);
         }
         
         .addbutton {

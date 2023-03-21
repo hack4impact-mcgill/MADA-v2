@@ -124,6 +124,7 @@ const UserProfileContainer = () => {
           />
           <Box className="Email"></Box>
           <label className="email">Email</label>
+          <Box className="emailCheck">
           <input
             className="emailInput"
             type="email"
@@ -134,10 +135,12 @@ const UserProfileContainer = () => {
           {validEmail ? (
             <CheckCircleIcon className="checkcircleUsername" />
           ) : null}
+          </Box>
 
           <h4 className="Contact">Contact</h4>
           <hr className="divider"></hr>
           <label className="phoneNumber">Phone Number</label>
+          <Box className="checkPhoneNumber">
           <input
             className="number"
             type="text"
@@ -148,6 +151,7 @@ const UserProfileContainer = () => {
           {validPhoneNumber ? (
             <CheckCircleIcon className="checkcircleUsername" />
           ) : null}
+          </Box>
 
           {newNumbers.map((number, index) => {
             return (
@@ -166,8 +170,10 @@ const UserProfileContainer = () => {
                 <button
                   className="deleteButton"
                   onClick={() => handleDeleteNumber(index)}
+                  type="button"
                 >
                   <DeleteIcon/>
+                  
                 </button>
               </div>
             );
