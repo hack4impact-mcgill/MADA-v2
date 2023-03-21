@@ -3,6 +3,7 @@ import "../Styles/UserProfile.css";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
+import DeleteIcon from '@mui/icons-material/Delete';
 import Box from "@mui/material/Box";
 import { useNavigate } from "react-router-dom";
 
@@ -166,7 +167,7 @@ const UserProfileContainer = () => {
                   className="deleteButton"
                   onClick={() => handleDeleteNumber(index)}
                 >
-                  -
+                  <DeleteIcon/>
                 </button>
               </div>
             );
