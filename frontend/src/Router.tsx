@@ -6,6 +6,7 @@ import LoginContainer from './Containers/LoginContainer';
 import TasksContainer from './Containers/TasksContainter';
 import TodayContainer from './Containers/TodayContainer';
 import UserProfileContainer from './Containers/UserProfileContainer';
+import UserContainer from './Containers/UserContainer';
 
 
 const RouterComponent=()=>{
@@ -14,6 +15,7 @@ const RouterComponent=()=>{
         <Routes>
           <Route path="/today" element={<TodayContainer/>} />
           <Route path="/" element={<LoginContainer />} />
+          <Route path="/user" element={<UserContainer/>}/>
           <Route path="/profile" element={<UserProfileContainer/>}/>
           <Route path="/history" element={<HistoryContainer/>}/>
           <Route path="/tasks" element={<TasksContainer/>}/>

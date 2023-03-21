@@ -1,0 +1,205 @@
+.userprofile{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    padding: 20px;
+
+    }
+
+.User {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 430px;
+    height: 141px;
+    background: #FDFDFD;
+    opacity: 0.3;
+    border: 1px solid #FFFFFF;
+    box-shadow: inset 0px -4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    }
+
+    .VolunteerName {
+        width: 95px;
+        height: 30px;
+        font-family: 'Poppins', sans-serif;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 20px;
+        line-height: 30px;
+        /* identical to box height */
+    
+        text-align: center;
+    
+        color: #666666;
+    }
+    
+    .Volunteer {
+        width: 72px;
+        height: 23px;
+        font-family: 'Poppins', sans-serif;
+        font-style: normal;
+        font-weight: 300;
+        font-size: 15px;
+        line-height: 22px;
+        /* identical to box height */
+    
+    
+        color: #666666;
+    }
+
+
+
+        .details {
+            width: 100%;
+            max-width: 430px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .account {
+        width: 93px;
+        height: 33px;
+        
+        font-family: 'Poppins', sans-serif;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 22px;
+        line-height: 33px;
+        margin: 0px;
+        /* identical to box height */
+        
+        
+        color: #000000;
+        }
+
+        .account-edit {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            font-family: 'Poppins', sans-serif;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 22px;
+            line-height: 33px;
+            margin-top: 20px;
+
+        }
+
+        .edit-profile-button {
+            color: cornflowerblue;
+            text-decoration: underline;
+        }
+        
+        .username {
+        width: 80px;
+        height: 23px;
+        left: 34px;
+        top: 385px;
+        
+        font-family: 'Poppins', sans-serif;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 15px;
+        line-height: 22px;
+        
+        
+        color: #666666;
+        }
+        
+        .email {
+            width: 43px;
+            height: 23px;
+            left: 34px;
+            top: 468px;
+        
+            font-family: 'Poppins', sans-serif;;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 15px;
+            line-height: 22px;
+            /* identical to box height */
+        
+        
+            color: #666666;
+        }
+        
+
+        .divider{
+            width: 95%;
+            height: 0px;
+            background: #FFFFFF;
+            border: 3px solid #FFFFFF;
+            box-shadow: 0px -2px 1px rgba(0, 0, 0, 0.1);
+            margin : 10px 0px;
+        }
+        
+        .Contact {
+        width: 90px;
+        height: 33px;
+        
+        font-family: 'Poppins', sans-serif;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 22px;
+        line-height: 33px;
+        margin: 0px;
+        margin-top: 20px;
+        /* identical to box height */
+        
+        
+        color: #000000;
+        }
+        
+        .contactline {
+        width: 366px;
+        height: 0px;
+        border: 3px solid #FFFFFF;
+        box-shadow: 0px -2px 1px rgba(0, 0, 0, 0.1);
+        transform: rotate(-0.17deg);
+        }
+        
+        .phoneNumber {
+        width: 114px;
+        height: 23px;
+ 
+        
+        font-family: 'Poppins', sans-serif;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 15px;
+        line-height: 22px;
+        /* identical to box height */
+        
+        
+        color: #666666;
+        }
+        
+        .number {
+            box-sizing: border-box;
+        
+        width: 90%;
+        height: 36px;
+        
+        border: 1px solid #D8D7D7;
+        border-radius: 10px;
+        font-family: 'Poppins', sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 15px;
+        line-height: 22px;
+        /* identical to box height */
+        
+        
+        color: #666666;
+        }
+        
+        
+        
+        
+        
+
+        

@@ -74,6 +74,11 @@ const UserProfileContainer = () => {
     setNewNumber("");
   };
 
+  const handleSaveChanges = () => {
+    navigate("/user");
+  
+  };
+
   return (
     <Box className="userprofile">
       {/* update user to have picture or intitals based on name in database */}
@@ -171,7 +176,7 @@ const UserProfileContainer = () => {
             <button className="cancelbutton" type="button">
               Cancel
             </button>
-            <button className="savechanges" type="submit">
+            <button className="savechanges" type="submit" onClick={handleSaveChanges}>
               Save Changes
             </button>
           </Box>
