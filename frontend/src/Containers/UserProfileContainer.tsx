@@ -67,6 +67,7 @@ const UserProfileContainer = () => {
 
     // do something with the form data, e.g. send it to the server
     // ...
+    navigate("/user")
   };
 
   const handleAddNewNumber = () => {
@@ -74,9 +75,8 @@ const UserProfileContainer = () => {
     setNewNumber("");
   };
 
-  const handleSaveChanges = () => {
+  const handleCancel = () => {
     navigate("/user");
-  
   };
 
   return (
@@ -173,10 +173,10 @@ const UserProfileContainer = () => {
             +
           </button>
           <Box className="endbuttons">
-            <button className="cancelbutton" type="button">
+            <button className="cancelbutton" type="button" onClick={handleCancel}>
               Cancel
             </button>
-            <button className="savechanges" type="submit" onClick={handleSaveChanges}>
+            <button className="savechanges" type="submit">
               Save Changes
             </button>
           </Box>
