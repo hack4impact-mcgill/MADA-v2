@@ -67,12 +67,18 @@ const UserProfileContainer = () => {
 
     // do something with the form data, e.g. send it to the server
     // ...
-    navigate("/user")
+    navigate("/user");
   };
 
   const handleAddNewNumber = () => {
     setNewNumbers([...newNumbers, newNumber]);
     setNewNumber("");
+  };
+
+  const handleDeleteNumber = (index: number) => {
+    const updatedNumbers = [...newNumbers];
+    updatedNumbers.splice(index, 1);
+    setNewNumbers(updatedNumbers);
   };
 
   const handleCancel = () => {
@@ -144,20 +150,28 @@ const UserProfileContainer = () => {
 
           {newNumbers.map((number, index) => {
             return (
-              <input
-                key={index}
-                type="text"
-                className="newNumber"
-                placeholder="Add a new Phone Number"
-                value={number}
-                onChange={(ev) => {
-                  const updatedNumbers = [...newNumbers];
-                  updatedNumbers[index] = ev.target.value;
-                  setNewNumbers(updatedNumbers);
-                }}
-              ></input>
+              <div key={index} className="newNumberContainer">
+                <input
+                  type="text"
+                  className="newNumber"
+                  placeholder="Add a new Phone Number"
+                  value={number}
+                  onChange={(ev) => {
+                    const updatedNumbers = [...newNumbers];
+                    updatedNumbers[index] = ev.target.value;
+                    setNewNumbers(updatedNumbers);
+                  }}
+                />
+                <button
+                  className="deleteButton"
+                  onClick={() => handleDeleteNumber(index)}
+                >
+                  -
+                </button>
+              </div>
             );
           })}
+
           <input
             type="text"
             className="newNumber"
@@ -165,6 +179,7 @@ const UserProfileContainer = () => {
             value={newNumber}
             onChange={(ev) => setNewNumber(ev.target.value)}
           />
+
           <button
             className="addbutton"
             type="button"
@@ -173,7 +188,11 @@ const UserProfileContainer = () => {
             +
           </button>
           <Box className="endbuttons">
-            <button className="cancelbutton" type="button" onClick={handleCancel}>
+            <button
+              className="cancelbutton"
+              type="button"
+              onClick={handleCancel}
+            >
               Cancel
             </button>
             <button className="savechanges" type="submit">
