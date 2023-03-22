@@ -2,15 +2,18 @@ import React from "react";
 import { Box, Button } from "@mui/material";
 import { AiFillCloseCircle } from "react-icons/ai";
 
-const CloseButton = (props: { modalCloseHandler: Function }) => {
+const CloseButton = () => {
   return (
     <Button
       sx={{
-        marginTop: 1
+        mt: "37px",
+        ml: "5px",
+        padding: 0,
+        // boxShadow: "3px 6px 7px rgba(0, 0, 0, 0.25)",
       }}
       onClick={() => {
-        alert("clicked");
-        // show History overlay when button clicked
+        // redirect back to Tasks page when clicked
+        window.location.href = "/tasks";
       }}
     >
         <AiFillCloseCircle style={{ color: "#2E5CD3" }} size="29"></AiFillCloseCircle>

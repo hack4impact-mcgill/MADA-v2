@@ -20,17 +20,17 @@ const TasksContainer = () => {
     month: "short",
     year: "numeric",
   }));
-  const [isModalOpen, setIsModalOpen] = useState(false); // for history container modal
+  // const [isModalOpen, setIsModalOpen] = useState(false); // for history container modal
 
-  const modalCloseHandler = () => {
-    setIsModalOpen(false);
-    console.log("history modal closed");
-  };
+  // const modalCloseHandler = () => {
+  //   setIsModalOpen(false);
+  //   console.log("history modal closed");
+  // };
 
-  const modalOpenHandler = () => {
-    setIsModalOpen(true);
-    console.log("history modal opened");
-  };
+  // const modalOpenHandler = () => {
+  //   setIsModalOpen(true);
+  //   console.log("history modal opened");
+  // };
 
   // this function will be passed down using props
   const dateFilterUpdateHandler = (date: string) => {
@@ -72,14 +72,14 @@ const TasksContainer = () => {
           completionFilter={completionFilter}
         />
       </TaskProvider>
-      <Modal
+      {/* <Modal
          open={isModalOpen}
          onClose={modalCloseHandler}
         //  aria-labelledby="modal-modal-title"
         //  aria-describedby="modal-modal-description"
        >
          <HistoryContainer modalCloseHandler={modalCloseHandler}/>
-       </Modal>
+       </Modal> */}
     </div>
   );
 };

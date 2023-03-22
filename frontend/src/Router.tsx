@@ -15,7 +15,7 @@ const RouterComponent=()=>{
           <Route path="/today" element={<TodayContainer/>} />
           <Route path="/" element={<LoginContainer />} />
           <Route path="/profile" element={<UserProfileContainer/>}/>
-          {/* <Route path="/history" element={<HistoryContainer/>}/> */}
+          <Route path="/history" element={<HistoryContainer/>}/>
           <Route path="/tasks" element={<TasksContainer/>}/>
           <Route path="/availabilities" element={<AvailabilitiesContainer/>}/>
         </Routes>
