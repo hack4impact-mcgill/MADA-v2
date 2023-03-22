@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
-import CloseButton from "../Components/myTasks/myHistory/CloseButton";
+import CloseButton from "../Components/MyTasks/myHistory/CloseButton";
 
 const HistoryContainer = (props: { modalCloseHandler: Function }) => {
   return (

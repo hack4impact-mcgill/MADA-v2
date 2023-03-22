@@ -5,8 +5,9 @@ import TopRectangle from "../Components/MyTasks/AvailabilitiesCheckIn/TopRectang
 import AvailabilitiesCheckIn from "../Components/MyTasks/AvailabilitiesCheckIn/AvailabilitiesCheckIn";
 import CheckInButton from "../Components/MyTasks/AvailabilitiesCheckIn/CheckInButton";
 import HistoryButtonContainer from "../Components/MyTasks/HistoryButton/HistoryButtonContainer";
+import HistoryContainer from "./HistoryContainer";
 import { TaskProvider } from "../Contexts/Tasks";
-import { Typography } from "@mui/material";
+import { Typography, Modal } from "@mui/material";
 import { useState } from "react";
 
 const TasksContainer = () => {
@@ -19,7 +20,7 @@ const TasksContainer = () => {
     month: "short",
     year: "numeric",
   }));
-  const [isModalOpen, setIsModalOpen] = useState(true); // for history container modal
+  const [isModalOpen, setIsModalOpen] = useState(false); // for history container modal
 
   const modalCloseHandler = () => {
     setIsModalOpen(false);
