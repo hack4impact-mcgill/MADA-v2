@@ -9,6 +9,7 @@ import {
   AccordionDetails,
   Typography,
   Switch,
+  Button,
 } from "@mui/material";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -17,6 +18,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 import { MdDeleteOutline, MdExpandMore } from "react-icons/md";
 import { IoIosAddCircleOutline } from "react-icons/io";
+import './Availabilities.css'
 
 type TimePickerAccordionProps = {
   dayOfWeek: string;
@@ -136,6 +138,7 @@ const MarkAvailability = () => {
         setShouldRender(false);
       }
     }, [shouldRender]);
+    
     // contains a pair of time pickers, and the icons associated to them
     const TimeRange = ({ index }: { index: number }) => {
       const [startTime, setStartTime] = React.useState<Dayjs | null>(
@@ -147,7 +150,14 @@ const MarkAvailability = () => {
 
       return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+          {endTime?.isBefore(startTime) &&    
+            <Typography
+              sx={{ font: "Poppins", color: "#f55442", fontSize: "0.8rem", fontWeight: "400" }}
+            >
+              Start time must be before end time
+            </Typography>
+          }
+          <Box sx={{ display: "flex", alignItems: "center", gap: 2}}>
             <TimePicker
               label="Start time"
               value={startTime}
@@ -176,6 +186,7 @@ const MarkAvailability = () => {
             <MdDeleteOutline
               size="40"
               cursor="pointer"
+              color="#ed4040"
               onClick={() => {
                 var tmp: TimeRange[] = GetTimes(dayOfWeek);
                 if (tmp.length == 1) {
@@ -194,6 +205,7 @@ const MarkAvailability = () => {
             <IoIosAddCircleOutline
               size="40"
               cursor="pointer"
+              color="#1976d2"
               visibility={
                 index == GetTimes(dayOfWeek).length - 1 ? "visible" : "hidden"
               }
@@ -208,15 +220,10 @@ const MarkAvailability = () => {
               }}
             />
           
-          {endTime?.isBefore(startTime) &&    
-            <Typography
-              sx={{ font: "Poppins", color: "#f55442", fontWeight: "400" }}
-            >
-              Start time must be before end time
-            </Typography>
-          }
+       
 
-          </Box>
+          </Box>  
+           
         </LocalizationProvider>
       );
     };
@@ -281,7 +288,17 @@ const MarkAvailability = () => {
 
     return (
       <>
-        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+         <div className="date-error">
+            {endDate?.isBefore(startDate) &&
+            <Typography
+              sx={{ font: "Poppins", color: "#f55442", fontSize:"0.8rem", fontWeight: "400", pl:2, pr:2 }}
+            >
+              Start date must be before end date.
+            </Typography>
+          }
+        </div>
+
+        <Box sx={{ display: "flex", justifyContent: "space-between", mt: "10%", mb:"10%"}}>
           <DatePicker
             label="Start Date"
             value={startDate}
@@ -290,13 +307,8 @@ const MarkAvailability = () => {
             }}
             renderInput={(params) => <TextField {...params} />}
           />
-         {endDate?.isBefore(startDate) &&
-            <Typography
-              sx={{ font: "Poppins", color: "#f55442", fontWeight: "400", pl:2, pr:2 }}
-            >
-              Start date must be before end date.
-            </Typography>
-          }
+         
+          <div className="end-date">
           <DatePicker
             label="End Date"
             value={endDate}
@@ -304,19 +316,35 @@ const MarkAvailability = () => {
               setEndDate(newValue);             
             }}
             renderInput={(params) => <TextField {...params} />}
-          />           
+          />     
+          </div>      
         </Box>
       </>
     );
   };
+
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DateRangerPicker></DateRangerPicker>
-      {/* iterate through list of days of week and create accordion for each day */}
-      {daysOfWeek.map((day) => {
-        return <TimePickerAccordion dayOfWeek={day} />;
-      })}
-    </LocalizationProvider>
+    <Box className='center'>
+      <Typography
+        sx={{ font: "Poppins", color: "#666666", fontWeight: "600", textAlign:"center", fontSize:"1.5rem", mt:"10%" }}
+      >
+        Availability
+      </Typography>
+
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <DateRangerPicker></DateRangerPicker>
+        {/* iterate through list of days of week and create accordion for each day */}
+        {daysOfWeek.map((day) => {
+          return <TimePickerAccordion dayOfWeek={day} />;
+        })}
+      </LocalizationProvider>
+      
+      <Box display="flex" justifyContent="center" mt="10%">
+        <Button sx={{ backgroundColor: "#33BE41", width: "30%" }} variant="contained">
+          Save
+      </Button>
+      </Box>
+    </Box>
   );
 };
 
