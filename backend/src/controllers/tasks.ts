@@ -23,6 +23,15 @@ export default class TaskController {
       : response.status(StatusCode.BAD_REQUEST).json({ task: null });
   };
 
+  getTasks = async (request: Request, response: Response) => {
+    const task = await this.TaskRepository.find({
+      relations: {
+        deliveries: true
+      }
+    });
+    response.status(StatusCode.OK).json({ tasks: task });
+  };
+
   createTask = async (request: Request, response: Response) => {
     const newTask = new TaskEntity();
     newTask.deliveryTime = new Date(request.body.date);
