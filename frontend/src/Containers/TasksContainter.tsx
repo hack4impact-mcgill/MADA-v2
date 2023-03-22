@@ -1,14 +1,13 @@
 import React from "react";
-import DeliveriesContainer from "../Components/myTasks/DeliveriesContainer";
-import FiltersContainer from "../Components/myTasks/FiltersContainer";
-import TopRectangle from "../Components/myTasks/AvailabilitiesCheckIn/TopRectangle";
-import AvailabilitiesCheckIn from "../Components/myTasks/AvailabilitiesCheckIn/AvailabilitiesCheckIn";
-import CheckInButton from "../Components/myTasks/AvailabilitiesCheckIn/CheckInButton";
-import HistoryButtonContainer from "../Components/myTasks/HistoryButton/HistoryButtonContainer";
-import { TaskProvider } from "../contexts/Tasks";
-import { Box, Typography, Modal } from "@mui/material";
-import HistoryContainer from "./HistoryContainer";
- import { useState } from "react";
+import DeliveriesContainer from "../Components/MyTasks/DeliveriesContainer";
+import FiltersContainer from "../Components/MyTasks/FiltersContainer";
+import TopRectangle from "../Components/MyTasks/AvailabilitiesCheckIn/TopRectangle";
+import AvailabilitiesCheckIn from "../Components/MyTasks/AvailabilitiesCheckIn/AvailabilitiesCheckIn";
+import CheckInButton from "../Components/MyTasks/AvailabilitiesCheckIn/CheckInButton";
+import HistoryButtonContainer from "../Components/MyTasks/HistoryButton/HistoryButtonContainer";
+import { TaskProvider } from "../Contexts/Tasks";
+import { Typography } from "@mui/material";
+import { useState } from "react";
 
 const TasksContainer = () => {
   // dateFilter and completionFilter state will be used to filter tasks. Current date is used to initialize dateFilter.
@@ -36,13 +35,13 @@ const TasksContainer = () => {
   const dateFilterUpdateHandler = (date: string) => {
     setDateFilter(date); // update dateFilter
     console.log("dateFilter updated!", date);
-  }
+  };
 
   // this function will be passed down using props
   const completionFilterUpdateHandler = (completionType: string) => {
     setCompletionFilter(completionType); // update completionFilter
     console.log("completionFilter updated!", completionType);
-  }
+  };
 
   return (
     <div className="tasks-container">
@@ -63,8 +62,14 @@ const TasksContainer = () => {
         >
           My Deliveries
         </Typography>
-        <FiltersContainer updateDateFilter={dateFilterUpdateHandler} updateCompletionFilter={completionFilterUpdateHandler}/>
-        <DeliveriesContainer dateFilter={dateFilter} completionFilter={completionFilter} />
+        <FiltersContainer
+          updateDateFilter={dateFilterUpdateHandler}
+          updateCompletionFilter={completionFilterUpdateHandler}
+        />
+        <DeliveriesContainer
+          dateFilter={dateFilter}
+          completionFilter={completionFilter}
+        />
       </TaskProvider>
       <Modal
          open={isModalOpen}

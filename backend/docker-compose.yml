@@ -3,9 +3,9 @@ services:
   postgres:
     image: 'postgres'
     ports:
-      - '5433:5433'
+      - '5432:5432'
     environment:
       POSTGRES_USER: 'test'
       POSTGRES_PASSWORD: 'test'
       POSTGRES_DB: 'test'
-    command: -p 5433
+    command: -p 5432
