@@ -10,9 +10,6 @@ export default function App() {
     <div>
       <Header />
       <RouterComponent />
-      <div className="navBar">
-        <NavBar />
-      </div>
     </div>
   );
 }

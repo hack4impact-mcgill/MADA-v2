@@ -6,11 +6,16 @@ import LoginContainer from './Containers/LoginContainer';
 import TasksContainer from './Containers/TasksContainter';
 import TodayContainer from './Containers/TodayContainer';
 import UserProfileContainer from './Containers/UserProfileContainer';
+import NavBar from './Components/NavBar/NavBar';
 
 
 const RouterComponent=()=>{
     return(
         <BrowserRouter>
+        <div>
+          {
+            location.pathname !== "/" && <NavBar/>
+          }
         <Routes>
           <Route path="/today" element={<TodayContainer/>} />
           <Route path="/" element={<LoginContainer />} />
@@ -19,6 +24,7 @@ const RouterComponent=()=>{
           <Route path="/tasks" element={<TasksContainer/>}/>
           <Route path="/availabilities" element={<AvailabilitiesContainer/>}/>
         </Routes>
+        </div>
       </BrowserRouter>
     )
 }
