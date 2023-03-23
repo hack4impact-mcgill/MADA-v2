@@ -7,6 +7,7 @@ import UsernameTextField from "./UsernameTextField";
 import PasswordTextField from "./PasswordTextField";
 import SignInButton from "./SignInButton";
 import ForgotPasswordButton from "./ForgotPasswordButton";
+import MADALogo from "./MADALogo";
 
 const LogInForm = () => {
   const [state, dispatch] = useReducer(Reducer, initialState);
@@ -83,6 +84,9 @@ const LogInForm = () => {
           </Stack>
         </form>
         <ForgotPasswordButton/>
+        <Box display="flex" justifyContent="center">
+              <MADALogo/>
+        </Box>
       </Stack>
     </Box>
   );

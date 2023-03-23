@@ -11,7 +11,6 @@ import {
   } from "@mui/material";
   
   const RememberMeSwitch = (props: {
-    //updateRememberMeSwitch: Function;
     updateRememberMeSwitch: (e: React.ChangeEvent<HTMLInputElement>) => void;
     isRememberMeChecked: boolean;
   }) => {
