@@ -10,6 +10,9 @@ import {
   Typography,
   Switch,
   Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
 } from "@mui/material";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -129,6 +132,8 @@ const MarkAvailability = () => {
     }
   }
 
+  const [timeError, setTimeError] = React.useState<boolean>(false);
+  
   // pass in day of week as prop, containing the accordion associated to that day
   const TimePickerAccordion = ({ dayOfWeek }: TimePickerAccordionProps) => {
     const [shouldRender, setShouldRender] = React.useState<boolean>(false);
@@ -164,7 +169,11 @@ const MarkAvailability = () => {
               onChange={(startTime) => {
                 var tmp: TimeRange[] = GetTimes(dayOfWeek);
                 tmp[index].startTime = startTime;
-
+                if(endTime?.isBefore(startTime)) {
+                  setTimeError(true);
+                } else {
+                  setTimeError(false);
+                }
                 setTimes(dayOfWeek, tmp);
                 setStartTime(startTime);               
               }}
@@ -176,7 +185,11 @@ const MarkAvailability = () => {
               onChange={(endTime) => {
                 var tmp: TimeRange[] = GetTimes(dayOfWeek);
                 tmp[index].endTime = endTime;
-
+                if(endTime?.isBefore(startTime)) {
+                  setTimeError(true);
+                } else {
+                  setTimeError(false);
+                }
                 setTimes(dayOfWeek, tmp);
                 setEndTime(endTime);
               }}
@@ -219,9 +232,6 @@ const MarkAvailability = () => {
                 setShouldRender(true);
               }}
             />
-          
-       
-
           </Box>  
            
         </LocalizationProvider>
@@ -303,6 +313,11 @@ const MarkAvailability = () => {
             label="Start Date"
             value={startDate}
             onChange={(newValue) => {
+              if(endDate?.isBefore(newValue)) {
+                setTimeError(true);
+              } else {
+                setTimeError(false);
+              }
               setStartDate(newValue);
             }}
             renderInput={(params) => <TextField {...params} />}
@@ -313,6 +328,11 @@ const MarkAvailability = () => {
             label="End Date"
             value={endDate}
             onChange={(newValue) => {
+              if(newValue?.isBefore(startDate)) {
+                setTimeError(true);
+              } else {
+                setTimeError(false);
+              }
               setEndDate(newValue);             
             }}
             renderInput={(params) => <TextField {...params} />}
@@ -321,6 +341,17 @@ const MarkAvailability = () => {
         </Box>
       </>
     );
+  };
+ const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    if(timeError){
+      setOpen(true);
+    }
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   return (
@@ -340,10 +371,29 @@ const MarkAvailability = () => {
       </LocalizationProvider>
       
       <Box display="flex" justifyContent="center" mt="10%">
-        <Button sx={{ backgroundColor: "#33BE41", width: "30%" }} variant="contained">
+        <Button sx={{ backgroundColor: "#33BE41", width: "30%" }} variant="contained" onClick={handleClickOpen}>
           Save
-      </Button>
+        </Button>
       </Box>
+          
+      <div>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+        > 
+          <DialogContent>
+            <Typography
+              sx={{ font: "Poppins", color: "#666666", fontWeight: "600", textAlign:"center", fontSize:"1.5rem", mt:"10%" }}
+            >
+              Unable to save. Start times must be before end times.
+            </Typography>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose}>Ok</Button>
+          </DialogActions>
+        </Dialog>
+      </div>
+        
     </Box>
   );
 };
