@@ -1,7 +1,6 @@
 import React from "react";
 import { Container, Typography, Stack } from "@mui/material";
 import LogInForm from "../Components/LogIn/LogInForm";
-import MADALogo from "../Components/LogIn/MADALogo";
 
 const LoginContainer = () => {
   return (
@@ -20,6 +19,7 @@ const LoginContainer = () => {
               fontStyle: "Bold",
               fill: "solid",
               pt: 10,
+              paddingTop: "35%"
             }}
           >
             {" "}
