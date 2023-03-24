@@ -18,7 +18,7 @@ const PasswordTextField = (props: {
         fontStyle: "normal",
         fontWeight: "400",
         fontSize: "17px",
-        width: "75%",
+        width: "90%"
       }}
       required={true}
       endAdornment={

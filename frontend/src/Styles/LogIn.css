@@ -7,3 +7,10 @@ img {
 .navBar {
     padding-bottom: 10%;
 }
+
+.envelopeIcon {
+    font-size: 100px;
+    color: #FB4B4B;
+    align-items: center;
+    padding-top: 40%;
+}

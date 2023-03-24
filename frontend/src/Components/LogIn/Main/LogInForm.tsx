@@ -1,13 +1,13 @@
 import React, { useReducer, ChangeEvent } from "react";
-import { initialState } from "../../Contexts/LogIn";
-import Reducer from "../../Contexts/LogIn";
-import { Stack, Box, Button } from "@mui/material";
+import { initialState } from "../../../Contexts/LogIn";
+import Reducer from "../../../Contexts/LogIn";
+import { Stack, Box } from "@mui/material";
 import RememberMeSwitch from "./RememberMeSwitch";
-import UsernameTextField from "./UsernameTextField";
+import UsernameTextField from "../UsernameTextField";
 import PasswordTextField from "./PasswordTextField";
 import SignInButton from "./SignInButton";
 import ForgotPasswordButton from "./ForgotPasswordButton";
-import MADALogo from "./MADALogo";
+import MADALogo from "../MADALogo";
 
 const LogInForm = () => {
   const [state, dispatch] = useReducer(Reducer, initialState);
@@ -60,6 +60,7 @@ const LogInForm = () => {
           <Stack spacing={5}>
             <Box display="flex" align-items="center" justifyContent="center">
               <UsernameTextField
+                placeHolder="Username or Email"
                 updateUsername={handleUsernameChange}
                 username={username}
               />

@@ -1,8 +1,7 @@
 import { Button } from "@mui/material";
 
 const handleClickForgotPassword = async () => {
-    //TODO when page is created for forgot password
-    console.log("forgot password");
+    window.location.href = "/password";
 };
 
 const ForgotPasswordButton = () => {
