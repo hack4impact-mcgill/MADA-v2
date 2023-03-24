@@ -21,7 +21,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 import { MdDeleteOutline, MdExpandMore } from "react-icons/md";
 import { IoIosAddCircleOutline } from "react-icons/io";
-import './Availabilities.css'
+import "./Availabilities.css";
 
 type TimePickerAccordionProps = {
   dayOfWeek: string;
@@ -132,8 +132,7 @@ const MarkAvailability = () => {
     }
   }
 
-  const [timeError, setTimeError] = React.useState<boolean>(false);
-  
+  var timeError = false;
   // pass in day of week as prop, containing the accordion associated to that day
   const TimePickerAccordion = ({ dayOfWeek }: TimePickerAccordionProps) => {
     const [shouldRender, setShouldRender] = React.useState<boolean>(false);
@@ -143,7 +142,7 @@ const MarkAvailability = () => {
         setShouldRender(false);
       }
     }, [shouldRender]);
-    
+
     // contains a pair of time pickers, and the icons associated to them
     const TimeRange = ({ index }: { index: number }) => {
       const [startTime, setStartTime] = React.useState<Dayjs | null>(
@@ -155,27 +154,32 @@ const MarkAvailability = () => {
 
       return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-          {endTime?.isBefore(startTime) &&    
+          {endTime?.isBefore(startTime) && (
             <Typography
-              sx={{ font: "Poppins", color: "#f55442", fontSize: "0.8rem", fontWeight: "400" }}
+              sx={{
+                font: "Poppins",
+                color: "#f55442",
+                fontSize: "0.8rem",
+                fontWeight: "400",
+              }}
             >
               Start time must be before end time
             </Typography>
-          }
-          <Box sx={{ display: "flex", alignItems: "center", gap: 2}}>
+          )}
+          <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
             <TimePicker
               label="Start time"
               value={startTime}
               onChange={(startTime) => {
                 var tmp: TimeRange[] = GetTimes(dayOfWeek);
                 tmp[index].startTime = startTime;
-                if(endTime?.isBefore(startTime)) {
-                  setTimeError(true);
+                if (endTime?.isBefore(startTime)) {
+                  timeError = true;
                 } else {
-                  setTimeError(false);
+                  timeError = false;
                 }
                 setTimes(dayOfWeek, tmp);
-                setStartTime(startTime);               
+                setStartTime(startTime);
               }}
               renderInput={(params) => <TextField {...params} />}
             />
@@ -185,10 +189,10 @@ const MarkAvailability = () => {
               onChange={(endTime) => {
                 var tmp: TimeRange[] = GetTimes(dayOfWeek);
                 tmp[index].endTime = endTime;
-                if(endTime?.isBefore(startTime)) {
-                  setTimeError(true);
+                if (endTime?.isBefore(startTime)) {
+                  timeError = true;
                 } else {
-                  setTimeError(false);
+                  timeError = false;
                 }
                 setTimes(dayOfWeek, tmp);
                 setEndTime(endTime);
@@ -232,8 +236,7 @@ const MarkAvailability = () => {
                 setShouldRender(true);
               }}
             />
-          </Box>  
-           
+          </Box>
         </LocalizationProvider>
       );
     };
@@ -245,7 +248,7 @@ const MarkAvailability = () => {
       event: React.ChangeEvent<HTMLInputElement>
     ) => {
       setDisabled(!event.target.checked);
-       if (!event.target.checked) setExpanded(false);
+      if (!event.target.checked) setExpanded(false);
     };
 
     const handleChange = (event: React.SyntheticEvent, isExpanded: boolean) => {
@@ -298,54 +301,68 @@ const MarkAvailability = () => {
 
     return (
       <>
-         <div className="date-error">
-            {endDate?.isBefore(startDate) &&
+        <div className="date-error">
+          {endDate?.isBefore(startDate) && (
             <Typography
-              sx={{ font: "Poppins", color: "#f55442", fontSize:"0.8rem", fontWeight: "400", pl:2, pr:2 }}
+              sx={{
+                font: "Poppins",
+                color: "#f55442",
+                fontSize: "0.8rem",
+                fontWeight: "400",
+                pl: 2,
+                pr: 2,
+              }}
             >
               Start date must be before end date.
             </Typography>
-          }
+          )}
         </div>
 
-        <Box sx={{ display: "flex", justifyContent: "space-between", mt: "10%", mb:"10%"}}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            mt: "10%",
+            mb: "10%",
+          }}
+        >
           <DatePicker
             label="Start Date"
             value={startDate}
             onChange={(newValue) => {
-              if(endDate?.isBefore(newValue)) {
-                setTimeError(true);
+              if (endDate?.isBefore(newValue)) {
+                timeError = true;
               } else {
-                setTimeError(false);
+                timeError = false;
               }
               setStartDate(newValue);
             }}
             renderInput={(params) => <TextField {...params} />}
           />
-         
+
           <div className="end-date">
-          <DatePicker
-            label="End Date"
-            value={endDate}
-            onChange={(newValue) => {
-              if(newValue?.isBefore(startDate)) {
-                setTimeError(true);
-              } else {
-                setTimeError(false);
-              }
-              setEndDate(newValue);             
-            }}
-            renderInput={(params) => <TextField {...params} />}
-          />     
-          </div>      
+            <DatePicker
+              label="End Date"
+              value={endDate}
+              onChange={(newValue) => {
+                if (newValue?.isBefore(startDate)) {
+                  timeError = true;
+                } else {
+                  timeError = false;
+                }
+                setEndDate(newValue);
+              }}
+              renderInput={(params) => <TextField {...params} />}
+            />
+          </div>
         </Box>
       </>
     );
   };
- const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
-    if(timeError){
+    if (timeError) {
       setOpen(true);
     }
   };
@@ -355,9 +372,16 @@ const MarkAvailability = () => {
   };
 
   return (
-    <Box className='center'>
+    <Box className="center">
       <Typography
-        sx={{ font: "Poppins", color: "#666666", fontWeight: "600", textAlign:"center", fontSize:"1.5rem", mt:"10%" }}
+        sx={{
+          font: "Poppins",
+          color: "#666666",
+          fontWeight: "600",
+          textAlign: "center",
+          fontSize: "1.5rem",
+          mt: "10%",
+        }}
       >
         Availability
       </Typography>
@@ -369,21 +393,29 @@ const MarkAvailability = () => {
           return <TimePickerAccordion dayOfWeek={day} />;
         })}
       </LocalizationProvider>
-      
+
       <Box display="flex" justifyContent="center" mt="10%">
-        <Button sx={{ backgroundColor: "#33BE41", width: "30%" }} variant="contained" onClick={handleClickOpen}>
+        <Button
+          sx={{ backgroundColor: "#33BE41", width: "30%" }}
+          variant="contained"
+          onClick={handleClickOpen}
+        >
           Save
         </Button>
       </Box>
-          
+
       <div>
-        <Dialog
-          open={open}
-          onClose={handleClose}
-        > 
+        <Dialog open={open} onClose={handleClose}>
           <DialogContent>
             <Typography
-              sx={{ font: "Poppins", color: "#666666", fontWeight: "600", textAlign:"center", fontSize:"1.5rem", mt:"10%" }}
+              sx={{
+                font: "Poppins",
+                color: "#666666",
+                fontWeight: "600",
+                textAlign: "center",
+                fontSize: "1.5rem",
+                mt: "10%",
+              }}
             >
               Unable to save. Start times must be before end times.
             </Typography>
@@ -393,7 +425,6 @@ const MarkAvailability = () => {
           </DialogActions>
         </Dialog>
       </div>
-        
     </Box>
   );
 };
