@@ -52,6 +52,8 @@ const ForgotPasswordForm = () => {
             </Box>
             <Box display="flex" align-items="center" justifyContent="center">
               <UsernameTextField
+                errorText="" //TODO error text from backend if wrong username/password
+                helperText="Email not found. Please try again"
                 placeHolder="Enter your email"
                 updateUsername={handleUsernameChange}
                 username={username}

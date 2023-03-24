@@ -14,3 +14,7 @@ img {
     align-items: center;
     padding-top: 40%;
 }
+
+.MuiFormHelperText-root {
+    margin-left: 0px !important;
+}

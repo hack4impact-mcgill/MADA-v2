@@ -60,6 +60,8 @@ const LogInForm = () => {
           <Stack spacing={5}>
             <Box display="flex" align-items="center" justifyContent="center">
               <UsernameTextField
+                errorText="" //TODO error text from backend if wrong username/password
+                helperText="Incorrect username or password. Please try again."
                 placeHolder="Username or Email"
                 updateUsername={handleUsernameChange}
                 username={username}
@@ -67,6 +69,7 @@ const LogInForm = () => {
             </Box>
             <Box display="flex" align-items="center" justifyContent="center">
               <PasswordTextField
+                errorText="" //TODO error text from backend if wrong username/password
                 updatePassword={handlePasswordChange}
                 password={password}
                 handleClickShowPassword={handleClickShowPassword}

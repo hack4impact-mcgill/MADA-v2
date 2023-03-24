@@ -2,6 +2,7 @@ import { Input, InputAdornment, IconButton } from "@mui/material";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 
 const PasswordTextField = (props: {
+  errorText: string;
   updatePassword: (e: React.ChangeEvent<HTMLInputElement>) => void;
   password: string;
   handleClickShowPassword: () => void;
@@ -10,6 +11,7 @@ const PasswordTextField = (props: {
   return (
     <Input
       placeholder="Password"
+      error ={props.errorText.length === 0 ? false : true }
       type={props.showPassword ? "text" : "password"}
       onChange={props.updatePassword}
       value={props.password}
