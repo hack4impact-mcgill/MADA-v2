@@ -23,7 +23,7 @@ const ForgotPasswordForm = () => {
     e.preventDefault();
     console.log("continue");
     console.log(username);
-    //TODO backend that sends email to user with password and username 
+    //TODO backend that sends email to user with password and username
     window.location.href = "/";
   };
 
@@ -43,7 +43,7 @@ const ForgotPasswordForm = () => {
                   fontSize: "13px",
                   lineHeight: "20px",
                   fontStyle: "normal",
-                  paddingLeft: "10px"
+                  paddingLeft: "10px",
                 }}
               >
                 {" "}
@@ -59,14 +59,14 @@ const ForgotPasswordForm = () => {
                 username={username}
               />
             </Box>
-            <Box display="flex" align-items="center" flexDirection="column" >
+            <Box display="flex" align-items="center" flexDirection="column">
               <ContinueButton />
               <CancelButton />
             </Box>
           </Stack>
         </form>
         <Box display="flex" justifyContent="center">
-              <MADALogo/>
+          <MADALogo />
         </Box>
       </Stack>
     </Box>

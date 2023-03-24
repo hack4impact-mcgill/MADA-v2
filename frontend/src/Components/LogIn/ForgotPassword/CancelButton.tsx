@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 
 const handleClickCancel = async () => {
   window.location.href = "/";
-}
+};
 
 const CancelButton = () => {
   return (
@@ -19,9 +19,9 @@ const CancelButton = () => {
         borderRadius: "5px",
         height: "60px",
         width: "90%",
-        marginTop: "5%", 
+        marginTop: "5%",
         marginLeft: "5%",
-        marginRight: "5%"
+        marginRight: "5%",
       }}
       onClick={handleClickCancel}
     >

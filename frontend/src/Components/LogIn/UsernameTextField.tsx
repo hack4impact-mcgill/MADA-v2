@@ -1,10 +1,4 @@
-import {
-  Input,
-  Box,
-  FormHelperText,
-  FormControl,
-  Stack,
-} from "@mui/material";
+import { Input, Box, FormHelperText, FormControl, Stack } from "@mui/material";
 import "../../Styles/LogIn.css";
 
 const setHelperText = (errorText: string, helperText: string) => {

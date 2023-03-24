@@ -83,13 +83,13 @@ const LogInForm = () => {
               />
             </Box>
             <Box display="flex" justifyContent="center">
-              <SignInButton/>
+              <SignInButton />
             </Box>
           </Stack>
         </form>
-        <ForgotPasswordButton/>
+        <ForgotPasswordButton />
         <Box display="flex" justifyContent="center">
-              <MADALogo/>
+          <MADALogo />
         </Box>
       </Stack>
     </Box>

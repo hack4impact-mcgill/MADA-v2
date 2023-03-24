@@ -1,6 +1,5 @@
 import React, { useReducer } from "react";
 
-
 //state type
 type State = {
   username: string;

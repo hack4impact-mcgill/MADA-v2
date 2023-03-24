@@ -11,7 +11,7 @@ const PasswordTextField = (props: {
   return (
     <Input
       placeholder="Password"
-      error ={props.errorText.length === 0 ? false : true }
+      error={props.errorText.length === 0 ? false : true}
       type={props.showPassword ? "text" : "password"}
       onChange={props.updatePassword}
       value={props.password}
@@ -20,7 +20,7 @@ const PasswordTextField = (props: {
         fontStyle: "normal",
         fontWeight: "400",
         fontSize: "17px",
-        width: "90%"
+        width: "90%",
       }}
       required={true}
       endAdornment={

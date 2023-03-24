@@ -15,7 +15,7 @@ const ContinueButton = () => {
         backgroundColor: "#2E5CD3",
         borderRadius: "5px",
         height: "60px",
-        width: "90%", 
+        width: "90%",
         marginLeft: "5%",
         marginRight: "5%",
       }}
