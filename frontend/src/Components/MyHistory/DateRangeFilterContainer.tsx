@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
-import DateRangeFilter from "./DateRangeFilter";
+import DateRangeFilter from "./DateRangeSelectButton";
 
 const DateRangeFilterContainer = (props: { openModal : Function }) => {
   return (

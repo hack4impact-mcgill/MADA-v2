@@ -48,9 +48,8 @@ const DateRangeSelectButton = (props: { openModal : Function }) => {
         borderRadius: "10px",
       }}
     >
-      {/* // MAKE Button */}
       <Button sx={{ color: "#666666", width: "100%" }} onClick={() => {
-        // close date range select modal
+        // open date range select modal when clicked
         props.openModal();
       }}>
         select date range

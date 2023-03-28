@@ -7,12 +7,15 @@ import CloseButton from "../Components/MyHistory/CloseButton";
 import DateRangeFilterContainer from "../Components/MyHistory/DateRangeFilterContainer";
 import HistoryTasksContainer from "../Components/MyHistory/HistoryTasksContainer";
 import ModalCloseButton from "../Components/MyHistory/ModalCloseButton";
+import StartDateCalendar from "../Components/MyHistory/ModalCalendars/StartDateCalendar";
+import EndDateCalendar from "../Components/MyHistory/ModalCalendars/EndDateCalendar";
 
 
 const HistoryContainer = () => {
   const [startDate, setStartDate] = useState<Date | null>(new Date("12 March 2023")); // dummy dates for now
-  const [endDate, setEndDate] = useState(new Date());
+  const [endDate, setEndDate] = useState<Date | null>(new Date());
   const [isModalOpen, setIsModalOpen] = useState(false); // for date select modal
+  const [isSelectingStartDate, setIsSelectingStartDate] = useState(true); // to display different modal calendars, for choosing start date and end date.
 
   const modalCloseHandler = () => {
     setIsModalOpen(false);
@@ -27,6 +30,15 @@ const HistoryContainer = () => {
   const startDateChangeHandler = (newStartDate : Date | null) => {
     setStartDate(newStartDate);
     console.log("start date changed");
+  }
+
+  const endDateChangeHandler = (newEndDate : Date | null) => {
+    setEndDate(newEndDate);
+    console.log("end date changed");
+  }
+
+  const updateIsSelectingStartDate = (isStartCalendar : boolean) => {
+    setIsSelectingStartDate(isStartCalendar); // needed to display end date selecting modal calendar
   }
 
   return (
@@ -60,17 +72,7 @@ const HistoryContainer = () => {
             {/* <HistoryContainer modalCloseHandler={modalCloseHandler}/> */}
             <Box sx={{ bgcolor: "white", width: "90%", borderRadius: "10px" }}>
               <ModalCloseButton closeModal={modalCloseHandler} />
-              <Typography
-                fontFamily={"Poppins"}
-                fontSize={"18px"}
-                sx={{ ml: "36.7px", mt: 2 }}
-              >
-                Choose Start Date
-              </Typography>
-              <DateCalendar onChange={startDateChangeHandler}/>
-              <Box sx={{display: "flex", justifyContent: "center", mb: 3}}>
-                <Button sx={{bgcolor: "#3A71FF", color: "white"}}>Choose End Date</Button>
-              </Box>
+              {isSelectingStartDate ? <StartDateCalendar selectStartDate={startDateChangeHandler} updateIsSelectingStartDate={updateIsSelectingStartDate}/> : <EndDateCalendar selectEndDate={endDateChangeHandler} updateIsSelectingStartDate={updateIsSelectingStartDate}/>}
             </Box>
           </Modal>
         )}
