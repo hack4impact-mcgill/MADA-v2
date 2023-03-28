@@ -11,10 +11,8 @@ import StartDateCalendar from "../Components/MyHistory/ModalCalendars/StartDateC
 import EndDateCalendar from "../Components/MyHistory/ModalCalendars/EndDateCalendar";
 
 const HistoryContainer = () => {
-  const [startDate, setStartDate] = useState<Date | null>(
-    new Date("12 March 2023")
-  ); // dummy dates for now
-  const [endDate, setEndDate] = useState<Date | null>(new Date());
+  const [startDate, setStartDate] = useState<Date | null>(null); // Initialize with null, so that user can select date range.
+  const [endDate, setEndDate] = useState<Date | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false); // for date select modal
   const [isSelectingStartDate, setIsSelectingStartDate] = useState(true); // to display different modal calendars, for choosing start date and end date.
 

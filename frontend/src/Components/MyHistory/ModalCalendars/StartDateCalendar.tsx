@@ -18,7 +18,7 @@ const StartDateCalendar = (props: {
         Choose Start Date
       </Typography>
       <DateCalendar
-        value={dayjs(props.startDate ? props.startDate : new Date())}
+        value={props.startDate ? dayjs(props.startDate) : null} // select no date if startDate is not selected at all.
         onChange={(newStartDate) => {
           // update state for start date
           props.selectStartDate(newStartDate);

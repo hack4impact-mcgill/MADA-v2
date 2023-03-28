@@ -147,7 +147,7 @@ const HistoryTasksContainer = (props: {
     const rangeOfDates = [];
 
     let followingDay = new Date(currentDate);
-    while (currentDate < endDate) {
+    while (currentDate <= endDate) {
       rangeOfDates.push(followingDay);
       date.setDate(date.getDate() + 1); // get next date
       followingDay = new Date(date);
@@ -168,9 +168,9 @@ const HistoryTasksContainer = (props: {
   return (
     <Box sx={{ ml: "14px", mr: "14px" }}>
       {/* when no proper date range is given, display help message. */}
-      {!props.startDate && !props.endDate ? (
+      {!props.startDate || !props.endDate ? (
         <Box sx={{ mt: 3, textAlign: "center" }}>
-          Please Select a Proper Date Range.
+          Please Select A Date Range To Filter Tasks.
         </Box>
       ) : null}
       {rangeOfDates.map((date: Date) => {

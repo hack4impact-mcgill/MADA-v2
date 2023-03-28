@@ -1,5 +1,4 @@
 import React from "react";
-import { useState } from "react";
 import { Box, Button, Typography } from "@mui/material";
 import { DateCalendar } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
@@ -19,8 +18,7 @@ const EndDateCalendar = (props: {
         Choose End Date
       </Typography>
       <DateCalendar
-        // defaultValue={props.endDate ? props.endDate : new Date()}
-        value={dayjs(props.endDate ? props.endDate : new Date())}
+        value={props.endDate ? dayjs(props.endDate) : null} // select no date if endDate is not selected at all.
         onChange={(newEndDate) => {
           // update state for end date
           props.selectEndDate(newEndDate);
