@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Typography } from "@mui/material";
 import DateRangeFilter from "./DateRangeFilter";
 
-const DateRangeFilterContainer = () => {
+const DateRangeFilterContainer = (props: { openModal : Function }) => {
   return (
     <Box sx={{
         display: "flex",
@@ -16,7 +16,7 @@ const DateRangeFilterContainer = () => {
         fontWeight: 600,
         mt: "23px"
       }}>My History</Typography>
-      <DateRangeFilter/>
+      <DateRangeFilter openModal={props.openModal}/>
     </Box>
   );
 };

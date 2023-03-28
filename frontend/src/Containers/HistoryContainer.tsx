@@ -1,16 +1,18 @@
 import React from "react";
+import { useState } from "react";
 import { Box, Typography, Modal, Button } from "@mui/material";
+import { LocalizationProvider, DateCalendar } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import CloseButton from "../Components/MyHistory/CloseButton";
 import DateRangeFilterContainer from "../Components/MyHistory/DateRangeFilterContainer";
 import HistoryTasksContainer from "../Components/MyHistory/HistoryTasksContainer";
-import { useState } from "react";
-import { LocalizationProvider, DateCalendar } from "@mui/x-date-pickers";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import ModalCloseButton from "../Components/MyHistory/ModalCloseButton";
+
 
 const HistoryContainer = () => {
   const [startDate, setStartDate] = useState<Date | null>(new Date("12 March 2023")); // dummy dates for now
   const [endDate, setEndDate] = useState(new Date());
-  const [isModalOpen, setIsModalOpen] = useState(true); // for date select modal
+  const [isModalOpen, setIsModalOpen] = useState(false); // for date select modal
 
   const modalCloseHandler = () => {
     setIsModalOpen(false);
@@ -40,7 +42,7 @@ const HistoryContainer = () => {
       {/* LocalizationProvider is required for DateCalendar MUI Component. */}
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <CloseButton />
-        <DateRangeFilterContainer />
+        <DateRangeFilterContainer openModal={modalOpenHandler}/>
         <HistoryTasksContainer startDate={startDate} endDate={endDate} />
         {isModalOpen && (
           <Modal
@@ -56,15 +58,19 @@ const HistoryContainer = () => {
             }}
           >
             {/* <HistoryContainer modalCloseHandler={modalCloseHandler}/> */}
-            <Box sx={{ bgcolor: "white", width: "45%", borderRadius: "10px" }}>
+            <Box sx={{ bgcolor: "white", width: "90%", borderRadius: "10px" }}>
+              <ModalCloseButton closeModal={modalCloseHandler} />
               <Typography
                 fontFamily={"Poppins"}
                 fontSize={"18px"}
-                sx={{ ml: "36.7px", mt: 4 }}
+                sx={{ ml: "36.7px", mt: 2 }}
               >
                 Choose Start Date
               </Typography>
               <DateCalendar onChange={startDateChangeHandler}/>
+              <Box sx={{display: "flex", justifyContent: "center", mb: 3}}>
+                <Button sx={{bgcolor: "#3A71FF", color: "white"}}>Choose End Date</Button>
+              </Box>
             </Box>
           </Modal>
         )}

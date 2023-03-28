@@ -5,7 +5,6 @@ import TopRectangle from "../Components/MyTasks/AvailabilitiesCheckIn/TopRectang
 import AvailabilitiesCheckIn from "../Components/MyTasks/AvailabilitiesCheckIn/AvailabilitiesCheckIn";
 import CheckInButton from "../Components/MyTasks/AvailabilitiesCheckIn/CheckInButton";
 import HistoryButtonContainer from "../Components/MyTasks/HistoryButton/HistoryButtonContainer";
-import HistoryContainer from "./HistoryContainer";
 import { TaskProvider } from "../Contexts/Tasks";
 import { Typography, Modal } from "@mui/material";
 import { useState } from "react";
