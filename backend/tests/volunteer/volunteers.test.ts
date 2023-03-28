@@ -59,7 +59,7 @@ describe('Volunteers tests', () => {
           name: 'name1',
           phoneNumber: 123,
           profilePicture: 'link to profile',
-          startDate: '2001-04-20T08:20:00.000Z',
+          startDate: date.toISOString(),
           username: 'username1'
         }
       ]
