@@ -2,14 +2,15 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 import { UserEntity } from './UserEntity';
 
-type DayOfWeek =
-  | 'Monday'
-  | 'Tuesday'
-  | 'Wednesday'
-  | 'Thursday'
-  | 'Friday'
-  | 'Saturday'
-  | 'Sunday';
+export enum DayOfWeek {
+  MONDAY = 'monday',
+  TUESDAY = 'tuesday',
+  WEDNESDAY = 'wednesday',
+  THURSDAY = 'thursday',
+  FRIDAY = 'friday',
+  SATURDAY = 'saturday',
+  SUNDAY = 'sunday'
+}
 
 @Entity()
 export class VolunteerEntity extends UserEntity {
@@ -20,7 +21,7 @@ export class VolunteerEntity extends UserEntity {
   phoneNumber: number;
 
   @Column()
-  startDate: string;
+  startDate: Date;
 
   @Column()
   profilePicture: string;
