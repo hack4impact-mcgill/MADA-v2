@@ -10,9 +10,10 @@ import ModalCloseButton from "../Components/MyHistory/ModalCloseButton";
 import StartDateCalendar from "../Components/MyHistory/ModalCalendars/StartDateCalendar";
 import EndDateCalendar from "../Components/MyHistory/ModalCalendars/EndDateCalendar";
 
-
 const HistoryContainer = () => {
-  const [startDate, setStartDate] = useState<Date | null>(new Date("12 March 2023")); // dummy dates for now
+  const [startDate, setStartDate] = useState<Date | null>(
+    new Date("12 March 2023")
+  ); // dummy dates for now
   const [endDate, setEndDate] = useState<Date | null>(new Date());
   const [isModalOpen, setIsModalOpen] = useState(false); // for date select modal
   const [isSelectingStartDate, setIsSelectingStartDate] = useState(true); // to display different modal calendars, for choosing start date and end date.
@@ -27,19 +28,19 @@ const HistoryContainer = () => {
     console.log("history modal opened");
   };
 
-  const startDateChangeHandler = (newStartDate : Date | null) => {
+  const startDateChangeHandler = (newStartDate: Date | null) => {
     setStartDate(newStartDate);
-    console.log("start date changed");
-  }
+    console.log("start date changed, ", newStartDate);
+  };
 
-  const endDateChangeHandler = (newEndDate : Date | null) => {
+  const endDateChangeHandler = (newEndDate: Date | null) => {
     setEndDate(newEndDate);
-    console.log("end date changed");
-  }
+    console.log("end date changed", newEndDate);
+  };
 
-  const updateIsSelectingStartDate = (isStartCalendar : boolean) => {
+  const updateIsSelectingStartDate = (isStartCalendar: boolean) => {
     setIsSelectingStartDate(isStartCalendar); // needed to display end date selecting modal calendar
-  }
+  };
 
   return (
     <Box
@@ -54,7 +55,7 @@ const HistoryContainer = () => {
       {/* LocalizationProvider is required for DateCalendar MUI Component. */}
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <CloseButton />
-        <DateRangeFilterContainer openModal={modalOpenHandler}/>
+        <DateRangeFilterContainer openModal={modalOpenHandler} />
         <HistoryTasksContainer startDate={startDate} endDate={endDate} />
         {isModalOpen && (
           <Modal
@@ -72,7 +73,19 @@ const HistoryContainer = () => {
             {/* <HistoryContainer modalCloseHandler={modalCloseHandler}/> */}
             <Box sx={{ bgcolor: "white", width: "90%", borderRadius: "10px" }}>
               <ModalCloseButton closeModal={modalCloseHandler} />
-              {isSelectingStartDate ? <StartDateCalendar selectStartDate={startDateChangeHandler} updateIsSelectingStartDate={updateIsSelectingStartDate}/> : <EndDateCalendar selectEndDate={endDateChangeHandler} updateIsSelectingStartDate={updateIsSelectingStartDate}/>}
+              {isSelectingStartDate ? (
+                <StartDateCalendar
+                  selectStartDate={startDateChangeHandler}
+                  updateIsSelectingStartDate={updateIsSelectingStartDate}
+                  startDate={startDate}
+                />
+              ) : (
+                <EndDateCalendar
+                  selectEndDate={endDateChangeHandler}
+                  updateIsSelectingStartDate={updateIsSelectingStartDate}
+                  endDate={endDate}
+                />
+              )}
             </Box>
           </Modal>
         )}

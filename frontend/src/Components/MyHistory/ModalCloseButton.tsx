@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Button } from "@mui/material";
 import { AiFillCloseCircle } from "react-icons/ai";
 
-const ModalCloseButton = (props : { closeModal : Function}) => {
+const ModalCloseButton = (props : { closeModal : Function }) => {
   return (
     <Button
       sx={{
