@@ -128,13 +128,18 @@ import { useState } from "react";
     ];
     // ---------------------------------- LINES BEFORE THIS WILL BE REMOVED LATER ON ---------------------------------------//
 
-const HistoryTasksContainer = (props: { startDate : Date, endDate : Date}) => {
+const HistoryTasksContainer = (props: { startDate : Date | null, endDate : Date | null}) => {
+    // startdate and enddate can be null, if no dates are chosen.
   const [historyTasks, setHistoryTasks] = useState(dummyTasks);
 
   // get the range of dates for given start date and end date
   // needs to be fixed
-  const getRangeOfDates = (startDate : Date, endDate : Date) => {
-    const date = new Date(); 
+  const getRangeOfDates = (startDate : Date | null, endDate : Date | null) => {
+    if (startDate == null || endDate == null) {
+        // if no dates were selected, do not return range of dates.
+        return [];
+    }
+    const date = new Date(startDate); 
     const currentDate = new Date(startDate);
     const rangeOfDates = [];
     while (currentDate <= endDate) {
@@ -151,6 +156,8 @@ const HistoryTasksContainer = (props: { startDate : Date, endDate : Date}) => {
 
   return (
     <Box sx={{ ml : "14px", mr: "14px" }}>
+        {/* when no proper date range is given, display help message. */}
+        {!props.startDate && !props.endDate ? <Box sx={{mt:3, textAlign: "center" }}>Please Select a Proper Date Range.</Box> : null}
       {rangeOfDates.map((date : Date) => {
         return <SingleDayTasksContainer date={date} historyTasks={historyTasks} key={date.toDateString()}/> 
         {/* use date as key */}
