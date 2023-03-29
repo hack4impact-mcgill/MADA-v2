@@ -1,4 +1,5 @@
 import { Repository } from 'typeorm';
+import { TaskEntity } from '../../src/entities/TaskEntity';
 import { DayOfWeek, VolunteerEntity } from '../../src/entities/VolunteerEntity';
 
 export default class VolunteerEntityHelper {
@@ -16,7 +17,8 @@ export default class VolunteerEntityHelper {
     phoneNumber: number,
     startDate: string,
     profilePicture: string,
-    availabilities: DayOfWeek[]
+    availabilities: DayOfWeek[],
+    tasks: TaskEntity[]
   ) => {
     const newVolunteer = new VolunteerEntity();
     newVolunteer.username = username;
@@ -27,6 +29,7 @@ export default class VolunteerEntityHelper {
     newVolunteer.phoneNumber = phoneNumber;
     newVolunteer.profilePicture = profilePicture;
     newVolunteer.availabilities = availabilities;
+    newVolunteer.tasks = tasks;
     return await this.VolunteerRepository.save(newVolunteer);
   };
 }
