@@ -7,10 +7,14 @@ import DataSourceHelper from '../data.utils';
 
 import app from '../../src/app';
 import { StatusCode } from '../../src/controllers/statusCode';
+import { TaskEntity } from '../../src/entities/TaskEntity';
+import TaskEntityHelper from '../task/task.utils';
 
 describe('Volunteers tests', () => {
   const VolunteerRepository = AppDataSource.getRepository(VolunteerEntity);
   const volunteerHelper = new VolunteerEntityHelper(VolunteerRepository);
+  const TaskRepository = AppDataSource.getRepository(TaskEntity);
+  const taskHelper = new TaskEntityHelper(TaskRepository);
 
   // Before performing any tests, sets up the datasource and clears it
   beforeAll(async () => {
@@ -46,7 +50,8 @@ describe('Volunteers tests', () => {
       123,
       date.toISOString(),
       'link to profile',
-      [DayOfWeek.MONDAY]
+      [DayOfWeek.MONDAY],
+      []
     );
     const res = await request(app).get('/api/volunteers');
     expect(res.status).toBe(StatusCode.OK);
@@ -166,6 +171,42 @@ describe('Volunteers tests', () => {
   //   expect(newMealDelivery.task).toBeNull;
   // });
 
+  it('should get volunteer tasks', async () => {
+    const date: Date = new Date('April 20, 2001 04:20:00');
+    const savedTask = await taskHelper.createTask(
+      date.toISOString(),
+      [],
+      false
+    );
+
+    const savedVolunteer = await volunteerHelper.createVolunteer(
+      'username1',
+      'name1',
+      'email1',
+      'password1',
+      123,
+      date.toISOString(),
+      'link to profile',
+      [DayOfWeek.MONDAY],
+      [savedTask]
+    );
+
+    const res = await request(app).get(
+      `/api/volunteers/${savedVolunteer.id}/tasks`
+    );
+    expect(res.status).toBe(StatusCode.OK);
+    expect(res.body).toEqual({
+      tasks: [
+        {
+          deliveries: [],
+          deliveryTime: date.toISOString(),
+          id: 1,
+          isCompleted: false
+        }
+      ]
+    });
+  });
+
   it('should delete task', async () => {
     const date: Date = new Date('April 20, 2001 04:20:00');
     const savedVolunteer = await volunteerHelper.createVolunteer(
@@ -176,7 +217,8 @@ describe('Volunteers tests', () => {
       123,
       date.toISOString(),
       'link to profile',
-      [DayOfWeek.MONDAY]
+      [DayOfWeek.MONDAY],
+      []
     );
     const res = await request(app).delete(
       `/api/volunteers/${savedVolunteer.id}`
