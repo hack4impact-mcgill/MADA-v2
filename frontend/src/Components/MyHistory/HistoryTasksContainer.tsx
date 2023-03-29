@@ -126,6 +126,20 @@ const dummyTasks = [
     deliveries: [],
   },
 ];
+
+// Would have been better if we could just request backend API 
+// to just query tasks within the range of dates... :D
+
+// Getting All Tasks Algorithm choice:
+// First Method:
+// 1. Get All Tasks from a single user (will be an array of all tasks from a user)
+// 2. Go through that tasks array and for each task, if that task's deliveryTime is 
+//    within the range of dates (startDate ~ endDate) store it in another array
+// 3. Sort the new array with the tasks that are within the desired range of dates.
+// 
+// Second Method:
+// 1. Get ONLY Tasks that are within the desired range of dates from the backend database.
+// 2. Sort in frontend
 // ---------------------------------- LINES BEFORE THIS WILL BE REMOVED LATER ON ---------------------------------------//
 
 const HistoryTasksContainer = (props: {

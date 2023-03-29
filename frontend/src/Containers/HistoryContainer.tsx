@@ -68,7 +68,7 @@ const HistoryContainer = () => {
               alignItems: "center",
             }}
           >
-            {/* <HistoryContainer modalCloseHandler={modalCloseHandler}/> */}
+            {/* Display start date choosing calendar or end date choosing calendar depending on state */}
             <Box sx={{ bgcolor: "white", width: "90%", borderRadius: "10px" }}>
               <ModalCloseButton closeModal={modalCloseHandler} />
               {isSelectingStartDate ? (

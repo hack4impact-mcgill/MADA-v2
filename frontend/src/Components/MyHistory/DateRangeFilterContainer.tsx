@@ -2,21 +2,27 @@ import React from "react";
 import { Box, Typography } from "@mui/material";
 import DateRangeFilter from "./DateRangeSelectButton";
 
-const DateRangeFilterContainer = (props: { openModal : Function }) => {
+const DateRangeFilterContainer = (props: { openModal: Function }) => {
   return (
-    <Box sx={{
+    <Box
+      sx={{
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        flexDirection: "column"
-    }}>
-      <Typography sx={{
-        fontSize: 25,
-        fontFamily: "Poppins",
-        fontWeight: 600,
-        mt: "23px"
-      }}>My History</Typography>
-      <DateRangeFilter openModal={props.openModal}/>
+        flexDirection: "column",
+      }}
+    >
+      <Typography
+        sx={{
+          fontSize: 25,
+          fontFamily: "Poppins",
+          fontWeight: 600,
+          mt: "23px",
+        }}
+      >
+        My History
+      </Typography>
+      <DateRangeFilter openModal={props.openModal} />
     </Box>
   );
 };
