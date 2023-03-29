@@ -60,6 +60,38 @@ describe('Tasks tests', () => {
     });
   });
 
+  it('should return tasks', async () => {
+    const date: Date = new Date('April 20, 2001 04:20:00');
+    const savedTaskOne = await taskHelper.createTask(
+      date.toISOString(),
+      [],
+      false
+    );
+    const savedTaskTwo = await taskHelper.createTask(
+      date.toISOString(),
+      [],
+      false
+    );
+    const res = await request(app).get(`/api/tasks`);
+    expect(res.statusCode).toBe(200);
+    expect(res.body).toEqual({
+      tasks: [
+        {
+          id: expect.any(Number),
+          deliveryTime: date.toISOString(),
+          isCompleted: false,
+          deliveries: []
+        },
+        {
+          id: expect.any(Number),
+          deliveryTime: date.toISOString(),
+          isCompleted: false,
+          deliveries: []
+        }
+      ]
+    });
+  });
+
   it('should create a task', async () => {
     const date: Date = new Date('April 20, 2001 04:20:00');
     const res = await request(app).put(`/api/tasks`).send({
