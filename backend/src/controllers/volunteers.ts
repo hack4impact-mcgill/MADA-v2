@@ -10,6 +10,13 @@ export default class VolunteerController {
     const volunteers = await this.VolunteerRepository.find();
     response.status(StatusCode.OK).json({ volunteers: volunteers });
   };
+
+  removeVolunteer = async (request: Request, response: Response) => {
+    const taskDeleted = await this.VolunteerRepository.delete({
+      id: parseInt(request.params.id)
+    });
+    response.status(StatusCode.OK).json({});
+  };
   // private MealDeliveryRepository =
   //   AppDataSource.getRepository();
 

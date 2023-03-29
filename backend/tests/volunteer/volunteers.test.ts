@@ -166,16 +166,22 @@ describe('Volunteers tests', () => {
   //   expect(newMealDelivery.task).toBeNull;
   // });
 
-  // it('should delete task', async () => {
-  //   await DataSourceHelper.clearDataSource();
-  //   const date: Date = new Date('April 20, 2001 04:20:00');
-  //   const savedVolunteer = await taskHelper.createTask(
-  //     date.toISOString(),
-  //     [],
-  //     false
-  //   );
-  //   const res = await request(app).delete(`/api/tasks/${savedVolunteer.id}`);
-  //   expect(res.status).toBe(StatusCode.OK);
-  //   expect(res.body).toEqual({});
-  // });
+  it('should delete task', async () => {
+    const date: Date = new Date('April 20, 2001 04:20:00');
+    const savedVolunteer = await volunteerHelper.createVolunteer(
+      'username1',
+      'name1',
+      'email1',
+      'password1',
+      123,
+      date.toISOString(),
+      'link to profile',
+      [DayOfWeek.MONDAY]
+    );
+    const res = await request(app).delete(
+      `/api/volunteers/${savedVolunteer.id}`
+    );
+    expect(res.status).toBe(StatusCode.OK);
+    expect(res.body).toEqual({});
+  });
 });

@@ -6,3 +6,4 @@ export const router = express.Router();
 const volunteerController = new VolunteerController();
 
 router.get('/volunteers', volunteerController.getVolunteers);
+router.delete('/volunteers/:id', volunteerController.removeVolunteer);
