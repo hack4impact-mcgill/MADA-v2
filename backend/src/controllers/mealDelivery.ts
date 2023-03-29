@@ -15,7 +15,8 @@ export default class MealDeliveryController {
         id: parseInt(request.params.id)
       },
       relations: {
-        task: true
+        task: true,
+        client: true
       }
     });
     mealDelivery
