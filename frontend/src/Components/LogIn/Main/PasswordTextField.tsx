@@ -1,5 +1,5 @@
 import { Input, InputAdornment, IconButton } from "@mui/material";
-import { Visibility, VisibilityOff } from "@material-ui/icons";
+import { MdVisibilityOff, MdVisibility } from "react-icons/md";
 
 const PasswordTextField = (props: {
   errorText: string;
@@ -26,7 +26,7 @@ const PasswordTextField = (props: {
       endAdornment={
         <InputAdornment position="end">
           <IconButton onClick={props.handleClickShowPassword}>
-            {props.showPassword ? <Visibility /> : <VisibilityOff />}
+            {props.showPassword ? <MdVisibility/> : <MdVisibilityOff />}
           </IconButton>
         </InputAdornment>
       }
