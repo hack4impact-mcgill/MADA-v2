@@ -12,10 +12,20 @@ export default class VolunteerController {
   };
 
   removeVolunteer = async (request: Request, response: Response) => {
-    const taskDeleted = await this.VolunteerRepository.delete({
+    await this.VolunteerRepository.delete({
       id: parseInt(request.params.id)
     });
     response.status(StatusCode.OK).json({});
+  };
+
+  getVolunteerTasks = async (request: Request, response: Response) => {
+    const task = await this.VolunteerRepository.findOne({
+      where: { id: parseInt(request.params.id) },
+      relations: ['tasks', 'tasks.deliveries']
+    });
+    task == null
+      ? response.status(StatusCode.NOT_FOUND).json({})
+      : response.status(StatusCode.OK).json({ tasks: task.tasks });
   };
   // private MealDeliveryRepository =
   //   AppDataSource.getRepository();

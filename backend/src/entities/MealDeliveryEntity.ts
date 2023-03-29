@@ -1,4 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  ManyToOne,
+  OneToOne,
+  JoinColumn
+} from 'typeorm';
+import { ClientEntity } from './ClientEntity';
 import { TaskEntity } from './TaskEntity';
 
 @Entity()
@@ -16,4 +24,8 @@ export class MealDeliveryEntity {
     onDelete: 'CASCADE'
   })
   task: TaskEntity;
+
+  @OneToOne(() => ClientEntity)
+  @JoinColumn()
+  client: ClientEntity;
 }
