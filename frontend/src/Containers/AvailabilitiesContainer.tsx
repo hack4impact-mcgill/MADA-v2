@@ -21,7 +21,7 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 import { MdDeleteOutline, MdExpandMore } from "react-icons/md";
 import { IoIosAddCircleOutline } from "react-icons/io";
-import "./Availabilities.css";
+import "../Styles/Availabilities.css";
 
 type TimePickerAccordionProps = {
   dayOfWeek: string;
@@ -380,7 +380,6 @@ const MarkAvailability = () => {
           fontWeight: "600",
           textAlign: "center",
           fontSize: "1.5rem",
-          mt: "10%",
         }}
       >
         Availability
