@@ -2,14 +2,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: auto;
+  margin-bottom: 5%;
+  align-self: center;
 }
 
-.welcome {
-  /* margin-left: 20%;
-  margin-top: 20%; */
-
-}
-
-.timeline {
-  /* margin-left: 5%; */
+.today-wrapper {
+  padding-top: 5%;
+  padding-bottom: 5%;
+  align-items: center;
+  justify-content: center;
 }

@@ -8,7 +8,7 @@ import "../Styles/Delivery.css";
 const TodayContainer = () => {
   let noDeliveries = false;
   return (
-    <div>
+    <Box className="today-wrapper">
       <Box className="center">
         <Box
           className="welcome"
@@ -45,7 +45,7 @@ const TodayContainer = () => {
           Start Delivery
         </Button>
       </Box>
-    </div>
+    </Box>
   );
 };
 
