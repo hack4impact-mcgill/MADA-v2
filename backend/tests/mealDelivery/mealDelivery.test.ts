@@ -55,7 +55,8 @@ describe('Tasks tests', () => {
         id: savedMealDelivery.id,
         quantity: 1,
         mealType: 'breakfast',
-        task: null
+        task: null,
+        client: null
       }
     });
   });
