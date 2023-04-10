@@ -24,5 +24,5 @@ const RouterComponent = () => {
     </BrowserRouter>
   );
 };
-
 export default RouterComponent;
+
