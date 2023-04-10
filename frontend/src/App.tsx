@@ -10,10 +10,20 @@ export default function App() {
   return (
     <Box className="app">
       <Header />
-      <Box className="main-page">
+      <Box
+        sx={{
+          maxHeight:
+            location.pathname !== "/" && location.pathname !== "/password"
+              ? "85vh"
+              : "none",
+          overflowY: "auto",
+        }}
+      >
         <RouterComponent />
       </Box>
-      <NavBar />
+      {location.pathname !== "/" && location.pathname !== "/password" && (
+        <NavBar />
+      )}
     </Box>
   );
 }
