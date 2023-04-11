@@ -4,13 +4,14 @@ import {
   Column,
   ManyToOne,
   OneToOne,
-  JoinColumn
+  JoinColumn,
+  BaseEntity
 } from 'typeorm';
 import { ClientEntity } from './ClientEntity';
 import { TaskEntity } from './TaskEntity';
 
 @Entity()
-export class MealDeliveryEntity {
+export class MealDeliveryEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 

@@ -3,13 +3,14 @@ import {
   Entity,
   ManyToOne,
   OneToMany,
-  PrimaryGeneratedColumn
+  PrimaryGeneratedColumn,
+  BaseEntity
 } from 'typeorm';
 import { MealDeliveryEntity } from './MealDeliveryEntity';
 import { VolunteerEntity } from './VolunteerEntity';
 
 @Entity()
-export class TaskEntity {
+export class TaskEntity extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
