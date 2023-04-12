@@ -41,12 +41,13 @@ export const updateTask = async (task: TaskInterface) => {
 
 };
 
+
 export const createTask = async () => {
   try {
     // console.log("creating task");
     // Uses axios to make a put request at "http://localhost:3001/api/tasks"
     const response = await axios.put(`${TASK_API_URL}/tasks`);
-    console.log(response.data.task);
+    console.log(response.data.task, " yeahhhh");
     return response.data.task;
   } catch (e) {
     throw new Error("Error in Axios put query to /tasks");

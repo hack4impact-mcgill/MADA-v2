@@ -44,8 +44,8 @@ export const TaskProvider = (props: { children: React.ReactNode }) => {
     };
 
     fetchTasks();
-  }),
-    [];
+  },
+  []);
 
   return (
     <>
