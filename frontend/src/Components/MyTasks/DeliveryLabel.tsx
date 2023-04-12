@@ -12,7 +12,7 @@ const DeliveryLabel = (props: {
         {props.name}
       </Typography>
       <Typography sx={{ fontFamily: "Poppins", fontWeight: 400, fontSize: 15 }}>
-        {props.deliveryTime.toLocaleTimeString()}
+        {new Date(props.deliveryTime).toLocaleTimeString('en-US')}
       </Typography>
     </Box>
   );

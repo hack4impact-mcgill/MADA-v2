@@ -39,7 +39,8 @@ export const TaskProvider = (props: { children: React.ReactNode }) => {
   // dependency is empty array []. This will make fetch tasks only the first time TaskProvider component renders.
   useEffect(() => {
     const fetchTasks = async () => {
-      const { tasks } = await getAllTasks();
+      const tasks = await getAllTasks();
+      console.log("all tasks", tasks);
       setTasks(tasks);
     };
 

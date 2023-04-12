@@ -8,7 +8,8 @@ export const getAllTasks = async () => {
   try {
     // Uses axios to make a get request at "http://localhost:3001/api/tasks"
     const response = await axios.get(`${TASK_API_URL}/tasks`);
-    return response.data;
+    console.log("inside getAllTasks helper function: fetching all tasks", response.data.tasks);
+    return response.data.tasks;
   } catch (e) {
     throw new Error("Error in Axios get query to /tasks");
   }

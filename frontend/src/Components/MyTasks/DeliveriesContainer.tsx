@@ -154,11 +154,14 @@ const DeliveriesContainer = (props: {
   let filteredTasks: TaskInterface[] = [];
 
   
-  if (fetchedTasks != null) {
+  if (fetchedTasks) {
     // filtering logic
+    console.log("in delieriesContainter ", fetchedTasks.tasks);
     const dateFilteredTasks = fetchedTasks.tasks.filter(
-      (task) => formatDate(task.deliveryTime) == props.dateFilter
+      (task) => formatDate(task.deliveryTime) != props.dateFilter
     );
+    console.log(dateFilteredTasks);
+    console.log("date filter from props", props.dateFilter);
     filteredTasks = dateFilteredTasks; // ALLTASKS filter
     if (props.completionFilter === "COMPLETED") {
       // if filter is set as COMPLETED, apply filter
