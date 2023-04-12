@@ -40,6 +40,8 @@ const HistoryContainer = () => {
     setIsSelectingStartDate(isStartCalendar); // needed to display end date selecting modal calendar
   };
 
+  
+
   return (
     <Box
       sx={{

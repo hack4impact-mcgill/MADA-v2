@@ -27,7 +27,7 @@ const HistoryTaskDate = (props: { date: Date }) => {
         }}
       >
         <Box sx={{ margin: 1 }}>{getShortDate(props.date)}</Box>
-        <Divider orientation="vertical" variant="middle" flexItem />
+        <Divider orientation="vertical" variant="middle" flexItem/>
         <Box sx={{ margin: 1 }}>{formatDate(props.date)}</Box>
       </Box>
       <Divider />

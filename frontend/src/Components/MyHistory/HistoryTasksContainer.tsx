@@ -4,20 +4,13 @@ import SingleDayTasksContainer from "./SingleDayTasksContainer";
 import { useState, useEffect } from "react";
 
 // ------------------------- LINES AFTER THIS WILL BE REMOVED LATER WHEN BACKEND WORKS -----------------------------//
-const date = new Date(); // date variable is used to get the following 6 days.
-const day1 = new Date();
-date.setDate(day1.getDate() + 1);
-const day2 = new Date(date);
-date.setDate(day1.getDate() + 2);
-const day3 = new Date(date);
-date.setDate(day1.getDate() + 3);
-const day4 = new Date(date);
-date.setDate(day1.getDate() + 4);
-const day5 = new Date(date);
-date.setDate(day1.getDate() + 5);
-const day6 = new Date(date);
-date.setDate(day1.getDate() + 6);
-const day7 = new Date(date);
+const day1 = new Date("2023-04-13T00:00:00Z");
+const day2 = new Date("2023-04-14T00:00:00Z");
+const day3 = new Date("2023-04-15T00:00:00Z");
+const day4 = new Date("2023-04-16T00:00:00Z");
+const day5 = new Date("2023-04-17T00:00:00Z");
+const day6 = new Date("2023-04-18T00:00:00Z");
+const day7 = new Date("2023-04-19T00:00:00Z");
 
 const dummyTasks = [
   {
@@ -147,10 +140,13 @@ const HistoryTasksContainer = (props: {
   endDate: Date | null;
 }) => {
   // startdate and enddate can be null, if no dates are chosen.
-  const [historyTasks, setHistoryTasks] = useState(dummyTasks);
+  const [historyTasks, setHistoryTasks] = useState(dummyTasks.filter(task => {
+    // filter out tasks that don't fall within the selected date range
+    return (props.startDate === null || task.deliveryTime >= props.startDate) &&
+           (props.endDate === null || task.deliveryTime <= props.endDate)
+  }));
 
   // get the range of dates for given start date and end date
-  // needs to be fixed
   const getRangeOfDates = (startDate: Date | null, endDate: Date | null) => {
     if (startDate == null || endDate == null) {
       // if no dates were selected, do not return range of dates.
@@ -177,6 +173,12 @@ const HistoryTasksContainer = (props: {
   useEffect(() => {
     // when startDate and endDate states change in the parent component, update the rangeOfDates that need to be displayed.
     setRangeOfDates(getRangeOfDates(props.startDate, props.endDate));
+
+    // also update the historyTasks state by filtering out tasks that don't fall within the selected date range
+    setHistoryTasks(dummyTasks.filter(task => {
+      return (props.startDate === null || task.deliveryTime >= props.startDate) &&
+             (props.endDate === null || task.deliveryTime <= props.endDate)
+    }));
   }, [props.startDate, props.endDate]);
 
   return (
