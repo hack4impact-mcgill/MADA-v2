@@ -45,16 +45,17 @@ export default class TaskController {
     // create
     if (!request.params.id) {
       const newTask = new TaskEntity();
-      newTask.deliveryTime = new Date(request.body.deliveryTime);
+      newTask.deliveryTime = new Date(); // request.body.deliveryTime
       newTask.deliveries = [];
-      newTask.isCompleted = request.body.isCompleted;
-      newTask.deliveries = await Promise.all(
-        request.body.deliveries.map(async (d) =>
-          this.MealDeliveryRepository.findOneBy({
-            id: parseInt(d.id)
-          })
-        )
-      );
+      newTask.isCompleted = true; // request.body.isCompleted
+      // newTask.deliveries = await Promise.all(
+      //   request.body.deliveries.map(async (d) =>
+      //     this.MealDeliveryRepository.findOneBy({
+      //       id: parseInt(d.id)
+      //     })
+      //   )
+      // );
+      newTask.deliveries = [];
       await this.TaskRepository.save(newTask);
       const savedTask = await this.TaskRepository.findOne({
         where: {

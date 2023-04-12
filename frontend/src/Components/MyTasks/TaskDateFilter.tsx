@@ -76,7 +76,7 @@ const TaskDateFilter = (props: {
       >
         {/* Display upcoming 7 days as options, including current day */}
         {getUpcoming7Days().map((date : Date) => {
-          return <MenuItem value={formatDate(date)}>{formatDate(date)}</MenuItem>
+          return <MenuItem value={formatDate(date)} key={date.toString()}>{formatDate(date)}</MenuItem>
         })}
       </Select>
     </FormControl>

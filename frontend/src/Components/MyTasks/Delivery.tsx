@@ -56,7 +56,7 @@ const Delivery = (props: { task: TaskInterface }) => {
           <DeliveryLabel
             isCompleted={props.task.isCompleted}
             deliveryTime={props.task.deliveryTime}
-            name={props.task.name} // name should be passed???
+            name={"HAHA"} // name should be passed???
           />
         }
       />

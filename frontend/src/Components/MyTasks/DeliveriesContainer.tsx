@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import { useContext } from 'react';
 import Delivery from "./Delivery";
-import { TaskInterface } from "../../Contexts/Tasks";
+import { TaskContext, TaskInterface } from "../../Contexts/Tasks";
 import { FormGroup } from "@mui/material";
 
 const DeliveriesContainer = (props: {
@@ -139,6 +140,8 @@ const DeliveriesContainer = (props: {
   ];
   // ---------------------------------- LINES BEFORE THIS WILL BE REMOVED LATER ON ---------------------------------------//
 
+  const fetchedTasks = useContext(TaskContext); // fetchedTasks is an object with tasks array as a field.
+
   // function that formats date to desired form: e.g. 8 Dec 2023
   const formatDate = (date: Date) => {
     return date.toLocaleString("en-GB", {
@@ -148,17 +151,24 @@ const DeliveriesContainer = (props: {
     });
   };
 
-  // filtering logic
-  const dateFilteredTasks = dummyTasks.filter(
-    (task) => formatDate(task.deliveryTime) == props.dateFilter
-  );
-  let filteredTasks = dateFilteredTasks; // ALLTASKS filter
-  if (props.completionFilter === "COMPLETED") {
-    // if filter is set as COMPLETED, apply filter
-    filteredTasks = dateFilteredTasks.filter((task) => task.isCompleted);
-  } else if (props.completionFilter === "UPCOMING") {
-    filteredTasks = dateFilteredTasks.filter((task) => !task.isCompleted);
+  let filteredTasks: TaskInterface[] = [];
+
+  
+  if (fetchedTasks != null) {
+    // filtering logic
+    const dateFilteredTasks = fetchedTasks.tasks.filter(
+      (task) => formatDate(task.deliveryTime) == props.dateFilter
+    );
+    filteredTasks = dateFilteredTasks; // ALLTASKS filter
+    if (props.completionFilter === "COMPLETED") {
+      // if filter is set as COMPLETED, apply filter
+      filteredTasks = dateFilteredTasks.filter((task) => task.isCompleted);
+    } else if (props.completionFilter === "UPCOMING") {
+      filteredTasks = dateFilteredTasks.filter((task) => !task.isCompleted);
+    }
   }
+
+  
 
   return (
     <FormGroup sx={{ mr: "22px", ml: "22px", borderRadius: 3 }}>
