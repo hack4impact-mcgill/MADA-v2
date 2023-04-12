@@ -71,6 +71,35 @@ describe('Volunteers tests', () => {
     });
   });
 
+  it('should return a volutneer', async () => {
+    const date: Date = new Date('April 20, 2001 04:20:00');
+    const volunteer = await volunteerHelper.createVolunteer(
+      'username1',
+      'name1',
+      'email1',
+      'password1',
+      123,
+      date.toISOString(),
+      'link to profile',
+      [DayOfWeek.MONDAY],
+      []
+    );
+    const res = await request(app).get(`/api/volunteers/${volunteer.id}`);
+    expect(res.status).toBe(StatusCode.OK);
+    expect(res.body).toEqual({
+      volunteer: {
+        availabilities: ['monday'],
+        email: 'email1',
+        id: 1,
+        name: 'name1',
+        phoneNumber: 123,
+        profilePicture: 'link to profile',
+        startDate: date.toISOString(),
+        username: 'username1'
+      }
+    });
+  });
+
   // it('should return a task', async () => {
   //   const date: Date = new Date('April 20, 2001 04:20:00');
   //   const savedVolunteer = await taskHelper.createTask(
