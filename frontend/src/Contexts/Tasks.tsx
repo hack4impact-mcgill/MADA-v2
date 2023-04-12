@@ -1,3 +1,4 @@
+import React from "react";
 import { createContext, useState, useEffect } from "react";
 import { getAllTasks } from "../services";
 // define interfaces and define Task context provider
@@ -11,8 +12,8 @@ export interface TaskInterface {
   id: number;
   deliveryTime: Date;
   isCompleted: boolean;
+  volunteer: any;
   deliveries: MealDeliveryInterface[];
-  name: string; // I will just assume the recipient's name is part of the Task entity for now.
 }
 
 export interface MealDeliveryInterface {
@@ -20,6 +21,7 @@ export interface MealDeliveryInterface {
   quantity: number;
   mealType: string;
   task: TaskInterface;
+  client: any;
 }
 
 // create a type for TaskContext
