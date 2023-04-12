@@ -1,6 +1,8 @@
 .horizontalBar {
   display: flex;
   justify-content: space-evenly;
+  align-items: center;
+  margin-top: 15px;
 }
 
 .navBar {
@@ -10,6 +12,7 @@
   bottom: 0;
   position: fixed;
   background-color: white;
+  justify-content: center;
 }
 
 button {

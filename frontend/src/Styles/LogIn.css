@@ -1,0 +1,16 @@
+img {
+  height: 100%;
+  width: 30%;
+  padding-bottom: 10%;
+}
+
+.envelopeIcon {
+  font-size: 100px;
+  color: #fb4b4b;
+  align-items: center;
+  padding-top: 40%;
+}
+
+.MuiFormHelperText-root {
+  margin-left: 0px !important;
+}
