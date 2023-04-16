@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { TaskEntity } from './TaskEntity';
 
 import { UserEntity } from './UserEntity';
 
@@ -28,4 +29,7 @@ export class VolunteerEntity extends UserEntity {
 
   @Column('text', { array: true })
   availabilities: DayOfWeek[];
+
+  @OneToMany(() => TaskEntity, (task) => task.volunteer)
+  tasks: TaskEntity[];
 }

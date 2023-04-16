@@ -10,6 +10,30 @@ export default class VolunteerController {
     const volunteers = await this.VolunteerRepository.find();
     response.status(StatusCode.OK).json({ volunteers: volunteers });
   };
+
+  getVolunteer = async (request: Request, response: Response) => {
+    const volunteer = await this.VolunteerRepository.findOne({
+      where: { id: parseInt(request.params.id) }
+    });
+    response.status(StatusCode.OK).json({ volunteer: volunteer });
+  };
+
+  removeVolunteer = async (request: Request, response: Response) => {
+    await this.VolunteerRepository.delete({
+      id: parseInt(request.params.id)
+    });
+    response.status(StatusCode.OK).json({});
+  };
+
+  getVolunteerTasks = async (request: Request, response: Response) => {
+    const task = await this.VolunteerRepository.findOne({
+      where: { id: parseInt(request.params.id) },
+      relations: ['tasks', 'tasks.deliveries']
+    });
+    task == null
+      ? response.status(StatusCode.NOT_FOUND).json({})
+      : response.status(StatusCode.OK).json({ tasks: task.tasks });
+  };
   // private MealDeliveryRepository =
   //   AppDataSource.getRepository();
 

@@ -9,10 +9,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@mui/x-date-pickers": "^5.0.18",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@mui/icons-material": "^5.11.11",
-    "@mui/lab": "^5.0.0-alpha.122",
     "@mui/material": "^5.11.12",
     "@mui/x-date-pickers": "^6.0.2",
     "@types/node": "^16.11.60",
@@ -40,6 +40,7 @@
     ]
   },
   "devDependencies": {
+    "@mui/lab": "^5.0.0-alpha.123",
     "@types/react": "^18.0.21",
     "@types/react-router-dom": "^5.3.3"
   }

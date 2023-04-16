@@ -3,6 +3,7 @@ import "../Styles/UserProfile.css";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
+import DeleteIcon from '@mui/icons-material/Delete';
 import Box from "@mui/material/Box";
 import { useNavigate } from "react-router-dom";
 
@@ -67,11 +68,22 @@ const UserProfileContainer = () => {
 
     // do something with the form data, e.g. send it to the server
     // ...
+    navigate("/user");
   };
 
   const handleAddNewNumber = () => {
     setNewNumbers([...newNumbers, newNumber]);
     setNewNumber("");
+  };
+
+  const handleDeleteNumber = (index: number) => {
+    const updatedNumbers = [...newNumbers];
+    updatedNumbers.splice(index, 1);
+    setNewNumbers(updatedNumbers);
+  };
+
+  const handleCancel = () => {
+    navigate("/user");
   };
 
   return (
@@ -112,6 +124,7 @@ const UserProfileContainer = () => {
           />
           <Box className="Email"></Box>
           <label className="email">Email</label>
+          <Box className="emailCheck">
           <input
             className="emailInput"
             type="email"
@@ -122,10 +135,12 @@ const UserProfileContainer = () => {
           {validEmail ? (
             <CheckCircleIcon className="checkcircleUsername" />
           ) : null}
+          </Box>
 
           <h4 className="Contact">Contact</h4>
           <hr className="divider"></hr>
           <label className="phoneNumber">Phone Number</label>
+          <Box className="checkPhoneNumber">
           <input
             className="number"
             type="text"
@@ -136,23 +151,34 @@ const UserProfileContainer = () => {
           {validPhoneNumber ? (
             <CheckCircleIcon className="checkcircleUsername" />
           ) : null}
+          </Box>
 
           {newNumbers.map((number, index) => {
             return (
-              <input
-                key={index}
-                type="text"
-                className="newNumber"
-                placeholder="Add a new Phone Number"
-                value={number}
-                onChange={(ev) => {
-                  const updatedNumbers = [...newNumbers];
-                  updatedNumbers[index] = ev.target.value;
-                  setNewNumbers(updatedNumbers);
-                }}
-              ></input>
+              <div key={index} className="newNumberContainer">
+                <input
+                  type="text"
+                  className="newNumber"
+                  placeholder="Add a new Phone Number"
+                  value={number}
+                  onChange={(ev) => {
+                    const updatedNumbers = [...newNumbers];
+                    updatedNumbers[index] = ev.target.value;
+                    setNewNumbers(updatedNumbers);
+                  }}
+                />
+                <button
+                  className="deleteButton"
+                  onClick={() => handleDeleteNumber(index)}
+                  type="button"
+                >
+                  <DeleteIcon/>
+                  
+                </button>
+              </div>
             );
           })}
+
           <input
             type="text"
             className="newNumber"
@@ -160,6 +186,7 @@ const UserProfileContainer = () => {
             value={newNumber}
             onChange={(ev) => setNewNumber(ev.target.value)}
           />
+
           <button
             className="addbutton"
             type="button"
@@ -168,7 +195,11 @@ const UserProfileContainer = () => {
             +
           </button>
           <Box className="endbuttons">
-            <button className="cancelbutton" type="button">
+            <button
+              className="cancelbutton"
+              type="button"
+              onClick={handleCancel}
+            >
               Cancel
             </button>
             <button className="savechanges" type="submit">

@@ -1,5 +1,12 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn
+} from 'typeorm';
 import { MealDeliveryEntity } from './MealDeliveryEntity';
+import { VolunteerEntity } from './VolunteerEntity';
 
 @Entity()
 export class TaskEntity {
@@ -11,6 +18,9 @@ export class TaskEntity {
 
   @Column()
   isCompleted: boolean;
+
+  @ManyToOne(() => VolunteerEntity, (volunteer) => volunteer.tasks)
+  volunteer: VolunteerEntity;
 
   @OneToMany(() => MealDeliveryEntity, (delivery) => delivery.task, {
     cascade: true
