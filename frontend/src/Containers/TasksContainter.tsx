@@ -6,7 +6,7 @@ import AvailabilitiesCheckIn from "../Components/MyTasks/AvailabilitiesCheckIn/A
 import CheckInButton from "../Components/MyTasks/AvailabilitiesCheckIn/CheckInButton";
 import HistoryButtonContainer from "../Components/MyTasks/HistoryButton/HistoryButtonContainer";
 import { TaskProvider } from "../Contexts/Tasks";
-import { Typography } from "@mui/material";
+import { Typography, Modal } from "@mui/material";
 import { useState } from "react";
 
 const TasksContainer = () => {
@@ -14,13 +14,22 @@ const TasksContainer = () => {
   // dateFilter and completionFilter state will be passed down to DeliviesContainer.
   // NOTE that dataFilter is in STRING type and not DATE type.
   const [completionFilter, setCompletionFilter] = useState("ALLTASKS"); // set ALLTASKS as default
-  const [dateFilter, setDateFilter] = useState(
-    new Date().toLocaleString("en-GB", {
-      day: "numeric",
-      month: "short",
-      year: "numeric",
-    })
-  );
+  const [dateFilter, setDateFilter] = useState(new Date().toLocaleString("en-GB", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  }));
+  // const [isModalOpen, setIsModalOpen] = useState(false); // for history container modal
+
+  // const modalCloseHandler = () => {
+  //   setIsModalOpen(false);
+  //   console.log("history modal closed");
+  // };
+
+  // const modalOpenHandler = () => {
+  //   setIsModalOpen(true);
+  //   console.log("history modal opened");
+  // };
 
   // this function will be passed down using props
   const dateFilterUpdateHandler = (date: string) => {
@@ -62,6 +71,14 @@ const TasksContainer = () => {
           completionFilter={completionFilter}
         />
       </TaskProvider>
+      {/* <Modal
+         open={isModalOpen}
+         onClose={modalCloseHandler}
+        //  aria-labelledby="modal-modal-title"
+        //  aria-describedby="modal-modal-description"
+       >
+         <HistoryContainer modalCloseHandler={modalCloseHandler}/>
+       </Modal> */}
     </div>
   );
 };

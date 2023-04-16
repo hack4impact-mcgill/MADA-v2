@@ -15,8 +15,8 @@ const HistoryButton = () => {
         fontSize: 10,
       }}
       onClick={() => {
-        alert("clicked");
-        // show History overlay when button clicked
+        // redirect to History page when button clicked
+        window.location.href = "/history";
       }}
     >
       View History
