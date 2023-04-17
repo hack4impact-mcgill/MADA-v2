@@ -8,6 +8,7 @@ import TodayContainer from "./Containers/TodayContainer";
 import UserProfileContainer from "./Containers/UserProfileContainer";
 import NavBar from "./Components/NavBar/NavBar";
 import ForgotPasswordContainer from "./Containers/ForgotPasswordContainer";
+import UserContainer from "./Containers/UserContainer";
 
 const RouterComponent = () => {
   return (
@@ -16,7 +17,8 @@ const RouterComponent = () => {
         <Route path="/today" element={<TodayContainer />} />
         <Route path="/" element={<LoginContainer />} />
         <Route path="/password" element={<ForgotPasswordContainer />} />
-        <Route path="/profile" element={<UserProfileContainer />} />
+        <Route path="/user" element={<UserProfileContainer />} />
+        <Route path="/profile" element={<UserContainer />} />
         <Route path="/history" element={<HistoryContainer />} />
         <Route path="/tasks" element={<TasksContainer />} />
         <Route path="/availabilities" element={<AvailabilitiesContainer />} />
@@ -25,4 +27,3 @@ const RouterComponent = () => {
   );
 };
 export default RouterComponent;
-

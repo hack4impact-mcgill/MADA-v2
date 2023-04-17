@@ -1,5 +1,6 @@
 import { Input, InputAdornment, IconButton } from "@mui/material";
 import { MdVisibilityOff, MdVisibility } from "react-icons/md";
+import { isBrowser } from "react-device-detect";
 
 const PasswordTextField = (props: {
   errorText: string;
@@ -19,14 +20,14 @@ const PasswordTextField = (props: {
         fontFamily: "Poppins",
         fontStyle: "normal",
         fontWeight: "400",
-        fontSize: "17px",
+        fontSize: isBrowser ? "17px" : "12px",
         width: "90%",
       }}
       required={true}
       endAdornment={
         <InputAdornment position="end">
           <IconButton onClick={props.handleClickShowPassword}>
-            {props.showPassword ? <MdVisibility/> : <MdVisibilityOff />}
+            {props.showPassword ? <MdVisibility /> : <MdVisibilityOff />}
           </IconButton>
         </InputAdornment>
       }

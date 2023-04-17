@@ -3,7 +3,6 @@ import "../Styles/User.css";
 import { Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-
 // using dummy values for user details.
 // to be replaced with actual values with API Requests
 
@@ -11,7 +10,7 @@ const User = () => {
   const navigate = useNavigate();
 
   const handleEdit = () => {
-    navigate("/profile");
+    navigate("/user");
   };
 
   return (
@@ -23,8 +22,10 @@ const User = () => {
       </Box>
       <Box className="details">
         <Box className="account-edit">
-        <h4 className="account">Account</h4>
-        <button className="edit-profile-button" onClick={handleEdit}>Edit Profile</button>
+          <h4 className="account">Account</h4>
+          <button className="edit-profile-button" onClick={handleEdit}>
+            Edit Profile
+          </button>
         </Box>
         <hr className="divider"></hr>
         <Box className="Username">
