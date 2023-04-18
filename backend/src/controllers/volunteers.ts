@@ -40,6 +40,12 @@ export default class VolunteerController {
     response.status(StatusCode.OK).json({volunteer});
   };
 
+  
+  editVolunteer = async (request: Request, response: Response) => {
+    const volunteer = await this.VolunteerRepository.update({id: parseInt(request.params.id)}, request.body);
+    response.status(StatusCode.OK).json({volunteer});
+  };
+
   getVolunteerTasks = async (request: Request, response: Response) => {
     const task = await this.VolunteerRepository.findOne({
       where: { id: parseInt(request.params.id) },
