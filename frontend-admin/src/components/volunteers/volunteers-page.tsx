@@ -54,7 +54,7 @@ const columns: GridColDef[] = [
 ];
 
 const VolunteersPage = () => {
-    //const { isLoading, isError, data, error } = useQuery(['volunteers'], () => getVolunteers())
+    const { isLoading, isError, data, error } = useQuery(['volunteers'], () => getVolunteers())
     const [openCreateModal, setOpenCreateModal] = React.useState(false);
     const handleOpenCreateModal = () => setOpenCreateModal(true);
     const handleCloseCreateModal = () => setOpenCreateModal(false);
@@ -69,20 +69,25 @@ const VolunteersPage = () => {
                 <Button variant="outlined" onClick={handleOpenCreateModal}>Create Volunteer</Button>
                 
                 <Modal open={openCreateModal} onClose={handleCloseCreateModal}>   
-                    <NewVolunteerModalContents />
+                    <NewVolunteerModalContents handleClose={handleCloseCreateModal}/>
                 </Modal>
 
                 <Modal open={id !== -1} onClose={handleCloseEditModal}>   
                     <EditVolunteerModalContents />
                 </Modal>
                 
-                <Box sx={{display: 'flex', flexDirection: 'column', width: '100%', height: '90%' }}>
-                    <DataGrid
-                        rows={mockVolunteerData}
-                        columns={columns}
-                        disableColumnSelector
-                    />
-                </Box>
+                {
+                    isLoading ?
+                        <Box>Loading...</Box>
+                    :
+                        <Box sx={{display: 'flex', flexDirection: 'column', width: '100%', height: '90%' }}>
+                            <DataGrid
+                                rows={data!.data.volunteers} // mockVolunteerData
+                                columns={columns}
+                                disableColumnSelector
+                            />
+                        </Box>
+                }
             </Container>
         </Page>
     )
