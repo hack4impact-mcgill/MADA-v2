@@ -13,28 +13,8 @@ import {
 } from '@tanstack/react-query'
 import {createVolunteer} from 'src/api/volunteers'
 import dayjs, { Dayjs } from 'dayjs';
-
-const style = {
-    position: 'absolute' as 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 600,
-    bgcolor: 'background.paper',
-    boxShadow: 24,
-    p: 4,
-};
-
-
-const textFieldStyles = {
-    margin: 'dense' as 'dense',
-    size: 'small' as 'small',
-    type: 'text',
-    variant: 'outlined' as 'outlined',
-    sx: {
-        marginBottom: 2,
-    }
-}
+import {textFieldStyles, ModalTextInput} from 'src/components/common/modal/textinput'
+import {style} from 'src/components/common/modal/style'
 
 const NewVolunteerModalContents = (props: {handleClose: any}) => {
     const queryClient = useQueryClient()
@@ -55,7 +35,7 @@ const NewVolunteerModalContents = (props: {handleClose: any}) => {
     const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {setUsername(event.target.value)};
     const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {setEmail(event.target.value)};
 
-    const handleSubmit = () => {
+    const handleCreate = () => {
         mutation.mutate({
             name: name,
             username: username,
@@ -65,23 +45,27 @@ const NewVolunteerModalContents = (props: {handleClose: any}) => {
         })
         props.handleClose()
     }
+    
+    const handleCancel = () => {
+        console.log("cancel")
+    }
 
     return (
         <Box sx={style}>
             <Typography variant="h5">Create new volunteer</Typography>
             <br/>
             <FormControl sx={{width: '100%', height: '100%', display: 'flex', direction: 'column', justifyContent: 'space-beteen'}}>
-                <FormLabel>Name</FormLabel>
-                <TextField {...textFieldStyles} value={name} onChange={handleNameChange}></TextField>
-                <FormLabel>username</FormLabel>
-                <TextField {...textFieldStyles} value={username} onChange={handleUsernameChange}></TextField>
-                <FormLabel>Email</FormLabel>
-                <TextField {...textFieldStyles} value={email} onChange={handleEmailChange}></TextField>
+                <ModalTextInput label={"Name"} stateValue={name} stateSetter={handleNameChange}/>
+                <ModalTextInput label={"Username"} stateValue={username} stateSetter={handleUsernameChange}/>
+                <ModalTextInput label={"Email"} stateValue={email} stateSetter={handleEmailChange}/>
                 <FormLabel>Start Date</FormLabel>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker slotProps={{ textField: { size: 'small', margin: 'dense' } }} value={date} onChange={(d) => setDate(d)}/>
                 </LocalizationProvider>
-                <Button sx={{marginTop: 2}} onClick={handleSubmit}>Submit</Button>
+                <Box sx={{display: 'flex', width: '100%', height: '100%', flexDirection: 'row-reverse'}}>
+                    <Button variant="contained" onClick={handleCreate}>Create</Button>
+                    <Button sx={{marginRight: 2}} onClick={handleCancel}>Cancel</Button>
+                </Box>
             </FormControl>
         </Box>
     )
