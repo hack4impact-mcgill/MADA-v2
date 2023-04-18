@@ -59,7 +59,10 @@ const VolunteersPage = () => {
     const handleOpenCreateModal = () => setOpenCreateModal(true);
     const handleCloseCreateModal = () => setOpenCreateModal(false);
 
-    const handleCloseEditModal = () => setId(-1);
+    const handleCloseEditModal = () => {
+        setId(-1)
+    };
+
     const id = useEditVolunteerStore((state: EditVolunteerState) => state.id)
     const setId = useEditVolunteerStore((state: EditVolunteerState) => state.setId)
 
