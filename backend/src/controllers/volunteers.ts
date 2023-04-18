@@ -25,6 +25,21 @@ export default class VolunteerController {
     response.status(StatusCode.OK).json({});
   };
 
+  createVolunteer = async (request: Request, response: Response) => {
+    const volunteer = await this.VolunteerRepository.create({
+        name: request.body.name,
+        username: request.body.username,
+        password: request.body.password,
+        email: request.body.email,
+        phoneNumber: request.body.phoneNumber,
+        startDate: new Date(),
+        profilePicture: "",
+        availabilities: []
+    });
+    await this.VolunteerRepository.save(volunteer)
+    response.status(StatusCode.OK).json({volunteer});
+  };
+
   getVolunteerTasks = async (request: Request, response: Response) => {
     const task = await this.VolunteerRepository.findOne({
       where: { id: parseInt(request.params.id) },
