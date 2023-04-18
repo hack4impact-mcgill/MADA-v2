@@ -60,7 +60,7 @@ const NewVolunteerModalContents = (props: {handleClose: any}) => {
                 <ModalTextInput label={"Email"} stateValue={email} stateSetter={handleEmailChange}/>
                 <FormLabel>Start Date</FormLabel>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DatePicker slotProps={{ textField: { size: 'small', margin: 'dense' } }} value={date} onChange={(d) => setDate(d)}/>
+                    <DatePicker slotProps={{ textField: textFieldStyles }} value={date} onChange={(d) => setDate(d)}/>
                 </LocalizationProvider>
                 <Box sx={{display: 'flex', width: '100%', height: '100%', flexDirection: 'row-reverse'}}>
                     <Button variant="contained" onClick={handleCreate}>Create</Button>

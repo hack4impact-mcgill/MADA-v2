@@ -5,19 +5,6 @@ import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import {Page} from 'src/components/common/drawer'
 import NewClientModalContents from './new-client'
 
-type ClientProps = {
-    id: number,
-    phoneNumber: number,
-    startDate: Date,
-} & GenericUserProps
-
-const ClientRow = (props: ClientProps) => {
-    return (
-        <div>{props.name}</div>
-    )
-}
-
-
 const columns: GridColDef[] = [
     {
         field: 'id',
