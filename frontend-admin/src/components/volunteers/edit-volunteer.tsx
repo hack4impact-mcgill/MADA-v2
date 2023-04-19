@@ -58,6 +58,11 @@ const EditVolunteerModalContents = () => {
     const handleCancel = () => {
         setId(-1)
     }
+    
+    const handleDelete = () => {
+        console.log("alert to delete")
+        setId(-1)
+    }
 
     return (
         <BaseModal
@@ -71,6 +76,10 @@ const EditVolunteerModalContents = () => {
                     {
                         handle: handleCancel,
                         label: "Cancel"
+                    },
+                    {
+                        handle: handleDelete,
+                        label: "Delete"
                     }
                 ]
             }}
