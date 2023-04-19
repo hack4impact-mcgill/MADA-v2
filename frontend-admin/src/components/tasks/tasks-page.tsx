@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {Box, Container, Button, Modal} from '@mui/material';
 import {Page} from 'src/components/common/drawer'
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
@@ -13,18 +13,27 @@ function getName(params: any) {
 }
 
 const columns: GridColDef[] = [
-    {
-        field: 'id',
-        type: 'number',
-    },
+    // {
+    //     field: 'id',
+    //     type: 'number',
+    // },
     {
         field: 'isCompleted',
+        headerName: 'Complete?',
         type: 'boolean',
     },
     {
         field: 'volunteer',
+        headerName: 'Volunteer',
         type: 'string',
         valueGetter: getName,
+        width: 200
+    },
+    {
+        field: 'deliveryTime',
+        headerName: 'Date',
+        type: 'date',
+        valueGetter: ({ value }) => value && new Date(value),
         width: 200
     }
 ];
@@ -35,8 +44,8 @@ const TasksPage = () => {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-
-    console.log("tasks", data)
+    
+    const [filter, setFilter] = useState([])
     
     return (
         <Page>
@@ -55,6 +64,9 @@ const TasksPage = () => {
                                 rows={data!.data.tasks}
                                 columns={columns}
                                 disableColumnSelector
+                                filterModel={{
+                                    items: filter
+                                }}
                             />
                         </Box>
                 }

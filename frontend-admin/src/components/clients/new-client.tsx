@@ -3,6 +3,7 @@ import {Box} from '@mui/material';
 import { FormControl, FormLabel, TextField, Button, Typography } from '@mui/material';
 import {style} from 'src/components/common/modal/style'
 import {ModalTextInput} from 'src/components/common/modal/textinput'
+import BaseModal from 'src/components/common/modal/modal'
 
 const NewClientModalContents = () => {
     const [name, setName] = React.useState('');
@@ -22,19 +23,38 @@ const NewClientModalContents = () => {
     }
 
     return (
-        <Box sx={style}>
-            <Typography variant="h5">Create new client</Typography>
-            <br/>
-            <FormControl sx={{width: '100%', height: '100%', display: 'flex', direction: 'column', justifyContent: 'space-beteen'}}>
-                <ModalTextInput label={"Name"} stateValue={name} stateSetter={handleNameChange}/>
-                <ModalTextInput label={"Email"} stateValue={email} stateSetter={handleEmailChange}/>
-                <ModalTextInput label={"Address"} stateValue={address} stateSetter={handleAddressChange}/>
-                <Box sx={{display: 'flex', width: '100%', height: '100%', flexDirection: 'row-reverse'}}>
-                    <Button variant="contained" onClick={handleCreate}>Create</Button>
-                    <Button sx={{marginRight: 2}} onClick={handleCancel}>Cancel</Button>
-                </Box>
-            </FormControl>
-        </Box>
+        <BaseModal
+            title={"Create new client"}
+            modalActionBarProps={{
+                primaryActionProps: {
+                    handlePrimary: handleCreate,
+                    labelPrimary: "Create"
+                },
+                secondaryActionProps: [
+                    {
+                        handle: handleCancel,
+                        label: "Cancel"
+                    }
+                ]
+            }}
+            modalInputProps={[
+                {
+                    label: "Name",
+                    stateValue: name,
+                    stateSetter: handleNameChange
+                },
+                {
+                    label: "Email",
+                    stateValue: email,
+                    stateSetter: handleEmailChange
+                },
+                {
+                    label: "Address",
+                    stateValue: address,
+                    stateSetter: handleAddressChange
+                },
+            ]}
+        />
     )
 }
 

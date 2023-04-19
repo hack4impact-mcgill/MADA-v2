@@ -1,20 +1,11 @@
 import React from 'react'
-import {Box} from '@mui/material';
-import { FormControl, FormLabel, TextField, Button, Typography } from '@mui/material';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import {
-    useQuery,
     useMutation,
     useQueryClient,
-    QueryClient,
-    QueryClientProvider,
 } from '@tanstack/react-query'
 import {createVolunteer} from 'src/api/volunteers'
-import dayjs, { Dayjs } from 'dayjs';
-import {textFieldStyles, ModalTextInput} from 'src/components/common/modal/textinput'
-import {style} from 'src/components/common/modal/style'
+import { Dayjs } from 'dayjs';
+import BaseModal from 'src/components/common/modal/modal'
 
 const NewVolunteerModalContents = (props: {handleClose: any}) => {
     const queryClient = useQueryClient()
@@ -51,23 +42,44 @@ const NewVolunteerModalContents = (props: {handleClose: any}) => {
     }
 
     return (
-        <Box sx={style}>
-            <Typography variant="h5">Create new volunteer</Typography>
-            <br/>
-            <FormControl sx={{width: '100%', height: '100%', display: 'flex', direction: 'column', justifyContent: 'space-beteen'}}>
-                <ModalTextInput label={"Name"} stateValue={name} stateSetter={handleNameChange}/>
-                <ModalTextInput label={"Username"} stateValue={username} stateSetter={handleUsernameChange}/>
-                <ModalTextInput label={"Email"} stateValue={email} stateSetter={handleEmailChange}/>
-                <FormLabel>Start Date</FormLabel>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DatePicker slotProps={{ textField: textFieldStyles }} value={date} onChange={(d) => setDate(d)}/>
-                </LocalizationProvider>
-                <Box sx={{display: 'flex', width: '100%', height: '100%', flexDirection: 'row-reverse'}}>
-                    <Button variant="contained" onClick={handleCreate}>Create</Button>
-                    <Button sx={{marginRight: 2}} onClick={handleCancel}>Cancel</Button>
-                </Box>
-            </FormControl>
-        </Box>
+        <BaseModal
+            title={"Create new volunteer"}
+            modalActionBarProps={{
+                primaryActionProps: {
+                    handlePrimary: handleCreate,
+                    labelPrimary: "Create"
+                },
+                secondaryActionProps: [
+                    {
+                        handle: handleCancel,
+                        label: "Cancel"
+                    }
+                ]
+            }}
+            modalInputProps={[
+                {
+                    label: "Name",
+                    stateValue: name,
+                    stateSetter: handleNameChange
+                },
+                {
+                    label: "Email",
+                    stateValue: email,
+                    stateSetter: handleEmailChange
+                },
+                {
+                    label: "Username",
+                    stateValue: username,
+                    stateSetter: handleUsernameChange
+                },
+                {
+                    label: "Start Date",
+                    type: 'date',
+                    stateValue: date,
+                    stateSetter: (d: any) => setDate(d)
+                },
+            ]}
+        />
     )
 }
 
