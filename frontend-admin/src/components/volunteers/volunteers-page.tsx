@@ -10,52 +10,8 @@ import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import {Box, Container, Button, Divider, Modal} from '@mui/material';
 import {Page} from 'src/components/common/drawer'
 import {EditVolunteerState, useEditVolunteerStore} from 'src/components/volunteers/volunteer.store';
-
-const columns: GridColDef[] = [
-    {
-        field: 'id',
-        type: 'number',
-    },
-    {
-        field: 'username',
-        type: 'string',
-        width: 150
-    },
-    {
-        field: 'name',
-        type: 'string',
-        width: 150,
-        sortable: true,
-    },
-    {
-        field: 'email',
-        type: 'string',
-        width: 300,
-    },
-    // {
-    //     field: 'phoneNumber',
-    //     type: 'number'
-    // },
-    {
-        field: "edit",
-        headerName: "",
-        disableColumnMenu: true,
-        sortable: false,
-        renderCell: (cellValues) => {
-            const setId = useEditVolunteerStore((state: EditVolunteerState) => state.setId)
-
-            const onClick = (e: any) => {
-                e.stopPropagation(); // don't select this row after clicking
-
-                setId(cellValues.row.id)
-        
-                return console.log("click to edit", cellValues.row);
-            };
-        
-            return <Button sx={{width: '100%'}} onClick={onClick}>Edit</Button>;
-        }
-    },
-];
+import {volunteerColumns} from './grid';
+import {BaseGrid} from 'src/components/common/grid';
 
 const VolunteersPage = () => {
     const { isLoading, isError, data, error } = useQuery(['volunteers'], () => getVolunteers())
@@ -83,17 +39,13 @@ const VolunteersPage = () => {
                     <EditVolunteerModalContents />
                 </Modal>
                 
-                {
-                    isLoading ?
-                        <Box>Loading...</Box>
-                    :
-                        <Box sx={{display: 'flex', flexDirection: 'column', width: '100%', height: '90%' }}>
-                            <DataGrid
-                                rows={data!.data.volunteers} // mockVolunteerData
-                                columns={columns}
-                                disableColumnSelector
-                            />
-                        </Box>
+                { isLoading ? <Box>Loading...</Box> :
+                    <BaseGrid
+                        rows={data!.data.volunteers}
+                        columns={volunteerColumns}
+                        filter={[]}
+                        initalState={{}}
+                    />
                 }
             </Container>
         </Page>

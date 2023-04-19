@@ -1,51 +1,29 @@
 import React, {useState} from 'react'
 import {Box, Container, Button, Modal} from '@mui/material';
 import {Page} from 'src/components/common/drawer'
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import NewTaskModalContents from './new-task'
+import {taskColumns} from './grid'
+import {BaseGrid} from 'src/components/common/grid'
 import {
     useQuery,
 } from '@tanstack/react-query'
 import {getTasks} from 'src/api/tasks'
+import { useSearchParams } from "react-router-dom";
 
-function getName(params: any) {
-    return `${params.row.volunteer.name || ''}`;
+const toVolunteerFilter = (volunteerId: string) => {
+    return [{ field: 'volunteerId', operator: '=', value: parseInt(volunteerId)}]
 }
-
-const columns: GridColDef[] = [
-    // {
-    //     field: 'id',
-    //     type: 'number',
-    // },
-    {
-        field: 'isCompleted',
-        headerName: 'Complete?',
-        type: 'boolean',
-    },
-    {
-        field: 'volunteer',
-        headerName: 'Volunteer',
-        type: 'string',
-        valueGetter: getName,
-        width: 200
-    },
-    {
-        field: 'deliveryTime',
-        headerName: 'Date',
-        type: 'date',
-        valueGetter: ({ value }) => value && new Date(value),
-        width: 200
-    }
-];
 
 const TasksPage = () => {
     const { isLoading, isError, data, error } = useQuery(['tasks'], () => getTasks())
-
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
-    
-    const [filter, setFilter] = useState([])
+
+    const [filterParams, setFilterParams] = useSearchParams();
+    const paramVolunteerId = filterParams.get('volunteerId')
+
+    const [filter, setFilter] = useState<any>(paramVolunteerId ? toVolunteerFilter(paramVolunteerId) : [])
     
     return (
         <Page>
@@ -55,20 +33,20 @@ const TasksPage = () => {
                     <NewTaskModalContents handleClose={handleClose}/>
                 </Modal>
                 
-                {
-                    isLoading ?
-                        <Box>Loading...</Box>
-                    :
-                        <Box sx={{display: 'flex', flexDirection: 'column', width: '100%', height: '90%' }}>
-                            <DataGrid
-                                rows={data!.data.tasks}
-                                columns={columns}
-                                disableColumnSelector
-                                filterModel={{
-                                    items: filter
-                                }}
-                            />
-                        </Box>
+                { isLoading ? <Box>Loading...</Box> :
+                    <BaseGrid
+                        rows={data!.data.tasks}
+                        columns={taskColumns}
+                        filter={filter}
+                        initalState={{
+                            columns: {
+                                columnVisibilityModel: {
+                                        volunteerId: false,
+                                    },
+                                },
+                            }
+                        }
+                    />
                 }
             </Container>
         </Page>
