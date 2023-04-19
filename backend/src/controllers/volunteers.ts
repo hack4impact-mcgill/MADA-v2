@@ -40,7 +40,7 @@ export default class VolunteerController {
             password: request.body.password,
             email: request.body.email,
             phoneNumber: request.body.phoneNumber,
-            startDate: new Date(),
+            startDate: request.body.date,
             profilePicture: "",
             availabilities: []
         });

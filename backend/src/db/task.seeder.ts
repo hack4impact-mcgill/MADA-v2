@@ -7,7 +7,7 @@ import { faker } from '@faker-js/faker';
 export const generateTask = async (dataSource: DataSource, volunteer: VolunteerEntity) => {
     const task = new TaskEntity();
     task.isCompleted = false;
-    task.deliveryTime = new Date();
+    task.deliveryTime = faker.date.between('2021-01-01T00:00:00.000Z', '2023-01-01T00:00:00.000Z')
     const repository =  dataSource.getRepository(TaskEntity);
     await repository.insert(task);
     await dataSource.createQueryBuilder().relation(VolunteerEntity, "tasks").of({ username: volunteer.username}).add({id: task.id})

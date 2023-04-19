@@ -1,6 +1,5 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { TaskEntity } from './TaskEntity';
-
 import { UserEntity } from './UserEntity';
 
 export enum DayOfWeek {
@@ -17,9 +16,6 @@ export enum DayOfWeek {
 export class VolunteerEntity extends UserEntity {
     @PrimaryGeneratedColumn()
     id: number;
-
-    @Column()
-    phoneNumber: number;
 
     @Column()
     startDate: Date;

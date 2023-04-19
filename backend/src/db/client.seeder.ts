@@ -12,7 +12,7 @@ const generateClient = () => {
     client.password = faker.internet.password();
     client.email = faker.internet.email(firstName, lastName);
     client.address = faker.address.streetAddress()
-    client.phoneNumber = parseInt(faker.random.numeric(6));
+    client.phoneNumber = faker.phone.number()
     client.notes = faker.random.words(5)
     return client;
 }

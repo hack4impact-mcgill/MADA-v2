@@ -12,10 +12,10 @@ const generateVolunteer = () => {
     volunteer.username = faker.internet.userName(firstName, lastName);
     volunteer.password = faker.internet.password();
     volunteer.email = faker.internet.email(firstName, lastName);
-    volunteer.startDate = new Date();
+    volunteer.startDate = faker.date.past(2)
     volunteer.profilePicture = faker.internet.avatar();
     volunteer.availabilities = [];
-    volunteer.phoneNumber = parseInt(faker.random.numeric(6));
+    volunteer.phoneNumber = faker.phone.number()
     return volunteer;
 }
 
