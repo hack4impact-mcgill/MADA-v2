@@ -4,6 +4,11 @@ import {ModalDateInput} from './date';
 import {ModalSelectInput} from './select';
 import {ModalMultiselectInput} from './multiselect';
 
+export type SelectOptionProps = {
+    value: any,
+    label: string
+}
+
 export type ModalInputProps = {
     label: string,
     type?: string,

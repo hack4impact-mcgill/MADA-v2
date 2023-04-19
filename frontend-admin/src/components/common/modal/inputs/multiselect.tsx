@@ -1,6 +1,6 @@
 import React from 'react'
 import { MenuItem, FormLabel, TextField } from '@mui/material';
-import {ModalInputProps} from './type';
+import {SelectOptionProps, ModalInputProps} from './type';
 
 export const ModalMultiselectInput = (props: ModalInputProps) => {
     return (<>
@@ -12,9 +12,9 @@ export const ModalMultiselectInput = (props: ModalInputProps) => {
                 onChange: props.stateSetter
             }}
         >
-            {props.options!.map((option: string) =>
-                <MenuItem key={option} value={option}>
-                    {option}
+            {props.options!.map((option: SelectOptionProps) =>
+                <MenuItem key={option.value} value={option.value}>
+                    {option.label}
                 </MenuItem>
             )}
         </TextField>

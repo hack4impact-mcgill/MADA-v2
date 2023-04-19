@@ -8,3 +8,12 @@ export const getTasks = async () => {
     
     return response
 }
+
+export const createTask = async (data: any) => {
+    const response = await axios({
+        method: "post",
+        url: "http://localhost:3001/api/tasks",
+        data: data
+    });
+    return response
+}
