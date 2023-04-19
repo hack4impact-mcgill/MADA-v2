@@ -8,13 +8,20 @@ export default class VolunteerController {
     private VolunteerRepository = AppDataSource.getRepository(VolunteerEntity);
 
     getVolunteers = async (request: Request, response: Response) => {
-        const volunteers = await this.VolunteerRepository.find();
+        const volunteers = await this.VolunteerRepository.find({
+            relations: {
+                tasks: true,
+            }
+        });
         response.status(StatusCode.OK).json({ volunteers: volunteers });
     };
 
     getVolunteer = async (request: Request, response: Response) => {
         const volunteer = await this.VolunteerRepository.findOne({
-        where: { id: parseInt(request.params.id) }
+            where: { id: parseInt(request.params.id) },
+            relations: {
+                tasks: true,
+            }
         });
         response.status(StatusCode.OK).json({ volunteer: volunteer });
     };

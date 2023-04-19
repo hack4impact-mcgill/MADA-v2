@@ -25,7 +25,8 @@ export default class TaskController {
     getTasks = async (request: Request, response: Response) => {
         const task = await this.TaskRepository.find({
             relations: {
-                deliveries: true
+                deliveries: true,
+                volunteer: true
             }
         });
         response.status(StatusCode.OK).json({ tasks: task });

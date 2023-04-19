@@ -1,8 +1,12 @@
 import app from './app';
 import { AppDataSource } from './data-source';
 
-// Initalizes data source
-AppDataSource.initialize();
+(async () => {
+    // Initalizes data source
+    await AppDataSource.initialize();
+
+    // seed();
+})(); 
 
 // Express app listens to port 3001
 app.listen(3001);
