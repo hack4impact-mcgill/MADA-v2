@@ -29,7 +29,9 @@ export default class TaskController {
     getTasks = async (request: Request, response: Response) => {
         const task = await this.TaskRepository.find({
             relations: {
-                deliveries: true,
+                deliveries: {
+                    client: true
+                },
                 volunteer: true
             }
         });
@@ -42,25 +44,6 @@ export default class TaskController {
         newTask.deliveries = [];
         newTask.isCompleted = false;
         
-        // await manager.save([category1, category2, category3])
-        // const mockMeals = [
-        //     {
-        //         quantity: 2,
-        //         type: "Vegan",
-        //         clientId: 2
-        //     },
-        //     {
-        //         quantity: 6,
-        //         type: "Vegan",
-        //         clientId: 3
-        //     },
-        //     {
-        //         quantity: 4,
-        //         type: "Vegan",
-        //         clientId: 4
-        //     },
-        // ]
-
         newTask.volunteer = await this.VolunteerRepository.findOne({where: {id: request.body.volunteerId}})
 
         const savedTask = await this.TaskRepository.save(newTask);

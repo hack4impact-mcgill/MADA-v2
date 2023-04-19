@@ -33,11 +33,12 @@ const NewTaskModalContents = (props: {handleClose: any}) => {
             volunteerId: volunteerId,
             meals: meals
         })
+        //console.log("meals created are ", meals)
         props.handleClose()
     }
     
     const handleCancel = () => {
-        console.log("cancel")
+        props.handleClose()
     }
 
     return (
