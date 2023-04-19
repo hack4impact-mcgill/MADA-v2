@@ -5,10 +5,12 @@ import { ClientEntity } from '../entities/ClientEntity';
 
 const generateClient = () => {
     const client = new ClientEntity();
-    client.name = faker.name.fullName();
-    client.username = faker.internet.userName();
+    const firstName = faker.name.firstName();
+    const lastName = faker.name.lastName();
+    client.name = firstName + " " + lastName;
+    client.username = faker.internet.userName(firstName, lastName);
     client.password = faker.internet.password();
-    client.email = faker.internet.email(client.username);
+    client.email = faker.internet.email(firstName, lastName);
     client.address = faker.address.streetAddress()
     client.phoneNumber = parseInt(faker.random.numeric(6));
     client.notes = faker.random.words(5)

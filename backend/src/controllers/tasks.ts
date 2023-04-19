@@ -2,11 +2,15 @@ import { Request, Response } from 'express';
 import { AppDataSource } from '../data-source';
 import { MealDeliveryEntity } from '../entities/MealDeliveryEntity';
 import { TaskEntity } from '../entities/TaskEntity';
+import { ClientEntity } from '../entities/ClientEntity';
+import { VolunteerEntity } from '../entities/VolunteerEntity';
 import { StatusCode } from './statusCode';
 
 export default class TaskController {
     private TaskRepository = AppDataSource.getRepository(TaskEntity);
     private MealDeliveryRepository = AppDataSource.getRepository(MealDeliveryEntity);
+    private ClientRepository = AppDataSource.getRepository(ClientEntity);
+    private VolunteerRepository = AppDataSource.getRepository(VolunteerEntity);
 
     getTask = async (request: Request, response: Response) => {
         const task = await this.TaskRepository.findOne({
@@ -37,8 +41,45 @@ export default class TaskController {
         newTask.deliveryTime = new Date();
         newTask.deliveries = [];
         newTask.isCompleted = false;
+        
+        // await manager.save([category1, category2, category3])
+        // const mockMeals = [
+        //     {
+        //         quantity: 2,
+        //         type: "Vegan",
+        //         clientId: 2
+        //     },
+        //     {
+        //         quantity: 6,
+        //         type: "Vegan",
+        //         clientId: 3
+        //     },
+        //     {
+        //         quantity: 4,
+        //         type: "Vegan",
+        //         clientId: 4
+        //     },
+        // ]
+
+        newTask.volunteer = await this.VolunteerRepository.findOne({where: {id: request.body.volunteerId}})
+
         const savedTask = await this.TaskRepository.save(newTask);
-        response.status(StatusCode.OK).json({ task: savedTask });
+
+        request.body.meals.forEach(async (meal) => {
+            const newMeal = new MealDeliveryEntity();
+            newMeal.quantity = meal.quantity;
+            newMeal.mealType = meal.type;
+            newMeal.task = savedTask;
+            const foundClient = await this.ClientRepository.findOne({where: {id: meal.clientId}})
+            newMeal.client = foundClient
+            await this.MealDeliveryRepository.save(newMeal);
+        })
+
+        const task = await this.TaskRepository.findOne({
+            where: {id: savedTask.id}
+        });
+
+        response.status(StatusCode.OK).json({ task: task });
     };
 
     updateOrCreateTask = async (request: Request, response: Response) => {

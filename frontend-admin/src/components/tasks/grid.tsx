@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import {GridColDef} from '@mui/x-data-grid';
 
 function getName(params: any) {
+    if (params.row.volunteer === null) return '';
     return `${params.row.volunteer.name || ''}`;
 }
 

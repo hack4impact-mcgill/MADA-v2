@@ -28,12 +28,11 @@ const NewTaskModalContents = (props: {handleClose: any}) => {
     const [volunteerId, setVolunteerId] = React.useState<number>(-1);
     const [meals, setMeals] = React.useState<MealProps[]>([]);
     
-    const handleCreate = () => {
-        const taskData = {
+    const handleCreate = async () => {
+        await mutation.mutate({
             volunteerId: volunteerId,
             meals: meals
-        }
-        //mutation.mutate({})
+        })
         props.handleClose()
     }
     

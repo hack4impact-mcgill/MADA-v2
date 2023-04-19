@@ -7,6 +7,11 @@ import { StatusCode } from './statusCode';
 export default class MealDeliveryController {
     private MealDeliveryRepository = AppDataSource.getRepository(MealDeliveryEntity);
     private TaskRepository = AppDataSource.getRepository(TaskEntity);
+    
+    getMealDeliveries = async (request: Request, response: Response) => {
+        const meals = await this.MealDeliveryRepository.find({});
+        response.status(StatusCode.OK).json({ meals: meals });
+    };
 
     getMealDelivery = async (request: Request, response: Response) => {
         const mealDelivery = await this.MealDeliveryRepository.findOne({

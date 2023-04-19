@@ -6,10 +6,12 @@ import {generateTask} from './task.seeder';
 
 const generateVolunteer = () => {
     const volunteer = new VolunteerEntity();
-    volunteer.name = faker.name.fullName();
-    volunteer.username = faker.internet.userName();
+    const firstName = faker.name.firstName();
+    const lastName = faker.name.lastName();
+    volunteer.name =  firstName + " " + lastName;
+    volunteer.username = faker.internet.userName(firstName, lastName);
     volunteer.password = faker.internet.password();
-    volunteer.email = faker.internet.email(volunteer.username);
+    volunteer.email = faker.internet.email(firstName, lastName);
     volunteer.startDate = new Date();
     volunteer.profilePicture = faker.internet.avatar();
     volunteer.availabilities = [];
