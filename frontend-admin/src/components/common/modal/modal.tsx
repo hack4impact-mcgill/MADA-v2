@@ -11,6 +11,18 @@ type ModalProps = {
     modalInputProps: ModalInputProps[]
 }
 
+// Check if all inputs are valid
+// const isValid = (list: any[]) => {
+//     const validList = list.map((inputProps) => {
+//         if (inputProps.stateValue == undefined) return false;
+//         if (inputProps.stateValue == "") return false;
+//         if (inputProps.valid == false) return false;
+//         return true
+//     })
+
+//     return validList.every(Boolean)
+// }
+
 const BaseModal = (props: ModalProps) => {
     return (
         <Box sx={style}>

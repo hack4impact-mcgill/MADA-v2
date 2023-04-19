@@ -21,6 +21,7 @@ const NewVolunteerModalContents = (props: {handleClose: any}) => {
     const {state: name, handler: handleNameChange} = useStateSetupHandler('');
     const {state: username, handler: handleUsernameChange} = useStateSetupHandler('');
     const {state: email, handler: handleEmailChange} = useStateSetupHandler('');
+    const {state: password, handler: handlePasswordChange} = useStateSetupHandler('');
     const [phone, setPhone] = React.useState("");
     const [date, setDate] = React.useState<dayjs.Dayjs | null>(null);
     
@@ -30,7 +31,7 @@ const NewVolunteerModalContents = (props: {handleClose: any}) => {
         mutation.mutate({
             name: name,
             username: username,
-            password: 'test',
+            password: password,
             email: email,
             phoneNumber: phone,
             date: dayjs(date).toDate()
@@ -72,6 +73,11 @@ const NewVolunteerModalContents = (props: {handleClose: any}) => {
                     label: "Username",
                     stateValue: username,
                     stateSetter: handleUsernameChange
+                },
+                {
+                    label: "Password",
+                    stateValue: password,
+                    stateSetter: handlePasswordChange
                 },
                 {
                     label: "Phone Number",
