@@ -8,6 +8,7 @@ function getName(params: any) {
 }
 
 function getVolunteerId(params: any) {
+    if (params.row.volunteer === null) return '';
     return `${params.row.volunteer.id || ''}`;
 }
 

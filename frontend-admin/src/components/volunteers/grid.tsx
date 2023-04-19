@@ -58,7 +58,7 @@ export const volunteerColumns: GridColDef[] = [
 
             const onClick = (e: any) => {
                 e.stopPropagation();
-                navigate("/tasks?volunteerId=" + cellValues.row.id)
+                navigate("/tasks?volunteerId.%3D=" + cellValues.row.id)
             };
         
             return <Button sx={{width: '100%'}} onClick={onClick}>View tasks</Button>;

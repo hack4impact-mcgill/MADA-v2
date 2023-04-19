@@ -10,8 +10,24 @@ import {
 import {getTasks} from 'src/api/tasks'
 import { useSearchParams } from "react-router-dom";
 
-const toVolunteerFilter = (volunteerId: string) => {
-    return [{ field: 'volunteerId', operator: '=', value: parseInt(volunteerId)}]
+export const getURLParamsFromFilter = (items: any[]) => {
+    const prepParams = items.map((item: any) => {
+        return [item.field+"."+item.operator, item.value]
+    })
+    const params = new URLSearchParams(prepParams);
+    return params
+}
+
+export const getFilterFromURLParams = (urlFilterParams: URLSearchParams) => {
+    const filter = []
+    for (const entry of urlFilterParams.entries()) {
+        const field = entry[0].split('.')[0]
+        const operator = entry[0].split('.')[1]
+        const value = entry[1]
+        filter.push({ field: field, operator: operator, value: value})
+    }
+
+    return filter
 }
 
 const TasksPage = () => {
@@ -20,11 +36,18 @@ const TasksPage = () => {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    const [filterParams, setFilterParams] = useSearchParams();
-    const paramVolunteerId = filterParams.get('volunteerId')
-
-    const [filter, setFilter] = useState<any>(paramVolunteerId ? toVolunteerFilter(paramVolunteerId) : [])
+    const [urlFilterParams, setURLFilterParams] = useSearchParams();
+    const [filter, setFilter] = useState<any>([])
     
+    React.useEffect(() => {
+        setFilter(getFilterFromURLParams(urlFilterParams))
+    }, []);
+
+    const handleFilterModelChange = (model: any) => {
+        setURLFilterParams(getURLParamsFromFilter(model.items));
+        setFilter(model.items)
+    }
+
     return (
         <Page>
             <Container sx={{width: '100%', height: '100vh' }} maxWidth={false}>
@@ -46,6 +69,7 @@ const TasksPage = () => {
                                 },
                             }
                         }
+                        handleFilterModelChange={handleFilterModelChange}
                     />
                 }
             </Container>
