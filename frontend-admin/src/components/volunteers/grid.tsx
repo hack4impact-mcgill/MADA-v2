@@ -3,6 +3,12 @@ import {GridColDef } from '@mui/x-data-grid';
 import {Button} from '@mui/material';
 import {EditVolunteerState, useEditVolunteerStore} from 'src/components/volunteers/volunteer.store';
 import { useNavigate } from "react-router-dom";
+import * as dayjs from 'dayjs'
+
+function getDate(params: any) {
+    if (params.row.startDate === null) return '';
+    return `${dayjs(params.row.startDate).format("MM/DD/YYYY")}`;
+}
 
 export const volunteerColumns: GridColDef[] = [
     {
@@ -25,10 +31,17 @@ export const volunteerColumns: GridColDef[] = [
         type: 'string',
         width: 300,
     },
-    // {
-    //     field: 'phoneNumber',
-    //     type: 'number'
-    // },
+    {
+        field: 'phoneNumber',
+        type: 'string',
+        width: 200,
+    },
+    {
+        field: 'startDate',
+        type: 'string',
+        valueGetter: getDate,
+        width: 100,
+    },
     {
         field: "edit",
         headerName: "",

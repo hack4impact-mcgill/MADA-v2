@@ -4,7 +4,7 @@ import {
     useQueryClient,
 } from '@tanstack/react-query'
 import {createVolunteer} from 'src/api/volunteers'
-import { Dayjs } from 'dayjs';
+import * as dayjs from 'dayjs'
 import BaseModal from 'src/components/common/modal/modal'
 import {useStateSetupHandler} from 'src/components/common/use-state-setup-handler';
 
@@ -21,7 +21,10 @@ const NewVolunteerModalContents = (props: {handleClose: any}) => {
     const {state: name, handler: handleNameChange} = useStateSetupHandler('');
     const {state: username, handler: handleUsernameChange} = useStateSetupHandler('');
     const {state: email, handler: handleEmailChange} = useStateSetupHandler('');
-    const [date, setDate] = React.useState<Dayjs | null>(null);
+    const [phone, setPhone] = React.useState("");
+    const [date, setDate] = React.useState<dayjs.Dayjs | null>(null);
+    
+    const handlePhoneChange = (value: any) => {setPhone(value)}
 
     const handleCreate = () => {
         mutation.mutate({
@@ -29,13 +32,14 @@ const NewVolunteerModalContents = (props: {handleClose: any}) => {
             username: username,
             password: 'test',
             email: email,
-            phoneNumber: 21334
+            phoneNumber: phone,
+            date: dayjs(date).toDate()
         })
         props.handleClose()
     }
     
     const handleCancel = () => {
-        console.log("cancel")
+        props.handleClose()
     }
 
     return (
@@ -68,6 +72,12 @@ const NewVolunteerModalContents = (props: {handleClose: any}) => {
                     label: "Username",
                     stateValue: username,
                     stateSetter: handleUsernameChange
+                },
+                {
+                    label: "Phone Number",
+                    type: 'phone',
+                    stateValue: phone,
+                    stateSetter: handlePhoneChange
                 },
                 {
                     label: "Start Date",
