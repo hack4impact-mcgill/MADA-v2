@@ -11,19 +11,21 @@ type ModalProps = {
     modalInputProps: ModalInputProps[]
 }
 
-// Check if all inputs are valid
-// const isValid = (list: any[]) => {
-//     const validList = list.map((inputProps) => {
-//         if (inputProps.stateValue == undefined) return false;
-//         if (inputProps.stateValue == "") return false;
-//         if (inputProps.valid == false) return false;
-//         return true
-//     })
+const isValid = (list: any[]) => {
+    const validList = list.map((inputProps) => {
+        if (inputProps.stateValue == undefined) return false;
+        if (inputProps.stateValue == "") return false;
+        if (inputProps.valid == false) return false;
+        return true
+    })
 
-//     return validList.every(Boolean)
-// }
+    return validList.every(Boolean)
+}
 
 const BaseModal = (props: ModalProps) => {
+    let actionProps = props.modalActionBarProps;
+    actionProps.primaryActionProps.disabled = !isValid(props.modalInputProps)
+
     return (
         <Box sx={style}>
             <Typography variant="h5">{props.title}</Typography>
@@ -32,7 +34,7 @@ const BaseModal = (props: ModalProps) => {
                 {props.modalInputProps.map((inputProps) => {
                     return <>{getInputByType(inputProps)}</>
                 })}
-                <ModalActionBar {...props.modalActionBarProps}/>
+                <ModalActionBar {...actionProps}/>
             </FormControl>
         </Box>
     )

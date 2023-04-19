@@ -1,25 +1,23 @@
 import React from 'react'
-import {Box} from '@mui/material';
-import { FormControl, FormLabel, TextField, Button, Typography } from '@mui/material';
-import {style} from 'src/components/common/modal/style'
-import {ModalTextInput} from 'src/components/common/modal/textinput'
 import BaseModal from 'src/components/common/modal/modal'
+import {useStateSetupHandler} from 'src/components/common/use-state-setup-handler';
+import {isValidEmail, isValidPhone} from 'src/components/common/validators';
 
-const NewClientModalContents = () => {
-    const [name, setName] = React.useState('');
-    const [address, setAddress] = React.useState('');
-    const [email, setEmail] = React.useState('');
+const NewClientModalContents = (props: {handleClose: any}) => {
+    const {state: name, handler: handleNameChange} = useStateSetupHandler('');
+    const {state: address, handler: handleAddressChange} = useStateSetupHandler('');
+    const {state: email, handler: handleEmailChange} = useStateSetupHandler('');
 
-    const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {setName(event.target.value)};
-    const handleAddressChange = (event: React.ChangeEvent<HTMLInputElement>) => {setAddress(event.target.value)};
-    const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {setEmail(event.target.value)};
-    
+    const [phone, setPhone] = React.useState("");
+    const handlePhoneChange = (value: any) => {setPhone(value)}
+
     const handleCreate = async () => {
         console.log("create")
+        props.handleClose()
     }
     
     const handleCancel = () => {
-        console.log("cancel")
+        props.handleClose()
     }
 
     return (
@@ -46,7 +44,15 @@ const NewClientModalContents = () => {
                 {
                     label: "Email",
                     stateValue: email,
-                    stateSetter: handleEmailChange
+                    stateSetter: handleEmailChange,
+                    valid: isValidEmail(email)
+                },
+                {
+                    label: "Phone Number",
+                    type: 'phone',
+                    stateValue: phone,
+                    stateSetter: handlePhoneChange,
+                    valid: isValidPhone(phone)
                 },
                 {
                     label: "Address",

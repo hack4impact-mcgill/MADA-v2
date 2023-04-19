@@ -16,7 +16,8 @@ export type ModalInputProps = {
     type?: string,
     stateValue: any,
     stateSetter: any,
-    options?: any[]
+    options?: any[],
+    valid?: boolean,
 }
 
 export const getInputByType = (inputProps: ModalInputProps) => {

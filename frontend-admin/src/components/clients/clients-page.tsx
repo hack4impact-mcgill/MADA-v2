@@ -76,7 +76,7 @@ const ClientsPage = () => {
             <Container sx={{width: '100%', height: '100vh' }} maxWidth={false}>
                 <Button variant="outlined" onClick={handleOpen}>Create Client</Button>
                 <Modal open={open} onClose={handleClose}>   
-                    <NewClientModalContents/>
+                    <NewClientModalContents handleClose={handleClose}/>
                 </Modal>
 
                 <Modal open={id !== -1} onClose={handleCloseEditModal}>   

@@ -7,6 +7,7 @@ import {createVolunteer} from 'src/api/volunteers'
 import * as dayjs from 'dayjs'
 import BaseModal from 'src/components/common/modal/modal'
 import {useStateSetupHandler} from 'src/components/common/use-state-setup-handler';
+import {isValidEmail, isValidPhone} from 'src/components/common/validators';
 
 const NewVolunteerModalContents = (props: {handleClose: any}) => {
     const queryClient = useQueryClient()
@@ -22,11 +23,12 @@ const NewVolunteerModalContents = (props: {handleClose: any}) => {
     const {state: username, handler: handleUsernameChange} = useStateSetupHandler('');
     const {state: email, handler: handleEmailChange} = useStateSetupHandler('');
     const {state: password, handler: handlePasswordChange} = useStateSetupHandler('');
+
     const [phone, setPhone] = React.useState("");
+    const handlePhoneChange = (value: any) => {setPhone(value)}
+ 
     const [date, setDate] = React.useState<dayjs.Dayjs | null>(null);
     
-    const handlePhoneChange = (value: any) => {setPhone(value)}
-
     const handleCreate = () => {
         mutation.mutate({
             name: name,
@@ -67,7 +69,8 @@ const NewVolunteerModalContents = (props: {handleClose: any}) => {
                 {
                     label: "Email",
                     stateValue: email,
-                    stateSetter: handleEmailChange
+                    stateSetter: handleEmailChange,
+                    valid: isValidEmail(email)
                 },
                 {
                     label: "Username",
@@ -83,13 +86,15 @@ const NewVolunteerModalContents = (props: {handleClose: any}) => {
                     label: "Phone Number",
                     type: 'phone',
                     stateValue: phone,
-                    stateSetter: handlePhoneChange
+                    stateSetter: handlePhoneChange,
+                    valid: isValidPhone(phone)
                 },
                 {
                     label: "Start Date",
                     type: 'date',
                     stateValue: date,
-                    stateSetter: (d: any) => setDate(d)
+                    stateSetter: (d: any) => setDate(d),
+                    valid: dayjs(date).isValid()
                 },
             ]}
         />

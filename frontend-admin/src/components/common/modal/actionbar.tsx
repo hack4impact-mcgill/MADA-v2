@@ -4,7 +4,7 @@ import { FormControl, FormLabel, TextField, Button, Typography } from '@mui/mate
 
 const PrimaryActionButton = (props: PrimaryActionProps) => {
     return (<>
-        <Button variant="contained" onClick={props.handlePrimary}>{props.labelPrimary}</Button>
+        <Button disabled={props.disabled ? props.disabled : false} variant="contained" onClick={props.handlePrimary}>{props.labelPrimary}</Button>
     </>)
 }
 
@@ -16,7 +16,8 @@ const SecondaryActionButton = (props: SecondaryActionProps) => {
 
 type PrimaryActionProps = {
     handlePrimary: any,
-    labelPrimary: string
+    labelPrimary: string,
+    disabled?: boolean
 }
 
 type SecondaryActionProps = {
