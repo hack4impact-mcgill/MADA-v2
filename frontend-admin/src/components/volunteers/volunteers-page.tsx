@@ -32,6 +32,10 @@ const columns: GridColDef[] = [
         type: 'string',
         width: 300,
     },
+    // {
+    //     field: 'phoneNumber',
+    //     type: 'number'
+    // },
     {
         field: "edit",
         headerName: "",
@@ -50,7 +54,7 @@ const columns: GridColDef[] = [
         
             return <Button sx={{width: '100%'}} onClick={onClick}>Edit</Button>;
         }
-      },
+    },
 ];
 
 const VolunteersPage = () => {

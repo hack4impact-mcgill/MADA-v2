@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
-import {EditVolunteerState, useEditVolunteerStore} from 'src/components/volunteers/volunteer.store';
-import {getVolunteer, editVolunteer, getVolunteers} from 'src/api/volunteers'
+import {EditClientState, useEditClientStore} from './client.store';
+import {getClient, editClient} from 'src/api/clients'
 import BaseModal from 'src/components/common/modal/modal'
 import {useStateSetupHandler} from 'src/components/common/use-state-setup-handler';
 
@@ -10,13 +10,13 @@ import {
     QueryClient
 } from '@tanstack/react-query'
 
-const EditVolunteerModalContents = () => {
-    const id = useEditVolunteerStore((state: EditVolunteerState) => state.id)
-    const setId = useEditVolunteerStore((state: EditVolunteerState) => state.setId)
+const EditClientModalContents = () => {
+    const id = useEditClientStore((state: EditClientState) => state.id)
+    const setId = useEditClientStore((state: EditClientState) => state.setId)
 
     const { data } = useQuery({
-        queryKey: ['volunteers', id],
-        queryFn: () => getVolunteer(id)
+        queryKey: ['clients', id],
+        queryFn: () => getClient(id)
     })
 
     const {state: name, setState: setName, handler: handleNameChange} = useStateSetupHandler('');
@@ -25,18 +25,18 @@ const EditVolunteerModalContents = () => {
 
     useEffect(() => {
         if (data) {
-            setName(data!.data.volunteer.name);
-            setUsername(data!.data.volunteer.username);
-            setEmail(data!.data.volunteer.email);
+            setName(data!.data.client.name);
+            setUsername(data!.data.client.username);
+            setEmail(data!.data.client.email);
         }
     }, [data]);
     
     const queryClient = new QueryClient()
 
-    const mutation = useMutation(editVolunteer, {
+    const mutation = useMutation(editClient, {
         onSuccess: () => {
             // Invalidate and refetch
-            queryClient.invalidateQueries('volunteers')
+            queryClient.invalidateQueries('clients')
         },
     })
     
@@ -58,7 +58,11 @@ const EditVolunteerModalContents = () => {
     
     const handleDelete = () => {
         console.log("alert to delete")
-        setId(-1)
+        //setId(-1)
+    }
+
+    const handleTemp = () => {
+        console.log("temp")
     }
 
     return (
@@ -101,4 +105,4 @@ const EditVolunteerModalContents = () => {
     )
 }
 
-export default EditVolunteerModalContents;
+export default EditClientModalContents;

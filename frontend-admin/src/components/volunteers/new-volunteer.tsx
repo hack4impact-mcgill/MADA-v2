@@ -6,6 +6,7 @@ import {
 import {createVolunteer} from 'src/api/volunteers'
 import { Dayjs } from 'dayjs';
 import BaseModal from 'src/components/common/modal/modal'
+import {useStateSetupHandler} from 'src/components/common/use-state-setup-handler';
 
 const NewVolunteerModalContents = (props: {handleClose: any}) => {
     const queryClient = useQueryClient()
@@ -17,14 +18,10 @@ const NewVolunteerModalContents = (props: {handleClose: any}) => {
         },
     })
 
-    const [name, setName] = React.useState('');
-    const [username, setUsername] = React.useState('');
-    const [email, setEmail] = React.useState('');
+    const {state: name, handler: handleNameChange} = useStateSetupHandler('');
+    const {state: username, handler: handleUsernameChange} = useStateSetupHandler('');
+    const {state: email, handler: handleEmailChange} = useStateSetupHandler('');
     const [date, setDate] = React.useState<Dayjs | null>(null);
-
-    const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {setName(event.target.value)};
-    const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {setUsername(event.target.value)};
-    const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {setEmail(event.target.value)};
 
     const handleCreate = () => {
         mutation.mutate({

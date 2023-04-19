@@ -4,7 +4,8 @@ import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import {Page} from 'src/components/common/drawer'
 import NewClientModalContents from './new-client'
 import {getClients} from 'src/api/clients'
-
+import {useEditClientStore, EditClientState} from './client.store'
+import EditClientModalContents from './edit-client'
 import {
     useQuery,
 } from '@tanstack/react-query'
@@ -40,11 +41,15 @@ const columns: GridColDef[] = [
         headerName: "",
         disableColumnMenu: true,
         sortable: false,
-        renderCell: (params) => {
+        renderCell: (cellValues) => {
+            const setId = useEditClientStore((state: EditClientState) => state.setId)
+
             const onClick = (e: any) => {
                 e.stopPropagation(); // don't select this row after clicking
+
+                setId(cellValues.row.id)
         
-                return console.log("click to edit");
+                return console.log("click to edit from page: ", cellValues.row.id);
             };
         
             return <Button sx={{width: '100%'}} onClick={onClick}>Edit</Button>;
@@ -59,12 +64,23 @@ const ClientsPage = () => {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
+    const id = useEditClientStore((state: EditClientState) => state.id)
+    const setId = useEditClientStore((state: EditClientState) => state.setId)
+    
+    const handleCloseEditModal = () => {
+        setId(-1)
+    };
+
     return (
         <Page>
             <Container sx={{width: '100%', height: '100vh' }} maxWidth={false}>
                 <Button variant="outlined" onClick={handleOpen}>Create Client</Button>
                 <Modal open={open} onClose={handleClose}>   
                     <NewClientModalContents/>
+                </Modal>
+
+                <Modal open={id !== -1} onClose={handleCloseEditModal}>   
+                    <EditClientModalContents />    
                 </Modal>
                 
                 {
@@ -73,7 +89,7 @@ const ClientsPage = () => {
                     :
                         <Box sx={{display: 'flex', flexDirection: 'column', width: '100%', height: '90%' }}>
                             <DataGrid
-                                rows={data.data.clients}
+                                rows={data!.data.clients}
                                 columns={columns}
                                 disableColumnSelector
                             />
