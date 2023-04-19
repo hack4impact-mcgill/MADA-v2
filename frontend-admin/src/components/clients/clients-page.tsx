@@ -1,9 +1,13 @@
 import React from 'react'
-import mockClientData from 'src/components/mockdata/clients';
 import {Box, Container, Button, Modal} from '@mui/material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import {Page} from 'src/components/common/drawer'
 import NewClientModalContents from './new-client'
+import {getClients} from 'src/api/clients'
+
+import {
+    useQuery,
+} from '@tanstack/react-query'
 
 const columns: GridColDef[] = [
     {
@@ -49,7 +53,7 @@ const columns: GridColDef[] = [
 ];
 
 const ClientsPage = () => {
-    // get list of clients from db
+    const { isLoading, isError, data, error } = useQuery(['clients'], () => getClients())
 
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(true);
@@ -63,13 +67,18 @@ const ClientsPage = () => {
                     <NewClientModalContents/>
                 </Modal>
                 
-                <Box sx={{display: 'flex', flexDirection: 'column', width: '100%', height: '80%' }}>
-                    <DataGrid
-                        rows={mockClientData}
-                        columns={columns}
-                        disableColumnSelector
-                    />
-                </Box>
+                {
+                    isLoading ?
+                        <Box>Loading...</Box>
+                    :
+                        <Box sx={{display: 'flex', flexDirection: 'column', width: '100%', height: '90%' }}>
+                            <DataGrid
+                                rows={data.data.clients}
+                                columns={columns}
+                                disableColumnSelector
+                            />
+                        </Box>
+                }
             </Container>
         </Page>
     )
