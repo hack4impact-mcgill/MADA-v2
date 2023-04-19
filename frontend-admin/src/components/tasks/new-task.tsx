@@ -10,6 +10,7 @@ import {getClients} from 'src/api/clients';
 import {getVolunteers} from 'src/api/volunteers';
 import BaseModal from 'src/components/common/modal/modal'
 import {SelectOptionProps} from 'src/components/common/modal/inputs/type'
+import {MealProps} from 'src/components/common/modal/inputs/list'
 
 const NewTaskModalContents = (props: {handleClose: any}) => {
     const queryClient = useQueryClient()
@@ -25,10 +26,14 @@ const NewTaskModalContents = (props: {handleClose: any}) => {
 
     const [date, setDate] = React.useState<Dayjs | null>(null);
     const [volunteerId, setVolunteerId] = React.useState<number>(-1);
-    const [clientIds, setClientIds] = React.useState([]);
-
+    const [meals, setMeals] = React.useState<MealProps[]>([]);
+    
     const handleCreate = () => {
-        mutation.mutate({})
+        const taskData = {
+            volunteerId: volunteerId,
+            meals: meals
+        }
+        //mutation.mutate({})
         props.handleClose()
     }
     
@@ -66,11 +71,11 @@ const NewTaskModalContents = (props: {handleClose: any}) => {
                     stateSetter: (event: any) => setVolunteerId(event.target.value)
                 },
                 {
-                    label: "Clients",
-                    type: 'multiselect',
+                    label: "Meals",
+                    type: 'list',
+                    stateValue: meals,
+                    stateSetter: setMeals,
                     options: clientData ? clientData!.data.clients.map((client: any) => ({value: client.id, label: client.name} as SelectOptionProps)) : [],
-                    stateValue: clientIds,
-                    stateSetter: (event: any) => setClientIds(event.target.value)
                 },
             ]}
         />

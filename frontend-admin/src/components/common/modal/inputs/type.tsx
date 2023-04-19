@@ -3,6 +3,7 @@ import {ModalTextInput} from './text';
 import {ModalDateInput} from './date';
 import {ModalSelectInput} from './select';
 import {ModalMultiselectInput} from './multiselect';
+import {ModalListInput} from './list';
 
 export type SelectOptionProps = {
     value: any,
@@ -26,5 +27,7 @@ export const getInputByType = (inputProps: ModalInputProps) => {
         return (<ModalSelectInput {...inputProps}/>)
     } else if (inputProps.type && inputProps.type === "multiselect") {
         return (<ModalMultiselectInput {...inputProps}/>)
+    } else if (inputProps.type && inputProps.type === "list") {
+        return (<ModalListInput {...inputProps}/>)
     }
 }
