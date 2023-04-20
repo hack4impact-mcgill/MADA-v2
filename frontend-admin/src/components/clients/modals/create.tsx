@@ -1,43 +1,18 @@
 import React from 'react'
-import {
-    useMutation,
-    useQueryClient,
-} from '@tanstack/react-query'
-import {createVolunteer} from 'src/api/volunteers'
-import * as dayjs from 'dayjs'
 import BaseModal from 'src/components/common/modal/modal'
 import {useStateSetupHandler} from 'src/components/common/use-state-setup-handler';
 import {isValidEmail, isValidPhone} from 'src/components/common/validators';
 
-export const NewModal = (props: {handleClose: any}) => {
-    const queryClient = useQueryClient()
-
-    const mutation = useMutation(createVolunteer, {
-        onSuccess: () => {
-            // Invalidate and refetch
-            queryClient.invalidateQueries('volunteers')
-        },
-    })
-
+export const CreateModal = (props: {handleClose: any}) => {
     const {state: name, handler: handleNameChange} = useStateSetupHandler('');
-    const {state: username, handler: handleUsernameChange} = useStateSetupHandler('');
+    const {state: address, handler: handleAddressChange} = useStateSetupHandler('');
     const {state: email, handler: handleEmailChange} = useStateSetupHandler('');
-    const {state: password, handler: handlePasswordChange} = useStateSetupHandler('');
 
     const [phone, setPhone] = React.useState("");
     const handlePhoneChange = (value: any) => {setPhone(value)}
- 
-    const [date, setDate] = React.useState<dayjs.Dayjs | null>(null);
-    
-    const handleCreate = () => {
-        mutation.mutate({
-            name: name,
-            username: username,
-            password: password,
-            email: email,
-            phoneNumber: phone,
-            date: dayjs(date).toDate()
-        })
+
+    const handleCreate = async () => {
+        console.log("create")
         props.handleClose()
     }
     
@@ -47,7 +22,7 @@ export const NewModal = (props: {handleClose: any}) => {
 
     return (
         <BaseModal
-            title={"Create new volunteer"}
+            title={"Create new client"}
             modalActionBarProps={{
                 primaryActionProps: {
                     handlePrimary: handleCreate,
@@ -73,16 +48,6 @@ export const NewModal = (props: {handleClose: any}) => {
                     valid: isValidEmail(email)
                 },
                 {
-                    label: "Username",
-                    stateValue: username,
-                    stateSetter: handleUsernameChange
-                },
-                {
-                    label: "Password",
-                    stateValue: password,
-                    stateSetter: handlePasswordChange
-                },
-                {
                     label: "Phone Number",
                     type: 'phone',
                     stateValue: phone,
@@ -90,11 +55,9 @@ export const NewModal = (props: {handleClose: any}) => {
                     valid: isValidPhone(phone)
                 },
                 {
-                    label: "Start Date",
-                    type: 'date',
-                    stateValue: date,
-                    stateSetter: (d: any) => setDate(d),
-                    valid: dayjs(date).isValid()
+                    label: "Address",
+                    stateValue: address,
+                    stateSetter: handleAddressChange
                 },
             ]}
         />

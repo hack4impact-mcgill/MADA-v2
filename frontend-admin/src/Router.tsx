@@ -1,8 +1,8 @@
 import React from "react";
 import { BrowserRouter, Route, Router, Routes } from "react-router-dom";
-import VolunteersPage from './components/volunteers/volunteers-page';
-import ClientsPage from './components/clients/clients-page';
-import TasksPage from './components/tasks/tasks-page';
+import VolunteersPage from './components/volunteers/page';
+import ClientsPage from './components/clients/page';
+import TasksPage from './components/tasks/page';
 
 const RouterComponent = () => {
   return (

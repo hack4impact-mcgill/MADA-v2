@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react'
-import {EditClientState, useEditClientStore} from './client.store';
+import {EditClientState, useEditClientStore} from '../client.store';
 import {getClient, editClient} from 'src/api/clients'
 import BaseModal from 'src/components/common/modal/modal'
 import {useStateSetupHandler} from 'src/components/common/use-state-setup-handler';
@@ -10,7 +10,7 @@ import {
     QueryClient
 } from '@tanstack/react-query'
 
-const EditClientModalContents = () => {
+export const EditModal = () => {
     const id = useEditClientStore((state: EditClientState) => state.id)
     const setId = useEditClientStore((state: EditClientState) => state.setId)
 
@@ -100,5 +100,3 @@ const EditClientModalContents = () => {
         />
     )
 }
-
-export default EditClientModalContents;

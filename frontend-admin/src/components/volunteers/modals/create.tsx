@@ -1,18 +1,43 @@
 import React from 'react'
+import {
+    useMutation,
+    useQueryClient,
+} from '@tanstack/react-query'
+import {createVolunteer} from 'src/api/volunteers'
+import * as dayjs from 'dayjs'
 import BaseModal from 'src/components/common/modal/modal'
 import {useStateSetupHandler} from 'src/components/common/use-state-setup-handler';
 import {isValidEmail, isValidPhone} from 'src/components/common/validators';
 
-const NewClientModalContents = (props: {handleClose: any}) => {
+export const CreateModal = (props: {handleClose: any}) => {
+    const queryClient = useQueryClient()
+
+    const mutation = useMutation(createVolunteer, {
+        onSuccess: () => {
+            // Invalidate and refetch
+            queryClient.invalidateQueries('volunteers')
+        },
+    })
+
     const {state: name, handler: handleNameChange} = useStateSetupHandler('');
-    const {state: address, handler: handleAddressChange} = useStateSetupHandler('');
+    const {state: username, handler: handleUsernameChange} = useStateSetupHandler('');
     const {state: email, handler: handleEmailChange} = useStateSetupHandler('');
+    const {state: password, handler: handlePasswordChange} = useStateSetupHandler('');
 
     const [phone, setPhone] = React.useState("");
     const handlePhoneChange = (value: any) => {setPhone(value)}
-
-    const handleCreate = async () => {
-        console.log("create")
+ 
+    const [date, setDate] = React.useState<dayjs.Dayjs | null>(null);
+    
+    const handleCreate = () => {
+        mutation.mutate({
+            name: name,
+            username: username,
+            password: password,
+            email: email,
+            phoneNumber: phone,
+            date: dayjs(date).toDate()
+        })
         props.handleClose()
     }
     
@@ -22,7 +47,7 @@ const NewClientModalContents = (props: {handleClose: any}) => {
 
     return (
         <BaseModal
-            title={"Create new client"}
+            title={"Create new volunteer"}
             modalActionBarProps={{
                 primaryActionProps: {
                     handlePrimary: handleCreate,
@@ -48,6 +73,16 @@ const NewClientModalContents = (props: {handleClose: any}) => {
                     valid: isValidEmail(email)
                 },
                 {
+                    label: "Username",
+                    stateValue: username,
+                    stateSetter: handleUsernameChange
+                },
+                {
+                    label: "Password",
+                    stateValue: password,
+                    stateSetter: handlePasswordChange
+                },
+                {
                     label: "Phone Number",
                     type: 'phone',
                     stateValue: phone,
@@ -55,13 +90,13 @@ const NewClientModalContents = (props: {handleClose: any}) => {
                     valid: isValidPhone(phone)
                 },
                 {
-                    label: "Address",
-                    stateValue: address,
-                    stateSetter: handleAddressChange
+                    label: "Start Date",
+                    type: 'date',
+                    stateValue: date,
+                    stateSetter: (d: any) => setDate(d),
+                    valid: dayjs(date).isValid()
                 },
             ]}
         />
     )
 }
-
-export default NewClientModalContents;

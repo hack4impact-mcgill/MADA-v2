@@ -1,31 +1,21 @@
 import React from 'react'
+import { GridActionsCellItem, GridRowId } from '@mui/x-data-grid';
+import {CreateModal, EditModal} from './modals'
+import {getClients} from 'src/api/clients'
+import {useEditClientStore, EditClientState} from './client.store'
 import {useQuery} from '@tanstack/react-query'
-import {GridRowId, GridActionsCellItem} from '@mui/x-data-grid';
-import { useNavigate } from "react-router-dom";
-import {NewModal, EditModal, NotifModal} from './modals'
-import {getVolunteers} from 'src/api/volunteers'
-import {EditVolunteerState, useEditVolunteerStore} from 'src/components/volunteers/volunteer.store';
-import {volunteerColumns} from './grid';
+import {clientColumns} from './columns';
+import {PageActionBar, ActionProps} from 'src/components/common/page-actionbar'
 import GridPage from 'src/components/common/grid/page';
-import {ActionProps} from 'src/components/common/page-actionbar'
 import {useModalState} from 'src/components/common/use-modal-state';
 
-const VolunteersPage = () => {
-    const navigate = useNavigate()
-    const { isLoading, isError, data, error } = useQuery(['volunteers'], () => getVolunteers())
+const ClientsPage = () => {
+    const { isLoading, isError, data, error } = useQuery(['clients'], () => getClients())
     const {state: createModal, handleOpen: handleOpenCreateModal, handleClose: handleCloseCreateModal} = useModalState()
-    const {state: notifModal, handleOpen: handleOpenNotifModal, handleClose: handleCloseNotifModal} = useModalState()
     const {state: editModal, handleOpen: handleOpenEditModal, handleClose: handleCloseEditModal} = useModalState()
 
-    const setId = useEditVolunteerStore((state: EditVolunteerState) => state.setId)
-
-    const handleViewTasks = React.useCallback(
-        (id: GridRowId) => () => {
-            navigate("/tasks?volunteerId.%3D=" + id)
-        },
-        [],
-    );
-
+    const setId = useEditClientStore((state: EditClientState) => state.setId)
+    
     const handleEdit = React.useCallback(
         (id: GridRowId) => () => {
             setId(id)
@@ -40,11 +30,6 @@ const VolunteersPage = () => {
             type: 'actions',
             getActions: (params: any) => [
                 <GridActionsCellItem
-                    label="View tasks"
-                    onClick={handleViewTasks(params.id)}
-                    showInMenu
-                />,
-                <GridActionsCellItem
                     label="Edit"
                     onClick={handleEdit(params.id)}
                     showInMenu
@@ -55,25 +40,17 @@ const VolunteersPage = () => {
 
     const actionBarProps: ActionProps[] = [
         {
-            handler: handleOpenNotifModal,
-            label: "Create notification"
-        },
-        {
             handler: handleOpenCreateModal,
-            label: "Create volunteer"
+            label: "Create client"
         }
     ]
 
+    
     const modalControls = [
         {
             status: createModal,
             handleClose: handleCloseCreateModal,
-            children: <NewModal handleClose={handleCloseCreateModal}/>
-        },
-        {
-            status: notifModal,
-            handleClose: handleCloseNotifModal,
-            children: <NotifModal handleClose={handleCloseNotifModal}/>
+            children: <CreateModal handleClose={handleCloseCreateModal}/>
         },
         {
             status: editModal,
@@ -85,8 +62,8 @@ const VolunteersPage = () => {
     const gridCondition = isLoading
 
     const gridProps = {
-        rows: data ? data!.data.volunteers : [],
-        columns: [...volunteerColumns, ...actionColumns],
+        rows: data ? data!.data.clients : [],
+        columns: [...clientColumns, ...actionColumns],
         filter: [],
         initalState: {},
     }
@@ -101,4 +78,4 @@ const VolunteersPage = () => {
     return (<GridPage {...gridPageProps}/>)
 }
 
-export default VolunteersPage;
+export default ClientsPage;
