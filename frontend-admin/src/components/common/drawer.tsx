@@ -28,6 +28,19 @@ const drawerStyles = {
     },
 }
 
+const DrawerListItem = (props: {label: string, path: string}) => {
+    const navigate = useNavigate();
+    const {label, path} = props;
+
+    return (
+        <ListItem disablePadding>
+            <ListItemButton onClick={() => navigate(path)}>
+                <ListItemText primary={label} />
+            </ListItemButton>
+        </ListItem>
+    )
+}
+
 export const NavigationDrawer = () => {
     const navigate = useNavigate();
     return (<>
@@ -37,14 +50,14 @@ export const NavigationDrawer = () => {
             anchor="left"
             open={true}
         >
-            <List>
-                {navList.map((navItem) => (
-                    <ListItem key={navItem.label} disablePadding>
-                        <ListItemButton onClick={() => navigate(navItem.path)}>
-                            <ListItemText primary={navItem.label} />
-                        </ListItemButton>
-                    </ListItem>
-                ))}
+            <List sx={{display: 'flex', height: '100%', flexDirection: 'column',justifyContent: 'space-between'}}>
+                <Box>
+                    {navList.map((navItem) => (
+                        <DrawerListItem {...navItem}/>
+                    ))}
+                </Box>
+
+                <DrawerListItem path={"/login"} label={"Logout"}/>
             </List>
         </Drawer>
     </>)

@@ -17,7 +17,7 @@ const GridPage = (props: GridPageProps) => {
 
     return (
         <BasePage>
-            <Container sx={{width: '100%', height: '100vh' }} maxWidth={false}>
+            <Container sx={{width: '100%', height: '100vh'}} maxWidth={false}>
                 <PageActionBar actions={actionBarProps}/>
 
                 {
