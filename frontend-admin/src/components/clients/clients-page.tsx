@@ -1,6 +1,6 @@
 import React from 'react'
 import {Box, Container, Button, Modal} from '@mui/material';
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { GridActionsCellItem, GridRowId } from '@mui/x-data-grid';
 import {Page} from 'src/components/common/drawer'
 import NewClientModalContents from './new-client'
 import {getClients} from 'src/api/clients'
@@ -9,53 +9,8 @@ import EditClientModalContents from './edit-client'
 import {
     useQuery,
 } from '@tanstack/react-query'
-
-const columns: GridColDef[] = [
-    {
-        field: 'id',
-        type: 'number',
-    },
-    {
-        field: 'username',
-        type: 'string',
-        width: 150
-    },
-    {
-        field: 'name',
-        type: 'string',
-        width: 150,
-        sortable: true,
-    },
-    {
-        field: 'email',
-        type: 'string',
-        width: 300,
-    },
-    {
-        field: 'address',
-        type: 'string',
-        width: 200,
-    },
-    {
-        field: "edit",
-        headerName: "",
-        disableColumnMenu: true,
-        sortable: false,
-        renderCell: (cellValues) => {
-            const setId = useEditClientStore((state: EditClientState) => state.setId)
-
-            const onClick = (e: any) => {
-                e.stopPropagation(); // don't select this row after clicking
-
-                setId(cellValues.row.id)
-        
-                return console.log("click to edit from page: ", cellValues.row.id);
-            };
-        
-            return <Button sx={{width: '100%'}} onClick={onClick}>Edit</Button>;
-        }
-      },
-];
+import {BaseGrid} from 'src/components/common/grid';
+import {clientColumns} from './columns';
 
 const ClientsPage = () => {
     const { isLoading, isError, data, error } = useQuery(['clients'], () => getClients())
@@ -70,6 +25,27 @@ const ClientsPage = () => {
     const handleCloseEditModal = () => {
         setId(-1)
     };
+    
+    const handleEdit = React.useCallback(
+        (id: GridRowId) => () => {
+            setId(id)
+        },
+        [],
+    );
+
+    const actionColumns = [
+        {
+            field: 'actions',
+            type: 'actions',
+            getActions: (params: any) => [
+                <GridActionsCellItem
+                    label="Edit"
+                    onClick={handleEdit(params.id)}
+                    showInMenu
+                />,
+            ],
+        }
+    ]
 
     return (
         <Page>
@@ -83,17 +59,13 @@ const ClientsPage = () => {
                     <EditClientModalContents />    
                 </Modal>
                 
-                {
-                    isLoading ?
-                        <Box>Loading...</Box>
-                    :
-                        <Box sx={{display: 'flex', flexDirection: 'column', width: '100%', height: '90%' }}>
-                            <DataGrid
-                                rows={data!.data.clients}
-                                columns={columns}
-                                disableColumnSelector
-                            />
-                        </Box>
+                {   isLoading ? <Box>Loading...</Box> :
+                    <BaseGrid
+                        rows={data!.data.clients}
+                        columns={[...clientColumns, ...actionColumns]}
+                        filter={[]}
+                        initalState={{}}
+                    />
                 }
             </Container>
         </Page>

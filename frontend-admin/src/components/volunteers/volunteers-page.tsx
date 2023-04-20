@@ -36,7 +36,6 @@ const VolunteersPage = () => {
 
     const handleEdit = React.useCallback(
         (id: GridRowId) => () => {
-            console.log("edit", id)
             setId(id)
         },
         [],
