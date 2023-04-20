@@ -1,8 +1,13 @@
-import { useState } from 'react'
+import React from 'react'
+import Router from './Router';
+import { BrowserRouter} from "react-router-dom";
+
 function App() {
     return (
         <div className="App">
-            <div>app</div>
+            <BrowserRouter>
+                <Router />
+            </BrowserRouter>
         </div>
     )
 }
