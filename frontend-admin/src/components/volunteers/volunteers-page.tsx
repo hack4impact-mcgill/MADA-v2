@@ -13,6 +13,7 @@ import {BaseGrid} from 'src/components/common/grid';
 import {GridRowId, GridActionsCellItem} from '@mui/x-data-grid';
 import { useNavigate } from "react-router-dom";
 import {PageActionBar, ActionProps} from 'src/components/common/page-actionbar'
+import NotificationModalContents from './notification';
 
 const VolunteersPage = () => {
     const navigate = useNavigate()
@@ -20,6 +21,10 @@ const VolunteersPage = () => {
     const [openCreateModal, setOpenCreateModal] = React.useState(false);
     const handleOpenCreateModal = () => setOpenCreateModal(true);
     const handleCloseCreateModal = () => setOpenCreateModal(false);
+
+    const [openNotifModal, setOpenNotifModal] = React.useState(false);
+    const handleOpenNotifModal = () => setOpenNotifModal(true);
+    const handleCloseNotifModal = () => setOpenNotifModal(false);
 
     const handleCloseEditModal = () => {
         setId(-1)
@@ -61,14 +66,10 @@ const VolunteersPage = () => {
         }
     ]
 
-    const handleSendNotification = () => {
-        console.log("Send notification")
-    }
-
     const actionBarProps: ActionProps[] = [
         {
-            handler: handleSendNotification,
-            label: "Send notification"
+            handler: handleOpenNotifModal,
+            label: "Create notification"
         },
         {
             handler: handleOpenCreateModal,
@@ -83,6 +84,10 @@ const VolunteersPage = () => {
 
                 <Modal open={openCreateModal} onClose={handleCloseCreateModal}>   
                     <NewVolunteerModalContents handleClose={handleCloseCreateModal}/>
+                </Modal>
+
+                <Modal open={openNotifModal} onClose={handleCloseNotifModal}>   
+                    <NotificationModalContents handleClose={handleCloseNotifModal}/>
                 </Modal>
 
                 <Modal open={id !== -1} onClose={handleCloseEditModal}>   
