@@ -1,36 +1,22 @@
 import React from 'react'
-import {
-    useQuery,
-} from '@tanstack/react-query'
-import {getVolunteers} from 'src/api/volunteers'
-import NewVolunteerModalContents from './new-volunteer'
-import EditVolunteerModalContents from './edit-volunteer'
-import {Box, Container, Button, Divider, Modal} from '@mui/material';
-import {Page} from 'src/components/common/drawer'
-import {EditVolunteerState, useEditVolunteerStore} from 'src/components/volunteers/volunteer.store';
-import {volunteerColumns} from './grid';
-import {BaseGrid} from 'src/components/common/grid';
+import {useQuery} from '@tanstack/react-query'
 import {GridRowId, GridActionsCellItem} from '@mui/x-data-grid';
 import { useNavigate } from "react-router-dom";
-import {PageActionBar, ActionProps} from 'src/components/common/page-actionbar'
-import NotificationModalContents from './notification';
+import {NewModal, EditModal, NotifModal} from './modals'
+import {getVolunteers} from 'src/api/volunteers'
+import {EditVolunteerState, useEditVolunteerStore} from 'src/components/volunteers/volunteer.store';
+import {volunteerColumns} from './grid';
+import GridPage from 'src/components/common/grid/page';
+import {ActionProps} from 'src/components/common/page-actionbar'
+import {useModalState} from 'src/components/common/use-modal-state';
 
 const VolunteersPage = () => {
     const navigate = useNavigate()
     const { isLoading, isError, data, error } = useQuery(['volunteers'], () => getVolunteers())
-    const [openCreateModal, setOpenCreateModal] = React.useState(false);
-    const handleOpenCreateModal = () => setOpenCreateModal(true);
-    const handleCloseCreateModal = () => setOpenCreateModal(false);
+    const {state: createModal, handleOpen: handleOpenCreateModal, handleClose: handleCloseCreateModal} = useModalState()
+    const {state: notifModal, handleOpen: handleOpenNotifModal, handleClose: handleCloseNotifModal} = useModalState()
+    const {state: editModal, handleOpen: handleOpenEditModal, handleClose: handleCloseEditModal} = useModalState()
 
-    const [openNotifModal, setOpenNotifModal] = React.useState(false);
-    const handleOpenNotifModal = () => setOpenNotifModal(true);
-    const handleCloseNotifModal = () => setOpenNotifModal(false);
-
-    const handleCloseEditModal = () => {
-        setId(-1)
-    };
-
-    const id = useEditVolunteerStore((state: EditVolunteerState) => state.id)
     const setId = useEditVolunteerStore((state: EditVolunteerState) => state.setId)
 
     const handleViewTasks = React.useCallback(
@@ -43,6 +29,7 @@ const VolunteersPage = () => {
     const handleEdit = React.useCallback(
         (id: GridRowId) => () => {
             setId(id)
+            handleOpenEditModal()
         },
         [],
     );
@@ -53,13 +40,13 @@ const VolunteersPage = () => {
             type: 'actions',
             getActions: (params: any) => [
                 <GridActionsCellItem
-                    label="Edit"
-                    onClick={handleEdit(params.id)}
+                    label="View tasks"
+                    onClick={handleViewTasks(params.id)}
                     showInMenu
                 />,
                 <GridActionsCellItem
-                    label="View tasks"
-                    onClick={handleViewTasks(params.id)}
+                    label="Edit"
+                    onClick={handleEdit(params.id)}
                     showInMenu
                 />,
             ],
@@ -76,35 +63,42 @@ const VolunteersPage = () => {
             label: "Create volunteer"
         }
     ]
-    
-    return (
-        <Page>
-            <Container sx={{width: '100%', height: '100vh' }} maxWidth={false}>
-                <PageActionBar actions={actionBarProps}/>
 
-                <Modal open={openCreateModal} onClose={handleCloseCreateModal}>   
-                    <NewVolunteerModalContents handleClose={handleCloseCreateModal}/>
-                </Modal>
+    const modalControls = [
+        {
+            status: createModal,
+            handleClose: handleCloseCreateModal,
+            children: <NewModal handleClose={handleCloseCreateModal}/>
+        },
+        {
+            status: notifModal,
+            handleClose: handleCloseNotifModal,
+            children: <NotifModal handleClose={handleCloseNotifModal}/>
+        },
+        {
+            status: editModal,
+            handleClose: handleCloseEditModal,
+            children: <EditModal handleClose={handleCloseEditModal}/>
+        },
+    ]
 
-                <Modal open={openNotifModal} onClose={handleCloseNotifModal}>   
-                    <NotificationModalContents handleClose={handleCloseNotifModal}/>
-                </Modal>
+    const gridCondition = isLoading
 
-                <Modal open={id !== -1} onClose={handleCloseEditModal}>   
-                    <EditVolunteerModalContents />
-                </Modal>
-                
-                { isLoading ? <Box>Loading...</Box> :
-                    <BaseGrid
-                        rows={data!.data.volunteers}
-                        columns={[...volunteerColumns, ...actionColumns]}
-                        filter={[]}
-                        initalState={{}}
-                    />
-                }
-            </Container>
-        </Page>
-    )
+    const gridProps = {
+        rows: data ? data!.data.volunteers : [],
+        columns: [...volunteerColumns, ...actionColumns],
+        filter: [],
+        initalState: {},
+    }
+
+    const gridPageProps = {
+        actionBarProps: actionBarProps,
+        modalControls: modalControls,
+        gridCondition: gridCondition,
+        gridProps: gridProps
+    }
+
+    return (<GridPage {...gridPageProps}/>)
 }
 
 export default VolunteersPage;

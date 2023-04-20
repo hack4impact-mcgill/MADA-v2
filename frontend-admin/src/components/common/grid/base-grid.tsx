@@ -2,7 +2,15 @@ import React, {useState} from 'react'
 import {Box} from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 
-export const BaseGrid = (props: {rows: any[], filter: any[], columns: any[], initalState: any, handleFilterModelChange?: any}) => {
+export type BaseGridProps = {
+    rows: any[],
+    filter: any[],
+    columns: any[],
+    initalState: any,
+    handleFilterModelChange?: any
+}
+
+export const BaseGrid = (props: BaseGridProps) => {
     const {rows, filter, columns, initalState, handleFilterModelChange} = props
     
     return (<>

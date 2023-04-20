@@ -1,7 +1,7 @@
 import React from 'react'
 import {Box, Container, Button, Modal} from '@mui/material';
 import { GridActionsCellItem, GridRowId } from '@mui/x-data-grid';
-import {Page} from 'src/components/common/drawer'
+import {BasePage} from 'src/components/common/base-page'
 import NewClientModalContents from './new-client'
 import {getClients} from 'src/api/clients'
 import {useEditClientStore, EditClientState} from './client.store'
@@ -9,7 +9,7 @@ import EditClientModalContents from './edit-client'
 import {
     useQuery,
 } from '@tanstack/react-query'
-import {BaseGrid} from 'src/components/common/grid';
+import {BaseGrid} from 'src/components/common/grid/base-grid';
 import {clientColumns} from './columns';
 import {PageActionBar, ActionProps} from 'src/components/common/page-actionbar'
 
@@ -56,7 +56,7 @@ const ClientsPage = () => {
     ]
 
     return (
-        <Page>
+        <BasePage>
             <Container sx={{width: '100%', height: '100vh' }} maxWidth={false}>
                 <PageActionBar actions={actionBarProps}/>
 
@@ -77,7 +77,7 @@ const ClientsPage = () => {
                     />
                 }
             </Container>
-        </Page>
+        </BasePage>
     )
 }
 

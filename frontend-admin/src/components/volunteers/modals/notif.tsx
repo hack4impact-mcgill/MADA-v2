@@ -2,7 +2,7 @@ import React from 'react'
 import BaseModal from 'src/components/common/modal/modal'
 import {useStateSetupHandler} from 'src/components/common/use-state-setup-handler';
 
-const NotificationModalContents = (props: {handleClose: any}) => {
+export const NotifModal = (props: {handleClose: any}) => {
     const {state: message, handler: handleMessageChange} = useStateSetupHandler('');
     
     const handleSend = () => {
@@ -40,5 +40,3 @@ const NotificationModalContents = (props: {handleClose: any}) => {
         />
     )
 }
-
-export default NotificationModalContents;

@@ -10,7 +10,7 @@ import {
     QueryClient
 } from '@tanstack/react-query'
 
-const EditVolunteerModalContents = () => {
+export const EditModal = (props: {handleClose: any}) => {
     const id = useEditVolunteerStore((state: EditVolunteerState) => state.id)
     const setId = useEditVolunteerStore((state: EditVolunteerState) => state.setId)
 
@@ -50,10 +50,12 @@ const EditVolunteerModalContents = () => {
             }
         })
         setId(-1)
+        props.handleClose()
     }
     
     const handleCancel = () => {
         setId(-1)
+        props.handleClose()
     }
     
     const handleDelete = () => {
@@ -100,5 +102,3 @@ const EditVolunteerModalContents = () => {
         />
     )
 }
-
-export default EditVolunteerModalContents;

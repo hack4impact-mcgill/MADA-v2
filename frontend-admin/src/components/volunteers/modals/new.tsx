@@ -9,7 +9,7 @@ import BaseModal from 'src/components/common/modal/modal'
 import {useStateSetupHandler} from 'src/components/common/use-state-setup-handler';
 import {isValidEmail, isValidPhone} from 'src/components/common/validators';
 
-const NewVolunteerModalContents = (props: {handleClose: any}) => {
+export const NewModal = (props: {handleClose: any}) => {
     const queryClient = useQueryClient()
 
     const mutation = useMutation(createVolunteer, {
@@ -100,5 +100,3 @@ const NewVolunteerModalContents = (props: {handleClose: any}) => {
         />
     )
 }
-
-export default NewVolunteerModalContents;

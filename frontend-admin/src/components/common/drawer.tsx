@@ -50,15 +50,4 @@ export const NavigationDrawer = () => {
     </>)
 }
 
-export const Page = (props: {children: any}) => {
-    return (
-        <Box sx={{ display:'flex' , width: '100vw', height: '100vh'}}>
-            <NavigationDrawer />
-            <Box sx={{ display:'flex', flexDirection: 'column', overflowX: 'hidden'}}>
-                <Box sx={{ display:'flex', flexDirection: 'column', overflowX: 'auto'}}>
-                    {props.children}
-                </Box>
-            </Box>
-        </Box>
-    )
-}
+export default NavigationDrawer;
