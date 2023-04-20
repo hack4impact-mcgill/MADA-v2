@@ -11,6 +11,7 @@ import {
 } from '@tanstack/react-query'
 import {BaseGrid} from 'src/components/common/grid';
 import {clientColumns} from './columns';
+import {PageActionBar, ActionProps} from 'src/components/common/page-actionbar'
 
 const ClientsPage = () => {
     const { isLoading, isError, data, error } = useQuery(['clients'], () => getClients())
@@ -47,10 +48,18 @@ const ClientsPage = () => {
         }
     ]
 
+    const actionBarProps: ActionProps[] = [
+        {
+            handler: handleOpen,
+            label: "Create client"
+        }
+    ]
+
     return (
         <Page>
             <Container sx={{width: '100%', height: '100vh' }} maxWidth={false}>
-                <Button variant="outlined" onClick={handleOpen}>Create Client</Button>
+                <PageActionBar actions={actionBarProps}/>
+
                 <Modal open={open} onClose={handleClose}>   
                     <NewClientModalContents handleClose={handleClose}/>
                 </Modal>

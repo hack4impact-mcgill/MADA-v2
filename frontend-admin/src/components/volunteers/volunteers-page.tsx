@@ -12,6 +12,7 @@ import {volunteerColumns} from './grid';
 import {BaseGrid} from 'src/components/common/grid';
 import {GridRowId, GridActionsCellItem} from '@mui/x-data-grid';
 import { useNavigate } from "react-router-dom";
+import {PageActionBar, ActionProps} from 'src/components/common/page-actionbar'
 
 const VolunteersPage = () => {
     const navigate = useNavigate()
@@ -60,11 +61,26 @@ const VolunteersPage = () => {
         }
     ]
 
+    const handleSendNotification = () => {
+        console.log("Send notification")
+    }
+
+    const actionBarProps: ActionProps[] = [
+        {
+            handler: handleSendNotification,
+            label: "Send notification"
+        },
+        {
+            handler: handleOpenCreateModal,
+            label: "Create volunteer"
+        }
+    ]
+    
     return (
         <Page>
             <Container sx={{width: '100%', height: '100vh' }} maxWidth={false}>
-                <Button variant="outlined" onClick={handleOpenCreateModal}>Create Volunteer</Button>
-                
+                <PageActionBar actions={actionBarProps}/>
+
                 <Modal open={openCreateModal} onClose={handleCloseCreateModal}>   
                     <NewVolunteerModalContents handleClose={handleCloseCreateModal}/>
                 </Modal>

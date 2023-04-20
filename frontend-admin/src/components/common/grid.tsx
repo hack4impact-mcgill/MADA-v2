@@ -6,7 +6,7 @@ export const BaseGrid = (props: {rows: any[], filter: any[], columns: any[], ini
     const {rows, filter, columns, initalState, handleFilterModelChange} = props
     
     return (<>
-        <Box sx={{display: 'flex', flexDirection: 'column', width: '100%', height: '90%' }}>
+        <Box sx={{display: 'flex', flexDirection: 'column', width: '100%', height: '85%' }}>
             <DataGrid
                 rows={rows}
                 columns={columns}

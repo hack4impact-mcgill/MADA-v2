@@ -11,6 +11,7 @@ export const volunteerColumns: GridColDef[] = [
     {
         field: 'id',
         type: 'number',
+        width: 20
     },
     {
         field: 'username',
