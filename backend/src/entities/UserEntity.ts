@@ -6,7 +6,7 @@ export class UserEntity {
     @PrimaryColumn()
     username: string;
 
-    @Column({ select: false })
+    @Column()
     password: string;
 
     // Personal info
@@ -21,4 +21,7 @@ export class UserEntity {
 
     @Column()
     phoneNumber: string;
+
+    @Column({nullable: true})
+    token: string;
 }

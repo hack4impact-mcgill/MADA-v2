@@ -4,13 +4,22 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import madaImg from './mada.jpg';
 import { useNavigate } from 'react-router-dom'
 import {AuthState, useAuthStore} from 'src/auth.store';
+import {login} from 'src/api/auth';
+import {useQueryClient, useMutation} from '@tanstack/react-query'
 
 export default function SignInSide() {
     const navigate = useNavigate();
     const auth = useAuthStore((state: AuthState) => state.auth)
     const setAuth = useAuthStore((state: AuthState) => state.setAuth)
+    
+    const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
+        const formData = new FormData(event.currentTarget);
 
-    const handleLogin = () => {
+        console.log({
+            email: formData.get('email'),
+            password: formData.get('password'),
+        });
+
         setAuth(true)
         navigate('/volunteers')
     }
@@ -48,7 +57,7 @@ export default function SignInSide() {
                         <Typography component="h1" variant="h5">
                             Sign in
                         </Typography>
-                        <Box component="form" noValidate onSubmit={() => handleLogin()} sx={{ mt: 2, mx: 8 }}>
+                        <Box component="form" noValidate onSubmit={handleLogin} sx={{ mt: 2, mx: 8 }}>
                             <TextField
                                 margin="normal"
                                 required
