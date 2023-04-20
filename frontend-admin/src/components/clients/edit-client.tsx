@@ -61,10 +61,6 @@ const EditClientModalContents = () => {
         //setId(-1)
     }
 
-    const handleTemp = () => {
-        console.log("temp")
-    }
-
     return (
         <BaseModal
             title={"Edit " + name}
