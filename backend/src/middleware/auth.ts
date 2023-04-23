@@ -1,5 +1,6 @@
 import * as jwt from 'jsonwebtoken';
-const TOKEN_KEY = "hack4impactmcgillmada"
+require('dotenv').config()
+const TOKEN_KEY = process.env.TOKEN_KEY
 
 export const auth = async (request, response, next) => {
     try {

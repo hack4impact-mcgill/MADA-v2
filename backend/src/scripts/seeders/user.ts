@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker';
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
-
-const TOKEN_KEY = "hack4impactmcgillmada"
+require('dotenv').config()
+const TOKEN_KEY = process.env.TOKEN_KEY
 
 export const generateUser = (first?: string, last?: string) => {
     const firstName = first || faker.name.firstName();

@@ -5,7 +5,8 @@ import { StatusCode } from './statusCode';
 import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
 
-const TOKEN_KEY = "hack4impactmcgillmada"
+require('dotenv').config()
+const TOKEN_KEY = process.env.TOKEN_KEY
 
 export default class AdminController {
     private AdminRepository = AppDataSource.getRepository(AdminEntity);

@@ -4,10 +4,12 @@ import { AdminEntity } from '../../entities/AdminEntity';
 import * as bcrypt from 'bcryptjs';
 import {generateStaffUser} from './user';
 
+require('dotenv').config()
+
 const DEFAULT_ADMIN = {
-    username: "admin",
-    password: "pw",
-    email: "admin@example.com",
+    username: process.env.ADMIN_USERNAME,
+    password: process.env.ADMIN_PASSWORD,
+    email: process.env.ADMIN_EMAIL,
     jobTitle: "Administrator"
 }
 
