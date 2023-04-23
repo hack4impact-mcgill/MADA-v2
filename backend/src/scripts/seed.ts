@@ -10,10 +10,10 @@ export const seed = async () => {
     await AppDataSource.initialize();
 
     console.log("Begin seeding");
-    await runSeeder(AppDataSource, VolunteerSeeder);
-    console.log("Seeded Volunteers");
     await runSeeder(AppDataSource, ClientSeeder);
     console.log("Seeded Clients");
+    await runSeeder(AppDataSource, VolunteerSeeder);
+    console.log("Seeded Volunteers");
     await runSeeder(AppDataSource, AdminSeeder);
     console.log("Seeded Admin");
 

@@ -25,7 +25,6 @@ export class MealDeliveryEntity {
   })
   task: TaskEntity;
 
-  @OneToOne(() => ClientEntity)
-  @JoinColumn()
+  @ManyToOne(() => ClientEntity)
   client: ClientEntity;
 }

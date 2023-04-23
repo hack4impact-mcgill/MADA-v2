@@ -21,7 +21,7 @@ export const generateStaffUser = async () => {
     const firstName = faker.name.firstName();
     const lastName = faker.name.lastName();
 
-    const user = generateUser() as any;
+    const user = generateUser(firstName, lastName) as any;
 
     user.username = faker.internet.userName(firstName, lastName);
     user.password = await bcrypt.hash(faker.internet.password(), 10);
