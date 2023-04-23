@@ -1,26 +1,26 @@
-import axios from 'axios';
+import AxiosInstance from './axios';
 
 export const getClients = async () => {
-    const response = await axios({
+    const response = await AxiosInstance({
         method: "get",
-        url: "http://localhost:3001/api/clients",
+        url: "/clients",
     });
     
     return response
 }
 
 export const getClient = async (id: number) => {
-    const response = await axios({
+    const response = await AxiosInstance({
         method: "get",
-        url: "http://localhost:3001/api/clients/"+id.toString(),
+        url: "/clients/"+id.toString(),
     });
     return response
 }
 
 export const editClient = async (props: {id: number, data: any}) => {
-    const response = await axios({
+    const response = await AxiosInstance({
         method: "put",
-        url: "http://localhost:3001/api/clients/"+props.id.toString()+"/edit",
+        url: "/clients/"+props.id.toString()+"/edit",
         data: props.data
     });
     return response

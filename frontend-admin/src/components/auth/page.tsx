@@ -11,17 +11,31 @@ export default function SignInSide() {
     const navigate = useNavigate();
     const auth = useAuthStore((state: AuthState) => state.auth)
     const setAuth = useAuthStore((state: AuthState) => state.setAuth)
-    
-    const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
-        const formData = new FormData(event.currentTarget);
 
-        console.log({
-            email: formData.get('email'),
+    const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        const formData = new FormData(event.currentTarget);
+        
+        const response = await login({
             password: formData.get('password'),
-        });
+            email: formData.get('email'),
+        })
 
         setAuth(true)
         navigate('/volunteers')
+
+        // await mutation.mutate({
+        //     password: formData.get('password'),
+        //     email: formData.get('email'),
+        // })
+
+        // if (mutation.isSuccess) {
+        //     console.log("we can log in!")
+        //     setAuth(true)
+        //     navigate('/volunteers')
+        // } else {
+        //     console.log("problem")
+        // }
     }
 
     return (

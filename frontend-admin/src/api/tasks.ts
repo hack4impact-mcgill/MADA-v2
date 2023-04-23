@@ -1,18 +1,18 @@
-import axios from 'axios';
+import AxiosInstance from './axios';
 
 export const getTasks = async () => {
-    const response = await axios({
+    const response = await AxiosInstance({
         method: "get",
-        url: "http://localhost:3001/api/tasks",
+        url: "/tasks",
     });
     
     return response
 }
 
 export const createTask = async (data: any) => {
-    const response = await axios({
+    const response = await AxiosInstance({
         method: "post",
-        url: "http://localhost:3001/api/tasks",
+        url: "/tasks",
         data: data
     });
     return response

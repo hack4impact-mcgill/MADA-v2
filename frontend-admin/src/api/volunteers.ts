@@ -1,33 +1,33 @@
-import axios from 'axios';
+import AxiosInstance from './axios';
 
 export const getVolunteers = async () => {
-    const response = await axios({
+    const response = await AxiosInstance({
         method: "get",
-        url: "http://localhost:3001/api/volunteers",
+        url: "/volunteers",
     });
-    console.log(response)
+    
     return response
 }
 
 export const getVolunteer = async (id: number) => {
-    const response = await axios({
+    const response = await AxiosInstance({
         method: "get",
-        url: "http://localhost:3001/api/volunteers/"+id.toString(),
+        url: "/volunteers/"+id.toString(),
     });
     return response
 }
 
 export const editVolunteer = async (props: {id: number, data: any}) => {
-    const response = await axios({
+    const response = await AxiosInstance({
         method: "put",
-        url: "http://localhost:3001/api/volunteers/"+props.id.toString()+"/edit",
+        url: "/volunteers/"+props.id.toString()+"/edit",
         data: props.data
     });
     return response
 }
 
 export const createVolunteer = async (data: any) => {
-    const response = await axios({
+    const response = await AxiosInstance({
         method: "post",
         url: "http://localhost:3001/api/volunteers",
         data: data
