@@ -4,13 +4,14 @@ import { router as mealDelivery } from './mealDelivery.routes';
 import { router as volunteers } from './volunteer.routes';
 import { router as clients } from './client.routes';
 import { router as admin } from './admin.routes';
+import {auth} from '../middleware/auth';
 
 // Create a router object
 export const api = express.Router();
 
 // Adds the routes from todo.route to this router
-api.use(tasks);
-api.use(mealDelivery);
-api.use(volunteers);
-api.use(clients);
 api.use(admin);
+api.use(tasks, auth);
+api.use(mealDelivery, auth);
+api.use(volunteers, auth);
+api.use(clients, auth);

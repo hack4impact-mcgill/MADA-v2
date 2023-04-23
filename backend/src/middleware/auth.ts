@@ -3,8 +3,8 @@ const TOKEN_KEY = "hack4impactmcgillmada"
 
 export const auth = async (request, response, next) => {
     try {
-        // get the token from the authorization header
-        const token = await request.headers.authorization.split(" ")[1];
+        // get the token
+        const token = await request.headers.cookie.split(" ").filter((item) => item.includes("TOKEN"))[0].split("=")[1];
         
         //check if the token matches the supposed origin
         const decodedToken = jwt.verify(token, TOKEN_KEY);
