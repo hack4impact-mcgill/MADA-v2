@@ -3,6 +3,7 @@ import { Box, Button, Tooltip, FormHelperText, SvgIcon, Icon, MenuItem, FormLabe
 import {SelectOptionProps, ModalInputProps} from './type';
 import {inputStyle} from './style'
 import { SelectInput } from './select';
+import {NumberInput} from './number'
 import { ReactComponent as InformationIcon } from '../../../../assets/info-icon.svg';
 
 const InputRow = (props: {index: number, handleRemove: any, state: MealProps[], setter: any, options: any[]}) => {
@@ -41,7 +42,7 @@ const InputRow = (props: {index: number, handleRemove: any, state: MealProps[], 
     return (
         <Box sx={{display: 'flex', flexDirection: 'row'}}>
             <Button size="small" onClick={() => handleRemove(index)}>X</Button>
-            <TextField {...inputStyle} type={'number'} value={quantity} onChange={handleQuantityChange}></TextField>
+            <NumberInput {...inputStyle} stateValue={quantity} stateSetter={handleQuantityChange}/>
             <TextField {...inputStyle} type={'text'} value={type} onChange={handleTypeChange}></TextField>
             <SelectInput {...selectClientProps}/>
         </Box>
@@ -59,7 +60,7 @@ export const ModalListInput = (props: ModalInputProps) => {
     const handleAddToList = () => {
         props.stateSetter([...props.stateValue, {
             index: props.stateValue.length,
-            quantity: 0,
+            quantity: 1,
             type: "",
             clientId: null
         }])
