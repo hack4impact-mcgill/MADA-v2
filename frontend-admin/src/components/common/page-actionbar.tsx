@@ -3,7 +3,7 @@ import {Box, Button} from '@mui/material';
 
 const PageActionButton = (props: {handler: any, label: any}) => {
     return (
-        <Button variant="outlined" onClick={props.handler} sx={{ml: 1}}>{props.label}</Button>
+        <Button variant="outlined" onClick={props.handler}>{props.label}</Button>
     )
 }
 
@@ -17,7 +17,9 @@ export const PageActionBar = (props: {actions: ActionProps[]}) => {
         <>
             <Box sx={{display: 'flex', my: 2, justifyContent: 'flex-end'}}>
                 {props.actions.map((action, index) => (
-                    <PageActionButton handler={action.handler} label={action.label}/>
+                    <Box sx={{ml: 1}}>
+                        <PageActionButton handler={action.handler} label={action.label}/>
+                    </Box>
                 ))}
             </Box>
         </>

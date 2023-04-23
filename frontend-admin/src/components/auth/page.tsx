@@ -8,7 +8,7 @@ import axios from 'axios';
 import Cookies from "universal-cookie";
 const cookies = new Cookies();
 
-export default function SignInSide() {
+export default function LogInPage() {
     const navigate = useNavigate();
     const [error, setError] = React.useState("");
 

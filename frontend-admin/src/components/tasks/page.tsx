@@ -55,7 +55,9 @@ const TasksPage = () => {
                 },
             },
         },
-        handleFilterModelChange: handleFilterModelChange
+        handleFilterModelChange: handleFilterModelChange,
+        setFilter: setFilter,
+        setURLFilterParams: setURLFilterParams
     }
 
     const gridPageProps = {
