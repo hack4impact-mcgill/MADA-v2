@@ -1,16 +1,15 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import {Box, Grid, Paper, Link, Typography, TextField, Avatar, Button} from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import madaImg from './mada.jpg';
 import { useNavigate } from 'react-router-dom'
-import {AuthState, useAuthStore} from 'src/auth.store';
 import {login} from 'src/api/auth';
-import {useQueryClient, useMutation} from '@tanstack/react-query'
+
+import Cookies from "universal-cookie";
+const cookies = new Cookies();
 
 export default function SignInSide() {
     const navigate = useNavigate();
-    const auth = useAuthStore((state: AuthState) => state.auth)
-    const setAuth = useAuthStore((state: AuthState) => state.setAuth)
 
     const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -21,21 +20,12 @@ export default function SignInSide() {
             email: formData.get('email'),
         })
 
-        setAuth(true)
+        cookies.set("TOKEN", response.data.token, {
+            path: "/",
+            sameSite: "strict",
+        });
+
         navigate('/volunteers')
-
-        // await mutation.mutate({
-        //     password: formData.get('password'),
-        //     email: formData.get('email'),
-        // })
-
-        // if (mutation.isSuccess) {
-        //     console.log("we can log in!")
-        //     setAuth(true)
-        //     navigate('/volunteers')
-        // } else {
-        //     console.log("problem")
-        // }
     }
 
     return (
