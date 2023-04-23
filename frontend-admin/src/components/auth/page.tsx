@@ -1,7 +1,7 @@
 import React from 'react'
 import {Box, Grid, Paper, Link, Typography, TextField, Avatar, Button} from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import madaImg from './mada.jpg';
+import madaImg from 'src/assets/mada.jpg';
 import { useNavigate } from 'react-router-dom'
 import {login} from 'src/api/auth';
 
