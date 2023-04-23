@@ -1,10 +1,9 @@
 import React from "react";
-import { Route, Routes, Navigate, Outlet } from "react-router-dom";
+import { Route, Routes} from "react-router-dom";
 import VolunteersPage from './components/volunteers/page';
 import ClientsPage from './components/clients/page';
 import TasksPage from './components/tasks/page';
 import LoginPage from './components/auth/page';
-import {AuthState, useAuthStore} from 'src/auth.store';
 import {Private} from './components/auth/private';
 
 const Router = () => {
@@ -12,7 +11,6 @@ const Router = () => {
         <Routes>
             <Route path='/login' element={<LoginPage />}/>
             <Route element={<Private />}>
-                <Route path="/*" element={<div>Admin</div>} />
                 <Route path="/volunteers" element={<VolunteersPage/>} />
                 <Route path="/clients" element={<ClientsPage/>} />
                 <Route path="/tasks" element={<TasksPage/>} />

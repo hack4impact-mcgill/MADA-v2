@@ -4,28 +4,44 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import madaImg from 'src/assets/mada.jpg';
 import { useNavigate } from 'react-router-dom'
 import {login} from 'src/api/auth';
-
+import axios from 'axios';
 import Cookies from "universal-cookie";
 const cookies = new Cookies();
 
 export default function SignInSide() {
     const navigate = useNavigate();
+    const [error, setError] = React.useState("");
 
     const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
+
+        if (!formData.get('email') || !formData.get('password')) {
+            setError("Missing email or password")
+            return
+        }
         
-        const response = await login({
-            password: formData.get('password'),
-            email: formData.get('email'),
-        })
+        try {
+            const response = await login({
+                password: formData.get('password'),
+                email: formData.get('email'),
+            })
 
-        cookies.set("TOKEN", response.data.token, {
-            path: "/",
-            sameSite: "strict",
-        });
+            cookies.set("TOKEN", response.data.token, {
+                path: "/",
+                sameSite: "strict",
+            });
 
-        navigate('/volunteers')
+            navigate('/volunteers')
+
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                setError(error.response!.data.message)
+            } else {
+                console.error(error);
+                setError("Something went wrong")
+            }
+        }
     }
 
     return (
@@ -92,9 +108,9 @@ export default function SignInSide() {
                             </Button>
                             <Grid container>
                                 <Grid item xs>
-                                    <Link href="#" variant="body2">
-                                        Forgot password?
-                                    </Link>
+                                    <Typography variant="body2" color="error">
+                                        {error}
+                                    </Typography>
                                 </Grid>
                             </Grid>
                         </Box>
