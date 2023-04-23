@@ -1,8 +1,9 @@
 import React, {useState} from 'react'
-import { Box, Button, MenuItem, FormLabel, TextField } from '@mui/material';
+import { Box, Button, Tooltip, FormHelperText, SvgIcon, Icon, MenuItem, FormLabel, TextField } from '@mui/material';
 import {SelectOptionProps, ModalInputProps} from './type';
 import {inputStyle} from './style'
 import { SelectInput } from './select';
+import { ReactComponent as InformationIcon } from '../../../../assets/info-icon.svg';
 
 const InputRow = (props: {index: number, handleRemove: any, state: MealProps[], setter: any, options: any[]}) => {
     const {index, handleRemove, state, setter, options} = props;
@@ -39,9 +40,9 @@ const InputRow = (props: {index: number, handleRemove: any, state: MealProps[], 
 
     return (
         <Box sx={{display: 'flex', flexDirection: 'row'}}>
-            <Button size={"small"} onClick={() => handleRemove(index)}>X</Button>
-            <TextField {...inputStyle} type={'number'} value={quantity} placeholder={"quantity"} onChange={handleQuantityChange}></TextField>
-            <TextField {...inputStyle} type={'text'} value={type} placeholder={"meal type"} onChange={handleTypeChange}></TextField>
+            <Button size="small" onClick={() => handleRemove(index)}>X</Button>
+            <TextField {...inputStyle} type={'number'} value={quantity} onChange={handleQuantityChange}></TextField>
+            <TextField {...inputStyle} type={'text'} value={type} onChange={handleTypeChange}></TextField>
             <SelectInput {...selectClientProps}/>
         </Box>
     )
@@ -71,7 +72,14 @@ export const ModalListInput = (props: ModalInputProps) => {
     return (
     <>
         <Box sx={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between'}}>
-            <FormLabel>{props.label}</FormLabel>
+            <Box sx={{display: 'flex', flexDirection: 'row'}}>
+                <Tooltip title="Each meal's quantity / type / client">
+                    <Box sx={{position: 'absolute', left: -24}}>
+                        <SvgIcon fontSize={"small"} component={InformationIcon}/>
+                    </Box>
+                </Tooltip>
+                <FormLabel>{props.label}</FormLabel>
+            </Box>
             <Button size={"small"} onClick={handleAddToList}>Add</Button>
         </Box>
         { props.stateValue.length == 0 ? <Box>No meals</Box> : <>{
