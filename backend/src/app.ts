@@ -2,6 +2,7 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
+import {auth} from './middleware/auth';
 
 // Import from other .ts files
 import { api } from './routes/index';
@@ -16,5 +17,15 @@ app.use(cors()); //
 // Routes go here
 // Creating route : https://expressjs.com/en/guide/routing.html
 app.use('/api', api);
+
+// free endpoint
+app.get("/free-endpoint", (request, response) => {
+    response.json({ message: "You are free to access me anytime" });
+});
+  
+// authentication endpoint
+app.get("/auth-endpoint", auth, (request, response) => {
+    response.send({ message: "You are authorized to access me" });
+});
 
 export default app;
