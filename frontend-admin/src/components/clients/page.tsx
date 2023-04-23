@@ -66,12 +66,12 @@ const ClientsPage = () => {
         columns: [...clientColumns, ...actionColumns],
         filter: [],
         initalState: {},
+        gridCondition: gridCondition,
     }
 
     const gridPageProps = {
         actionBarProps: actionBarProps,
         modalControls: modalControls,
-        gridCondition: gridCondition,
         gridProps: gridProps
     }
 

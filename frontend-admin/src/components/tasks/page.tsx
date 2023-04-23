@@ -57,13 +57,13 @@ const TasksPage = () => {
         },
         handleFilterModelChange: handleFilterModelChange,
         setFilter: setFilter,
-        setURLFilterParams: setURLFilterParams
+        setURLFilterParams: setURLFilterParams,
+        gridCondition: gridCondition,
     }
 
     const gridPageProps = {
         actionBarProps: actionBarProps,
         modalControls: modalControls,
-        gridCondition: gridCondition,
         gridProps: gridProps
     }
 

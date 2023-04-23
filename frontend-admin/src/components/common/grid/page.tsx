@@ -8,12 +8,11 @@ import { BaseGridProps, BaseGrid } from './base-grid';
 type GridPageProps = {
     actionBarProps: ActionProps[],
     modalControls: ModalControlProps[],
-    gridCondition: boolean,
     gridProps: BaseGridProps
 }
 
 const GridPage = (props: GridPageProps) => {
-    const {actionBarProps, modalControls, gridCondition, gridProps} = props
+    const {actionBarProps, modalControls, gridProps} = props
 
     return (
         <BasePage>
@@ -26,10 +25,7 @@ const GridPage = (props: GridPageProps) => {
                     })
                 }
 
-                {
-                    gridCondition ? <Box>Loading...</Box> :
-                    <BaseGrid {...gridProps} />
-                }
+                <BaseGrid {...gridProps} />
             </Container>
         </BasePage>
     )

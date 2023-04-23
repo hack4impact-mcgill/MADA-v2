@@ -93,16 +93,16 @@ const VolunteersPage = () => {
         columns: [...volunteerColumns, ...actionColumns],
         filter: [],
         initalState: {},
+        gridCondition: gridCondition,
     }
 
     const gridPageProps = {
         actionBarProps: actionBarProps,
         modalControls: modalControls,
-        gridCondition: gridCondition,
         gridProps: gridProps
     }
 
     return (<GridPage {...gridPageProps}/>)
 }
 
-export default VolunteersPage;
+export default VolunteersPage; 
