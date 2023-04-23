@@ -9,7 +9,8 @@
     "test": "jest --passWithNoTests --runInBand",
     "prettier-format": "prettier --config .prettierrc 'src/**/*.ts' --write",
     "prettier-check-format": "prettier --config .prettierrc 'src/**/*.ts' --check",
-    "seed": "ts-node src/seed.ts"
+    "seed": "ts-node src/scripts/seed.ts",
+    "drop": "ts-node src/scripts/drop.ts"
   },
   "author": "",
   "license": "ISC",

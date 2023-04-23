@@ -2,8 +2,22 @@ import React from 'react'
 import BaseModal from 'src/components/common/modal/modal'
 import {useStateSetupHandler} from 'src/components/common/use-state-setup-handler';
 import {isValidEmail, isValidPhone} from 'src/components/common/validators';
+import {
+    useMutation,
+    useQueryClient,
+} from '@tanstack/react-query'
+import {createClient} from 'src/api/clients'
 
 export const CreateModal = (props: {handleClose: any}) => {
+    const queryClient = useQueryClient()
+
+    const mutation = useMutation(createClient, {
+        onSuccess: () => {
+            // Invalidate and refetch
+            queryClient.invalidateQueries('clients')
+        },
+    })
+    
     const {state: name, handler: handleNameChange} = useStateSetupHandler('');
     const {state: address, handler: handleAddressChange} = useStateSetupHandler('');
     const {state: email, handler: handleEmailChange} = useStateSetupHandler('');
@@ -12,7 +26,12 @@ export const CreateModal = (props: {handleClose: any}) => {
     const handlePhoneChange = (value: any) => {setPhone(value)}
 
     const handleCreate = async () => {
-        console.log("create")
+        mutation.mutate({
+            name: name,
+            address: address,
+            email: email,
+            phoneNumber: phone,
+        })
         props.handleClose()
     }
     

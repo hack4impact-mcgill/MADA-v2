@@ -12,6 +12,18 @@ export default class ClientController {
         response.status(StatusCode.OK).json({ clients: clients });
     };
 
+    createClient = async (request: Request, response: Response) => {
+        const client = await this.ClientRepository.create({
+            name: request.body.name,
+            email: request.body.email,
+            phoneNumber: request.body.phoneNumber,
+            address: request.body.address,
+            notes: "faker notes"
+        });
+        await this.ClientRepository.save(client)
+        response.status(StatusCode.OK).json({client});
+    };
+
     getClient = async (request: Request, response: Response) => {
         const client = await this.ClientRepository.findOne({
             where: { id: parseInt(request.params.id) }

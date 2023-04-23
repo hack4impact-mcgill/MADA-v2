@@ -1,9 +1,9 @@
-import { runSeeders, runSeeder } from 'typeorm-extension';
-import VolunteerSeeder from './db/volunteer.seeder';
-import ClientSeeder from './db/client.seeder';
-import AdminSeeder from './db/admin.seeder';
+import { runSeeder } from 'typeorm-extension';
+import VolunteerSeeder from './seeders/volunteer.seeder';
+import ClientSeeder from './seeders/client.seeder';
+import AdminSeeder from './seeders/admin.seeder';
 
-import { AppDataSource } from './data-source';
+import { AppDataSource } from '../data-source';
 
 export const seed = async () => {
     console.log("Begin initalizing data source");

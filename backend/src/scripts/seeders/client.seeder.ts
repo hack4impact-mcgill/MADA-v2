@@ -1,31 +1,13 @@
 import { Seeder, SeederFactoryManager } from 'typeorm-extension';
 import { DataSource } from 'typeorm';
 import { faker } from '@faker-js/faker';
-import { ClientEntity } from '../entities/ClientEntity';
-import * as bcrypt from 'bcryptjs';
-import * as jwt from 'jsonwebtoken';
-
-const TOKEN_KEY = "hack4impactmcgillmada"
+import { ClientEntity } from '../../entities/ClientEntity';
+import {generateStaffUser} from './user';
 
 const generateClient = async () => {
-    const client = new ClientEntity();
-    const firstName = faker.name.firstName();
-    const lastName = faker.name.lastName();
-    client.name = firstName + " " + lastName;
-    client.username = faker.internet.userName(firstName, lastName);
-    client.password = await bcrypt.hash(faker.internet.password(), 10);
-    client.email = faker.internet.email(firstName, lastName);
+    const client = await generateStaffUser() as any;
     client.address = faker.address.streetAddress()
-    client.phoneNumber = faker.phone.number()
     client.notes = faker.random.words(5)
-    const token = jwt.sign(
-        { username: client.username, email: client.email },
-            TOKEN_KEY,
-        {
-            expiresIn: "2h",
-        }
-    );
-    client.token = token
     return client;
 }
 

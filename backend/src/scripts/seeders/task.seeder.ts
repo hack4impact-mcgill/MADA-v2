@@ -1,7 +1,7 @@
 import { Seeder, SeederFactoryManager } from 'typeorm-extension';
 import { DataSource } from 'typeorm';
-import { TaskEntity } from '../entities/TaskEntity';
-import { VolunteerEntity } from '../entities/VolunteerEntity';
+import { TaskEntity } from '../../entities/TaskEntity';
+import { VolunteerEntity } from '../../entities/VolunteerEntity';
 import { faker } from '@faker-js/faker';
 
 export const generateTask = async (dataSource: DataSource, volunteer: VolunteerEntity) => {

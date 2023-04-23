@@ -25,3 +25,12 @@ export const editClient = async (props: {id: number, data: any}) => {
     });
     return response
 }
+
+export const createClient = async (data: any) => {
+    const response = await AxiosInstance({
+        method: "post",
+        url: "http://localhost:3001/api/clients",
+        data: data
+    });
+    return response
+}

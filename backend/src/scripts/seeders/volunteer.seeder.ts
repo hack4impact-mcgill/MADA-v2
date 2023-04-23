@@ -1,38 +1,20 @@
 import { Seeder, SeederFactoryManager } from 'typeorm-extension';
 import { DataSource } from 'typeorm';
-import { VolunteerEntity } from '../entities/VolunteerEntity';
+import { VolunteerEntity } from '../../entities/VolunteerEntity';
 import { faker } from '@faker-js/faker';
 import {generateTask} from './task.seeder';
-import * as bcrypt from 'bcryptjs';
-import * as jwt from 'jsonwebtoken';
-
-const TOKEN_KEY = "hack4impactmcgillmada"
+import {generateStaffUser} from './user';
 
 const generateVolunteer = async () => {
-    const volunteer = new VolunteerEntity();
-    const firstName = faker.name.firstName();
-    const lastName = faker.name.lastName();
-    volunteer.name =  firstName + " " + lastName;
-    volunteer.username = faker.internet.userName(firstName, lastName);
-    volunteer.password = await bcrypt.hash(faker.internet.password(), 10);
-    volunteer.email = faker.internet.email(firstName, lastName);
+    const volunteer = await generateStaffUser() as any;
     volunteer.startDate = faker.date.past(2)
     volunteer.profilePicture = faker.internet.avatar();
     volunteer.availabilities = [];
-    volunteer.phoneNumber = faker.phone.number()
-    const token = jwt.sign(
-        { username: volunteer.username, email: volunteer.email },
-            TOKEN_KEY,
-        {
-            expiresIn: "2h",
-        }
-    );
-    volunteer.token = token
     return volunteer;
 }
 
 const generateVolunteers = async (num: number) => {
-    const volunteers = [];
+    const volunteers: VolunteerEntity[] = [];
     for (let i = 0; i < num; i++) {
         const v = await generateVolunteer()
         volunteers.push(v);

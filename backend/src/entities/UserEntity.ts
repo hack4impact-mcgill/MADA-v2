@@ -1,13 +1,9 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class UserEntity {
-    // Account info
-    @PrimaryColumn()
-    username: string;
-
-    @Column()
-    password: string;
+export abstract class UserEntity { 
+    @PrimaryGeneratedColumn()
+    id: number;
 
     // Personal info
     @Column()
@@ -21,7 +17,4 @@ export class UserEntity {
 
     @Column()
     phoneNumber: string;
-
-    @Column({nullable: true})
-    token: string;
-}
+} 

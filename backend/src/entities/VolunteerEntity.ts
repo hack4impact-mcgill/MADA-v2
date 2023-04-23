@@ -1,4 +1,4 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, PrimaryColumn, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { TaskEntity } from './TaskEntity';
 import { UserEntity } from './UserEntity';
 
@@ -14,9 +14,6 @@ export enum DayOfWeek {
 
 @Entity()
 export class VolunteerEntity extends UserEntity {
-    @PrimaryGeneratedColumn()
-    id: number;
-
     @Column()
     startDate: Date;
 
@@ -28,4 +25,14 @@ export class VolunteerEntity extends UserEntity {
 
     @OneToMany(() => TaskEntity, (task) => task.volunteer)
     tasks: TaskEntity[];
+
+    // Account info
+    @Column()
+    username: string;
+
+    @Column()
+    password: string;
+    
+    @Column({nullable: true})
+    token: string;
 }
