@@ -19,7 +19,7 @@ export const taskColumns: GridColDef[] = [
     },
     {
         field: 'isCompleted',
-        headerName: 'Complete?',
+        headerName: 'Completion',
         type: 'boolean',
     },
     {
@@ -40,7 +40,7 @@ export const taskColumns: GridColDef[] = [
         headerName: 'Date',
         type: 'date',
         valueGetter: ({ value }) => value && new Date(value),
-        width: 200
+        width: 150
     },
     {
         field: "deliveries",

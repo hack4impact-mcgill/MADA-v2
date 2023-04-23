@@ -9,29 +9,28 @@ export const clientColumns: GridColDef[] = [
         width: 20
     },
     {
-        field: 'username',
-        type: 'string',
-        width: 150
-    },
-    {
         field: 'name',
+        headerName: 'Name',
         type: 'string',
         width: 150,
         sortable: true,
     },
     {
         field: 'email',
+        headerName: 'Email',
         type: 'string',
-        width: 300,
+        width: 250,
     },
     {
         field: 'address',
+        headerName: 'Address',
         type: 'string',
         width: 200,
     },
     {
         field: 'phoneNumber',
+        headerName: 'Phone',
         type: 'string',
-        width: 150,
+        width: 200,
     },
 ];

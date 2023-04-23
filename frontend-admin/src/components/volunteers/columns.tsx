@@ -15,27 +15,32 @@ export const volunteerColumns: GridColDef[] = [
     },
     {
         field: 'username',
+        headerName: 'Username',
         type: 'string',
         width: 150
     },
     {
         field: 'name',
+        headerName: 'Name',
         type: 'string',
         width: 150,
         sortable: true,
     },
     {
         field: 'email',
+        headerName: 'Email',
         type: 'string',
-        width: 300,
+        width: 250,
     },
     {
         field: 'phoneNumber',
+        headerName: 'Phone',
         type: 'string',
         width: 200,
     },
     {
         field: 'startDate',
+        headerName: 'Start Date',
         type: 'string',
         valueGetter: getDate,
         width: 100,
