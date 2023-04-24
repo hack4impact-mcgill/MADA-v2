@@ -3,6 +3,7 @@ import {EditVolunteerState, useEditVolunteerStore} from 'src/components/voluntee
 import {getVolunteer, editVolunteer, getVolunteers} from 'src/api/volunteers'
 import BaseModal from 'src/components/common/modal/modal'
 import {useStateSetupHandler} from 'src/components/common/use-state-setup-handler';
+import {isValidEmail, isValidPhone} from 'src/components/common/validators';
 
 import {
     useQuery,
@@ -23,11 +24,15 @@ export const EditModal = (props: {handleClose: any}) => {
     const {state: username, setState: setUsername, handler: handleUsernameChange} = useStateSetupHandler('');
     const {state: email, setState: setEmail, handler: handleEmailChange} = useStateSetupHandler('');
 
+    const [phone, setPhone] = React.useState("");
+    const handlePhoneChange = (value: any) => {setPhone(value)}
+
     useEffect(() => {
         if (data) {
             setName(data!.data.volunteer.name);
             setUsername(data!.data.volunteer.username);
             setEmail(data!.data.volunteer.email);
+            setPhone(data!.data.volunteer.phoneNumber);
         }
     }, [data]);
     
@@ -47,6 +52,7 @@ export const EditModal = (props: {handleClose: any}) => {
                 name: name,
                 username: username,
                 email: email,
+                phoneNumber: phone
             }
         })
         setId(-1)
@@ -91,12 +97,20 @@ export const EditModal = (props: {handleClose: any}) => {
                 {
                     label: "Email",
                     stateValue: email,
-                    stateSetter: handleEmailChange
+                    stateSetter: handleEmailChange,
+                    valid: isValidEmail(email)
                 },
                 {
                     label: "Username",
                     stateValue: username,
                     stateSetter: handleUsernameChange
+                },
+                { 
+                    label: "Phone Number",
+                    type: 'phone',
+                    stateValue: phone,
+                    stateSetter: handlePhoneChange,
+                    valid: isValidPhone(phone)
                 },
             ]}
         />
