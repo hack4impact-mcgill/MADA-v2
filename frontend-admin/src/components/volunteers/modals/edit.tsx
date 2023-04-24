@@ -82,10 +82,6 @@ export const EditModal = (props: {handleClose: any}) => {
                         handle: handleCancel,
                         label: "Cancel"
                     },
-                    {
-                        handle: handleDelete,
-                        label: "Delete"
-                    }
                 ]
             }}
             modalInputProps={[
