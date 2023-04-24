@@ -400,7 +400,11 @@ const MarkAvailability = () => {
 
       <Box display="flex" justifyContent="center" mt="10%">
         <Button
-          sx={{ backgroundColor: "#33BE41", width: "30%" }}
+          sx={{
+            backgroundColor: "#33BE41",
+            width: "30%",
+            marginBottom: "100%",
+          }}
           variant="contained"
           onClick={handleClickOpen}
         >
