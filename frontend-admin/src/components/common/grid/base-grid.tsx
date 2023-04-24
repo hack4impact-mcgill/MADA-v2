@@ -1,8 +1,7 @@
 import React, {useState} from 'react'
-import {Button, Box} from '@mui/material';
-import { GridFooterContainer, GridFooter, DataGrid, GridSlotsComponentsProps } from '@mui/x-data-grid';
+import { Box, LinearProgress} from '@mui/material';
+import { DataGrid } from '@mui/x-data-grid';
 import {FooterStatus, Footer} from './task-footer'
-import {LinearProgress} from '@mui/material';
 
 export type BaseGridProps = {
     rows: any[],
@@ -33,11 +32,9 @@ export const BaseGrid = (props: BaseGridProps) => {
                 initialState={initalState}
                 slots={{
                     loadingOverlay: LinearProgress,
+                    ...{...handleFilterModelChange ? {footer: Footer} : {}}
                 }}
-                {...handleFilterModelChange ? {
-                    components: {Footer: Footer},
-                    slotProps: {footer: { status, setStatus, setFilter, setURLFilterParams }}
-                } : {}}
+                {...handleFilterModelChange ? {slotProps: {footer: { status, setStatus, setFilter, setURLFilterParams }}} : {}}
             />
         </Box>
     </>)

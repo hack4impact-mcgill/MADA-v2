@@ -37,7 +37,6 @@ export const generateTask = async (dataSource: DataSource, volunteer: VolunteerE
         const client = clients[n]
         const meal = generateMeal(task, client)
         await mealRepository.insert(meal);
-        return task
     }
 
     return task;
