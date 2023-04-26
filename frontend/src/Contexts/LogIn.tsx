@@ -6,6 +6,7 @@ type State = {
   password: string;
   showPassword: boolean;
   rememberMe: boolean;
+  errorText: string;
 };
 
 export const initialState: State = {
@@ -13,13 +14,15 @@ export const initialState: State = {
   password: "",
   showPassword: false,
   rememberMe: false,
+  errorText: "",
 };
 
 type Action =
   | { type: "setUsername"; payload: string }
   | { type: "setPassword"; payload: string }
   | { type: "showPassword"; payload: boolean }
-  | { type: "rememberMe"; payload: boolean };
+  | { type: "rememberMe"; payload: boolean }
+  | { type: "setErrorText"; payload: string }
 
 const Reducer = (state: State, action: Action): State => {
   switch (action.type) {
@@ -42,6 +45,11 @@ const Reducer = (state: State, action: Action): State => {
       return {
         ...state,
         rememberMe: action.payload,
+      };
+    case "setErrorText":
+      return {
+        ...state,
+        errorText: action.payload,
       };
     default:
       return state;

@@ -39,3 +39,16 @@ export const updateTask = async (task: TaskInterface) => {
     throw new Error("Error in Axios update query to /tasks/<id>");
   }
 };
+
+export const getAllVolunteers = async () => {
+  try {
+    const res = await axios.get("http://localhost:3001/api/volunteers");
+    console.log(
+      "inside getAllVolunteers helper function: fetching all volunteers",
+      res.data.volunteers
+    );
+    return res.data.volunteers;
+  } catch (e) {
+    throw new Error("Error in Axios get query to /volunteers");
+  }
+};

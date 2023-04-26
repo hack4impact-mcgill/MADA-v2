@@ -8,10 +8,11 @@ import PasswordTextField from "./PasswordTextField";
 import SignInButton from "./SignInButton";
 import ForgotPasswordButton from "./ForgotPasswordButton";
 import MADALogo from "../MADALogo";
+import { getAllVolunteers } from "../../../services";
 
 const LogInForm = () => {
   const [state, dispatch] = useReducer(Reducer, initialState);
-  const { username, password, showPassword, rememberMe } = state;
+  const { username, password, showPassword, rememberMe, errorText } = state;
 
   const handleUsernameChange = (event: ChangeEvent<HTMLInputElement>) => {
     dispatch({
@@ -43,6 +44,13 @@ const LogInForm = () => {
     });
   };
 
+  const handleErrorText = (text: string) => {
+    dispatch({
+      type: "setErrorText",
+      payload: text,
+    });
+  };
+
   const handleClickLogIn = async (e: React.FormEvent<HTMLFormElement>) => {
     //Prevent page reload
     e.preventDefault();
@@ -50,7 +58,26 @@ const LogInForm = () => {
     console.log(username);
     console.log(password);
     console.log(rememberMe);
-    //TODO backend
+
+    //reset errorText
+    handleErrorText("");
+
+    //get all volunteers
+    const volunteers = await getAllVolunteers();
+    console.log("all volunteers", volunteers);
+
+    //loop through them and check if username and password match
+    for (var volunteer of volunteers) {
+      if (volunteer.username === username && volunteer.password === password) {
+        console.log("login successful, redirecting...");
+        //redirect to volunteer today page
+        window.location.href = "/today";
+        return;
+      }
+    }
+    //no user found with given username and password => display error message
+    console.log("login failed, displaying error message...");
+    handleErrorText("login failed");
   };
 
   return (
@@ -60,7 +87,7 @@ const LogInForm = () => {
           <Stack spacing={5}>
             <Box display="flex" align-items="center" justifyContent="center">
               <UsernameTextField
-                errorText="" //TODO error text from backend if wrong username/password
+                errorText={errorText} //TODO error text from backend if wrong username/password
                 helperText="Incorrect username or password. Please try again."
                 placeHolder="Username or Email"
                 updateUsername={handleUsernameChange}
@@ -69,7 +96,7 @@ const LogInForm = () => {
             </Box>
             <Box display="flex" align-items="center" justifyContent="center">
               <PasswordTextField
-                errorText="" //TODO error text from backend if wrong username/password
+                errorText={errorText} //TODO error text from backend if wrong username/password
                 updatePassword={handlePasswordChange}
                 password={password}
                 handleClickShowPassword={handleClickShowPassword}
