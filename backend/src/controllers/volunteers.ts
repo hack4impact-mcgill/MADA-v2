@@ -11,6 +11,13 @@ export default class VolunteerController {
     response.status(StatusCode.OK).json({ volunteers: volunteers });
   };
 
+  getVolunteer = async (request: Request, response: Response) => {
+    const volunteer = await this.VolunteerRepository.findOne({
+      where: { id: parseInt(request.params.id) }
+    });
+    response.status(StatusCode.OK).json({ volunteer: volunteer });
+  };
+
   removeVolunteer = async (request: Request, response: Response) => {
     await this.VolunteerRepository.delete({
       id: parseInt(request.params.id)
