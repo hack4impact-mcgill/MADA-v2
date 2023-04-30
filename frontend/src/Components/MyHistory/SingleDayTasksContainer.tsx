@@ -16,7 +16,7 @@ const SingleDayTasksContainer = (props: {
       <HistoryTaskDate date={props.date} />
       {filteredTasks.map((task) => (
         <Box key={task.id} sx={{ display: "flex", mb: 1, p: 1, bgcolor: "#FFFFFF", border: "1px solid #DFDFDF", borderRadius: 2, flexDirection: "column", justifyContent: "flex-start" }}>
-          <Typography sx={{ mr: 1 }}>{task.name}</Typography>
+          <Typography sx={{ mr: 1 }}>client name</Typography>
           <Typography variant="caption">
             {"Delivered at " + task.deliveryTime.toLocaleTimeString([], {
               hour: "2-digit",

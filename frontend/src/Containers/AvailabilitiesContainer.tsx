@@ -181,7 +181,7 @@ const MarkAvailability = () => {
                 setTimes(dayOfWeek, tmp);
                 setStartTime(startTime);
               }}
-              renderInput={(params) => <TextField {...params} />}
+              // renderInput={(params) => <TextField {...params} />}
             />
             <TimePicker
               label="End time"
@@ -197,7 +197,7 @@ const MarkAvailability = () => {
                 setTimes(dayOfWeek, tmp);
                 setEndTime(endTime);
               }}
-              renderInput={(params) => <TextField {...params} />}
+              // renderInput={(params) => <TextField {...params} />}
             />
             {/* delete button */}
             <MdDeleteOutline
@@ -337,7 +337,7 @@ const MarkAvailability = () => {
               }
               setStartDate(newValue);
             }}
-            renderInput={(params) => <TextField {...params} />}
+            // renderInput={(params) => <TextField {...params} />}
           />
 
           <div className="end-date">
@@ -352,7 +352,7 @@ const MarkAvailability = () => {
                 }
                 setEndDate(newValue);
               }}
-              renderInput={(params) => <TextField {...params} />}
+              // renderInput={(params) => <TextField {...params} />}
             />
           </div>
         </Box>

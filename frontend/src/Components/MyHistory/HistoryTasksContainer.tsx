@@ -18,6 +18,7 @@ const dummyTasks = [
     deliveryTime: day1,
     isCompleted: true,
     name: "Leopold Bennett",
+    volunteer: null,
     deliveries: [],
   },
   {
@@ -25,6 +26,7 @@ const dummyTasks = [
     deliveryTime: day1,
     isCompleted: false,
     name: "Avi Sharp",
+    volunteer: null,
     deliveries: [],
   },
   {
@@ -32,6 +34,7 @@ const dummyTasks = [
     deliveryTime: day1,
     isCompleted: true,
     name: "Zahara Lott",
+    volunteer: null,
     deliveries: [],
   },
   {
@@ -39,6 +42,7 @@ const dummyTasks = [
     deliveryTime: day1,
     isCompleted: true,
     name: "John Doe",
+    volunteer: null,
     deliveries: [],
   },
   {
@@ -46,6 +50,7 @@ const dummyTasks = [
     deliveryTime: day2,
     isCompleted: false,
     name: "Jane Doe",
+    volunteer: null,
     deliveries: [],
   },
   {
@@ -53,6 +58,7 @@ const dummyTasks = [
     deliveryTime: day3,
     isCompleted: true,
     name: "Thomas Walker",
+    volunteer: null,
     deliveries: [],
   },
   {
@@ -60,6 +66,7 @@ const dummyTasks = [
     deliveryTime: day3,
     isCompleted: false,
     name: "William Maguire",
+    volunteer: null,
     deliveries: [],
   },
   {
@@ -67,6 +74,7 @@ const dummyTasks = [
     deliveryTime: day3,
     isCompleted: false,
     name: "Tony McLennan",
+    volunteer: null,
     deliveries: [],
   },
   {
@@ -74,6 +82,7 @@ const dummyTasks = [
     deliveryTime: day4,
     isCompleted: false,
     name: "Harry Park",
+    volunteer: null,
     deliveries: [],
   },
   {
@@ -81,6 +90,7 @@ const dummyTasks = [
     deliveryTime: day4,
     isCompleted: true,
     name: "Christian D'Silva",
+    volunteer: null,
     deliveries: [],
   },
   {
@@ -88,6 +98,7 @@ const dummyTasks = [
     deliveryTime: day4,
     isCompleted: false,
     name: "Joseph Kim",
+    volunteer: null,
     deliveries: [],
   },
   {
@@ -95,6 +106,7 @@ const dummyTasks = [
     deliveryTime: day5,
     isCompleted: false,
     name: "Martin Brooks",
+    volunteer: null,
     deliveries: [],
   },
   {
@@ -102,6 +114,7 @@ const dummyTasks = [
     deliveryTime: day6,
     isCompleted: false,
     name: "Emmanuel Tan",
+    volunteer: null,
     deliveries: [],
   },
   {
@@ -109,6 +122,7 @@ const dummyTasks = [
     deliveryTime: day7,
     isCompleted: false,
     name: "Lionel Ronaldo",
+    volunteer: null,
     deliveries: [],
   },
   {
@@ -116,6 +130,7 @@ const dummyTasks = [
     deliveryTime: day7,
     isCompleted: false,
     name: "Stephanie Han",
+    volunteer: null,
     deliveries: [],
   },
 ];
