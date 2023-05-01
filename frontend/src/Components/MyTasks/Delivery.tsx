@@ -9,6 +9,7 @@ import {
 import { updateTask } from "../../services";
 import { MdOutlineArrowForwardIos } from "react-icons/md";
 import { IoIosArrowForward } from "react-icons/io";
+import { Link } from "react-router-dom";
 
 const Delivery = (props: { task: TaskInterface }) => {
   // const { tasks, setTasks } = React.useContext(TaskContext) as TaskContextType;
@@ -61,10 +62,13 @@ const Delivery = (props: { task: TaskInterface }) => {
         }
       />
       {/* <MdOutlineArrowForwardIos size="30" style={{ marginRight: 20 }}></MdOutlineArrowForwardIos> */}
-      <IoIosArrowForward
-        size="35"
-        style={{ marginRight: 20 }}
-      ></IoIosArrowForward>
+      <Link to="/delivery-details" state={{ task: props.task }}>
+        <IoIosArrowForward
+          size="35"
+          style={{ marginRight: 20 }}
+        ></IoIosArrowForward>
+      </Link>
+      {/* </Link> */}
     </Box>
   );
 };

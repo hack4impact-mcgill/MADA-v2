@@ -18,7 +18,7 @@ const CheckInButton = () => {
         fontSize: 10,
       }}
       onClick={() => {
-        alert("clicked");
+        window.location.href = "/availabilities";
       }}
     >
       Check In

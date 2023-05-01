@@ -1,4 +1,4 @@
-import { Typography, Button, Box } from "@mui/material";
+import { Typography, Button, Box, Stack } from "@mui/material";
 import {
   DeliveryTimeline,
   NoDeliveries,
@@ -7,12 +7,15 @@ import "../Styles/Delivery.css";
 
 const TodayContainer = () => {
   let noDeliveries = false;
+  const handleClick = async () => {
+    window.location.href = "/tasks";
+  };
   return (
-    <Box className="today-wrapper">
+    <Stack className="today-wrapper" spacing={0}>
       <Box className="center">
         <Box
           className="welcome"
-          sx={{ display: "flex", flexDirection: "column", "margin-top": "15%" }}
+          sx={{ display: "flex", flexDirection: "column" }}
         >
           <Typography
             sx={{ font: "Poppins", color: "#666666", "font-weight": "400" }}
@@ -41,11 +44,15 @@ const TodayContainer = () => {
       {noDeliveries && <NoDeliveries />}{" "}
       {/* display the screen for no deliveries  */}
       <Box display="flex" width={"100%"} justifyContent="center">
-        <Button sx={{ backgroundColor: "#33BE41" }} variant="contained">
+        <Button
+          sx={{ backgroundColor: "#33BE41", margin: 0 }}
+          variant="contained"
+          onClick={handleClick}
+        >
           Start Delivery
         </Button>
       </Box>
-    </Box>
+    </Stack>
   );
 };
 
