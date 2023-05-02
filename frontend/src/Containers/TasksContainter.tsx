@@ -6,7 +6,7 @@ import AvailabilitiesCheckIn from "../Components/MyTasks/AvailabilitiesCheckIn/A
 import CheckInButton from "../Components/MyTasks/AvailabilitiesCheckIn/CheckInButton";
 import HistoryButtonContainer from "../Components/MyTasks/HistoryButton/HistoryButtonContainer";
 import { TaskProvider } from "../Contexts/Tasks";
-import { Typography, Modal } from "@mui/material";
+import { Typography, Modal, Box } from "@mui/material";
 import { useState } from "react";
 
 const TasksContainer = () => {
@@ -14,11 +14,13 @@ const TasksContainer = () => {
   // dateFilter and completionFilter state will be passed down to DeliviesContainer.
   // NOTE that dataFilter is in STRING type and not DATE type.
   const [completionFilter, setCompletionFilter] = useState("ALLTASKS"); // set ALLTASKS as default
-  const [dateFilter, setDateFilter] = useState(new Date().toLocaleString("en-GB", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  }));
+  const [dateFilter, setDateFilter] = useState(
+    new Date().toLocaleString("en-GB", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    })
+  );
   // const [isModalOpen, setIsModalOpen] = useState(false); // for history container modal
 
   // const modalCloseHandler = () => {
@@ -47,9 +49,11 @@ const TasksContainer = () => {
     <div className="tasks-container">
       {/* enable accessing Task Context by using TaskProvider */}
       <TaskProvider>
-        <TopRectangle />
-        <AvailabilitiesCheckIn />
-        <CheckInButton />
+        <Box sx={{ position: "relative" }}>
+          <TopRectangle />
+          <AvailabilitiesCheckIn />
+          <CheckInButton />
+        </Box>
         <HistoryButtonContainer />
         <Typography
           sx={{
