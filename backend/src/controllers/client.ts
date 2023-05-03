@@ -63,3 +63,4 @@ export default class ClientController {
     response.status(StatusCode.OK).json({});
   };
 }
+

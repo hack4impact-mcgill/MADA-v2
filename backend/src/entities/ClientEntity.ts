@@ -11,13 +11,7 @@ export class ClientEntity extends UserEntity {
   address: string;
 
   @Column()
-  email: string;
-
-  @Column()
   phoneNumber: Number;
-
-  @Column()
-  name: string;
 
   @Column()
   notes: string;

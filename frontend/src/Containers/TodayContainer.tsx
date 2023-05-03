@@ -3,9 +3,17 @@ import {
   DeliveryTimeline,
   NoDeliveries,
 } from "../Components/Today/DeliveryTimeline";
+import Reducer from "../Contexts/LogIn";
 import "../Styles/Delivery.css";
+import React, {useReducer} from "react";
+import { initialState } from "../Contexts/LogIn";
 
 const TodayContainer = () => {
+  const [state, dispatch] = useReducer(Reducer, initialState);
+  // const { username } = state;
+  console.log("hi");
+  console.log(state.showPassword);
+  
   let noDeliveries = false;
   return (
     <Box className="today-wrapper">
@@ -22,7 +30,7 @@ const TodayContainer = () => {
           <Typography
             sx={{ font: "Poppins", color: "#666666", "font-weight": "500" }}
           >
-            John
+            {state.username}
           </Typography>
           <Typography
             sx={{
