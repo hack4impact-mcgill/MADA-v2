@@ -4,14 +4,13 @@ import { ClientEntity } from '../entities/ClientEntity';
 import { StatusCode } from './statusCode';
 
 export default class ClientController {
-  private ClientRepository =
-    AppDataSource.getRepository(ClientEntity);
+  private ClientRepository = AppDataSource.getRepository(ClientEntity);
 
   getClient = async (request: Request, response: Response) => {
     const client = await this.ClientRepository.findOne({
       where: {
         id: parseInt(request.params.id)
-      },
+      }
     });
     client
       ? response.status(StatusCode.OK).json({ client: client })
@@ -28,7 +27,7 @@ export default class ClientController {
       newClient.phoneNumber = parseInt(request.body.phoneNumber);
       newClient.name = request.body.name;
       newClient.notes = request.body.notes;
-      
+
       await this.ClientRepository.save(newClient);
       const client = await this.ClientRepository.findOne({
         where: {
@@ -63,4 +62,3 @@ export default class ClientController {
     response.status(StatusCode.OK).json({});
   };
 }
-
