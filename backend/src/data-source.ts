@@ -11,24 +11,24 @@ import { VolunteerEntity } from './entities/VolunteerEntity';
 
 // Create a data source i.e connection settings: https://orkhan.gitbook.io/typeorm/docs/data-source#what-is-datasource
 export const AppDataSource = new DataSource({
-    type: 'postgres',
-    host: 'localhost',
-    port: 5432,
-    username: 'test',
-    password: 'test',
-    database: 'test',
-    synchronize: true,
-    logging: false,
-    entities: [
-        AdminEntity,
-        MealDeliveryEntity,
-        TaskEntity,
-        UserEntity,
-        VolunteerEntity,
-        ClientEntity
-    ],
-    migrations: [],
-    subscribers: [],
-    seeds: ['src/db/*.seeder.ts'],
-    factories: ['src/db/*.factory.ts']
+  type: 'postgres',
+  host: 'localhost',
+  port: 5432,
+  username: 'test',
+  password: 'test',
+  database: 'test',
+  synchronize: true,
+  logging: false,
+  entities: [
+    AdminEntity,
+    MealDeliveryEntity,
+    TaskEntity,
+    UserEntity,
+    VolunteerEntity,
+    ClientEntity
+  ],
+  migrations: [],
+  subscribers: [],
+  seeds: ['src/db/*.seeder.ts'],
+  factories: ['src/db/*.factory.ts']
 } as SeederOptions & DataSourceOptions);

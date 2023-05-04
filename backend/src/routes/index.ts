@@ -4,7 +4,7 @@ import { router as mealDelivery } from './mealDelivery.routes';
 import { router as volunteers } from './volunteer.routes';
 import { router as clients } from './client.routes';
 import { router as admin } from './admin.routes';
-import {auth} from '../middleware/auth';
+import { auth } from '../middleware/auth';
 
 // Create a router object
 export const api = express.Router();

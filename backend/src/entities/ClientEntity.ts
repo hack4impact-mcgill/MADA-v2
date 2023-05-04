@@ -4,9 +4,9 @@ import { UserEntity } from './UserEntity';
 
 @Entity()
 export class ClientEntity extends UserEntity {
-    @Column()
-    address: string;
+  @Column()
+  address: string;
 
-    @Column()
-    notes: string;
+  @Column()
+  notes: string;
 }
