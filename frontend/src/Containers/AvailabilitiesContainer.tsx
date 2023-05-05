@@ -295,70 +295,70 @@ const MarkAvailability = () => {
     );
   };
 
-  const DateRangerPicker = () => {
-    const [startDate, setStartDate] = useState<Dayjs | null>(null);
-    const [endDate, setEndDate] = useState<Dayjs | null>(null);
+  // const DateRangerPicker = () => {
+  //   const [startDate, setStartDate] = useState<Dayjs | null>(null);
+  //   const [endDate, setEndDate] = useState<Dayjs | null>(null);
 
-    return (
-      <>
-        <div className="date-error">
-          {endDate?.isBefore(startDate) && (
-            <Typography
-              sx={{
-                font: "Poppins",
-                color: "#f55442",
-                fontSize: "0.8rem",
-                fontWeight: "400",
-                pl: 2,
-                pr: 2,
-              }}
-            >
-              Start date must be before end date.
-            </Typography>
-          )}
-        </div>
+  //   return (
+  //     <>
+  //       <div className="date-error">
+  //         {endDate?.isBefore(startDate) && (
+  //           <Typography
+  //             sx={{
+  //               font: "Poppins",
+  //               color: "#f55442",
+  //               fontSize: "0.8rem",
+  //               fontWeight: "400",
+  //               pl: 2,
+  //               pr: 2,
+  //             }}
+  //           >
+  //             Start date must be before end date.
+  //           </Typography>
+  //         )}
+  //       </div>
 
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            mt: "10%",
-            mb: "10%",
-          }}
-        >
-          <DatePicker
-            label="Start Date"
-            value={startDate}
-            onChange={(newValue) => {
-              if (endDate?.isBefore(newValue)) {
-                timeError = true;
-              } else {
-                timeError = false;
-              }
-              setStartDate(newValue);
-            }}
-            renderInput={(params) => <TextField {...params} />}
-          />
+  //       <Box
+  //         sx={{
+  //           display: "flex",
+  //           justifyContent: "space-between",
+  //           mt: "10%",
+  //           mb: "10%",
+  //         }}
+  //       >
+  //         <DatePicker
+  //           label="Start Date"
+  //           value={startDate}
+  //           onChange={(newValue) => {
+  //             if (endDate?.isBefore(newValue)) {
+  //               timeError = true;
+  //             } else {
+  //               timeError = false;
+  //             }
+  //             setStartDate(newValue);
+  //           }}
+  //           renderInput={(params) => <TextField {...params} />}
+  //         />
 
-          <div className="end-date">
-            <DatePicker
-              label="End Date"
-              value={endDate}
-              onChange={(newValue) => {
-                if (newValue?.isBefore(startDate)) {
-                  timeError = true;
-                } else {
-                  timeError = false;
-                }
-                setEndDate(newValue);
-              }}
-              renderInput={(params) => <TextField {...params} />}
-            />
-          </div>
-        </Box>
-      </>
-    );
-  };
+  //         <div className="end-date">
+  //           <DatePicker
+  //             label="End Date"
+  //             value={endDate}
+  //             onChange={(newValue) => {
+  //               if (newValue?.isBefore(startDate)) {
+  //                 timeError = true;
+  //               } else {
+  //                 timeError = false;
+  //               }
+  //               setEndDate(newValue);
+  //             }}
+  //             renderInput={(params) => <TextField {...params} />}
+  //           />
+  //         </div>
+  //       </Box>
+  //     </>
+  //   );
+  // };
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -386,7 +386,7 @@ const MarkAvailability = () => {
       </Typography>
 
       <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <DateRangerPicker></DateRangerPicker>
+        {/* <DateRangerPicker></DateRangerPicker> */}
         {/* iterate through list of days of week and create accordion for each day */}
         {daysOfWeek.map((day) => {
           return <TimePickerAccordion dayOfWeek={day} />;
