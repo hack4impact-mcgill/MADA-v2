@@ -28,6 +28,16 @@ export const clientColumns: GridColDef[] = [
         width: 200,
     },
     {
+        field: 'sts',
+        headerName: 'STS',
+        type: 'boolean',
+    },
+    {
+        field: 'map',
+        headerName: 'MAP',
+        type: 'boolean',
+    },
+    {
         field: 'phoneNumber',
         headerName: 'Phone',
         type: 'string',

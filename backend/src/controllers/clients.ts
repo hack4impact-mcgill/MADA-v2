@@ -18,7 +18,9 @@ export default class ClientController {
       email: request.body.email,
       phoneNumber: request.body.phoneNumber,
       address: request.body.address,
-      notes: 'faker notes'
+      mealType: request.body.mealType,
+      sts: request.body.sts,
+      map: request.body.map,
     });
     await this.ClientRepository.save(client);
     response.status(StatusCode.OK).json({ client });

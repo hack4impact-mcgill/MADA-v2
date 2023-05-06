@@ -7,7 +7,9 @@ import { generateStaffUser } from './user';
 const generateClient = async () => {
   const client = (await generateStaffUser()) as any;
   client.address = faker.address.streetAddress();
-  client.notes = faker.random.words(5);
+  client.mealType = faker.helpers.arrayElement(['vegetarian', 'nofish', 'nomeat'])
+  client.sts = faker.datatype.boolean();
+  client.map = faker.datatype.boolean();
   return client;
 };
 
