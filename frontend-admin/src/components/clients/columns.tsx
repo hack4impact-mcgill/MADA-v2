@@ -28,6 +28,12 @@ export const clientColumns: GridColDef[] = [
         width: 200,
     },
     {
+        field: 'phoneNumber',
+        headerName: 'Phone',
+        type: 'string',
+        width: 200,
+    },
+    {
         field: 'sts',
         headerName: 'STS',
         type: 'boolean',
@@ -38,9 +44,8 @@ export const clientColumns: GridColDef[] = [
         type: 'boolean',
     },
     {
-        field: 'phoneNumber',
-        headerName: 'Phone',
+        field: 'mealType',
+        headerName: 'Meal Type',
         type: 'string',
-        width: 200,
     },
 ];
