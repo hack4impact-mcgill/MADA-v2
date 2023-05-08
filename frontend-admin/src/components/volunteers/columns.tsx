@@ -14,12 +14,6 @@ export const volunteerColumns: GridColDef[] = [
         width: 20
     },
     {
-        field: 'username',
-        headerName: 'Username',
-        type: 'string',
-        width: 150
-    },
-    {
         field: 'name',
         headerName: 'Name',
         type: 'string',

@@ -9,9 +9,6 @@ export class AdminEntity extends UserEntity {
 
   // Account info
   @Column()
-  username: string;
-
-  @Column()
   password: string;
 
   @Column({ nullable: true })

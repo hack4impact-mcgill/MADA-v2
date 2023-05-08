@@ -1,12 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-
 import { UserEntity } from './UserEntity';
-
-export enum MealType {
-    VEGETARIAN = 'vegetarian',
-    NOFISH = 'nofish',
-    NOMEAT = 'nomeat',
-}
+import { MealType } from './types';
 
 @Entity()
 export class ClientEntity extends UserEntity {

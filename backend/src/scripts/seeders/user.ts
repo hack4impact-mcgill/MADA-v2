@@ -23,10 +23,9 @@ export const generateStaffUser = async () => {
 
   const user = generateUser(firstName, lastName) as any;
 
-  user.username = faker.internet.userName(firstName, lastName);
   user.password = await bcrypt.hash(faker.internet.password(), 10);
   const token = jwt.sign(
-    { username: user.username, email: user.email },
+    { email: user.email },
     TOKEN_KEY,
     {
       expiresIn: '2h'

@@ -32,13 +32,13 @@ export const generateTask = async (
   await dataSource
     .createQueryBuilder()
     .relation(VolunteerEntity, 'tasks')
-    .of({ username: volunteer.username })
+    .of({ email: volunteer.email })
     .add({ id: task.id });
   await dataSource
     .createQueryBuilder()
     .relation(TaskEntity, 'volunteer')
     .of({ id: task.id })
-    .set({ id: volunteer.id, username: volunteer.username });
+    .set({ id: volunteer.id, email: volunteer.email });
 
   const clientRepository = dataSource.getRepository(ClientEntity);
   const mealRepository = dataSource.getRepository(MealDeliveryEntity);

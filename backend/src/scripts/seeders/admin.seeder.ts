@@ -7,7 +7,6 @@ import { generateStaffUser } from './user';
 require('dotenv').config();
 
 const DEFAULT_ADMIN = {
-  username: process.env.ADMIN_USERNAME,
   password: process.env.ADMIN_PASSWORD,
   email: process.env.ADMIN_EMAIL,
   jobTitle: 'Administrator'
@@ -15,7 +14,6 @@ const DEFAULT_ADMIN = {
 
 const generateAdmin = async () => {
   const admin = (await generateStaffUser()) as any;
-  admin.username = DEFAULT_ADMIN.username;
   admin.password = await bcrypt.hash(DEFAULT_ADMIN.password, 10);
   admin.email = DEFAULT_ADMIN.email;
   admin.jobTitleColumn = DEFAULT_ADMIN.jobTitle;

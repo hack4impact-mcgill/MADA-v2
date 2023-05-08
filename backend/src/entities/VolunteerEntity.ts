@@ -34,9 +34,6 @@ export class VolunteerEntity extends UserEntity {
 
   // Account info
   @Column()
-  username: string;
-
-  @Column()
   password: string;
 
   @Column({ nullable: true })

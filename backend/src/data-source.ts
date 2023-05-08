@@ -8,6 +8,7 @@ import { MealDeliveryEntity } from './entities/MealDeliveryEntity';
 import { TaskEntity } from './entities/TaskEntity';
 import { UserEntity } from './entities/UserEntity';
 import { VolunteerEntity } from './entities/VolunteerEntity';
+import { RouteDeliveryEntity } from "./entities/RouteDeliveryEntity";
 
 // Create a data source i.e connection settings: https://orkhan.gitbook.io/typeorm/docs/data-source#what-is-datasource
 export const AppDataSource = new DataSource({
@@ -25,7 +26,8 @@ export const AppDataSource = new DataSource({
     TaskEntity,
     UserEntity,
     VolunteerEntity,
-    ClientEntity
+    ClientEntity,
+    RouteDeliveryEntity
   ],
   migrations: [],
   subscribers: [],
