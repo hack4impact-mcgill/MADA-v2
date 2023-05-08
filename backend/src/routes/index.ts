@@ -1,6 +1,7 @@
 import * as express from 'express';
 import { router as tasks } from './task.routes';
 import { router as mealDelivery } from './mealDelivery.routes';
+import { router as routeDelivery } from './routeDelivery.routes';
 import { router as volunteers } from './volunteer.routes';
 import { router as clients } from './client.routes';
 import { router as admin } from './admin.routes';
@@ -13,5 +14,6 @@ export const api = express.Router();
 api.use(admin);
 api.use(tasks, auth);
 api.use(mealDelivery, auth);
+api.use(routeDelivery, auth);
 api.use(volunteers, auth);
 api.use(clients, auth);

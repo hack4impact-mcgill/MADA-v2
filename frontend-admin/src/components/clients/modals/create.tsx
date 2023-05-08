@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import BaseModal from 'src/components/common/modal/modal'
 import {useStateSetupHandler} from 'src/components/common/use-state-setup-handler';
 import {isValidEmail, isValidPhone} from 'src/components/common/validators';
@@ -21,6 +21,9 @@ export const CreateModal = (props: {handleClose: any}) => {
     const {state: name, handler: handleNameChange} = useStateSetupHandler('');
     const {state: address, handler: handleAddressChange} = useStateSetupHandler('');
     const {state: email, handler: handleEmailChange} = useStateSetupHandler('');
+    const {state: sts, handler: handleSTSChange} = useStateSetupHandler(false);
+    const {state: map, handler: handleMAPChange} = useStateSetupHandler(false);
+    const [mealType, setMealType] = React.useState("");
 
     const [phone, setPhone] = React.useState("");
     const handlePhoneChange = (value: any) => {setPhone(value)}
@@ -31,6 +34,9 @@ export const CreateModal = (props: {handleClose: any}) => {
             address: address,
             email: email,
             phoneNumber: phone,
+            sts: sts,
+            map: map,
+            mealType: mealType
         })
         props.handleClose()
     }
@@ -77,6 +83,28 @@ export const CreateModal = (props: {handleClose: any}) => {
                     label: "Address",
                     stateValue: address,
                     stateSetter: handleAddressChange
+                },
+                {
+                    label: "Meal Type",
+                    type: 'select',
+                    options: [{value: 'vegetarian', label: 'Vegetarian'}, {value: 'nomeat', label: 'No Meat'}, {value: 'nofish', label: 'No Fish'}],
+                    stateValue: mealType,
+                    stateSetter: (event: any) => setMealType(event.target.value),
+                    valid: true
+                },
+                {
+                    label: "STS",
+                    stateValue: sts,
+                    stateSetter: handleSTSChange,
+                    type: 'boolean',
+                    valid: true
+                },
+                {
+                    label: "MAP",
+                    stateValue: map,
+                    stateSetter: handleMAPChange,
+                    type: 'boolean',
+                    valid: true
                 },
             ]}
         />

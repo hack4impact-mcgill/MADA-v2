@@ -6,6 +6,7 @@ import {ModalMultiselectInput} from './multiselect';
 import {ModalListInput} from './list';
 import {ModalPhoneInput} from './phone';
 import {ModalMultilineInput} from './multiline';
+import { ModalBooleanInput } from './boolean';
 
 export type SelectOptionProps = {
     value: any,
@@ -36,5 +37,7 @@ export const getInputByType = (inputProps: ModalInputProps) => {
         return (<ModalPhoneInput {...inputProps}/>)
     } else if (inputProps.type && inputProps.type === "multiline") {
         return (<ModalMultilineInput {...inputProps}/>)
+    } else if (inputProps.type && inputProps.type === "boolean") {
+        return (<ModalBooleanInput {...inputProps}/>)
     }
 }

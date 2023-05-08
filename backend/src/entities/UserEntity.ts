@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, OneToMany, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {RouteDeliveryEntity} from './RouteDeliveryEntity';
 
 @Entity()
 export abstract class UserEntity {

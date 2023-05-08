@@ -13,6 +13,7 @@ type ModalProps = {
 
 const isValid = (list: any[]) => {
     const validList = list.map((inputProps) => {
+        if (inputProps.valid == true) return true;
         if (inputProps.stateValue == undefined) return false;
         if (inputProps.stateValue == "") return false;
         if (inputProps.valid == false) return false;

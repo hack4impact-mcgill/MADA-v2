@@ -16,7 +16,7 @@ export class RouteDeliveryEntity {
   id: number;
 
   @Column()
-  routeName: string;
+  routeNumber: number;
 
   @Column()
   routePosition: number;
