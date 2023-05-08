@@ -5,9 +5,11 @@ import {
 } from '@tanstack/react-query'
 import {createVolunteer} from 'src/api/volunteers'
 import * as dayjs from 'dayjs'
-import BaseModal from 'src/components/common/modal/modal'
 import {useStateSetupHandler} from 'src/components/common/use-state-setup-handler';
 import {isValidEmail, isValidPhone} from 'src/components/common/validators';
+import {isAllValid, BaseModal} from 'src/components/common/modal/modal';
+import {ModalActionBar} from 'src/components/common/modal/actionbar';
+import { ModalDateInput, ModalPhoneInput, ModalTextInput } from 'src/components/common/modal/inputs'
 
 export const CreateModal = (props: {handleClose: any}) => {
     const queryClient = useQueryClient()
@@ -43,53 +45,53 @@ export const CreateModal = (props: {handleClose: any}) => {
         props.handleClose()
     }
 
+    const valid = isAllValid([name, isValidEmail(email), password, isValidPhone(phone), dayjs(date).isValid()])
+    
     return (
-        <BaseModal
-            title={"Create new volunteer"}
-            modalActionBarProps={{
-                primaryActionProps: {
+        <BaseModal title={"Create volunteer"}>
+            <ModalTextInput {...{
+                label: "Name",
+                stateValue: name,
+                stateSetter: handleNameChange
+            }}/>
+
+            <ModalTextInput {...{
+                label: "Email",
+                stateValue: email,
+                stateSetter: handleEmailChange
+            }}/>
+
+            <ModalTextInput {...{
+                label: "Password",
+                stateValue: password,
+                stateSetter: handlePasswordChange
+            }}/>
+
+            <ModalPhoneInput {...{
+                label: "Phone Number",
+                stateValue: phone,
+                stateSetter: handlePhoneChange,
+            }}/>
+
+            <ModalDateInput {...{
+                label: "Date",
+                stateValue: date,
+                stateSetter: setDate,
+            }}/>
+            
+            <ModalActionBar
+                primaryActionProps={{
                     handlePrimary: handleCreate,
-                    labelPrimary: "Create"
-                },
-                secondaryActionProps: [
+                    labelPrimary: "Create",
+                    disabled: !valid
+                }}
+                secondaryActionProps={[
                     {
                         handle: handleCancel,
                         label: "Cancel"
                     }
-                ]
-            }}
-            modalInputProps={[
-                {
-                    label: "Name",
-                    stateValue: name,
-                    stateSetter: handleNameChange
-                },
-                {
-                    label: "Email",
-                    stateValue: email,
-                    stateSetter: handleEmailChange,
-                    valid: isValidEmail(email)
-                },
-                {
-                    label: "Password",
-                    stateValue: password,
-                    stateSetter: handlePasswordChange
-                },
-                {
-                    label: "Phone Number",
-                    type: 'phone',
-                    stateValue: phone,
-                    stateSetter: handlePhoneChange,
-                    valid: isValidPhone(phone)
-                },
-                {
-                    label: "Start Date",
-                    type: 'date',
-                    stateValue: date,
-                    stateSetter: (d: any) => setDate(d),
-                    valid: dayjs(date).isValid()
-                },
-            ]}
-        />
+                ]}
+            />
+        </BaseModal>
     )
 }

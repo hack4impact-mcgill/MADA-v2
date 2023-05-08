@@ -21,23 +21,3 @@ export type ModalInputProps = {
     options?: any[],
     valid?: boolean,
 }
-
-export const getInputByType = (inputProps: ModalInputProps) => {
-    if (!inputProps.type) {
-        return <ModalTextInput {...inputProps}/>
-    } else if (inputProps.type && inputProps.type === "date") {
-        return <ModalDateInput {...inputProps}/>
-    } else if (inputProps.type && inputProps.type === "select") {
-        return (<ModalSelectInput {...inputProps}/>)
-    } else if (inputProps.type && inputProps.type === "multiselect") {
-        return (<ModalMultiselectInput {...inputProps}/>)
-    } else if (inputProps.type && inputProps.type === "list") {
-        return (<ModalListInput {...inputProps}/>)
-    } else if (inputProps.type && inputProps.type === "phone") {
-        return (<ModalPhoneInput {...inputProps}/>)
-    } else if (inputProps.type && inputProps.type === "multiline") {
-        return (<ModalMultilineInput {...inputProps}/>)
-    } else if (inputProps.type && inputProps.type === "boolean") {
-        return (<ModalBooleanInput {...inputProps}/>)
-    }
-}

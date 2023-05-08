@@ -5,9 +5,13 @@ import {getClients} from 'src/api/clients'
 import {useEditClientStore, EditClientState} from './client.store'
 import {useQuery} from '@tanstack/react-query'
 import {clientColumns} from './columns';
-import {PageActionBar, ActionProps} from 'src/components/common/page-actionbar'
-import GridPage from 'src/components/common/grid/page';
 import {useModalState} from 'src/components/common/use-modal-state';
+import {ModalControl} from 'src/components/common/modal/control';
+
+import {BasePage} from 'src/components/common/base-page'
+import {ActionBar} from 'src/components/common/page-actionbar'
+import {DataGrid} from '@mui/x-data-grid'
+import { Box } from '@mui/system';
 
 const ClientsPage = () => {
     const { isLoading, isError, data, error } = useQuery(['clients'], () => getClients())
@@ -38,44 +42,53 @@ const ClientsPage = () => {
         }
     ]
 
-    const actionBarProps: ActionProps[] = [
-        {
-            handler: handleOpenCreateModal,
-            label: "Create client"
-        }
-    ]
-
-    
-    const modalControls = [
-        {
-            status: createModal,
-            handleClose: handleCloseCreateModal,
-            children: <CreateModal handleClose={handleCloseCreateModal}/>
-        },
-        {
-            status: editModal,
-            handleClose: handleCloseEditModal,
-            children: <EditModal handleClose={handleCloseEditModal}/>
-        },
-    ]
-
-    const gridCondition = isLoading
-
-    const gridProps = {
-        rows: data ? data!.data.clients : [],
-        columns: [...clientColumns, ...actionColumns],
-        filter: [],
-        initalState: {},
-        gridCondition: gridCondition,
+    // Header
+    const Header = () => {
+        return (
+            <ActionBar actions={[
+                {
+                    handler: handleOpenCreateModal,
+                    label: "Create client"
+                }
+            ]}
+        />)
     }
 
-    const gridPageProps = {
-        actionBarProps: actionBarProps,
-        modalControls: modalControls,
-        gridProps: gridProps
+    // Modals
+    const CreateModalControl = () => {
+        return (
+            <ModalControl {...{
+                status: createModal,
+                handleClose: handleCloseCreateModal,
+                children: <CreateModal handleClose={handleCloseCreateModal}/>
+            }}/>
+        )
     }
 
-    return (<GridPage {...gridPageProps}/>)
+    const EditModalControl = () => {
+        return (
+            <ModalControl {...{
+                status: editModal,
+                handleClose: handleCloseEditModal,
+                children: <EditModal/>
+            }}/>
+        )
+    }
+
+    return (
+        <BasePage header={<Header/>}>
+            <CreateModalControl/>
+            <EditModalControl/>
+
+            <Box sx={{display: 'flex', flexDirection: 'column', width: '100%', height: '85%'}}>                
+                <DataGrid
+                    rows={data ? data!.data.clients : []}
+                    columns={[...clientColumns, ...actionColumns]}
+                    loading={isLoading}
+                />
+            </Box>
+        </BasePage>
+    )
 }
 
 export default ClientsPage;

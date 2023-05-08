@@ -1,9 +1,10 @@
 import React, {useEffect} from 'react'
 import {EditClientState, useEditClientStore} from '../client.store';
 import {getClient, editClient} from 'src/api/clients'
-import BaseModal from 'src/components/common/modal/modal'
+import {BaseModal} from 'src/components/common/modal/modal'
 import {useStateSetupHandler} from 'src/components/common/use-state-setup-handler';
-import {isValidEmail, isValidPhone} from 'src/components/common/validators';
+import {ModalActionBar} from 'src/components/common/modal/actionbar';
+import { ModalSelectInput, ModalBooleanInput, ModalPhoneInput, ModalTextInput } from 'src/components/common/modal/inputs'
 
 import {
     useQuery,
@@ -23,6 +24,9 @@ export const EditModal = () => {
     const {state: name, setState: setName, handler: handleNameChange} = useStateSetupHandler('');
     const {state: address, setState: setAddress, handler: handleAddressChange} = useStateSetupHandler('');
     const {state: email, setState: setEmail, handler: handleEmailChange} = useStateSetupHandler('');
+    const {state: sts, handler: handleSTSChange} = useStateSetupHandler(false);
+    const {state: map, handler: handleMAPChange} = useStateSetupHandler(false);
+    const [mealType, setMealType] = React.useState("");
 
     const [phone, setPhone] = React.useState("");
     const handlePhoneChange = (value: any) => {setPhone(value)}
@@ -62,51 +66,63 @@ export const EditModal = () => {
         setId(-1)
     }
     
-    const handleDelete = () => {
-        console.log("alert to delete")
-        //setId(-1)
-    }
-
     return (
-        <BaseModal
-            title={"Edit " + name}
-            modalActionBarProps={{
-                primaryActionProps: {
+        <BaseModal title={"Create volunteer"}>
+            <ModalTextInput {...{
+                label: "Name",
+                stateValue: name,
+                stateSetter: handleNameChange
+            }}/>
+
+            <ModalTextInput {...{
+                label: "Email",
+                stateValue: email,
+                stateSetter: handleEmailChange
+            }}/>
+
+            <ModalPhoneInput {...{
+                label: "Phone Number",
+                stateValue: phone,
+                stateSetter: handlePhoneChange,
+            }}/>
+            
+            <ModalTextInput {...{
+                label: "Address",
+                stateValue: address,
+                stateSetter: handleAddressChange
+            }}/>
+
+            <ModalSelectInput {...{
+                label: "Meal Type",
+                options: [{value: 'vegetarian', label: 'Vegetarian'}, {value: 'nomeat', label: 'No Meat'}, {value: 'nofish', label: 'No Fish'}],
+                stateValue: mealType,
+                stateSetter: (event: any) => setMealType(event.target.value),
+            }}/>
+
+            <ModalBooleanInput {...{
+                label: "STS",
+                stateValue: sts,
+                stateSetter: handleSTSChange,
+            }}/>
+
+            <ModalBooleanInput {...{
+                label: "MAP",
+                stateValue: map,
+                stateSetter: handleMAPChange,
+            }}/>
+            
+            <ModalActionBar
+                primaryActionProps={{
                     handlePrimary: handleSave,
                     labelPrimary: "Save"
-                },
-                secondaryActionProps: [
+                }}
+                secondaryActionProps={[
                     {
                         handle: handleCancel,
                         label: "Cancel"
-                    },
-                ]
-            }}
-            modalInputProps={[
-                {
-                    label: "Name",
-                    stateValue: name,
-                    stateSetter: handleNameChange
-                },
-                {
-                    label: "Email",
-                    stateValue: email,
-                    stateSetter: handleEmailChange,
-                    valid: isValidEmail(email)
-                },
-                {
-                    label: "Phone Number",
-                    type: 'phone',
-                    stateValue: phone,
-                    stateSetter: handlePhoneChange,
-                    valid: isValidPhone(phone)
-                },
-                {
-                    label: "Address",
-                    stateValue: address,
-                    stateSetter: handleAddressChange
-                },
-            ]}
-        />
+                    }
+                ]}
+            />
+        </BaseModal>
     )
 }

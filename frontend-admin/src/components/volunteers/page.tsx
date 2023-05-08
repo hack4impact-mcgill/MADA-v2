@@ -5,14 +5,16 @@ import {GridRowId, GridActionsCellItem} from '@mui/x-data-grid';
 import { useNavigate } from "react-router-dom";
 
 import {volunteerColumns} from './columns';
-import {ActionProps} from 'src/components/common/page-actionbar'
 import {useModalState} from 'src/components/common/use-modal-state';
 
-import {CreateModal, EditModal, NotifModal} from './modals'
-import GridPage from 'src/components/common/grid/page';
-
+import {CreateModal, EditModal} from './modals'
+import {ModalControl} from 'src/components/common/modal/control';
 import {getVolunteers} from 'src/api/volunteers'
 import {EditVolunteerState, useEditVolunteerStore} from 'src/components/volunteers/volunteer.store';
+import {Box} from '@mui/material'
+import {DataGrid} from '@mui/x-data-grid'
+import {BasePage} from 'src/components/common/base-page'
+import {ActionBar} from 'src/components/common/page-actionbar'
 
 const VolunteersPage = () => {
     const navigate = useNavigate()
@@ -57,52 +59,53 @@ const VolunteersPage = () => {
         }
     ]
 
-    const actionBarProps: ActionProps[] = [
-        {
-            handler: handleOpenNotifModal,
-            label: "Create notification"
-        },
-        {
-            handler: handleOpenCreateModal,
-            label: "Create volunteer"
-        }
-    ]
-
-    const modalControls = [
-        {
-            status: createModal,
-            handleClose: handleCloseCreateModal,
-            children: <CreateModal handleClose={handleCloseCreateModal}/>
-        },
-        {
-            status: notifModal,
-            handleClose: handleCloseNotifModal,
-            children: <NotifModal handleClose={handleCloseNotifModal}/>
-        },
-        {
-            status: editModal,
-            handleClose: handleCloseEditModal,
-            children: <EditModal handleClose={handleCloseEditModal}/>
-        },
-    ]
-
-    const gridCondition = isLoading
-
-    const gridProps = {
-        rows: data ? data!.data.volunteers : [],
-        columns: [...volunteerColumns, ...actionColumns],
-        filter: [],
-        initalState: {},
-        gridCondition: gridCondition,
+    // Header
+    const Header = () => {
+        return (
+            <ActionBar actions={[
+                {
+                    handler: handleOpenCreateModal,
+                    label: "Create volunteer"
+                }
+            ]}
+        />)
     }
 
-    const gridPageProps = {
-        actionBarProps: actionBarProps,
-        modalControls: modalControls,
-        gridProps: gridProps
+    // Modals
+    const CreateModalControl = () => {
+        return (
+            <ModalControl {...{
+                status: createModal,
+                handleClose: handleCloseCreateModal,
+                children: <CreateModal handleClose={handleCloseCreateModal}/>
+            }}/>
+        )
     }
 
-    return (<GridPage {...gridPageProps}/>)
+    const EditModalControl = () => {
+        return (
+            <ModalControl {...{
+                status: editModal,
+                handleClose: handleCloseEditModal,
+                children: <EditModal handleClose={handleCloseEditModal}/>
+            }}/>
+        )
+    }
+
+    return (
+        <BasePage header={<Header/>}>
+            <CreateModalControl/>
+            <EditModalControl/>
+
+            <Box sx={{display: 'flex', flexDirection: 'column', width: '100%', height: '85%'}}>                
+                <DataGrid
+                    rows={data ? data!.data.volunteers : []}
+                    columns={[...volunteerColumns, ...actionColumns]}
+                    loading={isLoading}
+                />
+            </Box>
+        </BasePage>
+    )
 }
 
 export default VolunteersPage; 

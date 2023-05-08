@@ -1,5 +1,5 @@
 import React from 'react'
-import {ModalInputProps} from '../modal'
+import {ModalInputProps} from './type';
 import {inputStyle} from './style'
 import { FormLabel } from '@mui/material';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';

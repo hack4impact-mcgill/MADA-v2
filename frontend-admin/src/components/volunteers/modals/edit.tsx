@@ -1,9 +1,11 @@
 import React, {useEffect} from 'react'
 import {EditVolunteerState, useEditVolunteerStore} from 'src/components/volunteers/volunteer.store';
-import {getVolunteer, editVolunteer, getVolunteers} from 'src/api/volunteers'
-import BaseModal from 'src/components/common/modal/modal'
+import {getVolunteer, editVolunteer} from 'src/api/volunteers'
+import {isAllValid, BaseModal} from 'src/components/common/modal/modal'
 import {useStateSetupHandler} from 'src/components/common/use-state-setup-handler';
 import {isValidEmail, isValidPhone} from 'src/components/common/validators';
+import {ModalActionBar} from 'src/components/common/modal/actionbar';
+import { ModalPhoneInput, ModalTextInput } from 'src/components/common/modal/inputs'
 
 import {
     useQuery,
@@ -61,46 +63,41 @@ export const EditModal = (props: {handleClose: any}) => {
         props.handleClose()
     }
     
-    const handleDelete = () => {
-        console.log("alert to delete")
-        setId(-1)
-    }
-
+    const valid = isAllValid([name, isValidEmail(email), isValidPhone(phone)])
+    
     return (
-        <BaseModal
-            title={"Edit " + name}
-            modalActionBarProps={{
-                primaryActionProps: {
+        <BaseModal title={"Edit " + name}>
+            <ModalTextInput {...{
+                label: "Name",
+                stateValue: name,
+                stateSetter: handleNameChange
+            }}/>
+
+            <ModalTextInput {...{
+                label: "Email",
+                stateValue: email,
+                stateSetter: handleEmailChange
+            }}/>
+
+            <ModalPhoneInput {...{
+                label: "Phone Number",
+                stateValue: phone,
+                stateSetter: handlePhoneChange,
+            }}/>
+
+            <ModalActionBar
+                primaryActionProps={{
                     handlePrimary: handleSave,
-                    labelPrimary: "Save"
-                },
-                secondaryActionProps: [
+                    labelPrimary: "Save",
+                    disabled: !valid
+                }}
+                secondaryActionProps={[
                     {
                         handle: handleCancel,
                         label: "Cancel"
                     },
-                ]
-            }}
-            modalInputProps={[
-                {
-                    label: "Name",
-                    stateValue: name,
-                    stateSetter: handleNameChange
-                },
-                {
-                    label: "Email",
-                    stateValue: email,
-                    stateSetter: handleEmailChange,
-                    valid: isValidEmail(email)
-                },
-                { 
-                    label: "Phone Number",
-                    type: 'phone',
-                    stateValue: phone,
-                    stateSetter: handlePhoneChange,
-                    valid: isValidPhone(phone)
-                },
-            ]}
-        />
+                ]}
+            />
+        </BaseModal>
     )
 }

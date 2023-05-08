@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import BaseModal from 'src/components/common/modal/modal'
+import {isAllValid, BaseModal} from 'src/components/common/modal/modal'
 import {useStateSetupHandler} from 'src/components/common/use-state-setup-handler';
 import {isValidEmail, isValidPhone} from 'src/components/common/validators';
 import {
@@ -7,6 +7,8 @@ import {
     useQueryClient,
 } from '@tanstack/react-query'
 import {createClient} from 'src/api/clients'
+import {ModalActionBar} from 'src/components/common/modal/actionbar';
+import { ModalSelectInput, ModalBooleanInput, ModalPhoneInput, ModalTextInput } from 'src/components/common/modal/inputs'
 
 export const CreateModal = (props: {handleClose: any}) => {
     const queryClient = useQueryClient()
@@ -45,68 +47,66 @@ export const CreateModal = (props: {handleClose: any}) => {
         props.handleClose()
     }
 
+    const valid = isAllValid([name, isValidEmail(email), isValidPhone(phone)])
+
     return (
-        <BaseModal
-            title={"Create new client"}
-            modalActionBarProps={{
-                primaryActionProps: {
+        <BaseModal title={"Create volunteer"}>
+            <ModalTextInput {...{
+                label: "Name",
+                stateValue: name,
+                stateSetter: handleNameChange
+            }}/>
+
+            <ModalTextInput {...{
+                label: "Email",
+                stateValue: email,
+                stateSetter: handleEmailChange
+            }}/>
+
+            <ModalPhoneInput {...{
+                label: "Phone Number",
+                stateValue: phone,
+                stateSetter: handlePhoneChange,
+            }}/>
+            
+            <ModalTextInput {...{
+                label: "Address",
+                stateValue: address,
+                stateSetter: handleAddressChange
+            }}/>
+
+            <ModalSelectInput {...{
+                label: "Meal Type",
+                options: [{value: 'vegetarian', label: 'Vegetarian'}, {value: 'nomeat', label: 'No Meat'}, {value: 'nofish', label: 'No Fish'}],
+                stateValue: mealType,
+                stateSetter: (event: any) => setMealType(event.target.value),
+            }}/>
+
+            <ModalBooleanInput {...{
+                label: "STS",
+                stateValue: sts,
+                stateSetter: handleSTSChange,
+            }}/>
+
+            <ModalBooleanInput {...{
+                label: "MAP",
+                stateValue: map,
+                stateSetter: handleMAPChange,
+            }}/>
+            
+            <ModalActionBar
+                primaryActionProps={{
                     handlePrimary: handleCreate,
-                    labelPrimary: "Create"
-                },
-                secondaryActionProps: [
+                    labelPrimary: "Create",
+                    disabled: !valid
+                }}
+                secondaryActionProps={[
                     {
                         handle: handleCancel,
                         label: "Cancel"
                     }
-                ]
-            }}
-            modalInputProps={[
-                {
-                    label: "Name",
-                    stateValue: name,
-                    stateSetter: handleNameChange
-                },
-                {
-                    label: "Email",
-                    stateValue: email,
-                    stateSetter: handleEmailChange,
-                    valid: isValidEmail(email)
-                },
-                {
-                    label: "Phone Number",
-                    type: 'phone',
-                    stateValue: phone,
-                    stateSetter: handlePhoneChange,
-                    valid: isValidPhone(phone)
-                },
-                {
-                    label: "Address",
-                    stateValue: address,
-                    stateSetter: handleAddressChange
-                },
-                {
-                    label: "Meal Type",
-                    type: 'select',
-                    options: [{value: 'vegetarian', label: 'Vegetarian'}, {value: 'nomeat', label: 'No Meat'}, {value: 'nofish', label: 'No Fish'}],
-                    stateValue: mealType,
-                    stateSetter: (event: any) => setMealType(event.target.value),
-                    valid: true
-                },
-                {
-                    label: "STS",
-                    stateValue: sts,
-                    stateSetter: handleSTSChange,
-                    type: 'boolean',
-                    valid: true
-                },
-                {
-                    label: "MAP",
-                    stateValue: map,
-                    stateSetter: handleMAPChange,
-                    type: 'boolean',
-                    valid: true
-                },
-            ]}
-        />
+                ]}
+            />
+        </BaseModal>
     )
 }
