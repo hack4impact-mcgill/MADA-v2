@@ -21,7 +21,6 @@ export const EditModal = (props: {handleClose: any}) => {
     })
 
     const {state: name, setState: setName, handler: handleNameChange} = useStateSetupHandler('');
-    const {state: username, setState: setUsername, handler: handleUsernameChange} = useStateSetupHandler('');
     const {state: email, setState: setEmail, handler: handleEmailChange} = useStateSetupHandler('');
 
     const [phone, setPhone] = React.useState("");
@@ -30,7 +29,6 @@ export const EditModal = (props: {handleClose: any}) => {
     useEffect(() => {
         if (data) {
             setName(data!.data.volunteer.name);
-            setUsername(data!.data.volunteer.username);
             setEmail(data!.data.volunteer.email);
             setPhone(data!.data.volunteer.phoneNumber);
         }
@@ -50,7 +48,6 @@ export const EditModal = (props: {handleClose: any}) => {
             id: id,
             data: {
                 name: name,
-                username: username,
                 email: email,
                 phoneNumber: phone
             }
@@ -95,11 +92,6 @@ export const EditModal = (props: {handleClose: any}) => {
                     stateValue: email,
                     stateSetter: handleEmailChange,
                     valid: isValidEmail(email)
-                },
-                {
-                    label: "Username",
-                    stateValue: username,
-                    stateSetter: handleUsernameChange
                 },
                 { 
                     label: "Phone Number",

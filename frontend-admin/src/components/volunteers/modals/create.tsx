@@ -20,7 +20,6 @@ export const CreateModal = (props: {handleClose: any}) => {
     })
 
     const {state: name, handler: handleNameChange} = useStateSetupHandler('');
-    const {state: username, handler: handleUsernameChange} = useStateSetupHandler('');
     const {state: email, handler: handleEmailChange} = useStateSetupHandler('');
     const {state: password, handler: handlePasswordChange} = useStateSetupHandler('');
 
@@ -32,7 +31,6 @@ export const CreateModal = (props: {handleClose: any}) => {
     const handleCreate = () => {
         mutation.mutate({
             name: name,
-            username: username,
             password: password,
             email: email,
             phoneNumber: phone,
@@ -71,11 +69,6 @@ export const CreateModal = (props: {handleClose: any}) => {
                     stateValue: email,
                     stateSetter: handleEmailChange,
                     valid: isValidEmail(email)
-                },
-                {
-                    label: "Username",
-                    stateValue: username,
-                    stateSetter: handleUsernameChange
                 },
                 {
                     label: "Password",
