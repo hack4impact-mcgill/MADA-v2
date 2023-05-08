@@ -17,6 +17,10 @@ const navList = [
     {
         label: 'Tasks',
         path: '/tasks'
+    },
+    {
+        label: 'Routes',
+        path: '/routes'
     }
 ]
 
