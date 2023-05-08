@@ -4,7 +4,10 @@ import {getClient, editClient} from 'src/api/clients'
 import {BaseModal} from 'src/components/common/modal/modal'
 import {useStateSetupHandler} from 'src/components/common/use-state-setup-handler';
 import {ModalActionBar} from 'src/components/common/modal/actionbar';
-import { ModalSelectInput, ModalBooleanInput, ModalPhoneInput, ModalTextInput } from 'src/components/common/modal/inputs'
+import { ModalSelectInput } from 'src/components/common/modal/inputs/select';
+import { ModalPhoneInput } from 'src/components/common/modal/inputs/phone';
+import { ModalBooleanInput } from 'src/components/common/modal/inputs/boolean';
+import { ModalTextInput } from 'src/components/common/modal/inputs/text';
 
 import {
     useQuery,

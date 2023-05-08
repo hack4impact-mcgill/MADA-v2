@@ -5,7 +5,8 @@ import {isAllValid, BaseModal} from 'src/components/common/modal/modal'
 import {useStateSetupHandler} from 'src/components/common/use-state-setup-handler';
 import {isValidEmail, isValidPhone} from 'src/components/common/validators';
 import {ModalActionBar} from 'src/components/common/modal/actionbar';
-import { ModalPhoneInput, ModalTextInput } from 'src/components/common/modal/inputs'
+import { ModalPhoneInput } from 'src/components/common/modal/inputs/phone';
+import { ModalTextInput } from 'src/components/common/modal/inputs/text';
 
 import {
     useQuery,

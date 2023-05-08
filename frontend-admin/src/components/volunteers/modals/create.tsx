@@ -9,7 +9,9 @@ import {useStateSetupHandler} from 'src/components/common/use-state-setup-handle
 import {isValidEmail, isValidPhone} from 'src/components/common/validators';
 import {isAllValid, BaseModal} from 'src/components/common/modal/modal';
 import {ModalActionBar} from 'src/components/common/modal/actionbar';
-import { ModalDateInput, ModalPhoneInput, ModalTextInput } from 'src/components/common/modal/inputs'
+import { ModalDateInput } from 'src/components/common/modal/inputs/date';
+import { ModalPhoneInput } from 'src/components/common/modal/inputs/phone';
+import { ModalTextInput } from 'src/components/common/modal/inputs/text';
 
 export const CreateModal = (props: {handleClose: any}) => {
     const queryClient = useQueryClient()

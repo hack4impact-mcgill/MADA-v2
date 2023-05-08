@@ -8,7 +8,10 @@ import {
 } from '@tanstack/react-query'
 import {createClient} from 'src/api/clients'
 import {ModalActionBar} from 'src/components/common/modal/actionbar';
-import { ModalSelectInput, ModalBooleanInput, ModalPhoneInput, ModalTextInput } from 'src/components/common/modal/inputs'
+import { ModalSelectInput } from 'src/components/common/modal/inputs/select';
+import { ModalPhoneInput } from 'src/components/common/modal/inputs/phone';
+import { ModalBooleanInput } from 'src/components/common/modal/inputs/boolean';
+import { ModalTextInput } from 'src/components/common/modal/inputs/text';
 
 export const CreateModal = (props: {handleClose: any}) => {
     const queryClient = useQueryClient()
