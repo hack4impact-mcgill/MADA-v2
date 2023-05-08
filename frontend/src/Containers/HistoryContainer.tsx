@@ -84,6 +84,7 @@ const HistoryContainer = () => {
                   selectEndDate={endDateChangeHandler}
                   updateIsSelectingStartDate={updateIsSelectingStartDate}
                   endDate={endDate}
+                  closeModal={modalCloseHandler}
                 />
               )}
             </Box>

@@ -7,6 +7,7 @@ const EndDateCalendar = (props: {
   selectEndDate: Function;
   updateIsSelectingStartDate: Function;
   endDate: Date | null;
+  closeModal: Function;
 }) => {
   return (
     <>
@@ -34,9 +35,21 @@ const EndDateCalendar = (props: {
         >
           Back
         </Button>
-        <Button sx={{ bgcolor: "#C4C4C4", ml: "5px" }} disabled>
-          Next
-        </Button>
+        {/* Disable confirm button when no endDate is chosen */}
+        {props.endDate ? (
+          <Button
+            sx={{ bgcolor: "#3A71FF", color: "white", ml: "5px" }}
+            onClick={() => {
+              props.closeModal();
+            }}
+          >
+            Confirm
+          </Button>
+        ) : (
+          <Button sx={{ bgcolor: "#C4C4C4", ml: "5px" }} disabled>
+            Confirm
+          </Button>
+        )}
       </Box>
     </>
   );

@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Button, Typography } from "@mui/material";
 import { DateCalendar } from "@mui/x-date-pickers";
-import dayjs from 'dayjs'; // dayjs is needed for calendar
+import dayjs from "dayjs"; // dayjs is needed for calendar
 
 const StartDateCalendar = (props: {
   selectStartDate: Function;
@@ -25,18 +25,23 @@ const StartDateCalendar = (props: {
         }}
       />
       <Box sx={{ display: "flex", justifyContent: "center", mb: 3 }}>
-        <Button sx={{ bgcolor: "#C4C4C4", mr: "5px" }} disabled>
-          Back
-        </Button>
-        <Button
-          sx={{ bgcolor: "#3A71FF", color: "white", ml: "5px" }}
-          onClick={() => {
-            // to display end date selecting calendar
-            props.updateIsSelectingStartDate(false);
-          }}
-        >
-          Next
-        </Button>
+        {props.startDate ? (
+          <Button
+            sx={{ bgcolor: "#3A71FF", color: "white", ml: "5px" }}
+            onClick={() => {
+              // Display end date selecting calendar, only if startDate is selected already.
+              props.updateIsSelectingStartDate(false);
+            }}
+          >
+            Next
+          </Button>
+        ) : (
+          // Disable next button when no start date is selected.
+          <Button
+            disabled
+            sx={{ bgcolor: "#C4C4C4", ml: "5px" }}
+          >Next</Button>
+        )}
       </Box>
     </>
   );
