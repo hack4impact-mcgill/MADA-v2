@@ -9,7 +9,7 @@ import {
 } from '@tanstack/react-query'
 import {EditRouteButtons} from './transfer/route-buttons'
 import {TransferButtons} from './transfer/transfer-buttons'
-import {setRouteDeliveryNumber, getRouteDeliveries} from 'src/api/route-deliveries'
+import {setRouteDeliveryNumber, getRouteDeliveries, increaseRouteDeliveryPosition, decreaseRouteDeliveryPosition} from 'src/api/route-deliveries'
 
 type routeDelivery = {
     id: number
@@ -57,6 +57,22 @@ export const TransferBoard = () => {
         },
     });
 
+    const incrementRoutePositionMutation = useMutation({
+        mutationFn: async () => await increaseRouteDeliveryPosition(selectedRouteDelivery!.id || 0),
+        onSuccess: async () => {
+            queryClient.invalidateQueries('routeDeliveries')
+            await refetch()
+        },
+    });
+
+    const decrementRoutePositionMutation = useMutation({
+        mutationFn: async () => await decreaseRouteDeliveryPosition(selectedRouteDelivery!.id || 0),
+        onSuccess: async () => {
+            queryClient.invalidateQueries('routeDeliveries')
+            await refetch()
+        },
+    });
+
     const handleChangeRouteNumber = (event: any) => {
         setRouteNumber(event.target.value)
         if (event.target.value in Object.keys(allSavedRoutes)) {
@@ -75,6 +91,14 @@ export const TransferBoard = () => {
     const handleTransferRight = async () => {
         await setRouteNumberMutation.mutate(routeNumber)
         handleSelectRouteDelivery(null)
+    }
+
+    const handleIncrementPosition = async () => {
+        await incrementRoutePositionMutation.mutate()
+    }
+
+    const handleDecrementPosition = async () => {
+        await decrementRoutePositionMutation.mutate()
     }
     
     // Button handlers for EditRouteButtons
@@ -147,6 +171,10 @@ export const TransferBoard = () => {
                 handleCreateRoute={handleCreateRoute}
                 handleDeleteRoute={handleDeleteRoute}
                 disabledDeleteRoute={disabledDeleteRoute}
+                handleIncrementPosition={handleIncrementPosition}
+                handleDecrementPosition={handleDecrementPosition}
+                disabledDecrementPosition={false}
+                disabledIncrementPosition={false}
             />
         </Box>
     )

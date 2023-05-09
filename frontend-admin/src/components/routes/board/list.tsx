@@ -1,7 +1,7 @@
 import {Grid, Box, Paper, List, ListItemButton, ListItemText} from '@mui/material'
 
 const BoardListItem = (props: {route: any, selectable?: any}) => {
-    const {id, client, program, mealType} = props.route
+    const {id, client, program, mealType, routePosition} = props.route
     
     const handleClick = () => {
         if (props.selectable?.selectedRouteDelivery === null || props.selectable?.selectedRouteDelivery.id !== id) {
@@ -19,7 +19,7 @@ const BoardListItem = (props: {route: any, selectable?: any}) => {
             selected={isSelected}
             onClick={handleClick}
         >
-            <ListItemText id={id} primary={`${program}/${mealType} - ${client.name}`} secondary={client.address}/>
+            <ListItemText id={id} primary={`${program}/${mealType} - ${client.name}`} secondary={`[${routePosition}] ${client.address}`}/>
         </ListItemButton>
     )
 }

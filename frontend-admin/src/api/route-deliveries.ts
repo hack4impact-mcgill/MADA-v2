@@ -19,19 +19,19 @@ export const setRouteDeliveryNumber = async (id: number, routeNumber: number) =>
     return response
 }
 
-export const increaseRouteDeliveryPosition = async (props: {id: number}) => {
+export const increaseRouteDeliveryPosition = async (id: number) => {
     const response = await AxiosInstance({
         method: "put",
-        url: "/route_delivery/" + props.id + "/increment"
+        url: "/route_delivery/" + id + "/increment"
     });
     
     return response
 }
 
-export const decreaseRouteDeliveryPosition = async (props: {id: number}) => {
+export const decreaseRouteDeliveryPosition = async (id: number) => {
     const response = await AxiosInstance({
         method: "put",
-        url: "/route_delivery/" + props.id + "/decrement"
+        url: "/route_delivery/" + id + "/decrement"
     });
     
     return response

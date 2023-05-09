@@ -4,9 +4,17 @@ import {Box, Button} from '@mui/material'
 export const EditRouteButtons = (props: {
     handleCreateRoute: any,
     handleDeleteRoute: any,
-    disabledDeleteRoute: boolean
+    disabledDeleteRoute: boolean,
+    handleIncrementPosition: any,
+    disabledIncrementPosition: boolean,
+    handleDecrementPosition: any,
+    disabledDecrementPosition: boolean,
 }) => {
-    const {handleCreateRoute, handleDeleteRoute, disabledDeleteRoute} = props
+    const {
+        handleCreateRoute, handleDeleteRoute, disabledDeleteRoute,
+        handleIncrementPosition, disabledIncrementPosition,
+        handleDecrementPosition, disabledDecrementPosition,
+    } = props
     return (
         <Box sx={{display: 'flex', flexDirection: 'column', mx: 2}}>
             <Button
@@ -29,8 +37,8 @@ export const EditRouteButtons = (props: {
                     variant="outlined"
                     size="small"
                     sx={{flexGrow: 1}}
-                    // onClick={handleTransferRight}
-                    // disabled={disabledTransferRight}
+                    onClick={handleDecrementPosition}
+                    disabled={disabledDecrementPosition}
                 >
                     {"↑"}
                 </Button>
@@ -38,8 +46,8 @@ export const EditRouteButtons = (props: {
                     variant="outlined"
                     size="small"
                     sx={{flexGrow: 1}}
-                    // onClick={handleTransferLeft}
-                    // disabled={disabledTransferLeft}
+                    onClick={handleIncrementPosition}
+                    disabled={disabledIncrementPosition}
                 >
                     {"↓"}
                 </Button>

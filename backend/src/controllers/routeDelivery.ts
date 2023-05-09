@@ -24,15 +24,12 @@ export default class RouteDeliveryController {
         return groups;
     }, {});
     
-    // // Sort groups by routePosition
-    // for (const routeNumber in groups) {
-    //     console.log("route group ",groups[routeNumber])
-    //     groups[routeNumber].sort((routeA, routeB) => {
-    //         if (routeA.routePosition > routeB.routePosition) {
-    //             return 1;
-    //         }
-    //     })
-    // }
+    // Sort groups by routePosition
+    for (const routeNumber in groups) {
+        groups[routeNumber].sort((routeA, routeB) => 
+            routeA.routePosition - routeB.routePosition
+        )
+    }
 
     response.status(StatusCode.OK).json({ routes: groups });
   };
@@ -53,7 +50,7 @@ export default class RouteDeliveryController {
     }
     
     decrementRoutePosition = async (request: Request, response: Response) => {
-        const route = await this.RouteDeliveryRepository.increment(
+        const route = await this.RouteDeliveryRepository.decrement(
             { id: parseInt(request.params.id) }, "routePosition", 1)
         response.status(StatusCode.OK).json({ route });
     }
