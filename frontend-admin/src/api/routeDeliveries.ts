@@ -8,3 +8,15 @@ export const getRouteDeliveries = async () => {
     
     return response
 }
+
+export const changeRouteDeliveryNumber = async (props: {id: number, routeNumber: number}) => {
+    return null
+}
+
+export const increaseRouteDeliveryPosition = async (props: {id: number}) => {
+    return null
+}
+
+export const decreaseRouteDeliveryPosition = async (props: {id: number}) => {
+    return null
+}

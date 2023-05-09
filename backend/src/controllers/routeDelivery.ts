@@ -13,6 +13,27 @@ export default class RouteDeliveryController {
             client: true
         }
     });
-    response.status(StatusCode.OK).json({ routes: routes });
+
+    // Create groups of routes by routeNumber
+    const groups = routes.reduce((groups, route) => {
+        const key = route.routeNumber;
+        if (!groups[key]) {
+            groups[key] = [];
+        }
+        groups[key].push(route);
+        return groups;
+    }, {});
+    
+    // // Sort groups by routePosition
+    // for (const routeNumber in groups) {
+    //     console.log("route group ",groups[routeNumber])
+    //     groups[routeNumber].sort((routeA, routeB) => {
+    //         if (routeA.routePosition > routeB.routePosition) {
+    //             return 1;
+    //         }
+    //     })
+    // }
+
+    response.status(StatusCode.OK).json({ routes: groups });
   };
 }
