@@ -3,21 +3,18 @@ import {
   PrimaryGeneratedColumn,
   Column,
   ManyToOne,
-  OneToOne,
-  JoinColumn
 } from 'typeorm';
 import { ClientEntity } from './ClientEntity';
-import { TaskEntity } from './TaskEntity';
 import { ProgramType, MealType } from './types';
 
-@Entity()
-export class MealDeliveryEntity {
+@Entity() 
+export class RouteDeliveryEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  isCompleted: boolean;
-  
+  routeNumber: number;
+
   @Column()
   routePosition: number;
 
@@ -25,12 +22,7 @@ export class MealDeliveryEntity {
   mealType: MealType;
 
   @Column()
-  program: ProgramType;
-
-  @ManyToOne(() => TaskEntity, (task) => task.deliveries, {
-    onDelete: 'CASCADE'
-  })
-  task: TaskEntity;
+  program: ProgramType
 
   @ManyToOne(() => ClientEntity)
   client: ClientEntity;

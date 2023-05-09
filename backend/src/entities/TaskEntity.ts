@@ -14,7 +14,7 @@ export class TaskEntity {
   id: number;
 
   @Column()
-  deliveryTime: Date;
+  date: Date;
 
   @Column()
   isCompleted: boolean;

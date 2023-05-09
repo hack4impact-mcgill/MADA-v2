@@ -1,24 +1,18 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-
 import { UserEntity } from './UserEntity';
+import { MealType } from './types';
 
 @Entity()
 export class ClientEntity extends UserEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
-
   @Column()
   address: string;
 
   @Column()
-  email: string;
+  mealType: MealType;
 
   @Column()
-  phoneNumber: Number;
+  sts: boolean;
 
   @Column()
-  name: string;
-
-  @Column()
-  notes: string;
+  map: boolean;
 }
