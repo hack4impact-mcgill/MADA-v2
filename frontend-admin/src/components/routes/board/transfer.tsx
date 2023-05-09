@@ -56,9 +56,11 @@ export const TransferBoard = (props: {groupedRoutes: any}) => {
     
     // Button handlers for EditRouteButtons
     const handleCreateRoute = () => {
-        // last route number is not in routeNumberList
-        // || !(routeNumberList.length - 2 in Object.keys(props.groupedRoutes))
-        if (routeNumberList.length == 1){
+        if (routeNumberList.length == 1 ||
+            // new route number is not in the system yet, but the previous one is
+            !(routeNumberList.length in Object.keys(props.groupedRoutes)) &&
+            routeNumberList.length - 1 in Object.keys(props.groupedRoutes)
+        ){
             setRouteNumberList([...routeNumberList, (routeNumberList.length).toString()])
         }
     }
