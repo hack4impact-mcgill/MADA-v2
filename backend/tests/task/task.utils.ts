@@ -10,12 +10,10 @@ export default class TaskEntityHelper {
   }
 
   createTask = async (
-    deliveryTime: string,
     deliveries: MealDeliveryEntity[],
     isCompleted: boolean
   ) => {
     const newTask = new TaskEntity();
-    newTask.deliveryTime = new Date(deliveryTime);
     newTask.deliveries = deliveries;
     newTask.isCompleted = isCompleted;
     return await this.TaskRepository.save(newTask);

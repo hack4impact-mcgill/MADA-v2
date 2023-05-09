@@ -17,7 +17,7 @@ export class MealDeliveryEntity {
 
   @Column()
   isCompleted: boolean;
-  
+
   @Column()
   routePosition: number;
 
