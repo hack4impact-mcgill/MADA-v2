@@ -24,6 +24,26 @@ export const EditRouteButtons = (props: {
             >
                 Delete route
             </Button>
+            <Box sx={{display: 'flex', width: '100%'}}>
+                <Button
+                    variant="outlined"
+                    size="small"
+                    sx={{flexGrow: 1}}
+                    // onClick={handleTransferRight}
+                    // disabled={disabledTransferRight}
+                >
+                    {"↑"}
+                </Button>
+                <Button
+                    variant="outlined"
+                    size="small"
+                    sx={{flexGrow: 1}}
+                    // onClick={handleTransferLeft}
+                    // disabled={disabledTransferLeft}
+                >
+                    {"↓"}
+                </Button>
+            </Box>
         </Box>
     )
 }

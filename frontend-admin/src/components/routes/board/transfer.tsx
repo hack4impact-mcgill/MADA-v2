@@ -96,6 +96,8 @@ export const TransferBoard = () => {
     const disabledDeleteRoute = true
 
     const handleSelectRouteDelivery = (route: any) => {
+        if (routeNumber === -1) { return }
+        
         setSelectedRouteDelivery(route)
         if (route === null) {
             setDisabledTransferRight(true)
