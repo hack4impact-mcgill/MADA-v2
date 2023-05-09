@@ -7,6 +7,7 @@ import DataSourceHelper from './../data.utils';
 
 import app from '../../src/app';
 import { StatusCode } from '../../src/controllers/statusCode';
+import { MealType, ProgramType } from '../../src/entities/types';
 
 describe('Tasks tests', () => {
   const mealDeliveryRepository =
@@ -41,8 +42,11 @@ describe('Tasks tests', () => {
 
   it('should return a mealDelivery', async () => {
     const savedMealDelivery = await mealDeliveryHelper.createMealDelivery(
+      false,
       1,
-      'breakfast',
+      MealType.NOFISH,
+      ProgramType.MAP,
+      null,
       null
     );
     // console.log(savedMealDelivery);
@@ -53,10 +57,12 @@ describe('Tasks tests', () => {
     expect(res.body).toEqual({
       mealDelivery: {
         id: savedMealDelivery.id,
-        quantity: 1,
-        mealType: 'breakfast',
+        mealType: MealType.NOFISH,
+        isCompleted: false,
+        routePosition: 1,
+        client: null,
         task: null,
-        client: null
+        program: ProgramType.MAP
       }
     });
   });
@@ -64,24 +70,30 @@ describe('Tasks tests', () => {
   it('should create a meal delivery', async () => {
     const res = await request(app).put(`/api/meal_delivery`).send({
       quantity: 1,
-      mealType: 'breakfast',
+      mealType: MealType.NOFISH,
       task: null
     });
     expect(res.statusCode).toBe(200);
     expect(res.body).toEqual({
       mealDelivery: {
         id: expect.any(Number),
-        quantity: 1,
-        mealType: 'breakfast',
-        task: null
+        mealType: MealType.NOFISH,
+        isCompleted: false,
+        routePosition: 1,
+        client: null,
+        task: null,
+        program: ProgramType.MAP
       }
     });
   });
 
   it('should update a meal delivery', async () => {
     const savedMealDelivery = await mealDeliveryHelper.createMealDelivery(
+      false,
       1,
-      'breakfast',
+      MealType.NOFISH,
+      ProgramType.MAP,
+      null,
       null
     );
     const res = await request(app)
@@ -104,8 +116,11 @@ describe('Tasks tests', () => {
 
   it('should delete meal delivery', async () => {
     const savedMealDelivery = await mealDeliveryHelper.createMealDelivery(
+      false,
       1,
-      'breakfast',
+      MealType.NOFISH,
+      ProgramType.MAP,
+      null,
       null
     );
     const res = await request(app).delete(

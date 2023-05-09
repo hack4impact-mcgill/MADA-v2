@@ -9,6 +9,7 @@ import app from '../../src/app';
 import { StatusCode } from '../../src/controllers/statusCode';
 import MealDeliveryEntityHelper from '../mealDelivery/mealDelivery.utils';
 import { MealDeliveryEntity } from '../../src/entities/MealDeliveryEntity';
+import { MealType } from '../../src/entities/types';
 
 describe('Tasks tests', () => {
   const taskRepository = AppDataSource.getRepository(TaskEntity);
@@ -42,18 +43,12 @@ describe('Tasks tests', () => {
   });
 
   it('should return a task', async () => {
-    const date: Date = new Date('April 20, 2001 04:20:00');
-    const savedTask = await taskHelper.createTask(
-      date.toISOString(),
-      [],
-      false
-    );
+    const savedTask = await taskHelper.createTask([], false);
     const res = await request(app).get(`/api/tasks/${savedTask.id}`);
     expect(res.status).toBe(StatusCode.OK);
     expect(res.body).toEqual({
       task: {
         id: savedTask.id,
-        deliveryTime: date.toISOString(),
         isCompleted: false,
         deliveries: []
       }
@@ -62,16 +57,8 @@ describe('Tasks tests', () => {
 
   it('should return tasks', async () => {
     const date: Date = new Date('April 20, 2001 04:20:00');
-    const savedTaskOne = await taskHelper.createTask(
-      date.toISOString(),
-      [],
-      false
-    );
-    const savedTaskTwo = await taskHelper.createTask(
-      date.toISOString(),
-      [],
-      false
-    );
+    const savedTaskOne = await taskHelper.createTask([], false);
+    const savedTaskTwo = await taskHelper.createTask([], false);
     const res = await request(app).get(`/api/tasks`);
     expect(res.statusCode).toBe(200);
     expect(res.body).toEqual({
@@ -115,14 +102,10 @@ describe('Tasks tests', () => {
     const newDate: Date = new Date('April 21, 2001 04:20:00');
     const newMealDelivery = await mealDeliveryHelper.createMealDelivery(
       1,
-      'breakfast',
+      MealType.NOFISH,
       null
     );
-    const savedTask = await taskHelper.createTask(
-      date.toISOString(),
-      [newMealDelivery],
-      false
-    );
+    const savedTask = await taskHelper.createTask([newMealDelivery], false);
     const res = await request(app).put(`/api/tasks/${savedTask.id}`).send({
       deliveryTime: newDate.toISOString(),
       isCompleted: true,
@@ -144,11 +127,7 @@ describe('Tasks tests', () => {
   it('should delete task', async () => {
     await DataSourceHelper.clearDataSource();
     const date: Date = new Date('April 20, 2001 04:20:00');
-    const savedTask = await taskHelper.createTask(
-      date.toISOString(),
-      [],
-      false
-    );
+    const savedTask = await taskHelper.createTask([], false);
     const res = await request(app).delete(`/api/tasks/${savedTask.id}`);
     expect(res.status).toBe(StatusCode.OK);
     expect(res.body).toEqual({});

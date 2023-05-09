@@ -9,6 +9,11 @@ export default class MealDeliveryController {
     AppDataSource.getRepository(MealDeliveryEntity);
   private TaskRepository = AppDataSource.getRepository(TaskEntity);
 
+  getMealDeliveries = async (request: Request, response: Response) => {
+    const meals = await this.MealDeliveryRepository.find({});
+    response.status(StatusCode.OK).json({ meals: meals });
+  };
+
   getMealDelivery = async (request: Request, response: Response) => {
     const mealDelivery = await this.MealDeliveryRepository.findOne({
       where: {
@@ -27,7 +32,6 @@ export default class MealDeliveryController {
   updateOrCreateMealDelivery = async (request: Request, response: Response) => {
     if (!request.params.id) {
       const newMealDelivery = new MealDeliveryEntity();
-      newMealDelivery.quantity = parseInt(request.body.quantity);
       newMealDelivery.mealType = request.body.mealType;
       newMealDelivery.task = request.body.task
         ? await this.TaskRepository.findOneBy({
