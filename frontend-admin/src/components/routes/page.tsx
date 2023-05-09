@@ -18,18 +18,10 @@ const RoutesPage = () => {
         return (
             <Box sx={{display: 'flex', width: '100%'}}>
                 <Box sx={{display: 'flex', width: '100%'}}>Mode: {mode}</Box>
-                <ActionBar actions={[
-                    {
-                        handler: () => {
-                            if (mode == "view") {
-                                setMode("transfer")
-                            } else {
-                                setMode("view")
-                            }
-                        },
-                        label: "Edit"
-                    }
-                ]}/>
+                <ActionBar actions={[{
+                    handler: () => mode == "view" ? setMode("transfer") : setMode("view"),
+                    label: "Edit"
+                }]}/>
             </Box>
         )
     }
@@ -41,7 +33,7 @@ const RoutesPage = () => {
                     {mode == "view" ?
                         <ViewBoard groupedRoutes={data ? data.data.routes : []}/>
                     :
-                        <TransferBoard groupedRoutes={data ? data.data.routes : []}/>
+                        <TransferBoard/>
                     }
                 </>}
             </Box>

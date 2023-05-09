@@ -30,7 +30,7 @@ export const BoardList = (props: {header: string, routes: any, selectable?: any}
         <Paper sx={{ minWidth: 300, height: '100%', overflow: 'auto'}}>
             <Box sx={{mx: 2}}>{header}</Box>
             <List dense component="div" role="list">
-                {props.routes.map((route: any) =>
+                {props.routes && props.routes.map((route: any) =>
                     <BoardListItem key={route.id} route={route} selectable={props.selectable}/>
                 )}
             </List>

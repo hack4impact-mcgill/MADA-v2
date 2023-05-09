@@ -1,7 +1,7 @@
 
 import React, {useState} from 'react'
 import {BoardList} from './list'
-import {Grid, Box} from '@mui/material'
+import {Box} from '@mui/material'
 
 export const ViewBoard = (props: {groupedRoutes: any}) => {
     return (

@@ -1,5 +1,5 @@
 
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {BoardList} from './list'
 import {Grid, Box, Button, FormControl, Select, InputLabel, MenuItem} from '@mui/material'
 import {
@@ -9,7 +9,7 @@ import {
 } from '@tanstack/react-query'
 import {EditRouteButtons} from './transfer/route-buttons'
 import {TransferButtons} from './transfer/transfer-buttons'
-import {setRouteDeliveryNumber} from 'src/api/route-deliveries'
+import {setRouteDeliveryNumber, getRouteDeliveries} from 'src/api/route-deliveries'
 
 type routeDelivery = {
     id: number
@@ -19,27 +19,45 @@ type routeDelivery = {
     mealType: string
 }
 
-export const TransferBoard = (props: {groupedRoutes: any}) => {
+export const TransferBoard = () => {
+    const { isLoading, isError, data, error, refetch } = useQuery(['routeDeliveries'], () => getRouteDeliveries())
+
+    // List of route numbers available to transfer to
+    const [routeNumberList, setRouteNumberList] = useState<string[]>([])
+    // Route Number to transfer routeDelivery items to
     const [routeNumber, setRouteNumber] = useState(-1)
+    // RouteDelivery items on list 2
     const [transferRoutes, setTransferRoutes] = useState([])
+    // Selected RouteDelivery item
     const [selectedRouteDelivery, setSelectedRouteDelivery] = useState<routeDelivery | null>(null)
     const [disabledTransferLeft, setDisabledTransferLeft] = useState(true)
     const [disabledTransferRight, setDisabledTransferRight] = useState(true)
-    const [routeNumberList, setRouteNumberList] = useState(Object.keys(props.groupedRoutes))
     
     const queryClient = new QueryClient()
 
+    const [allSavedRoutes, setAllSavedRoutes] = useState([])
+
+    useEffect(() => {
+        if (!data) return;
+        setAllSavedRoutes(data.data.routes)
+        setRouteNumberList(Object.keys(data.data.routes))
+        if (routeNumber) {
+            setTransferRoutes(data.data.routes[routeNumber])
+        }
+    }, [data])
+
     const setRouteNumberMutation = useMutation({
-        mutationFn: () => setRouteDeliveryNumber(selectedRouteDelivery?.id, routeNumber),
-        onSuccess: () => {
+        mutationFn: async () => await setRouteDeliveryNumber(selectedRouteDelivery!.id || 0, routeNumber),
+        onSuccess: async () => {
             queryClient.invalidateQueries('routeDeliveries')
+            await refetch()
         },
     });
 
     const handleChangeRouteNumber = (event: any) => {
         setRouteNumber(event.target.value)
-        if (event.target.value in Object.keys(props.groupedRoutes)) {
-            setTransferRoutes(props.groupedRoutes[event.target.value])
+        if (event.target.value in Object.keys(allSavedRoutes)) {
+            setTransferRoutes(allSavedRoutes[event.target.value])
         } else {
             setTransferRoutes([])
         }
@@ -58,8 +76,8 @@ export const TransferBoard = (props: {groupedRoutes: any}) => {
     const handleCreateRoute = () => {
         if (routeNumberList.length == 1 ||
             // new route number is not in the system yet, but the previous one is
-            !(routeNumberList.length in Object.keys(props.groupedRoutes)) &&
-            routeNumberList.length - 1 in Object.keys(props.groupedRoutes)
+            !(routeNumberList.length in Object.keys(allSavedRoutes)) &&
+            routeNumberList.length - 1 in Object.keys(allSavedRoutes)
         ){
             setRouteNumberList([...routeNumberList, (routeNumberList.length).toString()])
         }
@@ -88,7 +106,7 @@ export const TransferBoard = (props: {groupedRoutes: any}) => {
 
     return (
         <Box sx={{display: 'flex', overflow: 'auto'}}>
-            <BoardList header={""} routes={props.groupedRoutes[0]} selectable={{
+            <BoardList header={""} routes={allSavedRoutes[0]} selectable={{
                 selectedRouteDelivery: selectedRouteDelivery,
                 setSelectedRouteDelivery: handleSelectRouteDelivery
             }}/>
