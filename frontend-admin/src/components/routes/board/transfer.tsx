@@ -28,6 +28,8 @@ export const TransferBoard = () => {
     const [routeNumber, setRouteNumber] = useState(-1)
     // RouteDelivery items on list 2
     const [transferRoutes, setTransferRoutes] = useState([])
+    // Unassigned  items on list 2
+    const [unassignedRoutes, setUnassignedRoutes] = useState([])
     // Selected RouteDelivery item
     const [selectedRouteDelivery, setSelectedRouteDelivery] = useState<routeDelivery | null>(null)
     const [disabledTransferLeft, setDisabledTransferLeft] = useState(true)
@@ -40,6 +42,7 @@ export const TransferBoard = () => {
     useEffect(() => {
         if (!data) return;
         setAllSavedRoutes(data.data.routes)
+        setUnassignedRoutes(data.data.routes[0])
         setRouteNumberList(Object.keys(data.data.routes))
         if (routeNumber) {
             setTransferRoutes(data.data.routes[routeNumber])
@@ -47,7 +50,7 @@ export const TransferBoard = () => {
     }, [data])
 
     const setRouteNumberMutation = useMutation({
-        mutationFn: async () => await setRouteDeliveryNumber(selectedRouteDelivery!.id || 0, routeNumber),
+        mutationFn: async (n: number) => await setRouteDeliveryNumber(selectedRouteDelivery!.id || 0, n),
         onSuccess: async () => {
             queryClient.invalidateQueries('routeDeliveries')
             await refetch()
@@ -65,11 +68,13 @@ export const TransferBoard = () => {
 
     // Button handlers for TransferButtons
     const handleTransferLeft = async () => {
-        await setRouteNumberMutation.mutate()
+        await setRouteNumberMutation.mutate(0)
+        handleSelectRouteDelivery(null)
     }
 
     const handleTransferRight = async () => {
-        await setRouteNumberMutation.mutate()
+        await setRouteNumberMutation.mutate(routeNumber)
+        handleSelectRouteDelivery(null)
     }
     
     // Button handlers for EditRouteButtons
@@ -106,7 +111,7 @@ export const TransferBoard = () => {
 
     return (
         <Box sx={{display: 'flex', overflow: 'auto'}}>
-            <BoardList header={""} routes={allSavedRoutes[0]} selectable={{
+            <BoardList header={""} routes={unassignedRoutes} selectable={{
                 selectedRouteDelivery: selectedRouteDelivery,
                 setSelectedRouteDelivery: handleSelectRouteDelivery
             }}/>
@@ -131,7 +136,10 @@ export const TransferBoard = () => {
                         ]))}
                     </Select>
                 </FormControl>
-                <BoardList header={""} routes={transferRoutes}/>
+                <BoardList header={""} routes={transferRoutes} selectable={{
+                    selectedRouteDelivery: selectedRouteDelivery,
+                    setSelectedRouteDelivery: handleSelectRouteDelivery
+                }}/>
             </Box>
             <EditRouteButtons
                 handleCreateRoute={handleCreateRoute}
