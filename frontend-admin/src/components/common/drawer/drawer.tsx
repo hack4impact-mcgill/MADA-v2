@@ -7,6 +7,10 @@ import {style} from './style';
 
 const navList = [
     {
+        label: 'Tasks',
+        path: '/tasks'
+    },
+    {
         label: 'Volunteers',
         path: '/volunteers'
     },

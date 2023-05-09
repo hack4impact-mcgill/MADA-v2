@@ -5,6 +5,7 @@ import VolunteersPage from './components/volunteers/page';
 import ClientsPage from './components/clients/page';
 import RoutesPage from './components/routes/page';
 import LoginPage from './components/auth/page';
+import TasksPage from './components/tasks/page';
 import {Private} from './components/auth/private';
 
 import Cookies from "universal-cookie";
@@ -35,6 +36,7 @@ const Router = () => {
                 <Route path="*" element={<RedirectPath/>} />
                 <Route path="/volunteers" element={<VolunteersPage/>} />
                 <Route path="/clients" element={<ClientsPage/>} />
+                <Route path="/tasks" element={<TasksPage/>} />
                 <Route path="/routes" element={<RoutesPage/>} />
             </Route>
         </Routes>

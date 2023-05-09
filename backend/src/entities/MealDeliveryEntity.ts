@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import { ClientEntity } from './ClientEntity';
 import { TaskEntity } from './TaskEntity';
+import { ProgramType, MealType } from './types';
 
 @Entity()
 export class MealDeliveryEntity {
@@ -15,10 +16,16 @@ export class MealDeliveryEntity {
   id: number;
 
   @Column()
-  quantity: number;
+  isCompleted: boolean;
+  
+  @Column()
+  routePosition: number;
 
   @Column()
-  mealType: string;
+  mealType: MealType;
+
+  @Column()
+  program: ProgramType;
 
   @ManyToOne(() => TaskEntity, (task) => task.deliveries, {
     onDelete: 'CASCADE'

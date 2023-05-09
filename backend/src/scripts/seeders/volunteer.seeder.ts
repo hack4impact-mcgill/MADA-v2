@@ -42,6 +42,6 @@ export default class VolunteerSeeder implements Seeder {
     const repository = dataSource.getRepository(VolunteerEntity);
     const volunteers = await generateVolunteers(10);
     await repository.insert(volunteers);
-    generateTasks(dataSource, volunteers);
+    // generateTasks(dataSource, volunteers);
   }
 }

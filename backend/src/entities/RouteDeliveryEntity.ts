@@ -3,14 +3,11 @@ import {
   PrimaryGeneratedColumn,
   Column,
   ManyToOne,
-  OneToOne,
-  JoinColumn
 } from 'typeorm';
 import { ClientEntity } from './ClientEntity';
-import { TaskEntity } from './TaskEntity';
 import { ProgramType, MealType } from './types';
 
-@Entity()
+@Entity() 
 export class RouteDeliveryEntity {
   @PrimaryGeneratedColumn()
   id: number;
