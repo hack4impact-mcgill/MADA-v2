@@ -36,7 +36,6 @@ export default class VolunteerController {
   createVolunteer = async (request: Request, response: Response) => {
     const volunteer = await this.VolunteerRepository.create({
       name: request.body.name,
-      username: request.body.username,
       password: request.body.password,
       email: request.body.email,
       phoneNumber: request.body.phoneNumber,

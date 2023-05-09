@@ -24,7 +24,7 @@ export default class AdminController {
 
     if (await bcrypt.compare(password, adminUser.password)) {
       const token = jwt.sign(
-        { username: adminUser.username, email: email },
+        { email: email },
         TOKEN_KEY,
         {
           expiresIn: '2h'

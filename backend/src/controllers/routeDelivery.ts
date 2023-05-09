@@ -36,4 +36,25 @@ export default class RouteDeliveryController {
 
     response.status(StatusCode.OK).json({ routes: groups });
   };
+
+  setRouteNumber = async (request: Request, response: Response) => {
+    const route = await this.RouteDeliveryRepository.update(
+        { id: parseInt(request.params.id) },
+        { routeNumber: request.body.routeNumber }
+    );
+    
+    response.status(StatusCode.OK).json({ route });
+  };
+
+    incrementRoutePosition = async (request: Request, response: Response) => {
+        const route = await this.RouteDeliveryRepository.increment(
+            { id: parseInt(request.params.id) }, "routePosition", 1)
+        response.status(StatusCode.OK).json({ route });
+    }
+    
+    decrementRoutePosition = async (request: Request, response: Response) => {
+        const route = await this.RouteDeliveryRepository.increment(
+            { id: parseInt(request.params.id) }, "routePosition", 1)
+        response.status(StatusCode.OK).json({ route });
+    }
 }

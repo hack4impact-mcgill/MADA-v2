@@ -1,9 +1,8 @@
 import React, {useState} from 'react'
-import {routeColumns} from './columns'
 import {
     useQuery,
 } from '@tanstack/react-query'
-import {getRouteDeliveries} from 'src/api/routeDeliveries'
+import {getRouteDeliveries} from 'src/api/route-deliveries'
 import {BasePage} from 'src/components/common/base-page'
 import {ActionBar} from 'src/components/common/page-actionbar'
 import {ViewBoard} from './board/view'

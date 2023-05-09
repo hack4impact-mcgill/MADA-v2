@@ -2,90 +2,56 @@
 import React, {useState} from 'react'
 import {BoardList} from './list'
 import {Grid, Box, Button, FormControl, Select, InputLabel, MenuItem} from '@mui/material'
+import {
+    useQuery,
+    useMutation,
+    QueryClient
+} from '@tanstack/react-query'
+import {EditRouteButtons} from './transfer/route-buttons'
+import {TransferButtons} from './transfer/transfer-buttons'
+import {setRouteDeliveryNumber} from 'src/api/route-deliveries'
 
-const TransferButtons = (props: {
-    handleTransferRight?: any,
-    disabledTransferRight?: boolean,
-    handleTransferLeft?: any,
-    disabledTransferLeft?: boolean
-}) => {
-    const {handleTransferRight, disabledTransferRight, handleTransferLeft, disabledTransferLeft} = props
-
-    return (
-        <Box sx={{display: 'flex', flexDirection: 'column', mx: 2}}>
-            <Button
-                variant="outlined"
-                size="small"
-                onClick={handleTransferRight}
-                disabled={disabledTransferRight}
-            >
-                {">"}
-            </Button>
-            <Button
-                variant="outlined"
-                size="small"
-                onClick={handleTransferLeft}
-                disabled={disabledTransferLeft}
-            >
-                {"<"}
-            </Button>
-        </Box>
-    )
-}
-
-const EditRouteButtons = (props: {
-    handleCreateRoute: any,
-    handleDeleteRoute: any,
-    disabledDeleteRoute: boolean
-}) => {
-    const {handleCreateRoute, handleDeleteRoute, disabledDeleteRoute} = props
-    return (
-        <Box sx={{display: 'flex', flexDirection: 'column', mx: 2}}>
-            <Button
-                variant="outlined"
-                onClick={handleCreateRoute}
-                size="small"
-            >
-                Create new route
-            </Button>
-            <Button
-                variant="outlined"
-                onClick={handleDeleteRoute}
-                disabled={disabledDeleteRoute}
-                size="small"
-            >
-                Delete route
-            </Button>
-        </Box>
-    )
+type routeDelivery = {
+    id: number
+    routeNumber: number
+    routePosition: number
+    program: string
+    mealType: string
 }
 
 export const TransferBoard = (props: {groupedRoutes: any}) => {
     const [routeNumber, setRouteNumber] = useState(-1)
     const [transferRoutes, setTransferRoutes] = useState([])
-    const [selectedRouteDelivery, setSelectedRouteDelivery] = useState(null)
+    const [selectedRouteDelivery, setSelectedRouteDelivery] = useState<routeDelivery | null>(null)
     const [disabledTransferLeft, setDisabledTransferLeft] = useState(true)
     const [disabledTransferRight, setDisabledTransferRight] = useState(true)
     const [routeNumberList, setRouteNumberList] = useState(Object.keys(props.groupedRoutes))
+    
+    const queryClient = new QueryClient()
+
+    const setRouteNumberMutation = useMutation({
+        mutationFn: () => setRouteDeliveryNumber(selectedRouteDelivery?.id, routeNumber),
+        onSuccess: () => {
+            queryClient.invalidateQueries('routeDeliveries')
+        },
+    });
 
     const handleChangeRouteNumber = (event: any) => {
         setRouteNumber(event.target.value)
         if (event.target.value in Object.keys(props.groupedRoutes)) {
-            console.log("its in here")
             setTransferRoutes(props.groupedRoutes[event.target.value])
-            console.log("transfer routes", props.groupedRoutes[event.target.value])
         } else {
             setTransferRoutes([])
         }
     }
 
     // Button handlers for TransferButtons
-    const handleTransferLeft = () => {
-        console.log("transfer left")
+    const handleTransferLeft = async () => {
+        await setRouteNumberMutation.mutate()
     }
 
-    const handleTransferRight = () => {
-        console.log("transfer right")
+    const handleTransferRight = async () => {
+        await setRouteNumberMutation.mutate()
     }
     
     // Button handlers for EditRouteButtons
