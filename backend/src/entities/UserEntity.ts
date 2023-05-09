@@ -1,10 +1,12 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { Column, OneToMany, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {RouteDeliveryEntity} from './RouteDeliveryEntity';
 
 @Entity()
-export class UserEntity {
-  @PrimaryColumn()
-  username: string;
+export abstract class UserEntity {
+  @PrimaryGeneratedColumn()
+  id: number;
 
+  // Personal info
   @Column()
   name: string;
 
@@ -14,6 +16,6 @@ export class UserEntity {
   })
   email: string;
 
-  @Column({ select: false })
-  password: string;
+  @Column()
+  phoneNumber: string;
 }
