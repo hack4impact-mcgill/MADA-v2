@@ -166,76 +166,36 @@ const MarkAvailability = () => {
               Start time must be before end time
             </Typography>
           )}
-          <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-            <TimePicker
-              label="Start time"
-              value={startTime}
-              onChange={(startTime) => {
-                var tmp: TimeRange[] = GetTimes(dayOfWeek);
-                tmp[index].startTime = startTime;
-                if (endTime?.isBefore(startTime)) {
-                  timeError = true;
-                } else {
-                  timeError = false;
-                }
-                setTimes(dayOfWeek, tmp);
-                setStartTime(startTime);
-              }}
-              renderInput={(params) => <TextField {...params} />}
-            />
-            <TimePicker
-              label="End time"
-              value={endTime}
-              onChange={(endTime) => {
-                var tmp: TimeRange[] = GetTimes(dayOfWeek);
-                tmp[index].endTime = endTime;
-                if (endTime?.isBefore(startTime)) {
-                  timeError = true;
-                } else {
-                  timeError = false;
-                }
-                setTimes(dayOfWeek, tmp);
-                setEndTime(endTime);
-              }}
-              renderInput={(params) => <TextField {...params} />}
-            />
-            {/* delete button */}
-            <MdDeleteOutline
-              size="40"
-              cursor="pointer"
-              color="#ed4040"
-              onClick={() => {
-                var tmp: TimeRange[] = GetTimes(dayOfWeek);
-                if (tmp.length == 1) {
-                  tmp[0].startTime = null;
-                  tmp[0].endTime = null;
-                } else {
-                  tmp.splice(index, 1);
-                }
-                setTimes(dayOfWeek, tmp);
-                setStartTime(null);
-                setEndTime(null);
-                setShouldRender(true);
-              }}
-            />
-            {/* add button  if it's the last element*/}
-            <IoIosAddCircleOutline
-              size="40"
-              cursor="pointer"
-              color="#1976d2"
-              visibility={
-                index == GetTimes(dayOfWeek).length - 1 ? "visible" : "hidden"
-              }
-              onClick={() => {
-                var tmp: TimeRange[] = GetTimes(dayOfWeek);
-                tmp.push({
-                  startTime: null,
-                  endTime: null,
-                });
-                setTimes(dayOfWeek, tmp);
-                setShouldRender(true);
-              }}
-            />
+          <Box className = "time-selection-buttons">
+
+            <Box className = "col">
+            <Button sx={{ backgroundColor: "#33BE41", whiteSpace: "nowrap", width: "30%"}} variant="contained">
+              12 pm
+            </Button>
+
+            <Button sx={{ backgroundColor: "#33BE41", whiteSpace: "nowrap", width: "30%", ml: "5%"}} variant="contained">
+              1 pm
+            </Button>
+            
+            <Button sx={{ backgroundColor: "#33BE41", whiteSpace: "nowrap", width: "30%", ml: "5%"}} variant="contained">
+              2 pm
+            </Button>
+            </Box>
+
+            <Box className = "col">          
+            <Button sx={{ backgroundColor: "#33BE41", whiteSpace: "nowrap" , width: "30%"}} variant="contained">
+              3 pm
+            </Button>           
+            
+            <Button sx={{ backgroundColor: "#33BE41", whiteSpace: "nowrap", width: "30%", ml: "5%" }} variant="contained">
+              4 pm
+            </Button>
+            
+            <Button sx={{ backgroundColor: "#33BE41", whiteSpace: "nowrap", width: "30%", ml: "5%" }} variant="contained">
+              5 pm
+            </Button>
+            </Box>
+             
           </Box>
         </LocalizationProvider>
       );
