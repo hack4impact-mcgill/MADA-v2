@@ -151,7 +151,62 @@ const MarkAvailability = () => {
       const [endTime, setEndTime] = React.useState<Dayjs | null>(
         GetTimes(dayOfWeek)[index].endTime
       );
+      const [flag, setFlag] = React.useState(true);
+      const [flag1, setFlag1] = React.useState(true);
+      const [flag2, setFlag2] = React.useState(true);
+      const [flag3, setFlag3] = React.useState(true);
+      const [flag4, setFlag4] = React.useState(true);
+      const [flag5, setFlag5] = React.useState(true);
 
+      const [selected, setSelected] = React.useState(false);
+      const handleClick = () => {
+        setFlag(false);
+        setFlag1(true);
+        setFlag2(true);
+        setFlag3(true);
+        setFlag4(true);
+        setFlag5(true);
+      };
+      const handleClick1 = () => {
+        setFlag(true);
+        setFlag1(false);
+        setFlag2(true);
+        setFlag3(true);
+        setFlag4(true);
+        setFlag5(true);
+      };
+      const handleClick2 = () => {
+        setFlag(true);
+        setFlag1(true);
+        setFlag2(false);
+        setFlag3(true);
+        setFlag4(true);
+        setFlag5(true);
+      };
+      const handleClick3 = () => {
+        setFlag(true);
+        setFlag1(true);
+        setFlag2(true);
+        setFlag3(false);
+        setFlag4(true);
+        setFlag5(true);
+      };
+      const handleClick4 = () => {
+        setFlag(true);
+        setFlag1(true);
+        setFlag2(true);
+        setFlag3(true);
+        setFlag4(false);
+        setFlag5(true);
+      };
+      const handleClick5 = () => {
+        setFlag(true);
+        setFlag1(true);
+        setFlag2(true);
+        setFlag3(true);
+        setFlag4(true);
+        setFlag5(false);
+      };
       return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           {endTime?.isBefore(startTime) && (
@@ -166,36 +221,58 @@ const MarkAvailability = () => {
               Start time must be before end time
             </Typography>
           )}
-          <Box className = "time-selection-buttons">
+          <Box className="time-selection-buttons">
+            <Box className="col">
+              <Button
+                sx={{ whiteSpace: "nowrap", width: "30%" }}
+                onClick={handleClick}
+                variant={flag ? "outlined" : "contained"}
+              >
+                12 pm
+              </Button>
 
-            <Box className = "col">
-            <Button sx={{ backgroundColor: "#33BE41", whiteSpace: "nowrap", width: "30%"}} variant="contained">
-              12 pm
-            </Button>
+              <Button
+                sx={{ whiteSpace: "nowrap", width: "30%", ml: "5%" }}
+                onClick={handleClick1}
+                variant={flag1 ? "outlined" : "contained"}
+              >
+                1 pm
+              </Button>
 
-            <Button sx={{ backgroundColor: "#33BE41", whiteSpace: "nowrap", width: "30%", ml: "5%"}} variant="contained">
-              1 pm
-            </Button>
-            
-            <Button sx={{ backgroundColor: "#33BE41", whiteSpace: "nowrap", width: "30%", ml: "5%"}} variant="contained">
-              2 pm
-            </Button>
+              <Button
+                sx={{ whiteSpace: "nowrap", width: "30%", ml: "5%" }}
+                onClick={handleClick2}
+                variant={flag2 ? "outlined" : "contained"}
+              >
+                2 pm
+              </Button>
             </Box>
 
-            <Box className = "col">          
-            <Button sx={{ backgroundColor: "#33BE41", whiteSpace: "nowrap" , width: "30%"}} variant="contained">
-              3 pm
-            </Button>           
-            
-            <Button sx={{ backgroundColor: "#33BE41", whiteSpace: "nowrap", width: "30%", ml: "5%" }} variant="contained">
-              4 pm
-            </Button>
-            
-            <Button sx={{ backgroundColor: "#33BE41", whiteSpace: "nowrap", width: "30%", ml: "5%" }} variant="contained">
-              5 pm
-            </Button>
+            <Box className="col">
+              <Button
+                sx={{ whiteSpace: "nowrap", width: "30%" }}
+                onClick={handleClick3}
+                variant={flag3 ? "outlined" : "contained"}
+              >
+                3 pm
+              </Button>
+
+              <Button
+                sx={{ whiteSpace: "nowrap", width: "30%", ml: "5%" }}
+                onClick={handleClick4}
+                variant={flag4 ? "outlined" : "contained"}
+              >
+                4 pm
+              </Button>
+
+              <Button
+                sx={{ whiteSpace: "nowrap", width: "30%", ml: "5%" }}
+                onClick={handleClick5}
+                variant={flag5 ? "outlined" : "contained"}
+              >
+                5 pm
+              </Button>
             </Box>
-             
           </Box>
         </LocalizationProvider>
       );
@@ -225,6 +302,7 @@ const MarkAvailability = () => {
           sx={{
             display: "flex",
             alignItems: "center",
+            padding: "6px 8px 8px",
           }}
         >
           <Switch checked={!disabled} onChange={ToggleAccordionDisability} />
@@ -332,7 +410,7 @@ const MarkAvailability = () => {
   };
 
   return (
-    <Box className="center">
+    <Box className="center1">
       <Typography
         sx={{
           font: "Poppins",
@@ -340,6 +418,7 @@ const MarkAvailability = () => {
           fontWeight: "600",
           textAlign: "center",
           fontSize: "1.5rem",
+          marginBottom: "3%",
         }}
       >
         Availability
