@@ -11,7 +11,7 @@ export default class TaskEntityHelper {
 
   createTask = async (
     deliveries: MealDeliveryEntity[],
-    isCompleted: boolean
+    isCompleted: boolean,
   ) => {
     const newTask = new TaskEntity();
     newTask.deliveries = deliveries;

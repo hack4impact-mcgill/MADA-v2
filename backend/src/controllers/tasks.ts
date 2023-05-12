@@ -82,6 +82,7 @@ export default class TaskController {
     if (!request.params.id) {
       const newTask = new TaskEntity();
       newTask.deliveries = [];
+      newTask.date = request.body.date;
       newTask.isCompleted = request.body.isCompleted;
       newTask.deliveries = await Promise.all(
         request.body.deliveries.map(async (d) =>
@@ -99,6 +100,7 @@ export default class TaskController {
           deliveries: true
         }
       });
+      
       response.status(StatusCode.OK).json({ task: savedTask });
     } else {
       // update

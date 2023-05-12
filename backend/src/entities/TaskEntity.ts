@@ -13,7 +13,7 @@ export class TaskEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({nullable: true})
   date: Date;
 
   @Column()
