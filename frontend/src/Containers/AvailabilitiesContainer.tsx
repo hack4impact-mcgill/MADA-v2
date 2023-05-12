@@ -3,7 +3,6 @@ import { useState } from "react";
 import { Dayjs } from "dayjs";
 import {
   Box,
-  TextField,
   Accordion,
   AccordionSummary,
   AccordionDetails,
@@ -16,11 +15,7 @@ import {
 } from "@mui/material";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { TimePicker } from "@mui/x-date-pickers/TimePicker";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-
-import { MdDeleteOutline, MdExpandMore } from "react-icons/md";
-import { IoIosAddCircleOutline } from "react-icons/io";
+import { MdExpandMore } from "react-icons/md";
 import "../Styles/Availabilities.css";
 
 type TimePickerAccordionProps = {
@@ -145,12 +140,7 @@ const MarkAvailability = () => {
 
     // contains a pair of time pickers, and the icons associated to them
     const TimeRange = ({ index }: { index: number }) => {
-      const [startTime, setStartTime] = React.useState<Dayjs | null>(
-        GetTimes(dayOfWeek)[index].startTime
-      );
-      const [endTime, setEndTime] = React.useState<Dayjs | null>(
-        GetTimes(dayOfWeek)[index].endTime
-      );
+     
       const [flag, setFlag] = React.useState(true);
       const [flag1, setFlag1] = React.useState(true);
       const [flag2, setFlag2] = React.useState(true);
@@ -158,7 +148,6 @@ const MarkAvailability = () => {
       const [flag4, setFlag4] = React.useState(true);
       const [flag5, setFlag5] = React.useState(true);
 
-      const [selected, setSelected] = React.useState(false);
       const handleClick = () => {
         setFlag(false);
         setFlag1(true);
@@ -209,18 +198,6 @@ const MarkAvailability = () => {
       };
       return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-          {endTime?.isBefore(startTime) && (
-            <Typography
-              sx={{
-                font: "Poppins",
-                color: "#f55442",
-                fontSize: "0.8rem",
-                fontWeight: "400",
-              }}
-            >
-              Start time must be before end time
-            </Typography>
-          )}
           <Box className="time-selection-buttons">
             <Box className="col">
               <Button
@@ -333,70 +310,6 @@ const MarkAvailability = () => {
     );
   };
 
-  // const DateRangerPicker = () => {
-  //   const [startDate, setStartDate] = useState<Dayjs | null>(null);
-  //   const [endDate, setEndDate] = useState<Dayjs | null>(null);
-
-  //   return (
-  //     <>
-  //       <div className="date-error">
-  //         {endDate?.isBefore(startDate) && (
-  //           <Typography
-  //             sx={{
-  //               font: "Poppins",
-  //               color: "#f55442",
-  //               fontSize: "0.8rem",
-  //               fontWeight: "400",
-  //               pl: 2,
-  //               pr: 2,
-  //             }}
-  //           >
-  //             Start date must be before end date.
-  //           </Typography>
-  //         )}
-  //       </div>
-
-  //       <Box
-  //         sx={{
-  //           display: "flex",
-  //           justifyContent: "space-between",
-  //           mt: "10%",
-  //           mb: "10%",
-  //         }}
-  //       >
-  //         <DatePicker
-  //           label="Start Date"
-  //           value={startDate}
-  //           onChange={(newValue) => {
-  //             if (endDate?.isBefore(newValue)) {
-  //               timeError = true;
-  //             } else {
-  //               timeError = false;
-  //             }
-  //             setStartDate(newValue);
-  //           }}
-  //           renderInput={(params) => <TextField {...params} />}
-  //         />
-
-  //         <div className="end-date">
-  //           <DatePicker
-  //             label="End Date"
-  //             value={endDate}
-  //             onChange={(newValue) => {
-  //               if (newValue?.isBefore(startDate)) {
-  //                 timeError = true;
-  //               } else {
-  //                 timeError = false;
-  //               }
-  //               setEndDate(newValue);
-  //             }}
-  //             renderInput={(params) => <TextField {...params} />}
-  //           />
-  //         </div>
-  //       </Box>
-  //     </>
-  //   );
-  // };
   const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
@@ -425,7 +338,6 @@ const MarkAvailability = () => {
       </Typography>
 
       <LocalizationProvider dateAdapter={AdapterDayjs}>
-        {/* <DateRangerPicker></DateRangerPicker> */}
         {/* iterate through list of days of week and create accordion for each day */}
         {daysOfWeek.map((day) => {
           return <TimePickerAccordion dayOfWeek={day} />;
