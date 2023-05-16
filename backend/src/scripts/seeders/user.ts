@@ -3,11 +3,15 @@ import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
 require('dotenv').config();
 const TOKEN_KEY = process.env.TOKEN_KEY;
-
+const avalabilities = [''];
 export const generateUser = (first?: string, last?: string) => {
   const firstName = first || faker.name.firstName();
   const lastName = last || faker.name.lastName();
 
+  // random avalability - everyone will have 2 avalabilities
+
+  const availability =
+    avalabilities[Math.floor(Math.random() * avalabilities.length)];
   const user = {
     name: firstName + ' ' + lastName,
     email: faker.internet.email(firstName, lastName),

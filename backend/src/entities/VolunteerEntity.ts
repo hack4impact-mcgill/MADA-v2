@@ -18,6 +18,24 @@ export enum DayOfWeek {
   SUNDAY = 'sunday'
 }
 
+export enum TimeSlots {
+  hour0 = '12:00PM',
+  hour1 = '01:00PM',
+  hour2 = '02:00PM',
+  hour3 = '03:00PM',
+  hour4 = '04:00PM',
+  hour5 = '05:00PM'
+}
+
+export interface Availability {
+  day: DayOfWeek;
+  time: TimeSlots;
+}
+
+export interface availabilities {
+  availabilities: Availability[];
+}
+
 @Entity()
 export class VolunteerEntity extends UserEntity {
   @Column()
@@ -26,8 +44,8 @@ export class VolunteerEntity extends UserEntity {
   @Column()
   profilePicture: string;
 
-  @Column('text', { array: true })
-  availabilities: DayOfWeek[];
+  @Column()
+  availabilities: string;
 
   @OneToMany(() => TaskEntity, (task) => task.volunteer)
   tasks: TaskEntity[];
