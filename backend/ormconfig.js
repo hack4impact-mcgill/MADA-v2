@@ -1,3 +1,3 @@
 module.exports = {
-    "entities": ["**/entities/*.{js,ts}"]
-}
+  entities: ['**/entities/*.{js,ts}']
+};
