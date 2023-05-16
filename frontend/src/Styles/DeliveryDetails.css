@@ -1,0 +1,14 @@
+.add-note-button {
+  width: 153px;
+  height: 51px;
+
+  background: #33be41;
+  border-radius: 10px;
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 22px;
+  border-width: 0px;
+  color: #ffffff;
+}

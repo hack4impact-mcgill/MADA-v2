@@ -7,11 +7,15 @@ import { TaskInterface } from "../../Contexts/Tasks";
 import { useLocation } from "react-router-dom";
 import CloseButton from "../MyHistory/CloseButton";
 import { isBrowser } from "react-device-detect";
+import TextField from "@mui/material/TextField";
 
 export default function DeliveryDetails(props: { task: TaskInterface | null }) {
   console.log(props.task);
   const location = useLocation();
   const task = location.state?.task;
+
+  const [isOpen, setIsOpen] = React.useState(false);
+  const takeNote = () => {};
 
   return task ? (
     <Box>
@@ -97,7 +101,7 @@ export default function DeliveryDetails(props: { task: TaskInterface | null }) {
               mb: 1,
             }}
           >
-            Date and Time
+            Date
           </Typography>
           <Typography
             sx={{
@@ -114,7 +118,12 @@ export default function DeliveryDetails(props: { task: TaskInterface | null }) {
         </Box>
         <div className="google-map-code">
           <iframe
-            src="https://maps.google.com/maps?q=3380+Bd+Robert-Bourassa+Montreal+QC&output=embed"
+            // src="https://maps.google.com/maps?q=3380+Bd+Robert-Bourassa+Montreal+QC&output=embed"
+            src={
+              "https://maps.google.com/maps?q=" +
+              encodeURIComponent("3300 Bd Robert-Bourassa Montreal QC") +
+              "&output=embed"
+            }
             width={isBrowser ? "600" : "350"}
             height={isBrowser ? "450" : "300"}
             // frameborder="0"
@@ -122,6 +131,93 @@ export default function DeliveryDetails(props: { task: TaskInterface | null }) {
             // allowfullscreen
           ></iframe>
         </div>
+      </Box>
+
+      <Box
+        sx={{
+          ml: isBrowser ? "100px" : "50px",
+          mr: isBrowser ? "100px" : "50px",
+          mb: "40px",
+          alignItems: "center",
+          justifyContent: "center",
+          alignContent: "center",
+          alignSelf: "center",
+          paddnig: "auto",
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        <Typography
+          sx={{
+            width: "153px",
+            height: " 51px",
+            borderRadius: "10px",
+            fontFamily: "Poppins",
+            fontStyle: "normal",
+            fontWeight: 600,
+            fontSize: "15px",
+            lineHeight: "22px",
+            borderWidth: "0px",
+            color: "#ffffff",
+            background: "#2E5CD3",
+            alignSelf: "center",
+          }}
+        >
+          Add Note
+        </Typography>
+        <TextField
+          style={{ display: isOpen ? "block" : "none" }}
+          multiline={true}
+          variant="outlined"
+          fullWidth
+        ></TextField>
+        <Box sx={{ display: "flex", flexDirection: "row" }}>
+          <Button
+            sx={{
+              width: "153px",
+              height: "51px",
+              borderRadius: "10px",
+              fontFamily: "Poppins",
+              fontStyle: "normal",
+              fontWeight: 600,
+              fontSize: "15px",
+              lineHeight: "22px",
+              borderWidth: "0px",
+              color: "#ffffff",
+              background: "#2E5CD3",
+              alignSelf: "center",
+              margin: "10px",
+              display: isOpen ? "block" : "none",
+            }}
+            onClick={() => {
+              setIsOpen(false);
+            }}
+          >
+            Cancel
+          </Button>
+          <Button
+            sx={{
+              width: "153px",
+              height: " 51px",
+              borderRadius: "10px",
+              fontFamily: "Poppins",
+              fontStyle: "normal",
+              fontWeight: 600,
+              fontSize: "15px",
+              lineHeight: "22px",
+              borderWidth: "0px",
+              color: "#ffffff",
+              background: "#2E5CD3",
+              alignSelf: "center",
+              display: isOpen ? "block" : "none",
+            }}
+            onClick={() => {
+              //do smth
+            }}
+          >
+            Submit
+          </Button>
+        </Box>
       </Box>
     </Box>
   ) : null;
