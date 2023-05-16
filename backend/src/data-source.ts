@@ -1,7 +1,9 @@
 import 'reflect-metadata';
 
-import { DataSource } from 'typeorm';
+import { DataSource, DataSourceOptions } from 'typeorm';
+import { SeederOptions } from 'typeorm-extension';
 
+import { RouteDeliveryEntity } from './entities/RouteDeliveryEntity';
 import { AdminEntity } from './entities/AdminEntity';
 import { ClientEntity } from './entities/ClientEntity';
 import { MealDeliveryEntity } from './entities/MealDeliveryEntity';
@@ -25,8 +27,11 @@ export const AppDataSource = new DataSource({
     TaskEntity,
     UserEntity,
     VolunteerEntity,
-    ClientEntity
+    ClientEntity,
+    RouteDeliveryEntity
   ],
   migrations: [],
-  subscribers: []
-});
+  subscribers: [],
+  seeds: ['src/db/*.seeder.ts'],
+  factories: ['src/db/*.factory.ts']
+} as SeederOptions & DataSourceOptions);
