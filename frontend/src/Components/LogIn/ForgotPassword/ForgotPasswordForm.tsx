@@ -2,18 +2,18 @@ import React, { useReducer, ChangeEvent } from "react";
 import { initialState } from "../../../Contexts/LogIn";
 import Reducer from "../../../Contexts/LogIn";
 import { Stack, Box, Typography } from "@mui/material";
-import UsernameTextField from "../UsernameTextField";
+import EmailTextField from "../EmailTextField";
 import MADALogo from "../MADALogo";
 import ContinueButton from "./ContinueButton";
 import CancelButton from "./CancelButton";
 
 const ForgotPasswordForm = () => {
   const [state, dispatch] = useReducer(Reducer, initialState);
-  const { username } = state;
+  const { email: email } = state;
 
-  const handleUsernameChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
     dispatch({
-      type: "setUsername",
+      type: "setEmail",
       payload: event.target.value,
     });
   };
@@ -22,8 +22,8 @@ const ForgotPasswordForm = () => {
     //Prevent page reload
     e.preventDefault();
     console.log("continue");
-    console.log(username);
-    //TODO backend that sends email to user with password and username
+    console.log(email);
+    //TODO backend that sends email to user with password 
     window.location.href = "/";
   };
 
@@ -51,12 +51,12 @@ const ForgotPasswordForm = () => {
               </Typography>
             </Box>
             <Box display="flex" align-items="center" justifyContent="center">
-              <UsernameTextField
-                errorText="" //TODO error text from backend if wrong username/password
+              <EmailTextField
+                errorText="" //TODO error text from backend if wrong email/password
                 helperText="Email not found. Please try again"
                 placeHolder="Enter your email"
-                updateUsername={handleUsernameChange}
-                username={username}
+                updateEmail={handleEmailChange}
+                email={email}
               />
             </Box>
             <Box display="flex" align-items="center" flexDirection="column">

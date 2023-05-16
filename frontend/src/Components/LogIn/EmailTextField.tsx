@@ -9,12 +9,12 @@ const setHelperText = (errorText: string, helperText: string) => {
   }
 };
 
-const UsernameTextField = (props: {
+const EmailTextField = (props: {
   errorText: string;
   helperText: string;
   placeHolder: string;
-  updateUsername: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  username: string;
+  updateEmail: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  email: string;
 }) => {
   return (
     <Stack spacing={5} sx={{ width: "100%" }}>
@@ -33,8 +33,8 @@ const UsernameTextField = (props: {
               fontWeight: "400",
               fontSize: isBrowser ? "17px" : "12px",
             }}
-            onChange={props.updateUsername}
-            value={props.username}
+            onChange={props.updateEmail}
+            value={props.email}
             required={true}
           />
         </FormControl>
@@ -43,4 +43,4 @@ const UsernameTextField = (props: {
   );
 };
 
-export default UsernameTextField;
+export default EmailTextField;

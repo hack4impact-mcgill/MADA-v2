@@ -2,31 +2,31 @@ import React, { useReducer } from "react";
 
 //state type
 type State = {
-  username: string;
+  email: string;
   password: string;
   showPassword: boolean;
   rememberMe: boolean;
 };
 
 export const initialState: State = {
-  username: "",
+  email: "",
   password: "",
   showPassword: false,
   rememberMe: false,
 };
 
 type Action =
-  | { type: "setUsername"; payload: string }
+  | { type: "setEmail"; payload: string }
   | { type: "setPassword"; payload: string }
   | { type: "showPassword"; payload: boolean }
   | { type: "rememberMe"; payload: boolean };
 
 const Reducer = (state: State, action: Action): State => {
   switch (action.type) {
-    case "setUsername":
+    case "setEmail":
       return {
         ...state,
-        username: action.payload,
+        email: action.payload,
       };
     case "setPassword":
       return {
