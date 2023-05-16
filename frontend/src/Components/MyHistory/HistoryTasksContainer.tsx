@@ -4,13 +4,14 @@ import SingleDayTasksContainer from "./SingleDayTasksContainer";
 import { useState, useEffect } from "react";
 
 // ------------------------- LINES AFTER THIS WILL BE REMOVED LATER WHEN BACKEND WORKS -----------------------------//
-const day1 = new Date("2023-04-13T00:00:00Z");
-const day2 = new Date("2023-04-14T00:00:00Z");
-const day3 = new Date("2023-04-15T00:00:00Z");
-const day4 = new Date("2023-04-16T00:00:00Z");
-const day5 = new Date("2023-04-17T00:00:00Z");
-const day6 = new Date("2023-04-18T00:00:00Z");
-const day7 = new Date("2023-04-19T00:00:00Z");
+const day1 = new Date("2023-04-13T08:00:00Z");
+const day2 = new Date("2023-04-14T09:30:00Z");
+const day3 = new Date("2023-04-15T12:15:00Z");
+const day4 = new Date("2023-04-16T14:45:00Z");
+const day5 = new Date("2023-04-17T16:30:00Z");
+const day6 = new Date("2023-04-18T10:00:00Z");
+const day7 = new Date("2023-04-19T11:45:00Z");
+
 
 const dummyTasks = [
   {
