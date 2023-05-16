@@ -10,23 +10,21 @@ export default class VolunteerEntityHelper {
   }
 
   createVolunteer = async (
-    username: string,
     name: string,
     email: string,
+    phoneNumber: string,
     password: string,
-    phoneNumber: number,
     startDate: string,
     profilePicture: string,
     availabilities: DayOfWeek[],
     tasks: TaskEntity[]
   ) => {
     const newVolunteer = new VolunteerEntity();
-    newVolunteer.username = username;
     newVolunteer.email = email;
+    newVolunteer.phoneNumber = phoneNumber;
     newVolunteer.name = name;
     newVolunteer.password = password;
     newVolunteer.startDate = new Date(startDate);
-    newVolunteer.phoneNumber = phoneNumber;
     newVolunteer.profilePicture = profilePicture;
     newVolunteer.availabilities = availabilities;
     newVolunteer.tasks = tasks;

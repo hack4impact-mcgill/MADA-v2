@@ -13,8 +13,8 @@ export class TaskEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  deliveryTime: Date;
+  @Column({ nullable: true })
+  date: Date;
 
   @Column()
   isCompleted: boolean;

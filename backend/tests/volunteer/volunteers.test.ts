@@ -43,11 +43,10 @@ describe('Volunteers tests', () => {
   it('should return all volunteers', async () => {
     const date: Date = new Date('April 20, 2001 04:20:00');
     volunteerHelper.createVolunteer(
-      'username1',
       'name1',
       'email1',
+      '0123456789',
       'password1',
-      123,
       date.toISOString(),
       'link to profile',
       [DayOfWeek.MONDAY],
@@ -60,12 +59,14 @@ describe('Volunteers tests', () => {
         {
           availabilities: ['monday'],
           email: 'email1',
+          phoneNumber: '0123456789',
           id: 1,
           name: 'name1',
-          phoneNumber: 123,
           profilePicture: 'link to profile',
           startDate: date.toISOString(),
-          username: 'username1'
+          password: 'password1',
+          tasks: [],
+          token: null
         }
       ]
     });
@@ -74,11 +75,10 @@ describe('Volunteers tests', () => {
   it('should return a volutneer', async () => {
     const date: Date = new Date('April 20, 2001 04:20:00');
     const volunteer = await volunteerHelper.createVolunteer(
-      'username1',
       'name1',
       'email1',
+        '0123456789',
       'password1',
-      123,
       date.toISOString(),
       'link to profile',
       [DayOfWeek.MONDAY],
@@ -90,12 +90,14 @@ describe('Volunteers tests', () => {
       volunteer: {
         availabilities: ['monday'],
         email: 'email1',
+        phoneNumber: '0123456789',
         id: 1,
         name: 'name1',
-        phoneNumber: 123,
         profilePicture: 'link to profile',
         startDate: date.toISOString(),
-        username: 'username1'
+        password: 'password1',
+        tasks: [],
+        token: null
       }
     });
   });
@@ -202,18 +204,13 @@ describe('Volunteers tests', () => {
 
   it('should get volunteer tasks', async () => {
     const date: Date = new Date('April 20, 2001 04:20:00');
-    const savedTask = await taskHelper.createTask(
-      date.toISOString(),
-      [],
-      false
-    );
+    const savedTask = await taskHelper.createTask([], false);
 
     const savedVolunteer = await volunteerHelper.createVolunteer(
-      'username1',
       'name1',
       'email1',
+      '0123456789',
       'password1',
-      123,
       date.toISOString(),
       'link to profile',
       [DayOfWeek.MONDAY],
@@ -228,7 +225,7 @@ describe('Volunteers tests', () => {
       tasks: [
         {
           deliveries: [],
-          deliveryTime: date.toISOString(),
+          date: null,
           id: 1,
           isCompleted: false
         }
@@ -239,11 +236,10 @@ describe('Volunteers tests', () => {
   it('should delete task', async () => {
     const date: Date = new Date('April 20, 2001 04:20:00');
     const savedVolunteer = await volunteerHelper.createVolunteer(
-      'username1',
       'name1',
       'email1',
+      '0123456789',
       'password1',
-      123,
       date.toISOString(),
       'link to profile',
       [DayOfWeek.MONDAY],
