@@ -2,14 +2,14 @@ import React, { useReducer, ChangeEvent } from "react";
 import { initialState } from "../../../Contexts/LogIn";
 import Reducer from "../../../Contexts/LogIn";
 import { Stack, Box, Typography } from "@mui/material";
-import UsernameTextField from "../UsernameTextField";
+import UsernameTextField from "../EmailTextField";
 import MADALogo from "../MADALogo";
 import ContinueButton from "./ContinueButton";
 import CancelButton from "./CancelButton";
 
 const ForgotPasswordForm = () => {
   const [state, dispatch] = useReducer(Reducer, initialState);
-  const { username } = state;
+  const { email: username } = state;
 
   const handleUsernameChange = (event: ChangeEvent<HTMLInputElement>) => {
     dispatch({
@@ -55,8 +55,8 @@ const ForgotPasswordForm = () => {
                 errorText="" //TODO error text from backend if wrong username/password
                 helperText="Email not found. Please try again"
                 placeHolder="Enter your email"
-                updateUsername={handleUsernameChange}
-                username={username}
+                updateEmail={handleUsernameChange}
+                email={username}
               />
             </Box>
             <Box display="flex" align-items="center" flexDirection="column">

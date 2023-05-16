@@ -3,19 +3,26 @@ import { initialState } from "../../../Contexts/LogIn";
 import Reducer from "../../../Contexts/LogIn";
 import { Stack, Box } from "@mui/material";
 import RememberMeSwitch from "./RememberMeSwitch";
-import UsernameTextField from "../UsernameTextField";
+import EmailTextField from "../EmailTextField";
 import PasswordTextField from "./PasswordTextField";
 import SignInButton from "./SignInButton";
 import ForgotPasswordButton from "./ForgotPasswordButton";
 import MADALogo from "../MADALogo";
+import {login} from '../api/auth';
+import axios from 'axios';
+import Cookies from "universal-cookie";
+import { useNavigate } from 'react-router-dom'
+
+const cookies = new Cookies();
 
 const LogInForm = () => {
   const [state, dispatch] = useReducer(Reducer, initialState);
-  const { username, password, showPassword, rememberMe } = state;
+  const { email, password, showPassword, rememberMe, errorText } = state;
+  const navigate = useNavigate();
 
-  const handleUsernameChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
     dispatch({
-      type: "setUsername",
+      type: "setEmail",
       payload: event.target.value,
     });
   };
@@ -43,15 +50,44 @@ const LogInForm = () => {
     });
   };
 
+  const handleErrorText = (text: string) => {
+    dispatch({
+      type: "setErrorText",
+      payload: text,
+    });
+  };
+
   const handleClickLogIn = async (e: React.FormEvent<HTMLFormElement>) => {
     //Prevent page reload
     e.preventDefault();
     console.log("sign in");
-    console.log(username);
+    console.log(email);
     console.log(password);
     console.log(rememberMe);
     //TODO backend
-  };
+
+    //reset errorText
+    handleErrorText("");
+
+    //TODO replace username by email 
+    try {
+      const response = await login({email: email, password: password})
+
+      cookies.set("TOKEN", response.data.token, {
+        path: "/",
+        sameSite: "strict",
+      });
+
+      navigate('/today')
+
+    } catch (error) {
+      //no user found with given email and password => display error message
+      console.log(error)
+      console.log("login failed, displaying error message...");
+      handleErrorText("login failed");
+    }
+  
+  }
 
   return (
     <Box maxWidth="md">
@@ -59,17 +95,17 @@ const LogInForm = () => {
         <form onSubmit={handleClickLogIn}>
           <Stack spacing={5}>
             <Box display="flex" align-items="center" justifyContent="center">
-              <UsernameTextField
-                errorText="" //TODO error text from backend if wrong username/password
-                helperText="Incorrect username or password. Please try again."
-                placeHolder="Username or Email"
-                updateUsername={handleUsernameChange}
-                username={username}
+              <EmailTextField
+                errorText={errorText} //TODO error text from backend if wrong email/password
+                helperText="Incorrect email or password. Please try again."
+                placeHolder="Email"
+                updateEmail={handleEmailChange}
+                email={email}
               />
             </Box>
             <Box display="flex" align-items="center" justifyContent="center">
               <PasswordTextField
-                errorText="" //TODO error text from backend if wrong username/password
+                errorText={errorText} //TODO error text from backend if wrong email/password
                 updatePassword={handlePasswordChange}
                 password={password}
                 handleClickShowPassword={handleClickShowPassword}

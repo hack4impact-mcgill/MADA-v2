@@ -13,8 +13,8 @@ const UsernameTextField = (props: {
   errorText: string;
   helperText: string;
   placeHolder: string;
-  updateUsername: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  username: string;
+  updateEmail: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  email: string;
 }) => {
   return (
     <Stack spacing={5} sx={{ width: "100%" }}>
@@ -33,8 +33,8 @@ const UsernameTextField = (props: {
               fontWeight: "400",
               fontSize: "17px",
             }}
-            onChange={props.updateUsername}
-            value={props.username}
+            onChange={props.updateEmail}
+            value={props.email}
             required={true}
           />
         </FormControl>
