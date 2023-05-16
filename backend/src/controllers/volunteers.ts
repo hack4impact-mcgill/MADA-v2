@@ -3,6 +3,11 @@ import { AppDataSource } from '../data-source';
 import { VolunteerEntity } from '../entities/VolunteerEntity';
 // import { TaskEntity } from '../entities/TaskEntity';
 import { StatusCode } from './statusCode';
+import * as bcrypt from 'bcryptjs';
+import * as jwt from 'jsonwebtoken';
+
+require('dotenv').config();
+const TOKEN_KEY = process.env.TOKEN_KEY;
 
 export default class VolunteerController {
   private VolunteerRepository = AppDataSource.getRepository(VolunteerEntity);
@@ -63,5 +68,34 @@ export default class VolunteerController {
     task == null
       ? response.status(StatusCode.NOT_FOUND).json({})
       : response.status(StatusCode.OK).json({ tasks: task.tasks });
+  };
+
+  login = async (request: Request, response: Response) => {
+    const { email, password } = request.body;
+
+    const volunteerUser = await this.VolunteerRepository.findOne({ where: { email } });
+
+    // User not found
+    if (!volunteerUser)
+      return response
+        .status(StatusCode.NOT_FOUND)
+        .json({ message: 'User not found' });
+
+    if (await bcrypt.compare(password, volunteerUser.password)) {
+      const token = jwt.sign(
+        { email: email },
+        TOKEN_KEY,
+        {
+          expiresIn: '2h'
+        }
+      );
+      // Login successful
+      return response.status(StatusCode.OK).json({ token: token });
+    } else {
+      // Wrong password
+      return response
+        .status(StatusCode.UNAUTHORIZED)
+        .json({ message: 'Invalid Credentials' });
+    }
   };
 }
