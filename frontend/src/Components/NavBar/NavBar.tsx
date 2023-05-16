@@ -12,7 +12,7 @@ const NavBar = () => {
   };
 
   const onClickMe = async () => {
-    window.location.href = "/user";
+    window.location.href = "/profile";
   };
 
   return (

@@ -6,7 +6,7 @@ import AvailabilitiesCheckIn from "../Components/MyTasks/AvailabilitiesCheckIn/A
 import CheckInButton from "../Components/MyTasks/AvailabilitiesCheckIn/CheckInButton";
 import HistoryButtonContainer from "../Components/MyTasks/HistoryButton/HistoryButtonContainer";
 import { TaskProvider } from "../Contexts/Tasks";
-import { Typography } from "@mui/material";
+import { Typography, Modal, Box } from "@mui/material";
 import { useState } from "react";
 
 const TasksContainer = () => {
@@ -21,6 +21,17 @@ const TasksContainer = () => {
       year: "numeric",
     })
   );
+  // const [isModalOpen, setIsModalOpen] = useState(false); // for history container modal
+
+  // const modalCloseHandler = () => {
+  //   setIsModalOpen(false);
+  //   console.log("history modal closed");
+  // };
+
+  // const modalOpenHandler = () => {
+  //   setIsModalOpen(true);
+  //   console.log("history modal opened");
+  // };
 
   // this function will be passed down using props
   const dateFilterUpdateHandler = (date: string) => {
@@ -38,9 +49,11 @@ const TasksContainer = () => {
     <div className="tasks-container">
       {/* enable accessing Task Context by using TaskProvider */}
       <TaskProvider>
-        <TopRectangle />
-        <AvailabilitiesCheckIn />
-        <CheckInButton />
+        <Box sx={{ position: "relative" }}>
+          <TopRectangle />
+          <AvailabilitiesCheckIn />
+          <CheckInButton />
+        </Box>
         <HistoryButtonContainer />
         <Typography
           sx={{
@@ -62,6 +75,14 @@ const TasksContainer = () => {
           completionFilter={completionFilter}
         />
       </TaskProvider>
+      {/* <Modal
+         open={isModalOpen}
+         onClose={modalCloseHandler}
+        //  aria-labelledby="modal-modal-title"
+        //  aria-describedby="modal-modal-description"
+       >
+         <HistoryContainer modalCloseHandler={modalCloseHandler}/>
+       </Modal> */}
     </div>
   );
 };

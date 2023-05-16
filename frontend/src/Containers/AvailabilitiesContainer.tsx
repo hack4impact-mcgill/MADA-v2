@@ -17,6 +17,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { MdExpandMore } from "react-icons/md";
 import "../Styles/Availabilities.css";
+import { Route, Link, Routes, useNavigate } from "react-router-dom";
 
 type TimePickerAccordionProps = {
   dayOfWeek: string;
@@ -27,6 +28,7 @@ type TimeRange = {
 };
 
 const MarkAvailability = () => {
+  const navigate = useNavigate();
   const [monday, setMonday] = useState<TimeRange[]>([
     {
       startTime: null,
@@ -315,6 +317,9 @@ const MarkAvailability = () => {
   const handleClickOpen = () => {
     if (timeError) {
       setOpen(true);
+    } else {
+      console.log("go back");
+      navigate(-1);
     }
   };
 
@@ -346,7 +351,11 @@ const MarkAvailability = () => {
 
       <Box display="flex" justifyContent="center" mt="10%">
         <Button
-          sx={{ backgroundColor: "#33BE41", width: "30%" }}
+          sx={{
+            backgroundColor: "#33BE41",
+            width: "30%",
+            marginBottom: "100%",
+          }}
           variant="contained"
           onClick={handleClickOpen}
         >

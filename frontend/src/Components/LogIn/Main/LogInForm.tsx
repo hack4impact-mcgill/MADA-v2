@@ -8,6 +8,7 @@ import PasswordTextField from "./PasswordTextField";
 import SignInButton from "./SignInButton";
 import ForgotPasswordButton from "./ForgotPasswordButton";
 import MADALogo from "../MADALogo";
+import { isBrowser } from "react-device-detect";
 
 const LogInForm = () => {
   const [state, dispatch] = useReducer(Reducer, initialState);
@@ -51,48 +52,49 @@ const LogInForm = () => {
     console.log(password);
     console.log(rememberMe);
     //TODO backend
+
+    // temporary redirect to today page
+    window.location.href = "/today";
   };
 
   return (
-    <Box maxWidth="md">
-      <Stack spacing={5}>
-        <form onSubmit={handleClickLogIn}>
-          <Stack spacing={5}>
-            <Box display="flex" align-items="center" justifyContent="center">
-              <UsernameTextField
-                errorText="" //TODO error text from backend if wrong username/password
-                helperText="Incorrect username or password. Please try again."
-                placeHolder="Username or Email"
-                updateUsername={handleUsernameChange}
-                username={username}
-              />
-            </Box>
-            <Box display="flex" align-items="center" justifyContent="center">
-              <PasswordTextField
-                errorText="" //TODO error text from backend if wrong username/password
-                updatePassword={handlePasswordChange}
-                password={password}
-                handleClickShowPassword={handleClickShowPassword}
-                showPassword={showPassword}
-              />
-            </Box>
-            <Box display="flex" justifyContent="flex-end">
-              <RememberMeSwitch
-                updateRememberMeSwitch={handleChangeRememberMeSwitch}
-                isRememberMeChecked={rememberMe}
-              />
-            </Box>
-            <Box display="flex" justifyContent="center">
-              <SignInButton />
-            </Box>
-          </Stack>
-        </form>
-        <ForgotPasswordButton />
-        <Box display="flex" justifyContent="center">
-          <MADALogo />
-        </Box>
-      </Stack>
-    </Box>
+    <Stack spacing={5} maxWidth="md">
+      <form onSubmit={handleClickLogIn}>
+        <Stack spacing={5}>
+          <Box display="flex" align-items="center" justifyContent="center">
+            <UsernameTextField
+              errorText="" //TODO error text from backend if wrong username/password
+              helperText="Incorrect username or password. Please try again."
+              placeHolder="Username or Email"
+              updateUsername={handleUsernameChange}
+              username={username}
+            />
+          </Box>
+          <Box display="flex" align-items="center" justifyContent="center">
+            <PasswordTextField
+              errorText="" //TODO error text from backend if wrong username/password
+              updatePassword={handlePasswordChange}
+              password={password}
+              handleClickShowPassword={handleClickShowPassword}
+              showPassword={showPassword}
+            />
+          </Box>
+          <Box display="flex" justifyContent="flex-end">
+            <RememberMeSwitch
+              updateRememberMeSwitch={handleChangeRememberMeSwitch}
+              isRememberMeChecked={rememberMe}
+            />
+          </Box>
+          <Box display="flex" justifyContent="center">
+            <SignInButton />
+          </Box>
+        </Stack>
+      </form>
+      <ForgotPasswordButton />
+      <Box display="flex" justifyContent="center">
+        <MADALogo />
+      </Box>
+    </Stack>
   );
 };
 
