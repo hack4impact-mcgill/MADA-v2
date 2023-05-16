@@ -59,7 +59,7 @@ export default class TaskController {
 
     const savedTask = await this.TaskRepository.save(newTask);
 
-    request.body.meals.forEach(async (meal) => {
+    request.body.meals?.forEach(async (meal) => {
       const newMeal = new MealDeliveryEntity();
       newMeal.mealType = meal.type;
       newMeal.task = savedTask;
