@@ -91,6 +91,7 @@ export default class TaskController {
           deliveries: true
         }
       });
+      
       response.status(StatusCode.OK).json({ task: savedTask });
     } else {
       // update

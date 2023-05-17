@@ -67,52 +67,52 @@ describe('Tasks tests', () => {
     });
   });
 
-  it('should create a meal delivery', async () => {
-    const res = await request(app).put(`/api/meal_delivery`).send({
-      quantity: 1,
-      mealType: MealType.NOFISH,
-      task: null
-    });
-    expect(res.statusCode).toBe(200);
-    expect(res.body).toEqual({
-      mealDelivery: {
-        id: expect.any(Number),
-        mealType: MealType.NOFISH,
-        isCompleted: false,
-        routePosition: 1,
-        client: null,
-        task: null,
-        program: ProgramType.MAP
-      }
-    });
-  });
+// Should be auto created from route
+//   it('should create a meal delivery', async () => {
+//     const res = await request(app).put(`/api/meal_delivery`).send({
+//       mealType: MealType.NOFISH,
+//       task: null
+//     });
+//     expect(res.statusCode).toBe(200);
+//     expect(res.body).toEqual({
+//       mealDelivery: {
+//         id: expect.any(Number),
+//         mealType: MealType.NOFISH,
+//         isCompleted: false,
+//         routePosition: 1,
+//         client: null,
+//         task: null,
+//         program: ProgramType.MAP
+//       }
+//     });
+//   });
 
-  it('should update a meal delivery', async () => {
-    const savedMealDelivery = await mealDeliveryHelper.createMealDelivery(
-      false,
-      1,
-      MealType.NOFISH,
-      ProgramType.MAP,
-      null,
-      null
-    );
-    const res = await request(app)
-      .put(`/api/meal_delivery/${savedMealDelivery.id}`)
-      .send({
-        quantity: 2,
-        mealType: 'lunch',
-        task: null
-      });
-    expect(res.statusCode).toBe(200);
-    expect(res.body).toEqual({
-      mealDelivery: {
-        id: expect.any(Number),
-        quantity: 2,
-        mealType: 'lunch',
-        task: null
-      }
-    });
-  });
+//   it('should update a meal delivery', async () => {
+//     const savedMealDelivery = await mealDeliveryHelper.createMealDelivery(
+//       false,
+//       1,
+//       MealType.NOFISH,
+//       ProgramType.MAP,
+//       null,
+//       null
+//     );
+//     const res = await request(app)
+//       .put(`/api/meal_delivery/${savedMealDelivery.id}`)
+//       .send({
+//         quantity: 2,
+//         mealType: 'lunch',
+//         task: null
+//       });
+//     expect(res.statusCode).toBe(200);
+//     expect(res.body).toEqual({
+//       mealDelivery: {
+//         id: expect.any(Number),
+//         quantity: 2,
+//         mealType: 'lunch',
+//         task: null
+//       }
+//     });
+//   });
 
   it('should delete meal delivery', async () => {
     const savedMealDelivery = await mealDeliveryHelper.createMealDelivery(

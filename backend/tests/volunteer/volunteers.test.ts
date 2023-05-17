@@ -45,6 +45,7 @@ describe('Volunteers tests', () => {
     volunteerHelper.createVolunteer(
       'name1',
       'email1',
+      '0123456789',
       'password1',
       date.toISOString(),
       'link to profile',
@@ -58,10 +59,14 @@ describe('Volunteers tests', () => {
         {
           availabilities: ['monday'],
           email: 'email1',
+          phoneNumber: '0123456789',
           id: 1,
           name: 'name1',
           profilePicture: 'link to profile',
-          startDate: date.toISOString()
+          startDate: date.toISOString(),
+          password: 'password1',
+          tasks: [],
+          token: null
         }
       ]
     });
@@ -72,6 +77,7 @@ describe('Volunteers tests', () => {
     const volunteer = await volunteerHelper.createVolunteer(
       'name1',
       'email1',
+        '0123456789',
       'password1',
       date.toISOString(),
       'link to profile',
@@ -84,10 +90,14 @@ describe('Volunteers tests', () => {
       volunteer: {
         availabilities: ['monday'],
         email: 'email1',
+        phoneNumber: '0123456789',
         id: 1,
         name: 'name1',
         profilePicture: 'link to profile',
-        startDate: date.toISOString()
+        startDate: date.toISOString(),
+        password: 'password1',
+        tasks: [],
+        token: null
       }
     });
   });
@@ -199,6 +209,7 @@ describe('Volunteers tests', () => {
     const savedVolunteer = await volunteerHelper.createVolunteer(
       'name1',
       'email1',
+      '0123456789',
       'password1',
       date.toISOString(),
       'link to profile',
@@ -214,7 +225,7 @@ describe('Volunteers tests', () => {
       tasks: [
         {
           deliveries: [],
-          deliveryTime: date.toISOString(),
+          date: null,
           id: 1,
           isCompleted: false
         }
@@ -227,6 +238,7 @@ describe('Volunteers tests', () => {
     const savedVolunteer = await volunteerHelper.createVolunteer(
       'name1',
       'email1',
+      '0123456789',
       'password1',
       date.toISOString(),
       'link to profile',
