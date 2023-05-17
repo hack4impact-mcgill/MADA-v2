@@ -1,22 +1,58 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../Styles/User.css";
 import { Box } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { getVolunteer } from "../services";
 
-// using dummy values for user details.
-// to be replaced with actual values with API Requests
+interface VolunteerType {
+  availabilities: any[]; // Update the type of availabilities as needed
+  email: string;
+  id: number;
+  name: string;
+  password: string;
+  phoneNumber: string;
+  profilePicture: string;
+  startDate: string;
+  tasks: any[]; // Update the type of tasks as needed
+  token: string;
+}
+
 
 const User = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
+  const [volunteer, setVolunteer] = useState<VolunteerType>();
+  console.log(id);
 
-  const handleEdit = () => {
-    navigate("/user");
+  useEffect(() => {
+    fetchVolunteer();
+  }, []);
+
+  const fetchVolunteer = async () => {
+    try {
+      const volunteerData = await getVolunteer(Number(id));
+      setVolunteer(volunteerData.volunteer);
+      console.log(volunteerData);
+      console.log(volunteer);
+    } catch (error) {
+      console.error("Error fetching volunteer:", error);
+    }
   };
+
+  const handleEdit: React.MouseEventHandler<HTMLButtonElement> = () => {
+    navigate(`/volunteers/${id}/edit`);
+  };
+
+  
+
+  if (!volunteer) {
+    return <p>Loading volunteer...</p>;
+  }
 
   return (
     <Box className="user-container">
       <Box className="User">
-        <h2 className="VolunteerName">John Doe</h2>
+        <h2 className="VolunteerName">{volunteer.name}</h2>
         <h3 className="Volunteer">Volunteer</h3>
         <Box className="initials"></Box>
       </Box>
@@ -28,41 +64,31 @@ const User = () => {
           </button>
         </Box>
         <hr className="divider"></hr>
-        <Box className="Username">
-          <label className="username">Username: </label>
-          <span className="usernameValue">JohnDoe123</span>
-        </Box>
         <Box className="Email">
           <label className="email">Email: </label>
-          <span className="emailValue">johndoe@example.com</span>
+          <span className="emailValue">{volunteer.email}</span>
+        </Box>
+        <Box className="Username">
+          <label className="username">Start Date: </label>
+          <span className="usernameValue">{volunteer.startDate}</span>
         </Box>
         <h4 className="Contact">Contact</h4>
         <hr className="divider"></hr>
         <Box className="PhoneNumber">
           <label className="phoneNumber">Primary Phone Number: </label>
-          <span className="phoneNumberValue">(123) 456-7890</span>
+          <span className="phoneNumberValue">{volunteer.phoneNumber}</span>
         </Box>
-        <Box className="PhoneNumber">
+        {/* <Box className="PhoneNumber">
           <label className="phoneNumber">Other Phone Number: </label>
           <span className="phoneNumberValue">(123) 456-7890</span>
         </Box>
         <Box className="PhoneNumber">
           <label className="phoneNumber">Other Phone Number: </label>
           <span className="phoneNumberValue">(123) 456-7890</span>
-        </Box>
-        {/* <Box className="NewNumbers">
-          <label className="newNumberLabel">New Phone Numbers</label>
-          {newNumbers.map((number, index) => {
-            return (
-              <span key={index} className="newNumberValue">
-                {number}
-              </span>
-            );
-          })}
-          <span className="newNumberValue">{newNumber}</span>
         </Box> */}
       </Box>
     </Box>
   );
 };
+
 export default User;

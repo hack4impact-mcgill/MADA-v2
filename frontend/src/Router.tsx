@@ -19,8 +19,8 @@ const RouterComponent = () => {
         <Route path="/today" element={<TodayContainer />} />
         <Route path="/" element={<LoginContainer />} />
         <Route path="/password" element={<ForgotPasswordContainer />} />
-        <Route path="/user" element={<UserProfileContainer />} />
-        <Route path="/profile" element={<UserContainer />} />
+        <Route path="/volunteers/:id/edit" element={<UserProfileContainer />} />
+        <Route path="/volunteers/:id" element={<UserContainer />} />
         <Route path="/history" element={<HistoryContainer />} />
         <Route path="/tasks" element={<TasksContainer />} />
         <Route path="/availabilities" element={<AvailabilitiesContainer />} />

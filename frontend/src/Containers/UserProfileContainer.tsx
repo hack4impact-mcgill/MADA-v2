@@ -16,6 +16,28 @@ const UserProfileContainer = () => {
   const [validPhoneNumber, setValidPhoneNumber] = useState(false);
   const [newNumber, setNewNumber] = useState("");
   const [newNumbers, setNewNumbers] = useState<string[]>([]);
+  const [volunteer, setVolunteer] = useState(null);
+
+  useEffect(() => {
+    fetchVolunteer();
+  }, []);
+
+  const fetchVolunteer = async () => {
+    try {
+      const response = await fetch(`/volunteers/:id`);
+      console.log(response);
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data.volunteer);
+        setVolunteer(data.volunteer);
+      } else {
+        console.log("Failed to fetch volunteer");
+      }
+    } catch (error) {
+      console.log("Error:", error);
+    }
+  };
+
 
   function validateEmail(email: string): boolean {
     // regular expression for email validation
