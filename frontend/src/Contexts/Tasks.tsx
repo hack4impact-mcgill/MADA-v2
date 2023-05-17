@@ -10,7 +10,7 @@ import { getAllTasks } from "../services";
 
 export interface TaskInterface {
   id: number;
-  deliveryTime: Date;
+  date: Date;
   isCompleted: boolean;
   volunteer: any;
   deliveries: MealDeliveryInterface[];
@@ -18,9 +18,11 @@ export interface TaskInterface {
 
 export interface MealDeliveryInterface {
   id: number;
-  quantity: number;
+  isCompleted: boolean;
+  routePosition: number;
   mealType: string;
-  task: TaskInterface;
+  program: any;
+  task: any;
   client: any;
 }
 

@@ -5,13 +5,14 @@ import {
   TaskContext,
   TaskContextType,
   TaskInterface,
+  MealDeliveryInterface
 } from "../../Contexts/Tasks";
 import { updateTask } from "../../services";
 import { MdOutlineArrowForwardIos } from "react-icons/md";
 import { IoIosArrowForward } from "react-icons/io";
 import { Link } from "react-router-dom";
 
-const Delivery = (props: { task: TaskInterface }) => {
+const Delivery = (props: { delivery: MealDeliveryInterface }) => {
   // const { tasks, setTasks } = React.useContext(TaskContext) as TaskContextType;
 
   // // handle delivery checkbox toggle
@@ -32,8 +33,8 @@ const Delivery = (props: { task: TaskInterface }) => {
         justifyContent: "space-between",
         alignItems: "center",
         fontFamily: "Poppins",
-        bgcolor: !props.task.isCompleted ? "#FFFFFF" : "#DFDFDF",
-        opacity: !props.task.isCompleted ? 1 : 0.7,
+        bgcolor: !props.delivery.isCompleted ? "#FFFFFF" : "#DFDFDF",
+        opacity: !props.delivery.isCompleted ? 1 : 0.7,
         height: 99,
         width: "100%",
         mb: 1,
@@ -50,19 +51,19 @@ const Delivery = (props: { task: TaskInterface }) => {
                 color: "white",
               },
             }}
-            checked={props.task.isCompleted} /*onChange*/
+            checked={props.delivery.isCompleted} /*onChange*/
           />
         }
         label={
           <DeliveryLabel
-            isCompleted={props.task.isCompleted}
-            deliveryTime={props.task.deliveryTime}
-            name={"HAHA"} // name should be passed???
+            isCompleted={props.delivery.isCompleted}
+            // deliveryTime={props.delivery.date}
+            name={props.delivery.client.name} // name should be passed???
           />
         }
       />
       {/* <MdOutlineArrowForwardIos size="30" style={{ marginRight: 20 }}></MdOutlineArrowForwardIos> */}
-      <Link to="/delivery-details" state={{ task: props.task }}>
+      <Link to="/delivery-details" state={{ task: props.delivery }}>
         <IoIosArrowForward
           size="35"
           style={{ marginRight: 20 }}

@@ -1,7 +1,11 @@
 import React, { useState } from "react";
-import { useContext } from 'react';
+import { useContext } from "react";
 import Delivery from "./Delivery";
-import { TaskContext, TaskInterface } from "../../Contexts/Tasks";
+import {
+  TaskContext,
+  TaskInterface,
+  MealDeliveryInterface,
+} from "../../Contexts/Tasks";
 import { FormGroup } from "@mui/material";
 
 const DeliveriesContainer = (props: {
@@ -33,114 +37,183 @@ const DeliveriesContainer = (props: {
 
   const dummyTasks = [
     {
-      id: 1,
-      deliveryTime: day1,
-      isCompleted: true,
-      name: "Leopold Bennett",
-      deliveries: [],
-    },
-    {
-      id: 2,
-      deliveryTime: day1,
-      isCompleted: false,
-      name: "Avi Sharp",
-      deliveries: [],
-    },
-    {
-      id: 3,
-      deliveryTime: day1,
-      isCompleted: true,
-      name: "Zahara Lott",
-      deliveries: [],
-    },
-    {
       id: 4,
-      deliveryTime: day1,
+      date: day1,
       isCompleted: true,
-      name: "John Doe",
-      deliveries: [],
+      volunteer: "",
+      deliveries: [
+        {
+          id: 1,
+          isCompleted: false,
+          routePosition: 0,
+          mealType: "",
+          program: "",
+          task: {},
+          client: {
+            id: 1,
+            name: "John Doe",
+            email: "",
+            address: "",
+            mealType: "",
+            sts: false,
+            map: false,
+          },
+        },
+        {
+          id: 2,
+          isCompleted: false,
+          routePosition: 0,
+          mealType: "",
+          program: "",
+          task: {},
+          client: {
+            id: 1,
+            name: "Melissa Mallorca",
+            email: "",
+            address: "",
+            mealType: "",
+            sts: false,
+            map: false,
+          },
+        },
+        {
+          id: 3,
+          isCompleted: false,
+          routePosition: 0,
+          mealType: "",
+          program: "",
+          task: {},
+          client: {
+            id: 1,
+            name: "Avi Sharp",
+            email: "",
+            address: "",
+            mealType: "",
+            sts: false,
+            map: false,
+          },
+        },
+      ],
     },
     {
       id: 5,
-      deliveryTime: day2,
+      date: day2,
       isCompleted: false,
-      name: "Jane Doe",
-      deliveries: [],
-    },
-    {
-      id: 6,
-      deliveryTime: day3,
-      isCompleted: true,
-      name: "Thomas Walker",
-      deliveries: [],
-    },
-    {
-      id: 7,
-      deliveryTime: day3,
-      isCompleted: false,
-      name: "William Maguire",
-      deliveries: [],
+      volunteer: "",
+      deliveries: [
+        {
+          id: 1,
+          isCompleted: false,
+          routePosition: 0,
+          mealType: "",
+          program: "",
+          task: {},
+          client: {
+            id: 1,
+            name: "Real Madrid",
+            email: "",
+            address: "",
+            mealType: "",
+            sts: false,
+            map: false,
+          },
+        },
+      ],
     },
     {
       id: 8,
-      deliveryTime: day3,
+      date: day3,
       isCompleted: false,
-      name: "Tony McLennan",
-      deliveries: [],
-    },
-    {
-      id: 9,
-      deliveryTime: day4,
-      isCompleted: false,
-      name: "Harry Park",
-      deliveries: [],
+      volunteer: "",
+      deliveries: [
+        {
+          id: 1,
+          isCompleted: false,
+          routePosition: 0,
+          mealType: "",
+          program: "",
+          task: {},
+          client: {
+            id: 1,
+            name: "Inter Milan",
+            email: "",
+            address: "",
+            mealType: "",
+            sts: false,
+            map: false,
+          },
+        },
+        {
+          id: 2,
+          isCompleted: false,
+          routePosition: 0,
+          mealType: "",
+          program: "",
+          task: {},
+          client: {
+            id: 1,
+            name: "Man City",
+            email: "",
+            address: "",
+            mealType: "",
+            sts: false,
+            map: false,
+          },
+        },
+      ],
     },
     {
       id: 10,
-      deliveryTime: day4,
+      date: day4,
       isCompleted: true,
-      name: "Christian D'Silva",
-      deliveries: [],
-    },
-    {
-      id: 11,
-      deliveryTime: day4,
-      isCompleted: false,
-      name: "Joseph Kim",
-      deliveries: [],
+      volunteer: "",
+      deliveries: [
+        {
+          id: 1,
+          isCompleted: false,
+          routePosition: 0,
+          mealType: "",
+          program: "",
+          task: {},
+          client: {
+            id: 1,
+            name: "Jane Doe",
+            email: "",
+            address: "",
+            mealType: "",
+            sts: false,
+            map: false,
+          },
+        },
+      ],
     },
     {
       id: 12,
-      deliveryTime: day5,
+      date: day5,
       isCompleted: false,
-      name: "Martin Brooks",
+      volunteer: "",
       deliveries: [],
     },
     {
       id: 13,
-      deliveryTime: day6,
+      date: day6,
       isCompleted: false,
-      name: "Emmanuel Tan",
-      deliveries: [],
-    },
-    {
-      id: 14,
-      deliveryTime: day7,
-      isCompleted: false,
-      name: "Lionel Ronaldo",
+      volunteer: "",
       deliveries: [],
     },
     {
       id: 15,
-      deliveryTime: day7,
+      date: day7,
       isCompleted: false,
-      name: "Stephanie Han",
+      volunteer: "",
       deliveries: [],
     },
   ];
   // ---------------------------------- LINES BEFORE THIS WILL BE REMOVED LATER ON ---------------------------------------//
 
-  const fetchedTasks = useContext(TaskContext); // fetchedTasks is an object with tasks array as a field.
+  // const fetchedTasks = useContext(TaskContext); // fetchedTasks is an object with tasks array as a field.
+  const fetchedTasks = dummyTasks;
+  // May 9: Now we assume one task per day, no more, no less.
 
   // function that formats date to desired form: e.g. 8 Dec 2023
   const formatDate = (date: Date) => {
@@ -151,33 +224,51 @@ const DeliveriesContainer = (props: {
     });
   };
 
-  let filteredTasks: TaskInterface[] = [];
+  // if (fetchedTasks) {
+  //   // filtering logic
+  //   console.log("in deliveriesContainter ", fetchedTasks.tasks);
+  //   const dateFilteredTasks = fetchedTasks.tasks.filter(
+  //     (task) => formatDate(task.date) != props.dateFilter
+  //   );
+  //   console.log(dateFilteredTasks);
+  //   console.log("date filter from props", props.dateFilter);
+  //   filteredTasks = dateFilteredTasks; // ALLTASKS filter
+  //   if (props.completionFilter === "COMPLETED") {
+  //     // if filter is set as COMPLETED, apply filter
+  //     filteredTasks = dateFilteredTasks.filter((task) => task.isCompleted);
+  //   } else if (props.completionFilter === "UPCOMING") {
+  //     filteredTasks = dateFilteredTasks.filter((task) => !task.isCompleted);
+  //   }
+  // }
 
-  
+  let oneDayTask = null; // will be selected date's task
+
   if (fetchedTasks) {
     // filtering logic
-    console.log("in delieriesContainter ", fetchedTasks.tasks);
-    const dateFilteredTasks = fetchedTasks.tasks.filter(
-      (task) => formatDate(task.deliveryTime) != props.dateFilter
-    );
-    console.log(dateFilteredTasks);
-    console.log("date filter from props", props.dateFilter);
-    filteredTasks = dateFilteredTasks; // ALLTASKS filter
-    if (props.completionFilter === "COMPLETED") {
-      // if filter is set as COMPLETED, apply filter
-      filteredTasks = dateFilteredTasks.filter((task) => task.isCompleted);
-    } else if (props.completionFilter === "UPCOMING") {
-      filteredTasks = dateFilteredTasks.filter((task) => !task.isCompleted);
+    console.log("in deliveriesContainter ", fetchedTasks); //fetchedTasks.tasks
+    // we now assume that there is only one task associated to one date.
+    for (let task of fetchedTasks) {
+      // fetchedTasks.tasks
+      if (formatDate(task.date) == props.dateFilter) {
+        oneDayTask = task; // filter the task
+        break;
+      }
     }
   }
 
-  console.log(filteredTasks);
+  let filteredDeliveries: MealDeliveryInterface[] = [];
+
+  if (oneDayTask) {
+    filteredDeliveries = oneDayTask.deliveries;
+  }
+
+  console.log(filteredDeliveries);
 
   return (
     <FormGroup sx={{ mr: "22px", ml: "22px", borderRadius: 3 }}>
       {/* {use dummy tasks for now} */}
-      {filteredTasks.map((task: TaskInterface) => {
-        return <Delivery task={task} key={task.id} />;
+      {filteredDeliveries.map((mealDelivery: MealDeliveryInterface) => {
+        return <Delivery delivery={mealDelivery} key={mealDelivery.id} />;
       })}
     </FormGroup>
   );

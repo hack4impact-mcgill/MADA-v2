@@ -15,7 +15,7 @@ const day7 = new Date("2023-04-19T00:00:00Z");
 const dummyTasks = [
   {
     id: 1,
-    deliveryTime: day1,
+    date: day1,
     isCompleted: true,
     name: "Leopold Bennett",
     volunteer: null,
@@ -23,7 +23,7 @@ const dummyTasks = [
   },
   {
     id: 2,
-    deliveryTime: day1,
+    date: day1,
     isCompleted: false,
     name: "Avi Sharp",
     volunteer: null,
@@ -31,7 +31,7 @@ const dummyTasks = [
   },
   {
     id: 3,
-    deliveryTime: day1,
+    date: day1,
     isCompleted: true,
     name: "Zahara Lott",
     volunteer: null,
@@ -39,7 +39,7 @@ const dummyTasks = [
   },
   {
     id: 4,
-    deliveryTime: day1,
+    date: day1,
     isCompleted: true,
     name: "John Doe",
     volunteer: null,
@@ -47,7 +47,7 @@ const dummyTasks = [
   },
   {
     id: 5,
-    deliveryTime: day2,
+    date: day2,
     isCompleted: false,
     name: "Jane Doe",
     volunteer: null,
@@ -55,7 +55,7 @@ const dummyTasks = [
   },
   {
     id: 6,
-    deliveryTime: day3,
+    date: day3,
     isCompleted: true,
     name: "Thomas Walker",
     volunteer: null,
@@ -63,7 +63,7 @@ const dummyTasks = [
   },
   {
     id: 7,
-    deliveryTime: day3,
+    date: day3,
     isCompleted: false,
     name: "William Maguire",
     volunteer: null,
@@ -71,7 +71,7 @@ const dummyTasks = [
   },
   {
     id: 8,
-    deliveryTime: day3,
+    date: day3,
     isCompleted: false,
     name: "Tony McLennan",
     volunteer: null,
@@ -79,7 +79,7 @@ const dummyTasks = [
   },
   {
     id: 9,
-    deliveryTime: day4,
+    date: day4,
     isCompleted: false,
     name: "Harry Park",
     volunteer: null,
@@ -87,7 +87,7 @@ const dummyTasks = [
   },
   {
     id: 10,
-    deliveryTime: day4,
+    date: day4,
     isCompleted: true,
     name: "Christian D'Silva",
     volunteer: null,
@@ -95,7 +95,7 @@ const dummyTasks = [
   },
   {
     id: 11,
-    deliveryTime: day4,
+    date: day4,
     isCompleted: false,
     name: "Joseph Kim",
     volunteer: null,
@@ -103,7 +103,7 @@ const dummyTasks = [
   },
   {
     id: 12,
-    deliveryTime: day5,
+    date: day5,
     isCompleted: false,
     name: "Martin Brooks",
     volunteer: null,
@@ -111,7 +111,7 @@ const dummyTasks = [
   },
   {
     id: 13,
-    deliveryTime: day6,
+    date: day6,
     isCompleted: false,
     name: "Emmanuel Tan",
     volunteer: null,
@@ -119,7 +119,7 @@ const dummyTasks = [
   },
   {
     id: 14,
-    deliveryTime: day7,
+    date: day7,
     isCompleted: false,
     name: "Lionel Ronaldo",
     volunteer: null,
@@ -127,7 +127,7 @@ const dummyTasks = [
   },
   {
     id: 15,
-    deliveryTime: day7,
+    date: day7,
     isCompleted: false,
     name: "Stephanie Han",
     volunteer: null,
@@ -141,7 +141,7 @@ const dummyTasks = [
 // Getting All Tasks Algorithm choice:
 // First Method:
 // 1. Get All Tasks from a single user (will be an array of all tasks from a user)
-// 2. Go through that tasks array and for each task, if that task's deliveryTime is 
+// 2. Go through that tasks array and for each task, if that task's date is 
 //    within the range of dates (startDate ~ endDate) store it in another array
 // 3. Sort the new array with the tasks that are within the desired range of dates.
 // 
@@ -157,8 +157,8 @@ const HistoryTasksContainer = (props: {
   // startdate and enddate can be null, if no dates are chosen.
   const [historyTasks, setHistoryTasks] = useState(dummyTasks.filter(task => {
     // filter out tasks that don't fall within the selected date range
-    return (props.startDate === null || task.deliveryTime >= props.startDate) &&
-           (props.endDate === null || task.deliveryTime <= props.endDate)
+    return (props.startDate === null || task.date >= props.startDate) &&
+           (props.endDate === null || task.date <= props.endDate)
   }));
 
   // get the range of dates for given start date and end date
@@ -191,8 +191,8 @@ const HistoryTasksContainer = (props: {
 
     // also update the historyTasks state by filtering out tasks that don't fall within the selected date range
     setHistoryTasks(dummyTasks.filter(task => {
-      return (props.startDate === null || task.deliveryTime >= props.startDate) &&
-             (props.endDate === null || task.deliveryTime <= props.endDate)
+      return (props.startDate === null || task.date >= props.startDate) &&
+             (props.endDate === null || task.date <= props.endDate)
     }));
   }, [props.startDate, props.endDate]);
 
