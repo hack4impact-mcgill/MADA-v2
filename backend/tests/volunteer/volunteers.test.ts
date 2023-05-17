@@ -49,7 +49,7 @@ describe('Volunteers tests', () => {
       'password1',
       date.toISOString(),
       'link to profile',
-      [DayOfWeek.MONDAY],
+      '',
       []
     );
     const res = await request(app).get('/api/volunteers');
@@ -77,11 +77,11 @@ describe('Volunteers tests', () => {
     const volunteer = await volunteerHelper.createVolunteer(
       'name1',
       'email1',
-        '0123456789',
+      '0123456789',
       'password1',
       date.toISOString(),
       'link to profile',
-      [DayOfWeek.MONDAY],
+      '',
       []
     );
     const res = await request(app).get(`/api/volunteers/${volunteer.id}`);
@@ -213,7 +213,7 @@ describe('Volunteers tests', () => {
       'password1',
       date.toISOString(),
       'link to profile',
-      [DayOfWeek.MONDAY],
+      '',
       [savedTask]
     );
 
@@ -242,7 +242,7 @@ describe('Volunteers tests', () => {
       'password1',
       date.toISOString(),
       'link to profile',
-      [DayOfWeek.MONDAY],
+      '',
       []
     );
     const res = await request(app).delete(
