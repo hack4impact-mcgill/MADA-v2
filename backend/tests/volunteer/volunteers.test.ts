@@ -57,7 +57,7 @@ describe('Volunteers tests', () => {
     expect(res.body).toEqual({
       volunteers: [
         {
-          availabilities: ['monday'],
+          availabilities: '',
           email: 'email1',
           phoneNumber: '0123456789',
           id: 1,
@@ -88,7 +88,7 @@ describe('Volunteers tests', () => {
     expect(res.status).toBe(StatusCode.OK);
     expect(res.body).toEqual({
       volunteer: {
-        availabilities: ['monday'],
+        availabilities: '',
         email: 'email1',
         phoneNumber: '0123456789',
         id: 1,
