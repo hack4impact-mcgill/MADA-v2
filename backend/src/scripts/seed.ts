@@ -2,6 +2,7 @@ import { runSeeder } from 'typeorm-extension';
 import VolunteerSeeder from './seeders/volunteer.seeder';
 import ClientSeeder from './seeders/client.seeder';
 import AdminSeeder from './seeders/admin.seeder';
+import TaskSeeder from './seeders/task.seeder';
 
 import { AppDataSource } from '../data-source';
 
@@ -16,7 +17,8 @@ export const seed = async () => {
   console.log('Seeded Volunteers');
   await runSeeder(AppDataSource, AdminSeeder);
   console.log('Seeded Admin');
-
+  await runSeeder(AppDataSource, TaskSeeder);
+  console.log('Seeded Tasks');
   console.log('Done seeding');
 };
 

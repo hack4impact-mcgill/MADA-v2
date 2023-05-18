@@ -41,7 +41,7 @@ export default class VolunteerController {
       phoneNumber: request.body.phoneNumber,
       startDate: request.body.date,
       profilePicture: '',
-      availabilities: []
+      availabilities: request.body.availabilities
     });
     await this.VolunteerRepository.save(volunteer);
     response.status(StatusCode.OK).json({ volunteer });
