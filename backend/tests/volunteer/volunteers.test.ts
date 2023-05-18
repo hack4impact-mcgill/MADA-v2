@@ -49,7 +49,7 @@ describe('Volunteers tests', () => {
       'password1',
       date.toISOString(),
       'link to profile',
-      [DayOfWeek.MONDAY],
+      '',
       []
     );
     const res = await request(app).get('/api/volunteers');
@@ -57,7 +57,7 @@ describe('Volunteers tests', () => {
     expect(res.body).toEqual({
       volunteers: [
         {
-          availabilities: ['monday'],
+          availabilities: '',
           email: 'email1',
           phoneNumber: '0123456789',
           id: 1,
@@ -77,18 +77,18 @@ describe('Volunteers tests', () => {
     const volunteer = await volunteerHelper.createVolunteer(
       'name1',
       'email1',
-        '0123456789',
+      '0123456789',
       'password1',
       date.toISOString(),
       'link to profile',
-      [DayOfWeek.MONDAY],
+      '',
       []
     );
     const res = await request(app).get(`/api/volunteers/${volunteer.id}`);
     expect(res.status).toBe(StatusCode.OK);
     expect(res.body).toEqual({
       volunteer: {
-        availabilities: ['monday'],
+        availabilities: '',
         email: 'email1',
         phoneNumber: '0123456789',
         id: 1,
@@ -213,7 +213,7 @@ describe('Volunteers tests', () => {
       'password1',
       date.toISOString(),
       'link to profile',
-      [DayOfWeek.MONDAY],
+      '',
       [savedTask]
     );
 
@@ -242,7 +242,7 @@ describe('Volunteers tests', () => {
       'password1',
       date.toISOString(),
       'link to profile',
-      [DayOfWeek.MONDAY],
+      '',
       []
     );
     const res = await request(app).delete(
