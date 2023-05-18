@@ -18,6 +18,17 @@ export enum DayOfWeek {
   SUNDAY = 'sunday'
 }
 
+// Assign explicit numeric values - for seeding purposes
+export const indexedDayOfWeek: { [index: number]: DayOfWeek } = {
+  0: DayOfWeek.MONDAY,
+  1: DayOfWeek.TUESDAY,
+  2: DayOfWeek.WEDNESDAY,
+  3: DayOfWeek.THURSDAY,
+  4: DayOfWeek.FRIDAY,
+  5: DayOfWeek.SATURDAY,
+  6: DayOfWeek.SUNDAY
+};
+
 export enum TimeSlots {
   hour0 = '12:00PM',
   hour1 = '01:00PM',
@@ -27,12 +38,22 @@ export enum TimeSlots {
   hour5 = '05:00PM'
 }
 
+// Assign explicit numeric values - for seeding purposes
+export const indexedTimeSlots: { [index: number]: TimeSlots } = {
+  0: TimeSlots.hour0,
+  1: TimeSlots.hour1,
+  2: TimeSlots.hour2,
+  3: TimeSlots.hour3,
+  4: TimeSlots.hour4,
+  5: TimeSlots.hour5
+};
+
 export interface Availability {
   day: DayOfWeek;
   time: TimeSlots;
 }
 
-export interface availabilities {
+export interface Availabilities {
   availabilities: Availability[];
 }
 
