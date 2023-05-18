@@ -16,7 +16,7 @@ export default class VolunteerEntityHelper {
     password: string,
     startDate: string,
     profilePicture: string,
-    availabilities: DayOfWeek[],
+    availabilities: string,
     tasks: TaskEntity[]
   ) => {
     const newVolunteer = new VolunteerEntity();

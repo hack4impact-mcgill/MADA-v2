@@ -51,7 +51,7 @@ export default class ClientSeeder implements Seeder {
     const clients = await generateClients(10);
     await repository.insert(clients);
 
-    clients.forEach(async (client) => {
+    clients?.forEach(async (client) => {
       const routeDeliveryRepository =
         dataSource.getRepository(RouteDeliveryEntity);
 
