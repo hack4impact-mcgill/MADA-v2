@@ -4,7 +4,7 @@ import { Box } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import { getVolunteer } from "../services";
 
-interface VolunteerType {
+export interface VolunteerType {
   availabilities: any[]; // Update the type of availabilities as needed
   email: string;
   id: number;
@@ -22,7 +22,7 @@ const User = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [volunteer, setVolunteer] = useState<VolunteerType>();
-  console.log(id);
+ 
 
   useEffect(() => {
     fetchVolunteer();
@@ -42,6 +42,34 @@ const User = () => {
   const handleEdit: React.MouseEventHandler<HTMLButtonElement> = () => {
     navigate(`/volunteers/${id}/edit`);
   };
+
+  function formatCustomDate(dateString: string): string {
+    const date = new Date(dateString);
+    const day = date.getDate();
+    const month = date.toLocaleString('en-US', { month: 'long' });
+    const year = date.getFullYear();
+    const formattedDate = `${day}${getOrdinalSuffix(day)} ${month} ${year}`;
+  
+    return formattedDate;
+  }
+  
+  // Helper function to get the ordinal suffix for the day (e.g., 1st, 2nd, 3rd, etc.)
+  function getOrdinalSuffix(day: number): string {
+    if (day >= 11 && day <= 13) {
+      return 'th';
+    }
+    switch (day % 10) {
+      case 1:
+        return 'st';
+      case 2:
+        return 'nd';
+      case 3:
+        return 'rd';
+      default:
+        return 'th';
+    }
+  }
+  
 
   
 
@@ -70,7 +98,7 @@ const User = () => {
         </Box>
         <Box className="Username">
           <label className="username">Start Date: </label>
-          <span className="usernameValue">{volunteer.startDate}</span>
+          <span className="usernameValue">{formatCustomDate(volunteer.startDate)}</span>
         </Box>
         <h4 className="Contact">Contact</h4>
         <hr className="divider"></hr>

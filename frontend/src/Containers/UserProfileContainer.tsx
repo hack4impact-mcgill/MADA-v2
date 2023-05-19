@@ -5,7 +5,9 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Box from "@mui/material/Box";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { VolunteerType } from "./UserContainer";
+import { editVolunteer, getVolunteer } from "../services";
 
 const UserProfileContainer = () => {
   const navigate = useNavigate();
@@ -15,41 +17,17 @@ const UserProfileContainer = () => {
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [validPhoneNumber, setValidPhoneNumber] = useState(false);
   const [newNumber, setNewNumber] = useState("");
-  const [newNumbers, setNewNumbers] = useState<string[]>([]);
-  const [volunteer, setVolunteer] = useState(null);
-
-  useEffect(() => {
-    fetchVolunteer();
-  }, []);
-
-  const fetchVolunteer = async () => {
-    try {
-      const response = await fetch(`/volunteers/:id`);
-      console.log(response);
-      if (response.ok) {
-        const data = await response.json();
-        console.log(data.volunteer);
-        setVolunteer(data.volunteer);
-      } else {
-        console.log("Failed to fetch volunteer");
-      }
-    } catch (error) {
-      console.log("Error:", error);
-    }
-  };
+  const { id } = useParams();
+  const [volunteer, setVolunteer] = useState<VolunteerType>();
 
 
   function validateEmail(email: string): boolean {
-    // regular expression for email validation
-    const emailRegex: RegExp = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    // check if email matches the regex
-    if (email.match(emailRegex)) {
-      return true;
-    } else {
-      return false;
-    }
+    const emailRegex: RegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const endsWithDotCom: boolean = email.toLowerCase().endsWith(".com");
+    return emailRegex.test(email) && endsWithDotCom;
   }
+  
+  
 
   function validatePhoneNumber(phoneNumber: string): boolean {
     // regular expression for email validation
@@ -76,36 +54,47 @@ const UserProfileContainer = () => {
     navigate("/availabilities");
   };
 
-  console.log("Username:", username);
-  console.log("Email:", email);
-  console.log("Phone number:", phoneNumber);
-  console.log("New numbers:", newNumbers);
-
-  const handleSubmit = () => {
-    // retrieve form data
-    console.log("Username:", username);
-    console.log("Email:", email);
-    console.log("Phone number:", phoneNumber);
-    console.log("New numbers:", newNumbers);
-
-    // do something with the form data, e.g. send it to the server
-    // ...
-    navigate("/profile");
-  };
-
-  const handleAddNewNumber = () => {
-    setNewNumbers([...newNumbers, newNumber]);
-    setNewNumber("");
-  };
-
-  const handleDeleteNumber = (index: number) => {
-    const updatedNumbers = [...newNumbers];
-    updatedNumbers.splice(index, 1);
-    setNewNumbers(updatedNumbers);
+  const handleSubmit = async () => {
+    if (!validatePhoneNumber(phoneNumber) && (validateEmail(email)))  {
+      return <div>Incorrect Email or Phone Number</div>
+    }
+    else {
+    try {
+      // retrieve form data
+      const updatedVolunteer = {
+        id: volunteer?.id, // Assuming the volunteer object has an "id" property
+        email,
+        phoneNumber,
+      };
+  
+      // Send updated volunteer data to the backend
+      await editVolunteer(volunteer?.id, updatedVolunteer);
+  
+      // Navigate to the profile page
+      navigate(`/volunteers/${id}`);
+    } catch (error) {
+      console.error("Error updating volunteer:", error);
+    }
+  }
   };
 
   const handleCancel = () => {
-    navigate("/profile");
+    navigate(`/volunteers/${id}`);
+  };
+
+  useEffect(() => {
+    fetchVolunteer();
+  }, []);
+
+  const fetchVolunteer = async () => {
+    try {
+      const volunteerData = await getVolunteer(Number(id));
+      setVolunteer(volunteerData.volunteer);
+      console.log(volunteerData);
+      console.log(volunteer);
+    } catch (error) {
+      console.error("Error fetching volunteer:", error);
+    }
   };
 
   return (
@@ -133,24 +122,13 @@ const UserProfileContainer = () => {
               Update Availability
             </button>
           </Box>
-          <h4 className="account">Account</h4>
-          <hr className="divider"></hr>
-          <Box className="Username"></Box>
-          <label className="username">Username</label>
-          <input
-            className="usernameInput"
-            type="text"
-            placeholder="Username"
-            value={username}
-            onChange={(ev) => setUsername(ev.target.value)}
-          />
           <Box className="Email"></Box>
           <label className="email">Email</label>
           <Box className="emailCheck">
             <input
               className="emailInput"
               type="email"
-              placeholder="Email"
+              placeholder={volunteer?.email}
               value={email}
               onChange={(ev) => setEmail(ev.target.value)}
             />
@@ -166,7 +144,7 @@ const UserProfileContainer = () => {
             <input
               className="number"
               type="text"
-              placeholder="Phone Number"
+              placeholder={volunteer?.phoneNumber}
               value={phoneNumber}
               onChange={(ev) => setPhoneNumber(ev.target.value)}
             />
@@ -174,47 +152,6 @@ const UserProfileContainer = () => {
               <CheckCircleIcon className="checkcircleUsername" />
             ) : null}
           </Box>
-
-          {newNumbers.map((number, index) => {
-            return (
-              <div key={index} className="newNumberContainer">
-                <input
-                  type="text"
-                  className="newNumber"
-                  placeholder="Add a new Phone Number"
-                  value={number}
-                  onChange={(ev) => {
-                    const updatedNumbers = [...newNumbers];
-                    updatedNumbers[index] = ev.target.value;
-                    setNewNumbers(updatedNumbers);
-                  }}
-                />
-                <button
-                  className="deleteButton"
-                  onClick={() => handleDeleteNumber(index)}
-                  type="button"
-                >
-                  <DeleteIcon />
-                </button>
-              </div>
-            );
-          })}
-
-          <input
-            type="text"
-            className="newNumber"
-            placeholder="Add a new Phone Number"
-            value={newNumber}
-            onChange={(ev) => setNewNumber(ev.target.value)}
-          />
-
-          <button
-            className="addbutton"
-            type="button"
-            onClick={handleAddNewNumber}
-          >
-            +
-          </button>
           <Box className="endbuttons">
             <button
               className="cancelbutton"

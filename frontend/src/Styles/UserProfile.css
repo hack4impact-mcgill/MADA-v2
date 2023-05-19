@@ -198,6 +198,11 @@
   color: #666666;
 }
 
+.emailCheck {
+  display: flex;
+  flex-direction: row;
+}
+
 .emailInput {
   box-sizing: border-box;
   height: 36px;
