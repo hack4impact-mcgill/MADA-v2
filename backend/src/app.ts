@@ -17,5 +17,4 @@ app.use(cors()); //
 // Creating route : https://expressjs.com/en/guide/routing.html
 app.use('/api', api);
 
-
 export default app;
