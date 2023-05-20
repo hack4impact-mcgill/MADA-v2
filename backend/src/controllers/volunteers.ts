@@ -76,11 +76,13 @@ export default class VolunteerController {
     const volunteerUser = await this.VolunteerRepository.findOne({ where: { email } });
 
     // User not found
-    if (!volunteerUser)
+    if (!volunteerUser){
+      console.log("user not found");
       return response
         .status(StatusCode.NOT_FOUND)
         .json({ message: 'User not found' });
-
+    }
+    console.log("user found");
     if (await bcrypt.compare(password, volunteerUser.password)) {
       const token = jwt.sign(
         { email: email },
@@ -90,6 +92,7 @@ export default class VolunteerController {
         }
       );
       // Login successful
+      console.log("successful login")
       return response.status(StatusCode.OK).json({ token: token });
     } else {
       // Wrong password

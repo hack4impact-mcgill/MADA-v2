@@ -8,10 +8,16 @@ import PasswordTextField from "./PasswordTextField";
 import SignInButton from "./SignInButton";
 import ForgotPasswordButton from "./ForgotPasswordButton";
 import MADALogo from "../MADALogo";
+import { useNavigate } from "react-router-dom";
+import Cookies from "universal-cookie";
+import { login } from "../api/auth";
+
+const cookies = new Cookies();
 
 const LogInForm = () => {
   const [state, dispatch] = useReducer(Reducer, initialState);
-  const { email, password, showPassword, rememberMe } = state;
+  const { email, password, showPassword, rememberMe, errorText} = state;
+  const navigate = useNavigate();
 
   const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
     dispatch({
@@ -43,6 +49,13 @@ const LogInForm = () => {
     });
   };
 
+  const handleErrorText = (text: string) => {
+    dispatch({
+      type: "setErrorText",
+      payload: text,
+    });
+  };
+
   const handleClickLogIn = async (e: React.FormEvent<HTMLFormElement>) => {
     //Prevent page reload
     e.preventDefault();
@@ -52,8 +65,26 @@ const LogInForm = () => {
     console.log(rememberMe);
     //TODO backend
 
-    // temporary redirect to today page
-   // window.location.href = "/today";
+    //reset errorText
+    handleErrorText("");
+
+    //TODO replace username by email 
+    try {
+      const response = await login({email: email, password: password})
+    
+      cookies.set("TOKEN", response.data.token, {
+        path: "/",
+        sameSite: "strict",
+      });
+    
+      navigate('/today')
+    
+      } catch (error) {
+        //no user found with given email and password => display error message
+        console.log(error)
+        console.log("login failed, displaying error message...");
+        handleErrorText("login failed");
+      }
   };
 
   return (
@@ -62,7 +93,7 @@ const LogInForm = () => {
         <Stack spacing={5}>
           <Box display="flex" align-items="center" justifyContent="center">
             <EmailTextField
-              errorText="" //TODO error text from backend if wrong email/password
+              errorText={errorText} //TODO error text from backend if wrong email/password
               helperText="Incorrect email or password. Please try again."
               placeHolder="Email"
               updateEmail={handleEmailChange}
@@ -71,7 +102,7 @@ const LogInForm = () => {
           </Box>
           <Box display="flex" align-items="center" justifyContent="center">
             <PasswordTextField
-              errorText="" //TODO error text from backend if wrong email/password
+              errorText={errorText} //TODO error text from backend if wrong email/password
               updatePassword={handlePasswordChange}
               password={password}
               handleClickShowPassword={handleClickShowPassword}
