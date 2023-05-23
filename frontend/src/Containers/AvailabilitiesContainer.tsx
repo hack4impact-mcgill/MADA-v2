@@ -199,7 +199,7 @@ const MarkAvailability = () => {
         setFlag5(false);
       };
       return (
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <LocalizationProvider>
           <Box className="time-selection-buttons">
             <Box className="col">
               <Button
@@ -342,7 +342,7 @@ const MarkAvailability = () => {
         Availability
       </Typography>
 
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <LocalizationProvider>
         {/* iterate through list of days of week and create accordion for each day */}
         {daysOfWeek.map((day) => {
           return <TimePickerAccordion dayOfWeek={day} />;

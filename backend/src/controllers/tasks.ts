@@ -22,7 +22,10 @@ export default class TaskController {
         id: parseInt(request.params.id)
       },
       relations: {
-        deliveries: true
+        deliveries: {
+          client: true
+        },
+        volunteer: true
       }
     });
     task

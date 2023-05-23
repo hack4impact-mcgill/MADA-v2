@@ -9,12 +9,8 @@ import React, {useReducer} from "react";
 import { initialState } from "../Contexts/LogIn";
 
 const TodayContainer = () => {
-  const [state, dispatch] = useReducer(Reducer, initialState);
-  // const { username } = state;
-  console.log("hi");
-  console.log(state.showPassword);
   
-  let noDeliveries = false;
+  let noDeliveries = false; //todo
   const handleClick = async () => {
     window.location.href = "/tasks";
   };
@@ -28,13 +24,9 @@ const TodayContainer = () => {
           <Typography
             sx={{ font: "Poppins", color: "#666666", "font-weight": "400" }}
           >
-            Welcome back,
+            Welcome back!
           </Typography>
-          <Typography
-            sx={{ font: "Poppins", color: "#666666", "font-weight": "500" }}
-          >
-            {state.username}
-          </Typography>
+         
           <Typography
             sx={{
               font: "Poppins",
@@ -45,12 +37,11 @@ const TodayContainer = () => {
           >
             Today's Deliveries
           </Typography>
-          {!noDeliveries && <DeliveryTimeline />}{" "}
-          {/* display the screen of the timeline */}
+          {!noDeliveries && 
+          <DeliveryTimeline />}{" "}
         </Box>
       </Box>
       {noDeliveries && <NoDeliveries />}{" "}
-      {/* display the screen for no deliveries  */}
       <Box display="flex" width={"100%"} justifyContent="center">
         <Button
           sx={{ backgroundColor: "#33BE41", margin: 0 }}

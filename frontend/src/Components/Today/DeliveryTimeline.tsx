@@ -5,6 +5,9 @@ import TimelineSeparator from "@mui/lab/TimelineSeparator";
 import TimelineConnector from "@mui/lab/TimelineConnector";
 import TimelineContent from "@mui/lab/TimelineContent";
 import TimelineDot from "@mui/lab/TimelineDot";
+import { getOneTask } from "../../services";
+import { TaskInterface } from "../../Contexts/Tasks";
+import { useState, useEffect } from "react";
 
 export function NoDeliveries() {
   return (
@@ -45,18 +48,17 @@ function timelineItems(name: String, time: String, last: Boolean, done: Boolean)
 }
 
 export function DeliveryTimeline() {
-  let testDeliveryData = [
-    { "name": "Leopold Bennett", "Time": "8:00 AM - 9:00 AM", "isLast": false, "done": true },
-    { "name": "Samuel Ranch", "Time": "11:30 AM - 12:30 PM", "isLast": false, "done": false },
-    { "name": "Zahara Lott", "Time": "3:00 PM - 4:00 PM", "isLast": true, "done": false },
-  ];  
-  const items = [];
-  for (let i = 0; i < testDeliveryData.length; i++) {
-      items.push(timelineItems(testDeliveryData[i].name, testDeliveryData[i].Time, testDeliveryData[i].isLast, testDeliveryData[i].done))
-  }
+  const [deliveryData, setDeliveryData] = useState([]);
+  useEffect(() => {
+    getOneTask(1).then((res) => {
+      setDeliveryData(res.task.deliveries.map((delivery: any) => timelineItems(delivery.client.name , delivery.client.address, false, delivery.isCompleted)))
+
+    });
+  }, [])
+
   return (
     <Timeline className="timeline">
-      {items}
+      {deliveryData}
     </Timeline>
   );
 }

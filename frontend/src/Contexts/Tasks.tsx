@@ -20,6 +20,13 @@ export interface MealDeliveryInterface {
   quantity: number;
   mealType: string;
   task: TaskInterface;
+  client: ClientInterface;
+  isCompleted: boolean;
+}
+
+export interface ClientInterface {
+  name: string;
+  address: string;
 }
 
 // create a type for TaskContext
