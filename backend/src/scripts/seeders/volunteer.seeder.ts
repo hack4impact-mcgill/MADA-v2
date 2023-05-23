@@ -1,6 +1,12 @@
 import { Seeder, SeederFactoryManager } from 'typeorm-extension';
 import { DataSource } from 'typeorm';
-import { VolunteerEntity } from '../../entities/VolunteerEntity';
+import {
+  VolunteerEntity,
+  indexedDayOfWeek,
+  indexedTimeSlots,
+  TimeSlots,
+  Availabilities
+} from '../../entities/VolunteerEntity';
 import { faker } from '@faker-js/faker';
 import { generateTask } from './task.seeder';
 import { generateStaffUser } from './user';
@@ -9,8 +15,21 @@ const generateVolunteer = async () => {
   const volunteer = (await generateStaffUser()) as any;
   volunteer.startDate = faker.date.past(2);
   volunteer.profilePicture = faker.internet.avatar();
-  volunteer.availabilities = [];
+  volunteer.availabilities = generateAvailabilities();
   return volunteer;
+};
+
+const generateAvailabilities = () => {
+  const availabilities: Availabilities = { availabilities: [] };
+  for (let i = 0; i < 7; i++) {
+    availabilities.availabilities.push({
+      day: indexedDayOfWeek[i],
+      time: indexedTimeSlots[
+        faker.random.numeric(1, { bannedDigits: ['5', '6', '7', '8', '9'] })
+      ]
+    });
+  }
+  return JSON.stringify(availabilities.availabilities);
 };
 
 const generateVolunteers = async (num: number) => {
