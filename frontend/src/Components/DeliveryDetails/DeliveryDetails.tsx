@@ -63,7 +63,7 @@ export default function DeliveryDetails(props: { task: TaskInterface | null }) {
               mb: 1,
             }}
           >
-            {task.name}
+            {task.client.name}
           </Typography>
           <Typography
             sx={{

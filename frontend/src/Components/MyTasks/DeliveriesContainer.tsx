@@ -211,8 +211,9 @@ const DeliveriesContainer = (props: {
   ];
   // ---------------------------------- LINES BEFORE THIS WILL BE REMOVED LATER ON ---------------------------------------//
 
-  // const fetchedTasks = useContext(TaskContext); // fetchedTasks is an object with tasks array as a field.
-  const fetchedTasks = dummyTasks;
+  const tasksContext = useContext(TaskContext); // fetchedTasks is an object with tasks array as a field.
+  const fetchedTasks = tasksContext?.tasks;
+  // const fetchedTasks = dummyTasks;
   // May 9: Now we assume one task per day, no more, no less.
 
   // function that formats date to desired form: e.g. 8 Dec 2023
@@ -249,9 +250,12 @@ const DeliveriesContainer = (props: {
     // we now assume that there is only one task associated to one date.
     for (let task of fetchedTasks) {
       // fetchedTasks.tasks
-      if (formatDate(task.date) == props.dateFilter) {
+      if (task.date && formatDate(task.date) == props.dateFilter) {
         oneDayTask = task; // filter the task
         break;
+      } else { // temporary!!!
+        oneDayTask = task; // temporary!!!
+        break; // temporary!!!
       }
     }
   }
