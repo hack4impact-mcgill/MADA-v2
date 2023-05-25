@@ -22,9 +22,14 @@ export default class TaskController {
         id: parseInt(request.params.id)
       },
       relations: {
-        tasks: true
+        tasks: {
+          deliveries: {
+            client: true
+          }
+        }
       }
     });
+
     volunteer
       ? response.status(StatusCode.OK).json({ tasks: volunteer.tasks })
       : response.status(StatusCode.BAD_REQUEST).json({ tasks: null });
