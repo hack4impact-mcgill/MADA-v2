@@ -71,7 +71,11 @@ export default class ClientSeeder implements Seeder {
     const volunteers = await volunteerRepo.find();
     volunteers?.forEach(async (volunteer) => {
       const task = await generateTask(dataSource, volunteer);
+      const task2 = await generateTask(dataSource, volunteer);
+      const task3 = await generateTask(dataSource, volunteer);
       await repository.insert(task);
+      await repository.insert(task2);
+      await repository.insert(task3);
     });
   }
 }

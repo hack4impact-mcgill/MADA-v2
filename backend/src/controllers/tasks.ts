@@ -16,6 +16,20 @@ export default class TaskController {
   private RouteDeliveryRepository =
     AppDataSource.getRepository(RouteDeliveryEntity);
 
+  getTasksByVolunteer = async (request: Request, response: Response) => {
+    const volunteer = await this.VolunteerRepository.findOne({
+      where: {
+        id: parseInt(request.params.id)
+      },
+      relations: {
+        tasks: true
+      }
+    });
+    volunteer
+      ? response.status(StatusCode.OK).json({ tasks: volunteer.tasks })
+      : response.status(StatusCode.BAD_REQUEST).json({ tasks: null });
+  };
+
   getTask = async (request: Request, response: Response) => {
     const task = await this.TaskRepository.findOne({
       where: {
