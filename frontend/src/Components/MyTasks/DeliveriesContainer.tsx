@@ -242,13 +242,14 @@ const DeliveriesContainer = (props: {
   //   }
   // }
 
-  let oneDayTask = null; // will be selected date's task
+  let oneDayTask: TaskInterface | null = null; // will be selected date's task
 
    // filtering logic
   if (fetchedTasks) {
     console.log("in deliveriesContainter ", fetchedTasks); //fetchedTasks.tasks
     // we now assume that there is only one task associated to one date.
     for (let task of fetchedTasks) {
+      console.log("date filtering now: ", formatDate(new Date(task.date)), props.dateFilter)
       if (task.date && formatDate(new Date(task.date)) == props.dateFilter) {
         oneDayTask = task; // filter the task
         break;
@@ -268,7 +269,7 @@ const DeliveriesContainer = (props: {
     <FormGroup sx={{ mr: "22px", ml: "22px", borderRadius: 3 }}>
       {/* {use dummy tasks for now} */}
       {filteredDeliveries.map((mealDelivery: MealDeliveryInterface) => {
-        return <Delivery delivery={mealDelivery} key={mealDelivery.id} />;
+        return <Delivery task={oneDayTask} delivery={mealDelivery} key={mealDelivery.id} />;
       })}
     </FormGroup>
   );
