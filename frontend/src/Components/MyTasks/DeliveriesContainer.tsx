@@ -250,13 +250,11 @@ const DeliveriesContainer = (props: {
     // we now assume that there is only one task associated to one date.
     for (let task of fetchedTasks) {
       // fetchedTasks.tasks
-      if (task.date && formatDate(task.date) == props.dateFilter) {
+      console.log("heyy", formatDate(new Date(task.date)), props.dateFilter);
+      if (task.date && formatDate(new Date(task.date)) == props.dateFilter) {
         oneDayTask = task; // filter the task
         break;
-      } else { // temporary!!!
-        oneDayTask = task; // temporary!!!
-        break; // temporary!!!
-      }
+      } 
     }
   }
 

@@ -34,6 +34,7 @@ const TaskDateFilter = (props: {
     for (let numOfDaysfromToday = 0; numOfDaysfromToday < 7; numOfDaysfromToday++) {
       date.setDate(today.getDate() + numOfDaysfromToday);
       const followingDay = new Date(date);
+      console.log(today.getDate(), numOfDaysfromToday);
       upcoming7Days.push(followingDay);
     }
     return upcoming7Days;
