@@ -214,7 +214,7 @@ const DeliveriesContainer = (props: {
   const tasksContext = useContext(TaskContext); // fetchedTasks is an object with tasks array as a field.
   const fetchedTasks = tasksContext?.tasks;
   // const fetchedTasks = dummyTasks;
-  // May 9: Now we assume one task per day, no more, no less.
+  // May 9: Now we assume one task per day, no more, no less. IMPORTANT ASSUMPTION.
 
   // function that formats date to desired form: e.g. 8 Dec 2023
   const formatDate = (date: Date) => {
@@ -244,13 +244,11 @@ const DeliveriesContainer = (props: {
 
   let oneDayTask = null; // will be selected date's task
 
+   // filtering logic
   if (fetchedTasks) {
-    // filtering logic
     console.log("in deliveriesContainter ", fetchedTasks); //fetchedTasks.tasks
     // we now assume that there is only one task associated to one date.
     for (let task of fetchedTasks) {
-      // fetchedTasks.tasks
-      console.log("heyy", formatDate(new Date(task.date)), props.dateFilter);
       if (task.date && formatDate(new Date(task.date)) == props.dateFilter) {
         oneDayTask = task; // filter the task
         break;
@@ -260,11 +258,11 @@ const DeliveriesContainer = (props: {
 
   let filteredDeliveries: MealDeliveryInterface[] = [];
 
-  if (oneDayTask) {
+  if (oneDayTask) { // only if there is a task assigned for the current day
     filteredDeliveries = oneDayTask.deliveries;
   }
 
-  console.log(filteredDeliveries);
+  console.log("filtered deliveries for selected date: ", filteredDeliveries);
 
   return (
     <FormGroup sx={{ mr: "22px", ml: "22px", borderRadius: 3 }}>

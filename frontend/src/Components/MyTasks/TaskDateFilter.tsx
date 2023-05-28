@@ -29,13 +29,11 @@ const TaskDateFilter = (props: {
   // not sure if there is a better way to get dates for the current day and the next 6 days.
   const getUpcoming7Days = () => {
     const date = new Date(); // date variable is used to get the following 6 days.
-    const today = new Date(); // today's date
     const upcoming7Days = [];
     for (let numOfDaysfromToday = 0; numOfDaysfromToday < 7; numOfDaysfromToday++) {
-      date.setDate(today.getDate() + numOfDaysfromToday);
-      const followingDay = new Date(date);
-      console.log(today.getDate(), numOfDaysfromToday);
-      upcoming7Days.push(followingDay);
+      const currentDay = new Date(date);
+      upcoming7Days.push(currentDay);
+      date.setDate(date.getDate() + 1);
     }
     return upcoming7Days;
   }
