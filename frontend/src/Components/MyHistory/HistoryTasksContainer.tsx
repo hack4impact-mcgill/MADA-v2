@@ -2,6 +2,8 @@ import React from "react";
 import { Box, Typography } from "@mui/material";
 import SingleDayTasksContainer from "./SingleDayTasksContainer";
 import { useState, useEffect } from "react";
+import { getAllTasks } from "../../services";
+import { TaskInterface } from "../../Contexts/Tasks";
 
 // ------------------------- LINES AFTER THIS WILL BE REMOVED LATER WHEN BACKEND WORKS -----------------------------//
 const day1 = new Date("2023-04-13T00:00:00Z");
@@ -139,8 +141,23 @@ const HistoryTasksContainer = (props: {
   startDate: Date | null;
   endDate: Date | null;
 }) => {
+
+  const [allTasks, setAllTasks] = useState<TaskInterface[]>([]);
+
+  useEffect(() => {
+    const fetchTasks = async () => {
+      try {
+        const tasks = await getAllTasks(); // Fetch tasks from the backend
+        setAllTasks(tasks);
+      } catch (error) {
+        console.error("Error fetching tasks:", error);
+      }
+    };
+
+    fetchTasks();
+  }, []);
   // startdate and enddate can be null, if no dates are chosen.
-  const [historyTasks, setHistoryTasks] = useState(dummyTasks.filter(task => {
+  const [historyTasks, setHistoryTasks] = useState(allTasks?.filter(task => {
     // filter out tasks that don't fall within the selected date range
     return (props.startDate === null || task.deliveryTime >= props.startDate) &&
            (props.endDate === null || task.deliveryTime <= props.endDate)
