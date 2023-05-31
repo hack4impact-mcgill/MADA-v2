@@ -225,9 +225,19 @@ const DeliveriesContainer = (props: {
     });
   };
 
+  // function passed to sort function to sort deliveries based on routePosition
+  const compareDeliveries = (delivery1 : MealDeliveryInterface, delivery2 : MealDeliveryInterface) => {
+    if (delivery1.routePosition < delivery2.routePosition) {
+      return -1;
+    } else if (delivery1.routePosition > delivery2.routePosition) {
+      return 1;
+    }
+    return 0;
+  } 
+
   let oneDayTask: TaskInterface | null = null; // will be selected date's task
 
-   // filtering logic
+   // filtering based on date 
   if (fetchedTasks) {
     console.log("in deliveriesContainter ", fetchedTasks); //fetchedTasks.tasks
     // we now assume that there is only one task associated to one date.
@@ -241,7 +251,9 @@ const DeliveriesContainer = (props: {
   }
 
   let filteredDeliveries: MealDeliveryInterface[] = [];
+  let swappedDeliveries = [...filteredDeliveries];
 
+  // filtering based on completion
   if (oneDayTask) { // only if there is a task assigned for the current day
     filteredDeliveries = oneDayTask.deliveries; // ALLDELIVERIES filter by default
     if (props.completionFilter === "COMPLETED") {
@@ -252,7 +264,12 @@ const DeliveriesContainer = (props: {
     }
   }
 
-  console.log("filtered deliveries for selected date: ", filteredDeliveries);
+  console.log("filtered deliveries for selected date, without sorting: ", filteredDeliveries);
+
+  // sort deliveries
+  filteredDeliveries.sort(compareDeliveries);
+
+  console.log("sorted deliveries", filteredDeliveries);
 
   return (
     <FormGroup sx={{ mr: "22px", ml: "22px", borderRadius: 3 }}>
