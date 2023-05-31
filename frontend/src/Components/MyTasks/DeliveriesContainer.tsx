@@ -215,6 +215,7 @@ const DeliveriesContainer = (props: {
   const fetchedTasks = tasksContext?.tasks;
   // const fetchedTasks = dummyTasks;
   // May 9: Now we assume one task per day, no more, no less. IMPORTANT ASSUMPTION.
+  const [ isIsCompletedFieldToggled, setIsIsCompletedFieldToggled ] = useState(false);
 
   // function that formats date to desired form: e.g. 8 Dec 2023
   const formatDate = (date: Date) => {
@@ -269,7 +270,7 @@ const DeliveriesContainer = (props: {
     <FormGroup sx={{ mr: "22px", ml: "22px", borderRadius: 3 }}>
       {/* {use dummy tasks for now} */}
       {filteredDeliveries.map((mealDelivery: MealDeliveryInterface) => {
-        return <Delivery task={oneDayTask} delivery={mealDelivery} key={mealDelivery.id} />;
+        return <Delivery task={oneDayTask} delivery={mealDelivery} key={mealDelivery.id} updateIsCompleted={setIsIsCompletedFieldToggled}/>;
       })}
     </FormGroup>
   );

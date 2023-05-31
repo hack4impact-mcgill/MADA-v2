@@ -30,6 +30,8 @@ export interface MealDeliveryInterface {
 export type TaskContextType = {
   tasks: TaskInterface[];
   setTasks: React.Dispatch<React.SetStateAction<TaskInterface[]>>;
+  shouldReFetch: boolean;
+  setShouldReFetch: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 // create a TaskContext of type TaskContextType or null.
@@ -37,6 +39,7 @@ export const TaskContext = createContext<TaskContextType | null>(null);
 
 export const TaskProvider = (props: { children: React.ReactNode }) => {
   const [tasks, setTasks] = useState<TaskInterface[]>([]);
+  const [shouldReFetch, setShouldReFetch] = useState<boolean>(false); // refetches from database when toggled
 
   // dependency is empty array []. This will make fetch tasks only the first time TaskProvider component renders.
   useEffect(() => {
@@ -48,12 +51,12 @@ export const TaskProvider = (props: { children: React.ReactNode }) => {
 
     fetchTasks();
   },
-  []);
+  [shouldReFetch]); // refetching happens when shouldReFetch is toggled
 
   return (
     <>
       {/* Anything passed into value can be used by the children of this Provider */}
-      <TaskContext.Provider value={{ tasks, setTasks }}>
+      <TaskContext.Provider value={{ tasks, setTasks, shouldReFetch, setShouldReFetch }}>
         {props.children}
       </TaskContext.Provider>
     </>
