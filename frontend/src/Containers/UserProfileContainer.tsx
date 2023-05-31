@@ -8,38 +8,48 @@ import Box from "@mui/material/Box";
 import { useNavigate, useParams } from "react-router-dom";
 import { VolunteerType } from "./UserContainer";
 import { editVolunteer, getVolunteer } from "../services";
+import { setDefaultResultOrder } from "dns";
 
 const UserProfileContainer = () => {
+
   const navigate = useNavigate();
-  const [username, setUsername] = useState<string>("");
+  const { id } = useParams();
+  const [volunteer, setVolunteer] = useState<VolunteerType | undefined>();
   const [email, setEmail] = useState<string>("");
   const [validEmail, setValidEmail] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [validPhoneNumber, setValidPhoneNumber] = useState(false);
-  const [newNumber, setNewNumber] = useState("");
-  const { id } = useParams();
-  const [volunteer, setVolunteer] = useState<VolunteerType>();
+  const [error, setError] = useState(false);
 
+  useEffect(() => {
+    fetchVolunteer();
+  }, []);
+
+  const fetchVolunteer = async () => {
+    try {
+      const volunteerData = await getVolunteer(Number(id));
+      setVolunteer(volunteerData.volunteer);
+      console.log(volunteerData);
+      console.log(volunteer);
+      if (volunteerData.volunteer) {
+        setEmail(volunteerData.volunteer.email || "");
+        setPhoneNumber(volunteerData.volunteer.phoneNumber || "");
+      }
+    } catch (error) {
+      console.error("Error fetching volunteer:", error);
+    }
+  };
 
   function validateEmail(email: string): boolean {
     const emailRegex: RegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const endsWithDotCom: boolean = email.toLowerCase().endsWith(".com");
     return emailRegex.test(email) && endsWithDotCom;
   }
-  
-  
 
   function validatePhoneNumber(phoneNumber: string): boolean {
-    // regular expression for email validation
     const phoneNumberRegex: RegExp =
       /^(1\s|1|)?((\(\d{3}\))|\d{3})(\-|\s)?(\d{3})(\-|\s)?(\d{4})$/;
-
-    // check if email matches the regex
-    if (phoneNumber.match(phoneNumberRegex)) {
-      return true;
-    } else {
-      return false;
-    }
+    return phoneNumber.match(phoneNumberRegex) !== null;
   }
 
   useEffect(() => {
@@ -55,22 +65,20 @@ const UserProfileContainer = () => {
   };
 
   const handleSubmit = async () => {
-    if (!validatePhoneNumber(phoneNumber) && (validateEmail(email)))  {
-      return <div>Incorrect Email or Phone Number</div>
+    if (!validatePhoneNumber(phoneNumber) || !validateEmail(email)) {
+      setError(true);
+      setTimeout(() => setError(false), 3000); // Clear error message after 3 seconds
     }
     else {
+
     try {
-      // retrieve form data
       const updatedVolunteer = {
-        id: volunteer?.id, // Assuming the volunteer object has an "id" property
+        id: volunteer?.id,
         email,
         phoneNumber,
       };
-  
-      // Send updated volunteer data to the backend
+
       await editVolunteer(volunteer?.id, updatedVolunteer);
-  
-      // Navigate to the profile page
       navigate(`/volunteers/${id}`);
     } catch (error) {
       console.error("Error updating volunteer:", error);
@@ -82,30 +90,15 @@ const UserProfileContainer = () => {
     navigate(`/volunteers/${id}`);
   };
 
-  useEffect(() => {
-    fetchVolunteer();
-  }, []);
-
-  const fetchVolunteer = async () => {
-    try {
-      const volunteerData = await getVolunteer(Number(id));
-      setVolunteer(volunteerData.volunteer);
-      console.log(volunteerData);
-      console.log(volunteer);
-    } catch (error) {
-      console.error("Error fetching volunteer:", error);
-    }
-  };
 
   return (
     <Box className="userprofile">
       {/* update user to have picture or intitals based on name in database */}
       <Box className="User">
-        <h2 className="VolunteerName">John Doe</h2>
+        <h2 className="VolunteerName">{volunteer?.name}</h2>
         <h3 className="Volunteer">Volunteer</h3>
         <Box className="initials"></Box>
       </Box>
-      <form className="form" onSubmit={handleSubmit}>
         <Box className="details">
           <Box className="availabilities">
             <Box className="availabilities-left">
@@ -128,7 +121,6 @@ const UserProfileContainer = () => {
             <input
               className="emailInput"
               type="email"
-              placeholder={volunteer?.email}
               value={email}
               onChange={(ev) => setEmail(ev.target.value)}
             />
@@ -144,7 +136,6 @@ const UserProfileContainer = () => {
             <input
               className="number"
               type="text"
-              placeholder={volunteer?.phoneNumber}
               value={phoneNumber}
               onChange={(ev) => setPhoneNumber(ev.target.value)}
             />
@@ -152,6 +143,7 @@ const UserProfileContainer = () => {
               <CheckCircleIcon className="checkcircleUsername" />
             ) : null}
           </Box>
+          {error ? (<Box className="error">Please Enter Valid Email or Phone Number</Box> ) : null}
           <Box className="endbuttons">
             <button
               className="cancelbutton"
@@ -160,12 +152,11 @@ const UserProfileContainer = () => {
             >
               Cancel
             </button>
-            <button className="savechanges" type="submit">
+            <button className="savechanges" type="submit" onClick={handleSubmit}>
               Save Changes
             </button>
           </Box>
         </Box>
-      </form>
     </Box>
   );
 };
