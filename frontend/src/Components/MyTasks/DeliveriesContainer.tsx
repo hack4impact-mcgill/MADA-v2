@@ -215,7 +215,6 @@ const DeliveriesContainer = (props: {
   const fetchedTasks = tasksContext?.tasks;
   // const fetchedTasks = dummyTasks;
   // May 9: Now we assume one task per day, no more, no less. IMPORTANT ASSUMPTION.
-  const [ isIsCompletedFieldToggled, setIsIsCompletedFieldToggled ] = useState(false);
 
   // function that formats date to desired form: e.g. 8 Dec 2023
   const formatDate = (date: Date) => {
@@ -225,23 +224,6 @@ const DeliveriesContainer = (props: {
       year: "numeric",
     });
   };
-
-  // if (fetchedTasks) {
-  //   // filtering logic
-  //   console.log("in deliveriesContainter ", fetchedTasks.tasks);
-  //   const dateFilteredTasks = fetchedTasks.tasks.filter(
-  //     (task) => formatDate(task.date) != props.dateFilter
-  //   );
-  //   console.log(dateFilteredTasks);
-  //   console.log("date filter from props", props.dateFilter);
-  //   filteredTasks = dateFilteredTasks; // ALLTASKS filter
-  //   if (props.completionFilter === "COMPLETED") {
-  //     // if filter is set as COMPLETED, apply filter
-  //     filteredTasks = dateFilteredTasks.filter((task) => task.isCompleted);
-  //   } else if (props.completionFilter === "UPCOMING") {
-  //     filteredTasks = dateFilteredTasks.filter((task) => !task.isCompleted);
-  //   }
-  // }
 
   let oneDayTask: TaskInterface | null = null; // will be selected date's task
 
@@ -261,7 +243,13 @@ const DeliveriesContainer = (props: {
   let filteredDeliveries: MealDeliveryInterface[] = [];
 
   if (oneDayTask) { // only if there is a task assigned for the current day
-    filteredDeliveries = oneDayTask.deliveries;
+    filteredDeliveries = oneDayTask.deliveries; // ALLDELIVERIES filter by default
+    if (props.completionFilter === "COMPLETED") {
+      // if filter is set as COMPLETED, apply filter
+      filteredDeliveries = oneDayTask.deliveries.filter((delivery) => delivery.isCompleted);
+    } else if (props.completionFilter === "UPCOMING") {
+      filteredDeliveries = oneDayTask.deliveries.filter((delivery) => !delivery.isCompleted);
+    }
   }
 
   console.log("filtered deliveries for selected date: ", filteredDeliveries);
@@ -270,7 +258,7 @@ const DeliveriesContainer = (props: {
     <FormGroup sx={{ mr: "22px", ml: "22px", borderRadius: 3 }}>
       {/* {use dummy tasks for now} */}
       {filteredDeliveries.map((mealDelivery: MealDeliveryInterface) => {
-        return <Delivery task={oneDayTask} delivery={mealDelivery} key={mealDelivery.id} updateIsCompleted={setIsIsCompletedFieldToggled}/>;
+        return <Delivery task={oneDayTask} delivery={mealDelivery} key={mealDelivery.id}/>;
       })}
     </FormGroup>
   );

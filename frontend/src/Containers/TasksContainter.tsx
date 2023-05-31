@@ -13,7 +13,7 @@ const TasksContainer = () => {
   // dateFilter and completionFilter state will be used to filter tasks. Current date is used to initialize dateFilter.
   // dateFilter and completionFilter state will be passed down to DeliviesContainer.
   // NOTE that dataFilter is in STRING type and not DATE type.
-  const [completionFilter, setCompletionFilter] = useState("ALLTASKS"); // set ALLTASKS as default
+  const [completionFilter, setCompletionFilter] = useState("ALLDELIVERIES"); // set ALLDELIVERIES as default
   const [dateFilter, setDateFilter] = useState(
     new Date().toLocaleString("en-GB", {
       day: "numeric",

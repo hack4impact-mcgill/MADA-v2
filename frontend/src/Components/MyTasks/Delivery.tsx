@@ -15,7 +15,6 @@ import { Link } from "react-router-dom";
 const Delivery = (props: {
   task: TaskInterface | null;
   delivery: MealDeliveryInterface;
-  updateIsCompleted: Function;
 }) => {
   const tasksContext = useContext(TaskContext);
 
