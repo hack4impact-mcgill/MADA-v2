@@ -106,14 +106,6 @@ const User = () => {
           <label className="phoneNumber">Primary Phone Number: </label>
           <span className="phoneNumberValue">{volunteer.phoneNumber}</span>
         </Box>
-        {/* <Box className="PhoneNumber">
-          <label className="phoneNumber">Other Phone Number: </label>
-          <span className="phoneNumberValue">(123) 456-7890</span>
-        </Box>
-        <Box className="PhoneNumber">
-          <label className="phoneNumber">Other Phone Number: </label>
-          <span className="phoneNumberValue">(123) 456-7890</span>
-        </Box> */}
       </Box>
     </Box>
   );
