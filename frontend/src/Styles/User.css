@@ -5,8 +5,6 @@
   box-sizing: border-box;
   padding: 65px;
   min-height: 740px;
-  max-width: 500px;
-  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
 .User {
