@@ -25,21 +25,14 @@ type TimePickerAccordionProps = {
 const MarkAvailability = () => {
   const navigate = useNavigate();
 
-  // const [monday, setMonday] = useState<string>();
-  // const [tuesday, setTuesday] = useState<string>();
-  // const [wednesday, setWednesday] = useState<string>();
-  // const [thursday, setThursday] = useState<string>();
-  // const [friday, setFriday] = useState<string>();
-  // const [saturday, setSaturday] = useState<string>();
-  // const [sunday, setSunday] = useState<string>();
-
-  let monday = "";
-  let tuesday = "";
-  let wednesday = "";
-  let thursday = "";
-  let friday = "";
-  let saturday = "";
-  let sunday = "";
+  const [monday, setMonday] = useState<string>();
+  const [tuesday, setTuesday] = useState<string>();
+  const [wednesday, setWednesday] = useState<string>();
+  const [thursday, setThursday] = useState<string>();
+  const [friday, setFriday] = useState<string>();
+  const [saturday, setSaturday] = useState<string>();
+  const [sunday, setSunday] = useState<string>(
+  );
 
   const daysOfWeek = [
     "Monday",
@@ -54,32 +47,25 @@ const MarkAvailability = () => {
   function setTimes(dayOfWeek: string, time: string) {
     switch (dayOfWeek) {
       case "Monday":
-        // setMonday(time);
-        monday = time;
+        setMonday(time);
         break;
       case "Tuesday":
-        // setTuesday(time);
-        tuesday = time;
+        setTuesday(time);
         break;
       case "Wednesday":
-        // setWednesday(time);
-        wednesday = time;
+        setWednesday(time);
         break;
       case "Thursday":
-        // setThursday(time);
-        thursday = time;
+        setThursday(time);
         break;
       case "Friday":
-        // setFriday(time);
-        friday = time;
+        setFriday(time);
         break;
       case "Saturday":
-        // setSaturday(time);
-        saturday = time;
+        setSaturday(time);
         break;
       case "Sunday":
-        // setSunday(time);
-        sunday = time;
+        setSunday(time);
         break;
     }
   }
@@ -107,24 +93,16 @@ const MarkAvailability = () => {
 
   //Initialize the availabilities
   useEffect(() => {
-    getOneVolunteer(1).then((res) => { //todo get the correct volunteer ID
-      // setMonday(JSON.parse(res.volunteer.availabilities)[0].time);
-      monday = JSON.parse(res.volunteer.availabilities)[0].time;
-    //   setTuesday(JSON.parse(res.volunteer.availabilities)[1].time);
-    //   setWednesday(JSON.parse(res.volunteer.availabilities)[2].time);
-    //   setThursday(JSON.parse(res.volunteer.availabilities)[3].time);
-    //   setFriday(JSON.parse(res.volunteer.availabilities)[4].time);
-    //   setSaturday(JSON.parse(res.volunteer.availabilities)[5].time);
-    //   setSunday(JSON.parse(res.volunteer.availabilities)[6].time);
-      tuesday = JSON.parse(res.volunteer.availabilities)[0].time;
-      wednesday = JSON.parse(res.volunteer.availabilities)[0].time;
-      thursday = JSON.parse(res.volunteer.availabilities)[0].time;
-      friday = JSON.parse(res.volunteer.availabilities)[0].time;
-      saturday = JSON.parse(res.volunteer.availabilities)[0].time;
-      sunday = JSON.parse(res.volunteer.availabilities)[0].time;
-  console.log("inside useEffect: " + monday); //todo
+    getOneVolunteer(1).then((res) => { //todo get the correct task ID
+      setMonday(JSON.parse(res.volunteer.availabilities)[0].time);
+      setTuesday(JSON.parse(res.volunteer.availabilities)[1].time);
+      setWednesday(JSON.parse(res.volunteer.availabilities)[2].time);
+      setThursday(JSON.parse(res.volunteer.availabilities)[3].time);
+      setFriday(JSON.parse(res.volunteer.availabilities)[4].time);
+      setSaturday(JSON.parse(res.volunteer.availabilities)[5].time);
+      setSunday(JSON.parse(res.volunteer.availabilities)[6].time);
     });
-  });
+  }, []);
       
   console.log("Monday:" + monday); //todo
   console.log("Tuesday:" + tuesday);
@@ -140,7 +118,8 @@ const MarkAvailability = () => {
       }
     }, [shouldRender]);
 
-
+    const TimeRange = () => {
+     
       const [flag, setFlag] = React.useState(true);
       const [flag1, setFlag1] = React.useState(true);
       const [flag2, setFlag2] = React.useState(true);
@@ -229,11 +208,6 @@ const MarkAvailability = () => {
         }
       }
     }, []);
-
-
-    const SelectTime = () => {
-     
-      
 
       return (
         <LocalizationProvider>
@@ -341,7 +315,7 @@ const MarkAvailability = () => {
               gap: 2,
             }}
           >
-            <SelectTime />
+            <TimeRange />
           </Box>
         </AccordionDetails>
       </Accordion>
