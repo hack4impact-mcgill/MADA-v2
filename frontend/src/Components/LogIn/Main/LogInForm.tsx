@@ -9,6 +9,12 @@ import SignInButton from "./SignInButton";
 import ForgotPasswordButton from "./ForgotPasswordButton";
 import MADALogo from "../MADALogo";
 import { isBrowser } from "react-device-detect";
+import { login } from "../../../services";
+
+export interface CredentialInterface {
+  email: string;
+  password: string;
+}
 
 const LogInForm = () => {
   const [state, dispatch] = useReducer(Reducer, initialState);
@@ -44,7 +50,7 @@ const LogInForm = () => {
     });
   };
 
-  function handleClickLogIn() {
+  async function handleClickLogIn() {
     //Prevent page reload
     // e.preventDefault();
     console.log("sign in");
@@ -53,6 +59,8 @@ const LogInForm = () => {
 
     // console.log(rememberMe);
     //TODO backend
+    const response = await login({ email: username, password: password });
+    console.log(response);
 
     // temporary redirect to today page
     // window.location.href = "/today";

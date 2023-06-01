@@ -1,5 +1,6 @@
 import axios from "axios";
 import { TaskInterface } from "./Contexts/Tasks";
+import { CredentialInterface } from "./Components/LogIn/Main/LogInForm";
 
 // URL to which requests will be sent
 const TASK_API_URL = "http://localhost:3001/api";
@@ -37,5 +38,14 @@ export const updateTask = async (task: TaskInterface) => {
     return response.data;
   } catch (e) {
     throw new Error("Error in Axios update query to /tasks/<id>");
+  }
+};
+
+export const login = async (credentials: CredentialInterface) => {
+  try {
+    const response = await axios.post(`/login`, credentials);
+    return response.data;
+  } catch (e) {
+    throw new Error("Error in response");
   }
 };
