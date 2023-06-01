@@ -3,6 +3,7 @@ import { MealDeliveryInterface, TaskInterface } from "./Contexts/Tasks";
 
 // URL to which requests will be sent
 const API_URL = "http://localhost:3001/api";
+const VOLUNTEER_ID = "5"; // will need to be replaced with actual logged in volunteer's id.
 
 export const getAllTasks = async () => {
   try {
@@ -12,6 +13,17 @@ export const getAllTasks = async () => {
     return response.data.tasks;
   } catch (e) {
     throw new Error("Error in Axios get query to /tasks");
+  }
+};
+
+export const getOneVolunteerTasks = async () => {
+  try {
+    // Uses axios to make a get request at "http://localhost:3001/api/tasks"
+    const response = await axios.get(`${API_URL}/tasks/volunteer/${VOLUNTEER_ID}`);
+    console.log("inside getOneVolunteerTasks helper function: fetching tasks ", response.data.tasks);
+    return response.data.tasks;
+  } catch (e) {
+    throw new Error("Error in Axios get query to /tasks/volunteer/:id");
   }
 };
 

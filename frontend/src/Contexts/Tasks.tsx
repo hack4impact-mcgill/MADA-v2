@@ -1,6 +1,6 @@
 import React from "react";
 import { createContext, useState, useEffect } from "react";
-import { getAllTasks } from "../services";
+import { getAllTasks, getOneVolunteerTasks } from "../services";
 // define interfaces and define Task context provider
 
 // expecting deliveries field to be populatd with MealDeliveryEntity's fields and not just their ids.
@@ -44,7 +44,7 @@ export const TaskProvider = (props: { children: React.ReactNode }) => {
   // dependency is empty array []. This will make fetch tasks only the first time TaskProvider component renders.
   useEffect(() => {
     const fetchTasks = async () => {
-      const tasks = await getAllTasks();
+      const tasks = await getOneVolunteerTasks();
       console.log("all tasks", tasks);
       setTasks(tasks);
     };
