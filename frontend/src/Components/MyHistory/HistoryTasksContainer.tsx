@@ -9,6 +9,7 @@ const HistoryTasksContainer = (props: {
   endDate: Date | null;
 }) => {
   const [allTasks, setAllTasks] = useState<TaskInterface[]>([]);
+  const [rangeOfDates, setRangeOfDates] = useState<Date[]>([]);
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -23,14 +24,8 @@ const HistoryTasksContainer = (props: {
     fetchTasks();
   }, []);
 
-  const filterTasksByDateRange = (task: TaskInterface) => {
-    return (
-      (!props.startDate || task.deliveryTime >= props.startDate) &&
-      (!props.endDate || task.deliveryTime <= props.endDate)
-    );
-  };
-
-  const historyTasks = allTasks.filter(filterTasksByDateRange);
+  console.log(allTasks);
+  console.log("Type of", typeof allTasks)
 
   const getRangeOfDates = (startDate: Date | null, endDate: Date | null) => {
     if (!startDate || !endDate) {
@@ -48,11 +43,29 @@ const HistoryTasksContainer = (props: {
     return rangeOfDates;
   };
 
-  const rangeOfDates = getRangeOfDates(props.startDate, props.endDate);
-
   useEffect(() => {
     setRangeOfDates(getRangeOfDates(props.startDate, props.endDate));
   }, [props.startDate, props.endDate]);
+  
+  useEffect(() => {
+    const filteredTasks = [];
+    
+    for (let i = 0; i < allTasks.length; i++) {
+      const task = allTasks[i];
+      const taskDate = new Date(task.deliveryTime); // Assuming each task has a 'deliveryTime' property
+      console.log("Task Date", taskDate);
+      if (
+        props.startDate &&
+        props.endDate &&
+        taskDate >= props.startDate &&
+        taskDate <= props.endDate
+      ) {
+        filteredTasks.push(task);
+      }
+    }
+
+    console.log("filteredTasks", filteredTasks);
+  }, [allTasks, props.startDate, props.endDate]);
 
   return (
     <Box sx={{ ml: "14px", mr: "14px" }}>
@@ -64,7 +77,7 @@ const HistoryTasksContainer = (props: {
       {rangeOfDates.map((date: Date) => (
         <SingleDayTasksContainer
           date={date}
-          historyTasks={historyTasks}
+          historyTasks={[]}
           key={date.toDateString()}
         />
       ))}
