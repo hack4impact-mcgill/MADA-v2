@@ -68,7 +68,9 @@ export class VolunteerEntity extends UserEntity {
   @Column()
   availabilities: string;
 
-  @OneToMany(() => TaskEntity, (task) => task.volunteer)
+  @OneToMany(() => TaskEntity, (task) => task.volunteer, {
+    cascade: true
+  })
   tasks: TaskEntity[];
 
   // Account info

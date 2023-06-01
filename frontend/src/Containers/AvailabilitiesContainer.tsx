@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { Dayjs } from "dayjs";
 import {
   Box,
   Accordion,
@@ -13,64 +12,34 @@ import {
   DialogActions,
   DialogContent,
 } from "@mui/material";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { MdExpandMore } from "react-icons/md";
 import "../Styles/Availabilities.css";
-import { Route, Link, Routes, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { getOneVolunteer } from "../services";
 
 type TimePickerAccordionProps = {
   dayOfWeek: string;
 };
-type TimeRange = {
-  startTime: Dayjs | null;
-  endTime: Dayjs | null;
-};
 
 const MarkAvailability = () => {
   const navigate = useNavigate();
-  const [monday, setMonday] = useState<TimeRange[]>([
-    {
-      startTime: null,
-      endTime: null,
-    },
-  ]);
-  const [tuesday, setTuesday] = useState<TimeRange[]>([
-    {
-      startTime: null,
-      endTime: null,
-    },
-  ]);
-  const [wednesday, setWednesday] = useState<TimeRange[]>([
-    {
-      startTime: null,
-      endTime: null,
-    },
-  ]);
-  const [thursday, setThursday] = useState<TimeRange[]>([
-    {
-      startTime: null,
-      endTime: null,
-    },
-  ]);
-  const [friday, setFriday] = useState<TimeRange[]>([
-    {
-      startTime: null,
-      endTime: null,
-    },
-  ]);
-  const [saturday, setSaturday] = useState<TimeRange[]>([
-    {
-      startTime: null,
-      endTime: null,
-    },
-  ]);
-  const [sunday, setSunday] = useState<TimeRange[]>([
-    {
-      startTime: null,
-      endTime: null,
-    },
-  ]);
+
+  // const [monday, setMonday] = useState<string>();
+  // const [tuesday, setTuesday] = useState<string>();
+  // const [wednesday, setWednesday] = useState<string>();
+  // const [thursday, setThursday] = useState<string>();
+  // const [friday, setFriday] = useState<string>();
+  // const [saturday, setSaturday] = useState<string>();
+  // const [sunday, setSunday] = useState<string>();
+
+  let monday = "";
+  let tuesday = "";
+  let wednesday = "";
+  let thursday = "";
+  let friday = "";
+  let saturday = "";
+  let sunday = "";
 
   const daysOfWeek = [
     "Monday",
@@ -82,28 +51,35 @@ const MarkAvailability = () => {
     "Sunday",
   ];
 
-  function setTimes(dayOfWeek: string, time: TimeRange[]) {
+  function setTimes(dayOfWeek: string, time: string) {
     switch (dayOfWeek) {
       case "Monday":
-        setMonday(time);
+        // setMonday(time);
+        monday = time;
         break;
       case "Tuesday":
-        setTuesday(time);
+        // setTuesday(time);
+        tuesday = time;
         break;
       case "Wednesday":
-        setWednesday(time);
+        // setWednesday(time);
+        wednesday = time;
         break;
       case "Thursday":
-        setThursday(time);
+        // setThursday(time);
+        thursday = time;
         break;
       case "Friday":
-        setFriday(time);
+        // setFriday(time);
+        friday = time;
         break;
       case "Saturday":
-        setSaturday(time);
+        // setSaturday(time);
+        saturday = time;
         break;
       case "Sunday":
-        setSunday(time);
+        // setSunday(time);
+        sunday = time;
         break;
     }
   }
@@ -129,6 +105,30 @@ const MarkAvailability = () => {
     }
   }
 
+  //Initialize the availabilities
+  useEffect(() => {
+    getOneVolunteer(1).then((res) => { //todo get the correct volunteer ID
+      // setMonday(JSON.parse(res.volunteer.availabilities)[0].time);
+      monday = JSON.parse(res.volunteer.availabilities)[0].time;
+    //   setTuesday(JSON.parse(res.volunteer.availabilities)[1].time);
+    //   setWednesday(JSON.parse(res.volunteer.availabilities)[2].time);
+    //   setThursday(JSON.parse(res.volunteer.availabilities)[3].time);
+    //   setFriday(JSON.parse(res.volunteer.availabilities)[4].time);
+    //   setSaturday(JSON.parse(res.volunteer.availabilities)[5].time);
+    //   setSunday(JSON.parse(res.volunteer.availabilities)[6].time);
+      tuesday = JSON.parse(res.volunteer.availabilities)[0].time;
+      wednesday = JSON.parse(res.volunteer.availabilities)[0].time;
+      thursday = JSON.parse(res.volunteer.availabilities)[0].time;
+      friday = JSON.parse(res.volunteer.availabilities)[0].time;
+      saturday = JSON.parse(res.volunteer.availabilities)[0].time;
+      sunday = JSON.parse(res.volunteer.availabilities)[0].time;
+  console.log("inside useEffect: " + monday); //todo
+    });
+  });
+      
+  console.log("Monday:" + monday); //todo
+  console.log("Tuesday:" + tuesday);
+
   var timeError = false;
   // pass in day of week as prop, containing the accordion associated to that day
   const TimePickerAccordion = ({ dayOfWeek }: TimePickerAccordionProps) => {
@@ -140,9 +140,7 @@ const MarkAvailability = () => {
       }
     }, [shouldRender]);
 
-    // contains a pair of time pickers, and the icons associated to them
-    const TimeRange = ({ index }: { index: number }) => {
-     
+
       const [flag, setFlag] = React.useState(true);
       const [flag1, setFlag1] = React.useState(true);
       const [flag2, setFlag2] = React.useState(true);
@@ -157,6 +155,7 @@ const MarkAvailability = () => {
         setFlag3(true);
         setFlag4(true);
         setFlag5(true);
+        setTimes(dayOfWeek, "12");
       };
       const handleClick1 = () => {
         setFlag(true);
@@ -165,6 +164,7 @@ const MarkAvailability = () => {
         setFlag3(true);
         setFlag4(true);
         setFlag5(true);
+        setTimes(dayOfWeek, "13");
       };
       const handleClick2 = () => {
         setFlag(true);
@@ -173,6 +173,7 @@ const MarkAvailability = () => {
         setFlag3(true);
         setFlag4(true);
         setFlag5(true);
+        setTimes(dayOfWeek, "14");
       };
       const handleClick3 = () => {
         setFlag(true);
@@ -181,6 +182,7 @@ const MarkAvailability = () => {
         setFlag3(false);
         setFlag4(true);
         setFlag5(true);
+        setTimes(dayOfWeek, "15");
       };
       const handleClick4 = () => {
         setFlag(true);
@@ -189,6 +191,7 @@ const MarkAvailability = () => {
         setFlag3(true);
         setFlag4(false);
         setFlag5(true);
+        setTimes(dayOfWeek, "16");
       };
       const handleClick5 = () => {
         setFlag(true);
@@ -197,7 +200,41 @@ const MarkAvailability = () => {
         setFlag3(true);
         setFlag4(true);
         setFlag5(false);
+        setTimes(dayOfWeek, "17");
       };
+      
+      //initialize the availabilities
+    useEffect(() => {
+      if (GetTimes(dayOfWeek) != "") {
+        setExpanded(true)
+        switch (GetTimes(dayOfWeek)) {
+          case "12":
+            handleClick()
+            break;
+          case "13":
+            handleClick1()
+            break;
+          case "14":
+            handleClick2()
+            break;
+          case "15":
+            handleClick3()
+            break;
+          case "16":
+            handleClick4()
+            break;
+          case "17":
+            handleClick5()
+            break;
+        }
+      }
+    }, []);
+
+
+    const SelectTime = () => {
+     
+      
+
       return (
         <LocalizationProvider>
           <Box className="time-selection-buttons">
@@ -260,6 +297,7 @@ const MarkAvailability = () => {
     const [disabled, setDisabled] = useState(false);
     const [expanded, setExpanded] = useState(false);
 
+    
     const ToggleAccordionDisability = (
       event: React.ChangeEvent<HTMLInputElement>
     ) => {
@@ -303,9 +341,7 @@ const MarkAvailability = () => {
               gap: 2,
             }}
           >
-            {GetTimes(dayOfWeek).map((day, i) => {
-              return <TimeRange index={i} />;
-            })}
+            <SelectTime />
           </Box>
         </AccordionDetails>
       </Accordion>
