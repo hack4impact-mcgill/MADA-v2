@@ -70,12 +70,13 @@ export default class VolunteerController {
   login = async (req: Request, res: Response) => {
     const { email, password }: { email: string; password: string } = req.body;
     const repository = AppDataSource.getRepository(VolunteerEntity);
-
+    console.log(process.env.JWT_PRIVATE_KEY);
     const volunteer: VolunteerEntity = await repository.findOne({
       where: { email: email }
     });
 
-    if (volunteer && (await bcrypt.compare(password, volunteer.password))) {
+    // if (volunteer && (await bcrypt.compare(password, volunteer.password))) { // bad login info
+    if (volunteer && password === volunteer.password) {
       const token = jwt.sign(
         volunteer.id.toString(),
         process.env.JWT_PRIVATE_KEY

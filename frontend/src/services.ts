@@ -43,7 +43,10 @@ export const updateTask = async (task: TaskInterface) => {
 
 export const login = async (credentials: CredentialInterface) => {
   try {
-    const response = await axios.post(`/login`, credentials);
+    const response = await axios.post(
+      `${TASK_API_URL}/volunteer/login/`,
+      credentials
+    );
     return response.data;
   } catch (e) {
     throw new Error("Error in response");

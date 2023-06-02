@@ -11,4 +11,4 @@ router.get('/volunteers/:id/tasks', volunteerController.getVolunteerTasks);
 router.delete('/volunteers/:id', volunteerController.removeVolunteer);
 router.post('/volunteers', volunteerController.createVolunteer);
 router.put('/volunteers/:id/edit', volunteerController.editVolunteer);
-router.post('/volunteer', volunteerController.login);
+router.post('/volunteer/login', volunteerController.login);

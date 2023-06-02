@@ -62,6 +62,11 @@ const LogInForm = () => {
     const response = await login({ email: username, password: password });
     console.log(response);
 
+    // parse response
+    if (response.status === 200) {
+    } else {
+      alert("Incorrect username or password. Please try again.");
+    }
     // temporary redirect to today page
     // window.location.href = "/today";
   }

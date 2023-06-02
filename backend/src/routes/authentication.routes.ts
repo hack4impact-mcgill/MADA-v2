@@ -7,4 +7,4 @@ import authenticationController from '../controllers/authentication';
 export const router = express.Router();
 const authController = new authenticationController();
 
-router.post('/login', authController.login);
+router.post('/volunteer/login', authController.login);
