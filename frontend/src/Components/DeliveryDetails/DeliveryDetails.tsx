@@ -3,17 +3,17 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { TaskInterface } from "../../Contexts/Tasks";
+import { MealDeliveryInterface, TaskInterface } from "../../Contexts/Tasks";
 import { useLocation } from "react-router-dom";
 import CloseButton from "../MyHistory/CloseButton";
 import { isBrowser } from "react-device-detect";
 
-export default function DeliveryDetails(props: { task: TaskInterface | null }) {
-  console.log(props.task);
+export default function DeliveryDetails(props: { delivery: MealDeliveryInterface | null }) {
+  console.log(props.delivery);
   const location = useLocation();
-  const task = location.state?.task;
+  const delivery = location.state?.delivery; // allows passing state value through Link
 
-  return task ? (
+  return delivery ? (
     <Box>
       {/* <Box sx={{ position: "fixed" }}> */}
       <CloseButton></CloseButton>
@@ -63,7 +63,7 @@ export default function DeliveryDetails(props: { task: TaskInterface | null }) {
               mb: 1,
             }}
           >
-            {task.client.name}
+            {delivery.client.name}
           </Typography>
           <Typography
             sx={{
@@ -85,10 +85,10 @@ export default function DeliveryDetails(props: { task: TaskInterface | null }) {
               mb: 1,
             }}
           >
-            3380 Bd Robert-Bourassa Montreal QC
+            {delivery.client.address}
+            {/* 3380 Bd Robert-Bourassa Montreal QC */}
           </Typography>
-          {/* <Typography>{task.address}</Typography> */}
-          <Typography
+          {/* <Typography
             sx={{
               fontFamily: "Poppins",
               fontWeight: 600,
@@ -109,8 +109,8 @@ export default function DeliveryDetails(props: { task: TaskInterface | null }) {
             }}
           >
             April 27, 2023 2:55PM
-          </Typography>
-          {/* <Typography>{task.deliveryTime}</Typography> */}
+          </Typography> */}
+          {/* <Typography>{delivery.deliveryTime}</Typography> */}
         </Box>
         <div className="google-map-code">
           <iframe

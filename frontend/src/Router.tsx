@@ -26,7 +26,7 @@ const RouterComponent = () => {
         <Route path="/availabilities" element={<AvailabilitiesContainer />} />
         <Route
           path="/delivery-details"
-          element={<DeliveryDetails task={null} />}
+          element={<DeliveryDetails delivery={null} />}
         />
       </Routes>
     </BrowserRouter>

@@ -74,7 +74,7 @@ const Delivery = (props: {
           />
         }
       />
-      <Link to="/delivery-details" state={{ task: props.delivery }}>
+      <Link to="/delivery-details" state={{ delivery: props.delivery }}>
         <IoIosArrowForward
           size="35"
           style={{ marginRight: 20 }}
