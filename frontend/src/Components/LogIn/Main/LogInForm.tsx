@@ -63,12 +63,16 @@ const LogInForm = () => {
     console.log(response);
 
     // parse response
-    if (response.status === 200) {
+    if (response.user) {
+      console.log(response.user.id);
+      dispatch({
+        type: "setUserId",
+        payload: response.user.id,
+      });
+      window.location.href = "/today";
     } else {
       alert("Incorrect username or password. Please try again.");
     }
-    // temporary redirect to today page
-    // window.location.href = "/today";
   }
 
   return (
