@@ -9,12 +9,12 @@ export enum DayOfWeek {
 }
 
 export enum TimeSlots {
-  hour0 = "12:00PM",
-  hour1 = "01:00PM",
-  hour2 = "02:00PM",
-  hour3 = "03:00PM",
-  hour4 = "04:00PM",
-  hour5 = "05:00PM",
+  hour0 = "12",
+  hour1 = "13",
+  hour2 = "14",
+  hour3 = "15",
+  hour4 = "16",
+  hour5 = "17",
 }
 
 export interface Availability {

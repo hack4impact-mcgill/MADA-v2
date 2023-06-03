@@ -1,5 +1,6 @@
 import axios from "axios";
 import { TaskInterface } from "./Contexts/Tasks";
+import { Availabilities } from "./Contexts/Volunteer";
 
 // URL to which requests will be sent
 const TASK_API_URL = "http://localhost:3001/api";
@@ -53,11 +54,11 @@ export const getOneVolunteer = async (id: number) => {
   }
 }
 
-export const getVolunteerAvailabilities = async (id: number) => {
+export const editVolunteerAvailabilities = async (id: number, availabilities: { availabilities: string }) => {
     try {
-    const response = await axios.get(`${TASK_API_URL}/volunteers/${id}/availabilities`);
+    const response = await axios.put(`${TASK_API_URL}/volunteers/${id}/edit`, availabilities);
     return response.data;
   } catch (e) {
-    throw new Error("Error in Axios get query to /volunteers/<id>/availabilities");
+    throw new Error("Error in Axios get query to /volunteers/<id>/edit");
   }
 }
