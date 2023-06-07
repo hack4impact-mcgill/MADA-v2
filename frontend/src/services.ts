@@ -62,3 +62,13 @@ export const editVolunteerAvailabilities = async (id: number, availabilities: { 
     throw new Error("Error in Axios get query to /volunteers/<id>/edit");
   }
 }
+
+export const getVolunteerTasks = async (id: number) => {
+    try {
+    const response = await axios.get(`${TASK_API_URL}/volunteers/${id}/tasks`);
+    return response.data;
+  } catch (e) {
+    throw new Error("Error in Axios get query to /volunteers/<id>/tasks");
+  }
+
+}

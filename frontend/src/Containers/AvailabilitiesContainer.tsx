@@ -360,3 +360,4 @@ const MarkAvailability = () => {
 };
 
 export default MarkAvailability;
+//todo clicking on a time removes it

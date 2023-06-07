@@ -3,14 +3,23 @@ import {
   DeliveryTimeline,
   NoDeliveries,
 } from "../Components/Today/DeliveryTimeline";
-import Reducer from "../Contexts/LogIn";
 import "../Styles/Delivery.css";
-import React, {useReducer} from "react";
-import { initialState } from "../Contexts/LogIn";
+import { getVolunteerTasks } from "../services";
+import { useState, useEffect } from "react";
 
 const TodayContainer = () => {
-  
-  let noDeliveries = false; //todo
+  let volunteerId = 1;
+
+  const [noDeliveries, setNoDeliveries] = useState(true);
+
+  //if there isn't a task assigned to this volunteer for today  
+  useEffect(() => {
+    //todo get the volunteer task and check for today's date
+    getVolunteerTasks(volunteerId).then((res) => { 
+      setNoDeliveries(res.tasks.length === 0); 
+    });
+  }, [])
+
   const handleClick = async () => {
     window.location.href = "/tasks";
   };

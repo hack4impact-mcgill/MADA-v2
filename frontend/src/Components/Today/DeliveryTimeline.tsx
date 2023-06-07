@@ -6,17 +6,16 @@ import TimelineConnector from "@mui/lab/TimelineConnector";
 import TimelineContent from "@mui/lab/TimelineContent";
 import TimelineDot from "@mui/lab/TimelineDot";
 import { getOneTask } from "../../services";
-import { TaskInterface } from "../../Contexts/Tasks";
 import { useState, useEffect } from "react";
 
 export function NoDeliveries() {
   return (
     <Typography textAlign={'center'}>
       <Typography sx={{ color: "#666666", marginTop: "15%" }}>
-        Congratulations!
+        No deliveries for today.
       </Typography>
       <Typography sx={{ color: "#666666", marginBottom: "15%"}}>
-        You're all done for today!
+        Check back tomorrow!
       </Typography>
     </Typography>
   );
@@ -51,8 +50,8 @@ export function DeliveryTimeline() {
   const [deliveryData, setDeliveryData] = useState([]);
   useEffect(() => {
     getOneTask(1).then((res) => { //todo get the correct task ID
-      setDeliveryData(res.task.deliveries.map((delivery: any) => timelineItems(delivery.client.name , delivery.client.address, false, delivery.isCompleted)))
-
+      setDeliveryData(res.task.deliveries.map((delivery: any) => timelineItems(delivery.client.name, delivery.client.address, false, delivery.isCompleted)));
+      console.log(res.task.deliveries.length)
     });
   }, [])
 
@@ -62,3 +61,5 @@ export function DeliveryTimeline() {
     </Timeline>
   );
 }
+
+//todo fill circles if delivery done
