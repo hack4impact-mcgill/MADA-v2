@@ -1,6 +1,7 @@
 import axios from "axios";
 import { TaskInterface } from "./Contexts/Tasks";
 import { CredentialInterface } from "./Components/LogIn/Main/LogInForm";
+import { VolunteerType } from "./Containers/UserContainer";
 
 // URL to which requests will be sent
 const TASK_API_URL = "http://localhost:3001/api";
@@ -50,5 +51,28 @@ export const login = async (credentials: CredentialInterface) => {
     return response.data;
   } catch (e) {
     throw new Error("Error in response");
+  }
+};
+export const getVolunteer = async (id: number) => {
+  try {
+    const response = await axios.get(`${TASK_API_URL}/volunteers/${id}`);
+    return response.data;
+  } catch (e) {
+    throw new Error(`Error in Axios get query to /volunteers/${id}`);
+  }
+};
+
+export const editVolunteer = async (
+  id: number | undefined,
+  updatedVolunteer: Partial<VolunteerType>
+) => {
+  try {
+    const response = await axios.put(
+      `${TASK_API_URL}/volunteers/${id}/edit`,
+      updatedVolunteer
+    );
+    return response.data.volunteer;
+  } catch (error) {
+    throw new Error(`Error in Axios put to /volunteers/${id}/edit`);
   }
 };
