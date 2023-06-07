@@ -112,7 +112,7 @@ export default function DeliveryDetails(props: {
               mb: 1,
             }}
           >
-            {delivery.client.sts ? "STS" : "MAP"}
+            {delivery.program}
           </Typography>
           <br></br>
           <Typography
