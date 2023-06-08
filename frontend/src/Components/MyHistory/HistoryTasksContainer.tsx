@@ -8,24 +8,38 @@ const HistoryTasksContainer = (props: {
   startDate: Date | null;
   endDate: Date | null;
 }) => {
-  const [allTasks, setAllTasks] = useState<TaskInterface[]>([]);
+  const [allTasks, setAllTasks] = useState<{ [date: string]: TaskInterface[] }>({});
   const [rangeOfDates, setRangeOfDates] = useState<Date[]>([]);
 
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const tasks = await getAllTasks(); // Fetch tasks from the backend
-        setAllTasks(tasks);
+        const response = await getAllTasks(); // Fetch tasks from the backend
+        const tasks = response.tasks;
+        
+        const tasksByDate: { [date: string]: TaskInterface[] } = {};
+  
+        tasks.forEach((task: TaskInterface) => {
+          const date = convertDate(new Date(task.date)).join('-'); // convert to string format "YYYY-MM-DD"
+          if (!tasksByDate[date]) {
+            tasksByDate[date] = [];
+          }
+          tasksByDate[date].push(task);
+        });
+  
+        setAllTasks(tasksByDate);
       } catch (error) {
         console.error("Error fetching tasks:", error);
       }
     };
-
+  
     fetchTasks();
   }, []);
+  
 
-  console.log(allTasks);
-  console.log("Type of", typeof allTasks)
+
+  console.log("allTasks", allTasks)
+  
 
   const getRangeOfDates = (startDate: Date | null, endDate: Date | null) => {
     if (!startDate || !endDate) {
@@ -43,29 +57,21 @@ const HistoryTasksContainer = (props: {
     return rangeOfDates;
   };
 
+  console.log("RANGEOFDATES", rangeOfDates);
+
+  function convertDate(input: Date): number[] {
+    // JavaScript months are 0-indexed, so we need to add 1 to get the correct month number.
+    const year = input.getFullYear();
+    const month = input.getMonth() + 1;
+    const day = input.getDate();
+  
+    return [year, month, day];
+  }
+
   useEffect(() => {
     setRangeOfDates(getRangeOfDates(props.startDate, props.endDate));
   }, [props.startDate, props.endDate]);
   
-  useEffect(() => {
-    const filteredTasks = [];
-    
-    for (let i = 0; i < allTasks.length; i++) {
-      const task = allTasks[i];
-      const taskDate = new Date(task.deliveryTime); // Assuming each task has a 'deliveryTime' property
-      console.log("Task Date", taskDate);
-      if (
-        props.startDate &&
-        props.endDate &&
-        taskDate >= props.startDate &&
-        taskDate <= props.endDate
-      ) {
-        filteredTasks.push(task);
-      }
-    }
-
-    console.log("filteredTasks", filteredTasks);
-  }, [allTasks, props.startDate, props.endDate]);
 
   return (
     <Box sx={{ ml: "14px", mr: "14px" }}>
@@ -74,13 +80,16 @@ const HistoryTasksContainer = (props: {
           Please Select A Date Range To Filter Tasks.
         </Box>
       ) : null}
-      {rangeOfDates.map((date: Date) => (
-        <SingleDayTasksContainer
-          date={date}
-          historyTasks={[]}
-          key={date.toDateString()}
-        />
-      ))}
+      {rangeOfDates.map((date: Date) => {
+  const dateString = convertDate(date).join('-');
+  return (
+    <SingleDayTasksContainer
+      date={date}
+      historyTasks={allTasks[dateString] || []}  // Use dateString as the key
+      key={dateString}
+    />
+  );
+})}
     </Box>
   );
 };

@@ -30,113 +30,114 @@ const DeliveriesContainer = (props: {
   date.setDate(day1.getDate() + 6);
   const day7 = new Date(date);
 
-  const dummyTasks = [
+  const dummyTasks: TaskInterface[] = [
     {
       id: 1,
-      deliveryTime: day1,
+      date: day1,
       isCompleted: true,
-      name: "Leopold Bennett",
+      volunteer: "Leopold Bennett",
       deliveries: [],
     },
     {
       id: 2,
-      deliveryTime: day1,
+      date: day1,
       isCompleted: false,
-      name: "Avi Sharp",
+      volunteer: "Avi Sharp",
       deliveries: [],
     },
     {
       id: 3,
-      deliveryTime: day1,
+      date: day1,
       isCompleted: true,
-      name: "Zahara Lott",
+      volunteer: "Zahara Lott",
       deliveries: [],
     },
     {
       id: 4,
-      deliveryTime: day1,
+      date: day1,
       isCompleted: true,
-      name: "John Doe",
+      volunteer: "John Doe",
       deliveries: [],
     },
     {
       id: 5,
-      deliveryTime: day2,
+      date: day2,
       isCompleted: false,
-      name: "Jane Doe",
+      volunteer: "Jane Doe",
       deliveries: [],
     },
     {
       id: 6,
-      deliveryTime: day3,
+      date: day3,
       isCompleted: true,
-      name: "Thomas Walker",
+      volunteer: "Thomas Walker",
       deliveries: [],
     },
     {
       id: 7,
-      deliveryTime: day3,
+      date: day3,
       isCompleted: false,
-      name: "William Maguire",
+      volunteer: "William Maguire",
       deliveries: [],
     },
     {
       id: 8,
-      deliveryTime: day3,
+      date: day3,
       isCompleted: false,
-      name: "Tony McLennan",
+      volunteer: "Tony McLennan",
       deliveries: [],
     },
     {
       id: 9,
-      deliveryTime: day4,
+      date: day4,
       isCompleted: false,
-      name: "Harry Park",
+      volunteer: "Harry Park",
       deliveries: [],
     },
     {
       id: 10,
-      deliveryTime: day4,
+      date: day4,
       isCompleted: true,
-      name: "Christian D'Silva",
+      volunteer: "Christian D'Silva",
       deliveries: [],
     },
     {
       id: 11,
-      deliveryTime: day4,
+      date: day4,
       isCompleted: false,
-      name: "Joseph Kim",
+      volunteer: "Joseph Kim",
       deliveries: [],
     },
     {
       id: 12,
-      deliveryTime: day5,
+      date: day5,
       isCompleted: false,
-      name: "Martin Brooks",
+      volunteer: "Martin Brooks",
       deliveries: [],
     },
     {
       id: 13,
-      deliveryTime: day6,
+      date: day6,
       isCompleted: false,
-      name: "Emmanuel Tan",
+      volunteer: "Emmanuel Tan",
       deliveries: [],
     },
     {
       id: 14,
-      deliveryTime: day7,
+      date: day7,
       isCompleted: false,
-      name: "Lionel Ronaldo",
+      volunteer: "Lionel Ronaldo",
       deliveries: [],
     },
     {
       id: 15,
-      deliveryTime: day7,
+      date: day7,
       isCompleted: false,
-      name: "Stephanie Han",
+      volunteer: "Stephanie Han",
       deliveries: [],
     },
   ];
+  
   // ---------------------------------- LINES BEFORE THIS WILL BE REMOVED LATER ON ---------------------------------------//
 
   // function that formats date to desired form: e.g. 8 Dec 2023
@@ -150,7 +151,7 @@ const DeliveriesContainer = (props: {
 
   // filtering logic
   const dateFilteredTasks = dummyTasks.filter(
-    (task) => formatDate(task.deliveryTime) == props.dateFilter
+    (task) => formatDate(task.date) == props.dateFilter
   );
   let filteredTasks = dateFilteredTasks; // ALLTASKS filter
   if (props.completionFilter === "COMPLETED") {

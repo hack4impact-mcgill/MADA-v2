@@ -9,17 +9,20 @@ import { getAllTasks } from "../services";
 
 export interface TaskInterface {
   id: number;
-  deliveryTime: Date;
+  date: Date;
   isCompleted: boolean;
+  volunteer: string;
   deliveries: MealDeliveryInterface[];
-  name: string; // I will just assume the recipient's name is part of the Task entity for now.
 }
 
 export interface MealDeliveryInterface {
   id: number;
-  quantity: number;
+  isCompleted: boolean;
+  routePosition: number;
   mealType: string;
-  task: TaskInterface;
+  program: any
+  task: any;
+  client: any;
 }
 
 // create a type for TaskContext
