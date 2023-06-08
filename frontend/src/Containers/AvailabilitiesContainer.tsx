@@ -30,13 +30,40 @@ const MarkAvailability = () => {
     "Saturday",
     "Sunday",
   ];
-    const saveMonday = useRef<string>("");
-    const saveTuesday= useRef<string>("");
-    const saveWednesday= useRef<string>("");
-    const saveThursday = useRef<string>("");
-    const saveFriday = useRef<string>("");
-    const saveSaturday = useRef<string>("");
-    const saveSunday = useRef<string>("");
+
+  const saveMonday = useRef<string>("");
+  const saveTuesday= useRef<string>("");
+  const saveWednesday= useRef<string>("");
+  const saveThursday = useRef<string>("");
+  const saveFriday = useRef<string>("");
+  const saveSaturday = useRef<string>("");
+  const saveSunday = useRef<string>("");
+  
+  function removeSave(dayOfWeek: string) {
+    switch (dayOfWeek) {
+      case "Monday":
+        saveMonday.current = "";
+        break;
+      case "Tuesday":
+        saveTuesday.current = "";
+        break;
+      case "Wednesday":
+        saveWednesday.current = "";
+        break;
+      case "Thursday":
+        saveThursday.current = "";
+        break;
+      case "Friday":
+        saveFriday.current = "";
+        break;
+      case "Saturday":
+        saveSaturday.current = "";
+        break;
+      case "Sunday":
+        saveSunday.current = "";
+        break;
+    }
+  }
   
   // pass in day of week as prop, containing the accordion associated to that day
   const TimePickerAccordion = ({ dayOfWeek }: TimePickerAccordionProps) => {
@@ -126,58 +153,94 @@ const MarkAvailability = () => {
       const [flag5, setFlag5] = React.useState(true);
 
       const handleClick = () => {
-        setFlag(false);
-        setFlag1(true);
-        setFlag2(true);
-        setFlag3(true);
-        setFlag4(true);
-        setFlag5(true);
-        setTimes(dayOfWeek, "12");
+        if (!flag) { //if the button is clicked again to remove the time selected
+          setFlag(true);
+          removeSave(dayOfWeek);
+        }
+        else {
+          setFlag(false);
+          setFlag1(true);
+          setFlag2(true);
+          setFlag3(true);
+          setFlag4(true);
+          setFlag5(true);
+          setTimes(dayOfWeek, "12");
+        }
       };
       const handleClick1 = () => {
-        setFlag(true);
-        setFlag1(false);
-        setFlag2(true);
-        setFlag3(true);
-        setFlag4(true);
-        setFlag5(true);
-        setTimes(dayOfWeek, "13");
+        if (!flag1) { //if the button is clicked again to remove the time selected
+          setFlag1(true);
+          removeSave(dayOfWeek);
+        }
+        else {
+          setFlag(true);
+          setFlag1(false);
+          setFlag2(true);
+          setFlag3(true);
+          setFlag4(true);
+          setFlag5(true);
+          setTimes(dayOfWeek, "13");
+        }
       };
       const handleClick2 = () => {
-        setFlag(true);
-        setFlag1(true);
-        setFlag2(false);
-        setFlag3(true);
-        setFlag4(true);
-        setFlag5(true);
-        setTimes(dayOfWeek, "14");
+        if (!flag2) { //if the button is clicked again to remove the time selected
+          setFlag2(true);
+          removeSave(dayOfWeek);
+        }
+        else {
+          setFlag(true);
+          setFlag1(true);
+          setFlag2(false);
+          setFlag3(true);
+          setFlag4(true);
+          setFlag5(true);
+          setTimes(dayOfWeek, "14");
+        }
       };
       const handleClick3 = () => {
-        setFlag(true);
-        setFlag1(true);
-        setFlag2(true);
-        setFlag3(false);
-        setFlag4(true);
-        setFlag5(true);
-        setTimes(dayOfWeek, "15");
+        if (!flag3) { //if the button is clicked again to remove the time selected
+          setFlag3(true);
+          removeSave(dayOfWeek);
+        }
+        else {
+          setFlag(true);
+          setFlag1(true);
+          setFlag2(true);
+          setFlag3(false);
+          setFlag4(true);
+          setFlag5(true);
+          setTimes(dayOfWeek, "15");
+        }
       };
       const handleClick4 = () => {
-        setFlag(true);
-        setFlag1(true);
-        setFlag2(true);
-        setFlag3(true);
-        setFlag4(false);
-        setFlag5(true);
-        setTimes(dayOfWeek, "16");
+        if (!flag4) { //if the button is clicked again to remove the time selected
+          setFlag4(true);
+          removeSave(dayOfWeek);
+        }
+        else {
+          setFlag(true);
+          setFlag1(true);
+          setFlag2(true);
+          setFlag3(true);
+          setFlag4(false);
+          setFlag5(true);
+          setTimes(dayOfWeek, "16");
+        }
       };
       const handleClick5 = () => {
-        setFlag(true);
-        setFlag1(true);
-        setFlag2(true);
-        setFlag3(true);
-        setFlag4(true);
-        setFlag5(false);
-        setTimes(dayOfWeek, "17");
+        if (!flag5) { //if the button is clicked again to remove the time selected
+          setFlag5(true);
+          removeSave(dayOfWeek);
+        }
+        else {
+          setFlag(true);
+          setFlag1(true);
+          setFlag2(true);
+          setFlag3(true);
+          setFlag4(true);
+          setFlag5(false);
+          setTimes(dayOfWeek, "17");
+        }
       };
       
       //initialize the availabilities
@@ -301,24 +364,12 @@ const MarkAvailability = () => {
       </Accordion>
     );
   };
-  const avail: Availability = { day: DayOfWeek.MONDAY, time: TimeSlots.hour0 }
-  // const avails: Availabilities = {availabilities: [avail, { day: DayOfWeek.TUESDAY, time: TimeSlots.hour0 }, { day: DayOfWeek.WEDNESDAY, time: TimeSlots.hour0 },{ day: DayOfWeek.THURSDAY, time: TimeSlots.hour0 },{ day: DayOfWeek.FRIDAY, time: TimeSlots.hour0 },{ day: DayOfWeek.SATURDAY, time: TimeSlots.hour0 },{ day: DayOfWeek.SUNDAY, time: TimeSlots.hour0 }]}
   
   const save = () => {
-     console.log("Monday: " + saveMonday.current) 
-     console.log("Tuesday: " + saveTuesday.current) 
-     console.log("Wednesday: " + saveWednesday.current) 
-     console.log("Thursday: " + saveThursday.current) 
-     console.log("Friday: " + saveFriday.current) 
-     console.log("Saturday: " + saveSaturday.current) 
-    console.log("Sunday: " + saveSunday.current)
-    
     const avails = {
     "availabilities": `[{\"day\":\"monday\",\"time\":\"${saveMonday.current}\"},{\"day\":\"tuesday\",\"time\":\"${saveTuesday.current}\"},{\"day\":\"wednesday\",\"time\":\"${saveWednesday.current}\"},{\"day\":\"thursday\",\"time\":\"${saveThursday.current}\"},{\"day\":\"friday\",\"time\":\"${saveFriday.current}\"},{\"day\":\"saturday\",\"time\":\"${saveSaturday.current}\"},{\"day\":\"sunday\",\"time\":\"${saveSunday.current}\"}]`
     }
     editVolunteerAvailabilities(1, avails) //todo
-    // console.log(avails)
-    // console.log(JSON.stringify(JSON.stringify(avails)))
  }
   return (
     <Box className="center1">

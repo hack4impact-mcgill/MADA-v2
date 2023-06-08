@@ -10,7 +10,7 @@ import { useState, useEffect } from "react";
 const TodayContainer = () => {
   let volunteerId = 1;
 
-  const [noDeliveries, setNoDeliveries] = useState(true);
+  const [noDeliveries, setNoDeliveries] = useState(false);
 
   //if there isn't a task assigned to this volunteer for today  
   useEffect(() => {
