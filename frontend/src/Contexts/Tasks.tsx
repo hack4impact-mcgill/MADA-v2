@@ -11,7 +11,7 @@ export interface TaskInterface {
   id: number;
   date: Date;
   isCompleted: boolean;
-  volunteer: string;
+  volunteer: string; // REPLACE WITH VOLUNTEER TYPE WHEN EVERYTHING IS FIXED
   deliveries: MealDeliveryInterface[];
 }
 
