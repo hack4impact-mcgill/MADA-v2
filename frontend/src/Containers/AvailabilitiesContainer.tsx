@@ -20,7 +20,7 @@ type TimePickerAccordionProps = {
 
 const MarkAvailability = () => {
   const navigate = useNavigate();
-
+  let volunteerId = 1; //todo
   const daysOfWeek = [
     "Monday",
     "Tuesday",
@@ -31,6 +31,8 @@ const MarkAvailability = () => {
     "Sunday",
   ];
 
+  //use these refs to keep track of which times have been selected without having to 
+  //rerender each time a time is selected
   const saveMonday = useRef<string>("");
   const saveTuesday= useRef<string>("");
   const saveWednesday= useRef<string>("");
@@ -39,6 +41,8 @@ const MarkAvailability = () => {
   const saveSaturday = useRef<string>("");
   const saveSunday = useRef<string>("");
   
+  //if the user clicks on a time that is already selected, 
+  //it removes the selection
   function removeSave(dayOfWeek: string) {
     switch (dayOfWeek) {
       case "Monday":
@@ -130,9 +134,9 @@ const MarkAvailability = () => {
       }
     }
 
-    //Initialize the availabilities
+    //Get the current saved availabilities when the page loads
     useEffect(() => {
-      getOneVolunteer(1).then((res) => { //todo get the correct volunteer ID
+      getOneVolunteer(volunteerId).then((res) => { //todo get the correct volunteer ID
         setMonday(JSON.parse(res.volunteer.availabilities)[0].time);
         setTuesday(JSON.parse(res.volunteer.availabilities)[1].time);
         setWednesday(JSON.parse(res.volunteer.availabilities)[2].time);
@@ -145,105 +149,102 @@ const MarkAvailability = () => {
 
     const TimeSelect = () => {
        
-      const [flag, setFlag] = React.useState(true);
-      const [flag1, setFlag1] = React.useState(true);
-      const [flag2, setFlag2] = React.useState(true);
-      const [flag3, setFlag3] = React.useState(true);
-      const [flag4, setFlag4] = React.useState(true);
-      const [flag5, setFlag5] = React.useState(true);
+      const [clicked, setClicked] = React.useState(false);
+      const [clicked1, setClicked1] = React.useState(false);
+      const [clicked2, setClicked2] = React.useState(false);
+      const [clicked3, setClicked3] = React.useState(false);
+      const [clicked4, setClicked4] = React.useState(false);
+      const [clicked5, setClicked5] = React.useState(false);
 
+      function setButtonsClicked(buttonNumber: number) {
+        setClicked(false);
+        setClicked1(false);
+        setClicked2(false);
+        setClicked3(false);
+        setClicked4(false);
+        setClicked5(false);
+        switch (buttonNumber) {
+          case 0:
+            setClicked(true)
+            break;
+          case 1:
+            setClicked1(true);
+            break;
+          case 2:
+            setClicked2(true);
+            break;
+          case 3:
+            setClicked3(true);
+            break;
+          case 4:
+            setClicked4(true);
+            break;
+          case 5:
+            setClicked5(true);
+            break;
+        }
+      }
       const handleClick = () => {
-        if (!flag) { //if the button is clicked again to remove the time selected
-          setFlag(true);
+        if (clicked) { //if the button is clicked again to remove the time selected
+          setClicked(false);
           removeSave(dayOfWeek);
         }
         else {
-          setFlag(false);
-          setFlag1(true);
-          setFlag2(true);
-          setFlag3(true);
-          setFlag4(true);
-          setFlag5(true);
+          setButtonsClicked(0);
           setTimes(dayOfWeek, "12");
         }
       };
       const handleClick1 = () => {
-        if (!flag1) { //if the button is clicked again to remove the time selected
-          setFlag1(true);
+        if (clicked1) { //if the button is clicked again to remove the time selected
+          setClicked1(false);
           removeSave(dayOfWeek);
         }
         else {
-          setFlag(true);
-          setFlag1(false);
-          setFlag2(true);
-          setFlag3(true);
-          setFlag4(true);
-          setFlag5(true);
+          setButtonsClicked(1);
           setTimes(dayOfWeek, "13");
         }
       };
       const handleClick2 = () => {
-        if (!flag2) { //if the button is clicked again to remove the time selected
-          setFlag2(true);
+        if (clicked2) { //if the button is clicked again to remove the time selected
+          setClicked2(false);
           removeSave(dayOfWeek);
         }
         else {
-          setFlag(true);
-          setFlag1(true);
-          setFlag2(false);
-          setFlag3(true);
-          setFlag4(true);
-          setFlag5(true);
+          setButtonsClicked(2);
           setTimes(dayOfWeek, "14");
         }
       };
       const handleClick3 = () => {
-        if (!flag3) { //if the button is clicked again to remove the time selected
-          setFlag3(true);
+        if (clicked3) { //if the button is clicked again to remove the time selected
+          setClicked3(false);
           removeSave(dayOfWeek);
         }
         else {
-          setFlag(true);
-          setFlag1(true);
-          setFlag2(true);
-          setFlag3(false);
-          setFlag4(true);
-          setFlag5(true);
+          setButtonsClicked(3);
           setTimes(dayOfWeek, "15");
         }
       };
       const handleClick4 = () => {
-        if (!flag4) { //if the button is clicked again to remove the time selected
-          setFlag4(true);
+        if (clicked4) { //if the button is clicked again to remove the time selected
+          setClicked4(false);
           removeSave(dayOfWeek);
         }
         else {
-          setFlag(true);
-          setFlag1(true);
-          setFlag2(true);
-          setFlag3(true);
-          setFlag4(false);
-          setFlag5(true);
+          setButtonsClicked(4);
           setTimes(dayOfWeek, "16");
         }
       };
       const handleClick5 = () => {
-        if (!flag5) { //if the button is clicked again to remove the time selected
-          setFlag5(true);
+        if (clicked5) { //if the button is clicked again to remove the time selected
+          setClicked5(false);
           removeSave(dayOfWeek);
         }
         else {
-          setFlag(true);
-          setFlag1(true);
-          setFlag2(true);
-          setFlag3(true);
-          setFlag4(true);
-          setFlag5(false);
+          setButtonsClicked(5);
           setTimes(dayOfWeek, "17");
         }
       };
       
-      //initialize the availabilities
     useEffect(() => {
       if (GetTimes(dayOfWeek) != "") {
         switch (GetTimes(dayOfWeek)) {
@@ -278,7 +279,7 @@ const MarkAvailability = () => {
               <Button
                 sx={{ whiteSpace: "nowrap", width: "30%" }}
                 onClick={handleClick}
-                variant={flag ? "outlined" : "contained"}
+                variant={clicked ? "contained" : "outlined"}
               >
                 12 pm
               </Button>
@@ -286,7 +287,7 @@ const MarkAvailability = () => {
               <Button
                 sx={{ whiteSpace: "nowrap", width: "30%", ml: "5%" }}
                 onClick={handleClick1}
-                variant={flag1 ? "outlined" : "contained"}
+                variant={clicked1 ? "contained" : "outlined"}
               >
                 1 pm
               </Button>
@@ -294,7 +295,7 @@ const MarkAvailability = () => {
               <Button
                 sx={{ whiteSpace: "nowrap", width: "30%", ml: "5%" }}
                 onClick={handleClick2}
-                variant={flag2 ? "outlined" : "contained"}
+                variant={clicked2 ? "contained" : "outlined"}
               >
                 2 pm
               </Button>
@@ -304,7 +305,7 @@ const MarkAvailability = () => {
               <Button
                 sx={{ whiteSpace: "nowrap", width: "30%" }}
                 onClick={handleClick3}
-                variant={flag3 ? "outlined" : "contained"}
+                variant={clicked3 ? "contained" : "outlined"}
               >
                 3 pm
               </Button>
@@ -312,7 +313,7 @@ const MarkAvailability = () => {
               <Button
                 sx={{ whiteSpace: "nowrap", width: "30%", ml: "5%" }}
                 onClick={handleClick4}
-                variant={flag4 ? "outlined" : "contained"}
+                variant={clicked4 ? "contained" : "outlined"}
               >
                 4 pm
               </Button>
@@ -320,7 +321,7 @@ const MarkAvailability = () => {
               <Button
                 sx={{ whiteSpace: "nowrap", width: "30%", ml: "5%" }}
                 onClick={handleClick5}
-                variant={flag5 ? "outlined" : "contained"}
+                variant={clicked5 ? "contained" : "outlined"}
               >
                 5 pm
               </Button>
@@ -369,7 +370,7 @@ const MarkAvailability = () => {
     const avails = {
     "availabilities": `[{\"day\":\"monday\",\"time\":\"${saveMonday.current}\"},{\"day\":\"tuesday\",\"time\":\"${saveTuesday.current}\"},{\"day\":\"wednesday\",\"time\":\"${saveWednesday.current}\"},{\"day\":\"thursday\",\"time\":\"${saveThursday.current}\"},{\"day\":\"friday\",\"time\":\"${saveFriday.current}\"},{\"day\":\"saturday\",\"time\":\"${saveSaturday.current}\"},{\"day\":\"sunday\",\"time\":\"${saveSunday.current}\"}]`
     }
-    editVolunteerAvailabilities(1, avails) //todo
+    editVolunteerAvailabilities(volunteerId, avails) //todo
  }
   return (
     <Box className="center1">
@@ -411,4 +412,3 @@ const MarkAvailability = () => {
 };
 
 export default MarkAvailability;
-//todo clicking on a time removes it

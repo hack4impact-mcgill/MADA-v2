@@ -21,14 +21,14 @@ export function NoDeliveries() {
   );
 }
 
-function timelineItems(name: String, time: String, last: Boolean, done: Boolean) {
+function timelineItems(name: String, time: String, done: Boolean) {
     return (
       <TimelineItem
         sx={{ [`& .${timelineItems}:before`]: {flex: 0, padding: 0 },}}// remove padding from the timeline items
       >
         <TimelineSeparator>
           <TimelineDot sx={{ backgroundColor: done ? "#33BE41" : "#ffffff", borderColor: done ? "#33BE41" : "#aaaaaa " }} />
-          {!last && <TimelineConnector />}
+          <TimelineConnector />
         </TimelineSeparator>
 
         <TimelineContent>
@@ -50,7 +50,7 @@ export function DeliveryTimeline() {
   const [deliveryData, setDeliveryData] = useState([]);
   useEffect(() => {
     getOneTask(1).then((res) => { //todo get the correct task ID
-      setDeliveryData(res.task.deliveries.map((delivery: any) => timelineItems(delivery.client.name, delivery.client.address, false, delivery.isCompleted)));
+      setDeliveryData(res.task.deliveries.map((delivery: any) => timelineItems(delivery.client.name, delivery.client.address, delivery.isCompleted)));
       console.log(res.task.deliveries.length)
     });
   }, [])
@@ -61,5 +61,3 @@ export function DeliveryTimeline() {
     </Timeline>
   );
 }
-
-//todo fill circles if delivery done
