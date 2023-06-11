@@ -15,8 +15,8 @@ import { DateProvider } from "./Contexts/Date";
 
 const RouterComponent = () => {
   return (
-    <DateProvider>
-      <BrowserRouter>
+    <BrowserRouter>
+      <DateProvider>
         <Routes>
           <Route path="/today" element={<TodayContainer />} />
           <Route path="/" element={<LoginContainer />} />
@@ -31,8 +31,8 @@ const RouterComponent = () => {
             element={<DeliveryDetails delivery={null} />}
           />
         </Routes>
-      </BrowserRouter>
-    </DateProvider>
+      </DateProvider>
+    </BrowserRouter>
   );
 };
 export default RouterComponent;
