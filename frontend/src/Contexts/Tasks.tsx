@@ -3,10 +3,16 @@ import { createContext, useState, useEffect } from "react";
 import { getAllTasks, getOneVolunteerTasks } from "../services";
 // define interfaces and define Task context provider
 
-// expecting deliveries field to be populatd with MealDeliveryEntity's fields and not just their ids.
-// I am not sure if the "recipient's name" and "address" fields will be in Task entity or MealDelivery Entity, but if "recipient's name" is in Task entity,
-// Deliveries field might not need to be filled with actual fields, as long as there is an api that can query one specific delivery information.
-// recipient's name is needed to display in the my tasks page, but the rest of the fields in MealDelivery entity will be used in Delivery Details page and not in My Tasks page.
+const enum ProgramType {
+  MAP = 'MAP',
+  STS = 'STS'
+}
+
+const enum MealType {
+  VEGETARIAN = 'Vegetarian',
+  NOFISH = 'No Fish',
+  NOMEAT = 'No Meat'
+}
 
 export interface TaskInterface {
   id: number;
@@ -20,8 +26,8 @@ export interface MealDeliveryInterface {
   id: number;
   isCompleted: boolean;
   routePosition: number;
-  mealType: string;
-  program: any;
+  mealType: MealType;
+  program: ProgramType;
   task: any;
   client: any;
 }
