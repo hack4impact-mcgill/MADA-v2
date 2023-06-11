@@ -12,7 +12,7 @@ export const getAllTasks = async () => {
     console.log("inside getAllTasks helper function: fetching all tasks", response.data.tasks);
     return response.data.tasks;
   } catch (e) {
-    throw new Error("Error in Axios get query to /tasks");
+    alert("Error in Axios get query to /tasks. Could not get all tasks.");
   }
 };
 
@@ -23,7 +23,7 @@ export const getOneVolunteerTasks = async () => {
     console.log("inside getOneVolunteerTasks helper function: fetching tasks ", response.data.tasks);
     return response.data.tasks;
   } catch (e) {
-    throw new Error("Error in Axios get query to /tasks/volunteer/:id");
+    alert("Error in Axios get query to /tasks/volunteer/:id. Could not get all tasks for one volunteer.");
   }
 };
 
@@ -32,15 +32,15 @@ export const getOneTask = async (id: number) => {
     const response = await axios.get(`${API_URL}/tasks/${id}`);
     return response.data;
   } catch (e) {
-    throw new Error("Error in Axios get query to /tasks/<id>");
+    alert("Error in Axios get query to /tasks/<id>. Could not get one specific task.");
   }
 };
 
 export const updateTask = async (task: TaskInterface) => {
   try {
-    // throw error if no id field is present in task object
+    // alert error if no id field is present in task object
     if (!task.id) {
-      throw "no id field present in task";
+      alert("no id field present in task");
     }
     // update task with put request
     const response = await axios.put(
@@ -49,7 +49,7 @@ export const updateTask = async (task: TaskInterface) => {
     );
     return response.data;
   } catch (e) {
-    throw new Error("Error in Axios update query to /tasks/<id>");
+    alert("Error in Axios update query to /tasks/<id>. Could not update one task.");
   }
 
 };
@@ -63,15 +63,15 @@ export const createTask = async () => {
     console.log(response.data.task, " yeahhhh");
     return response.data.task;
   } catch (e) {
-    throw new Error("Error in Axios put query to /tasks");
+    alert("Error in Axios put query to /tasks. Could not create a task.");
   }
 };
 
 export const updateMealDelivery = async (mealDelivery: MealDeliveryInterface) => {
   try {
-    // throw error if no id field is present in mealDelivery object
+    // alert error if no id field is present in mealDelivery object
     if (!mealDelivery.id) {
-      throw "no id field present in delivery";
+      alert("no id field present in delivery");
     }
     // update task with put request
     console.log("updating the following mealdelivery: ", mealDelivery);
@@ -82,7 +82,7 @@ export const updateMealDelivery = async (mealDelivery: MealDeliveryInterface) =>
     console.log(response);
     return response.data.mealDelivery;
   } catch (e) {
-    throw new Error("Error in Axios update query to /meal_delivery/<id>");
+    alert("Error in Axios update query to /meal_delivery/<id>. Could not update one meal dealivery.");
   }
 
 };

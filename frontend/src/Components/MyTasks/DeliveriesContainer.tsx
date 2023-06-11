@@ -15,7 +15,6 @@ const DeliveriesContainer = (props: {
 }) => {
   const tasksContext = useContext(TaskContext); // fetchedTasks is an object with tasks array as a field.
   const fetchedTasks = tasksContext?.tasks;
-  // const fetchedTasks = dummyTasks;
   // May 9: Now we assume one task per day, no more, no less. IMPORTANT ASSUMPTION.
 
   // function that formats date to desired form: e.g. 8 Dec 2023
@@ -90,7 +89,6 @@ const DeliveriesContainer = (props: {
 
   return (
     <FormGroup sx={{ mr: "22px", ml: "22px", borderRadius: 3 }}>
-      {/* {use dummy tasks for now} */}
       {filteredDeliveries.map((mealDelivery: MealDeliveryInterface) => {
         return (
           <Delivery
