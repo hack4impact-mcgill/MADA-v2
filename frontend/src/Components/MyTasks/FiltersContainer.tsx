@@ -1,23 +1,19 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Box, Typography } from "@mui/material";
 import TaskDateFilter from "./TaskDateFilter";
 import { TaskCompletionFilter } from "./TaskCompletionFilter";
+import { DateContext } from "../../Contexts/Date";
 
-const FiltersContainer = (props: {
-  updateDateFilter: Function;
-  updateCompletionFilter: Function;
-}) => {
+const FiltersContainer = (props: { updateCompletionFilter: Function }) => {
+  const dateContext = useContext(DateContext);
   // selectedDayOfWeek was supposed to be the first letter of a day according to the design.
   // e.g. M for Monday,  R for Thursday, U for Sunday
   // but first three letters seems to be better. U for Sunday or R for Thursday might be confusing.
-  const [selectedDayOfWeek, setSelectedDayOfWeek] = useState(
-    new Intl.DateTimeFormat("en-US", { weekday: "short" }).format(new Date())
+  const selectedDayOfWeek = new Intl.DateTimeFormat("en-US", {
+    weekday: "short",
+  }).format(
+    new Date(dateContext?.dateFilter ? dateContext.dateFilter : new Date())
   );
-
-  const selectedDayOfWeekUpdateHandler = (date: string) => {
-    setSelectedDayOfWeek(date);
-    console.log("Day of week updated", date);
-  };
 
   return (
     <Box
@@ -54,10 +50,7 @@ const FiltersContainer = (props: {
           {selectedDayOfWeek}
         </Typography>
         {/* pass down updateDateFilterFunction */}
-        <TaskDateFilter
-          updateDateFilter={props.updateDateFilter}
-          updateDayOfWeek={selectedDayOfWeekUpdateHandler}
-        />
+        <TaskDateFilter />
       </Box>
       <TaskCompletionFilter
         updateCompletionFilter={props.updateCompletionFilter}

@@ -6,16 +6,18 @@ import {
   TaskInterface,
   MealDeliveryInterface,
 } from "../../Contexts/Tasks";
+import { DateContext } from "../../Contexts/Date";
 import { TaskCompletionOption } from "./TaskCompletionFilter";
 import { FormGroup } from "@mui/material";
 
 const DeliveriesContainer = (props: {
-  dateFilter: string;
   completionFilter: string;
 }) => {
   const tasksContext = useContext(TaskContext); // fetchedTasks is an object with tasks array as a field.
   const fetchedTasks = tasksContext?.tasks;
   // May 9: Now we assume one task per day, no more, no less. IMPORTANT ASSUMPTION.
+  const dateContext = useContext(DateContext); // fetchedTasks is an object with tasks array as a field.
+  const dateFilter = dateContext?.dateFilter;
 
   // function that formats date to desired form: e.g. 8 Dec 2023
   const formatDate = (date: Date) => {
@@ -49,9 +51,9 @@ const DeliveriesContainer = (props: {
       console.log(
         "date filtering now: ",
         formatDate(new Date(task.date)),
-        props.dateFilter
+        dateFilter
       );
-      if (task.date && formatDate(new Date(task.date)) == props.dateFilter) {
+      if (task.date && formatDate(new Date(task.date)) == dateFilter) {
         oneDayTask = task; // filter the task
         break;
       }

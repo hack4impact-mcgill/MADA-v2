@@ -1,6 +1,6 @@
 import React from "react";
 import { createContext, useState, useEffect } from "react";
-import { getAllTasks, getOneVolunteerTasks } from "../services";
+import { getOneVolunteerTasks } from "../services";
 // define interfaces and define Task context provider
 
 const enum ProgramType {
@@ -47,7 +47,6 @@ export const TaskProvider = (props: { children: React.ReactNode }) => {
   const [tasks, setTasks] = useState<TaskInterface[]>([]);
   const [shouldReFetch, setShouldReFetch] = useState<boolean>(false); // refetches from database when toggled
 
-  // dependency is empty array []. This will make fetch tasks only the first time TaskProvider component renders.
   useEffect(() => {
     const fetchTasks = async () => {
       const tasks = await getOneVolunteerTasks();

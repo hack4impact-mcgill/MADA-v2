@@ -12,8 +12,6 @@ enum TaskCompletionOption {
 }
 
 const TaskCompletionFilter = (props: { updateCompletionFilter: Function }) => {
-  // will use context later on
-  // const {tasks} = React.useContext(TaskContext) as TaskContextType;
   const [taskCompletionType, setTaskCompletionType] = useState(
     TaskCompletionOption.AllDeliveries as string
   );
