@@ -29,13 +29,6 @@ const SingleDayTasksContainer = (props: {
           }}
         >
           <Typography sx={{ mr: 1 }}>client name</Typography>
-          <Typography variant="caption">
-            {"Delivered at " +
-              task.date.toLocaleTimeString([], {
-                hour: "2-digit",
-                minute: "2-digit",
-              })}
-          </Typography>
         </Box>
       ))}
     </Box>

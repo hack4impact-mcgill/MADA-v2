@@ -52,4 +52,4 @@ const TaskCompletionFilter = (props: { updateCompletionFilter: Function }) => {
   );
 };
 
-export default TaskCompletionFilter;
+export {TaskCompletionOption, TaskCompletionFilter}

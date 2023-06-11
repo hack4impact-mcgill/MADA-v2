@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Box, Typography } from "@mui/material";
 import TaskDateFilter from "./TaskDateFilter";
-import TaskCompletionFilter from "./TaskCompletionFilter";
+import { TaskCompletionFilter } from "./TaskCompletionFilter";
 
 const FiltersContainer = (props: {
   updateDateFilter: Function;
