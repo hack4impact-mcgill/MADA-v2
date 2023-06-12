@@ -45,7 +45,7 @@ const DeliveriesContainer = (props: {
 
   // filtering based on date
   if (fetchedTasks) {
-    console.log("in deliveriesContainter ", fetchedTasks); //fetchedTasks.tasks
+    console.log("in deliveriesContainter ", fetchedTasks);
     // we now assume that there is only one task associated to one date.
     for (let task of fetchedTasks) {
       console.log(

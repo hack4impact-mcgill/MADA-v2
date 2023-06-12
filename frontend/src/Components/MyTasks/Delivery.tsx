@@ -20,9 +20,9 @@ const Delivery = (props: {
 
   // Handle delivery checkbox toggle
   // Not only mealDelivery has to be updated, but Task entity that has relationship with it must be updated too!
-  // Also, rigger refetching from database in tasks Context by changing a state in the context.
+  // Also, trigger refetching from database in tasks Context by changing shouldReFetch state in the context.
   const onCheckToggle = async () => {
-    // !props.task.isCompleted will toggle the checkbox state
+    // !props.delivery.isCompleted will toggle the checkbox state
     const updatedDelivery = await updateMealDelivery({
       ...props.delivery,
       isCompleted: !props.delivery.isCompleted,
@@ -62,14 +62,13 @@ const Delivery = (props: {
                 color: "white",
               },
             }}
-            checked={props.delivery.isCompleted} /*onChange*/
+            checked={props.delivery.isCompleted}
             onChange={onCheckToggle}
           />
         }
         label={
           <DeliveryLabel
             isCompleted={props.delivery.isCompleted}
-            // deliveryTime={props.delivery.date}
             name={props.delivery.client.name}
           />
         }

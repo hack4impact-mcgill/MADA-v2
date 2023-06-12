@@ -23,8 +23,7 @@ const TaskDateFilter = () => {
   const dateContext = useContext(DateContext);
   const displayedDate = dateContext?.dateFilter; // uses the current date as default selected date.
 
-  // get 7 upcoming days (including current date) that can be displayed
-  // not sure if there is a better way to get dates for the current day and the next 6 days.
+  // function that gets 7 upcoming days (including current date) that can be displayed
   const getUpcoming7Days = () => {
     const date = new Date(); // date variable is used to get the following 6 days.
     const upcoming7Days = [];
@@ -38,7 +37,7 @@ const TaskDateFilter = () => {
 
   const taskDateChangeHandler = (event: SelectChangeEvent<string>) => {
     console.log("date changed");
-    dateContext?.setDateFilter(event.target.value);
+    dateContext?.setDateFilter(event.target.value); // update date context with new date filter
   };
 
   return (

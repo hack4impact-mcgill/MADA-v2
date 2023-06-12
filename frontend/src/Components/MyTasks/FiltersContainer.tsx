@@ -46,7 +46,7 @@ const FiltersContainer = (props: { updateCompletionFilter: Function }) => {
             marginRight: "3px",
           }}
         >
-          {/* get current day of the week, and display only the first letter. */}
+          {/* get current day of the week, and display only the first three letters. */}
           {selectedDayOfWeek}
         </Typography>
         {/* pass down updateDateFilterFunction */}

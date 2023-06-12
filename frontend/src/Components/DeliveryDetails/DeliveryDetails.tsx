@@ -17,9 +17,7 @@ export default function DeliveryDetails(props: {
 
   return delivery ? (
     <Box>
-      {/* <Box sx={{ position: "fixed" }}> */}
-      <CloseButton></CloseButton>
-      {/* </Box> */}
+      <CloseButton />
       <Box
         sx={{
           justifyContent: "center",
