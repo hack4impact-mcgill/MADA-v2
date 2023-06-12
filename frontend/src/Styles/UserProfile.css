@@ -152,37 +152,6 @@
   color: #000000;
 }
 
-.username {
-  width: 80px;
-  height: 23px;
-  left: 34px;
-  top: 385px;
-
-  font-family: "Poppins", sans-serif;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 15px;
-  line-height: 22px;
-
-  color: #666666;
-}
-
-.usernameInput {
-  box-sizing: border-box;
-  width: 100%;
-  margin: auto;
-  display: flex;
-  height: 36px;
-  border: 1px solid #d8d7d7;
-  border-radius: 10px;
-  font-family: "Poppins", sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 15px;
-  line-height: 22px;
-  margin-bottom: 20px;
-}
-
 .email {
   width: 43px;
   height: 23px;
@@ -195,8 +164,11 @@
   font-size: 15px;
   line-height: 22px;
   /* identical to box height */
+}
 
-  color: #666666;
+.emailCheck {
+  display: flex;
+  flex-direction: row;
 }
 
 .emailInput {
@@ -212,6 +184,7 @@
   font-weight: 400;
   font-size: 15px;
   line-height: 22px;
+  color: #666666;
 }
 
 .checkEmail {
@@ -271,7 +244,6 @@
   font-size: 15px;
   line-height: 22px;
   /* identical to box height */
-  color: #666666;
 }
 
 .number {
@@ -287,35 +259,13 @@
   font-size: 15px;
   line-height: 22px;
   /* identical to box height */
-
-  color: #666666;
+  color: #000000;
 }
 .checkPhoneNumber {
   display: flex;
   padding: 0;
   flex-direction: row;
   width: 100%;
-}
-
-.newNumber {
-  box-sizing: border-box;
-
-  width: 100%;
-  margin: auto;
-  display: flex;
-  height: 36px;
-
-  border: 1px solid #d8d7d7;
-  border-radius: 10px;
-  font-family: "Poppins", sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 15px;
-  line-height: 22px;
-  /* identical to box height */
-
-  color: #666666;
-  margin-top: 10px;
 }
 
 .checkcircleUsername {
@@ -385,4 +335,8 @@
   align-items: center;
   margin: 0px 20px;
   margin-bottom: 50px;
+}
+
+.error {
+  color: red;
 }

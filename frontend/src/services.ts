@@ -1,5 +1,6 @@
 import axios from "axios";
 import { MealDeliveryInterface, TaskInterface } from "./Contexts/Tasks";
+import { VolunteerType } from "./Containers/UserContainer";
 
 // URL to which requests will be sent
 const API_URL = "http://localhost:3001/api";
@@ -85,4 +86,22 @@ export const updateMealDelivery = async (mealDelivery: MealDeliveryInterface) =>
     alert("Error in Axios update query to /meal_delivery/<id>. Could not update one meal dealivery.");
   }
 
+};
+
+export const getVolunteer = async (id: number) => {
+  try {
+    const response = await axios.get(`${API_URL}/volunteers/${id}`);
+    return response.data;
+  } catch (e) {
+    alert(`Error in Axios get query to /volunteers/${id}`);
+  }
+};
+
+export const editVolunteer = async (id: number | undefined, updatedVolunteer: Partial<VolunteerType>) => {
+  try {
+    const response = await axios.put(`${API_URL}/volunteers/${id}/edit`, updatedVolunteer);
+    return response.data.volunteer;
+  } catch (error) {
+    alert(`Error in Axios put to /volunteers/${id}/edit`);
+  }
 };
