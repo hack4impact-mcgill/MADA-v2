@@ -45,9 +45,10 @@ export default class MealDeliveryController {
         : null;
       newMealDelivery.client = request.body.client
         ? await this.ClientRepository.findOneBy({
-          id: request.body.client.id
-        }) : null;
-      
+            id: request.body.client.id
+          })
+        : null;
+
       await this.MealDeliveryRepository.save(newMealDelivery);
       const mealDelivery = await this.MealDeliveryRepository.findOne({
         where: {
@@ -55,7 +56,7 @@ export default class MealDeliveryController {
         },
         relations: {
           task: true,
-          client: true,
+          client: true
         }
       });
       response.status(StatusCode.OK).json({ mealDelivery: mealDelivery });
