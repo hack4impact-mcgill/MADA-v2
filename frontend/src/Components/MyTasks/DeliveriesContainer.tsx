@@ -1,143 +1,23 @@
 import React, { useState } from "react";
+import { useContext } from "react";
 import Delivery from "./Delivery";
-import { TaskInterface } from "../../Contexts/Tasks";
+import {
+  TaskContext,
+  TaskInterface,
+  MealDeliveryInterface,
+} from "../../Contexts/Tasks";
+import { DateContext } from "../../Contexts/Date";
+import { TaskCompletionOption } from "./TaskCompletionFilter";
 import { FormGroup } from "@mui/material";
 
 const DeliveriesContainer = (props: {
-  dateFilter: string;
   completionFilter: string;
 }) => {
-  // will use context later on
-  // const {tasks} = React.useContext(TaskContext) as TaskContextType;
-
-  // use dummy data for now, and use Context when backend apis are ready.
-  // dummyTasks holds tasks for 7 upcomming days including today.
-  // NOTE: The following 7 upcoming days are just there for dummy data. Will be removed when using Context.
-
-  // ------------------------- LINES AFTER THIS WILL BE REMOVED LATER WHEN BACKEND WORKS -----------------------------//
-  const date = new Date(); // date variable is used to get the following 6 days.
-  const day1 = new Date();
-  date.setDate(day1.getDate() + 1);
-  const day2 = new Date(date);
-  date.setDate(day1.getDate() + 2);
-  const day3 = new Date(date);
-  date.setDate(day1.getDate() + 3);
-  const day4 = new Date(date);
-  date.setDate(day1.getDate() + 4);
-  const day5 = new Date(date);
-  date.setDate(day1.getDate() + 5);
-  const day6 = new Date(date);
-  date.setDate(day1.getDate() + 6);
-  const day7 = new Date(date);
-
-  const dummyTasks = [
-    {
-      id: 1,
-      deliveryTime: day1,
-      isCompleted: true,
-      name: "Leopold Bennett",
-      deliveries: [],
-    },
-    {
-      id: 2,
-      deliveryTime: day1,
-      isCompleted: false,
-      name: "Avi Sharp",
-      deliveries: [],
-    },
-    {
-      id: 3,
-      deliveryTime: day1,
-      isCompleted: true,
-      name: "Zahara Lott",
-      deliveries: [],
-    },
-    {
-      id: 4,
-      deliveryTime: day1,
-      isCompleted: true,
-      name: "John Doe",
-      deliveries: [],
-    },
-    {
-      id: 5,
-      deliveryTime: day2,
-      isCompleted: false,
-      name: "Jane Doe",
-      deliveries: [],
-    },
-    {
-      id: 6,
-      deliveryTime: day3,
-      isCompleted: true,
-      name: "Thomas Walker",
-      deliveries: [],
-    },
-    {
-      id: 7,
-      deliveryTime: day3,
-      isCompleted: false,
-      name: "William Maguire",
-      deliveries: [],
-    },
-    {
-      id: 8,
-      deliveryTime: day3,
-      isCompleted: false,
-      name: "Tony McLennan",
-      deliveries: [],
-    },
-    {
-      id: 9,
-      deliveryTime: day4,
-      isCompleted: false,
-      name: "Harry Park",
-      deliveries: [],
-    },
-    {
-      id: 10,
-      deliveryTime: day4,
-      isCompleted: true,
-      name: "Christian D'Silva",
-      deliveries: [],
-    },
-    {
-      id: 11,
-      deliveryTime: day4,
-      isCompleted: false,
-      name: "Joseph Kim",
-      deliveries: [],
-    },
-    {
-      id: 12,
-      deliveryTime: day5,
-      isCompleted: false,
-      name: "Martin Brooks",
-      deliveries: [],
-    },
-    {
-      id: 13,
-      deliveryTime: day6,
-      isCompleted: false,
-      name: "Emmanuel Tan",
-      deliveries: [],
-    },
-    {
-      id: 14,
-      deliveryTime: day7,
-      isCompleted: false,
-      name: "Lionel Ronaldo",
-      deliveries: [],
-    },
-    {
-      id: 15,
-      deliveryTime: day7,
-      isCompleted: false,
-      name: "Stephanie Han",
-      deliveries: [],
-    },
-  ];
-  // ---------------------------------- LINES BEFORE THIS WILL BE REMOVED LATER ON ---------------------------------------//
+  const tasksContext = useContext(TaskContext); // fetchedTasks is an object with tasks array as a field.
+  const fetchedTasks = tasksContext?.tasks;
+  // May 9: Now we assume one task per day, no more, no less. IMPORTANT ASSUMPTION.
+  const dateContext = useContext(DateContext); // fetchedTasks is an object with tasks array as a field.
+  const dateFilter = dateContext?.dateFilter;
 
   // function that formats date to desired form: e.g. 8 Dec 2023
   const formatDate = (date: Date) => {
@@ -148,23 +28,77 @@ const DeliveriesContainer = (props: {
     });
   };
 
-  // filtering logic
-  const dateFilteredTasks = dummyTasks.filter(
-    (task) => formatDate(task.deliveryTime) == props.dateFilter
-  );
-  let filteredTasks = dateFilteredTasks; // ALLTASKS filter
-  if (props.completionFilter === "COMPLETED") {
-    // if filter is set as COMPLETED, apply filter
-    filteredTasks = dateFilteredTasks.filter((task) => task.isCompleted);
-  } else if (props.completionFilter === "UPCOMING") {
-    filteredTasks = dateFilteredTasks.filter((task) => !task.isCompleted);
+  // function passed to sort function to sort deliveries based on routePosition
+  const compareDeliveries = (
+    delivery1: MealDeliveryInterface,
+    delivery2: MealDeliveryInterface
+  ) => {
+    if (delivery1.routePosition < delivery2.routePosition) {
+      return -1;
+    } else if (delivery1.routePosition > delivery2.routePosition) {
+      return 1;
+    }
+    return 0;
+  };
+
+  let oneDayTask: TaskInterface | null = null; // will be selected date's task
+
+  // filtering based on date
+  if (fetchedTasks) {
+    console.log("in deliveriesContainter ", fetchedTasks);
+    // we now assume that there is only one task associated to one date.
+    for (let task of fetchedTasks) {
+      console.log(
+        "date filtering now: ",
+        formatDate(new Date(task.date)),
+        dateFilter
+      );
+      if (task.date && formatDate(new Date(task.date)) == dateFilter) {
+        oneDayTask = task; // filter the task
+        break;
+      }
+    }
   }
+
+  let filteredDeliveries: MealDeliveryInterface[] = [];
+
+  // filtering based on completion
+  if (oneDayTask) {
+    // only if there is a task assigned for the current day
+    filteredDeliveries = oneDayTask.deliveries; // ALLDELIVERIES filter by default
+    if (props.completionFilter === TaskCompletionOption.Completed) {
+      // if filter is set as COMPLETED, apply filter
+      filteredDeliveries = oneDayTask.deliveries.filter(
+        (delivery) => delivery.isCompleted
+      );
+    } else if (props.completionFilter === TaskCompletionOption.Upcoming) {
+      // if filter is set as UPCOMING, apply filter
+      filteredDeliveries = oneDayTask.deliveries.filter(
+        (delivery) => !delivery.isCompleted
+      );
+    }
+  }
+
+  console.log(
+    "filtered deliveries for selected date, without sorting: ",
+    filteredDeliveries
+  );
+
+  // sort deliveries
+  filteredDeliveries.sort(compareDeliveries);
+
+  console.log("sorted deliveries", filteredDeliveries);
 
   return (
     <FormGroup sx={{ mr: "22px", ml: "22px", borderRadius: 3 }}>
-      {/* {use dummy tasks for now} */}
-      {filteredTasks.map((task: TaskInterface) => {
-        return <Delivery task={task} key={task.id} />;
+      {filteredDeliveries.map((mealDelivery: MealDeliveryInterface) => {
+        return (
+          <Delivery
+            task={oneDayTask}
+            delivery={mealDelivery}
+            key={mealDelivery.id}
+          />
+        );
       })}
     </FormGroup>
   );

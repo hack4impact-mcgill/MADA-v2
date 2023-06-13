@@ -8,21 +8,27 @@ const SingleDayTasksContainer = (props: {
   historyTasks: TaskInterface[];
 }) => {
   const filteredTasks = props.historyTasks.filter(
-    (task) => task.deliveryTime.toDateString() === props.date.toDateString()
+    (task) => task.date.toDateString() === props.date.toDateString()
   );
 
   return (
-    <Box sx={{display: "flex", flexDirection: "column"}}>
+    <Box sx={{ display: "flex", flexDirection: "column" }}>
       <HistoryTaskDate date={props.date} />
       {filteredTasks.map((task) => (
-        <Box key={task.id} sx={{ display: "flex", mb: 1, p: 1, bgcolor: "#FFFFFF", border: "1px solid #DFDFDF", borderRadius: 2, flexDirection: "column", justifyContent: "flex-start" }}>
-          <Typography sx={{ mr: 1 }}>{task.name}</Typography>
-          <Typography variant="caption">
-            {"Delivered at " + task.deliveryTime.toLocaleTimeString([], {
-              hour: "2-digit",
-              minute: "2-digit",
-            })}
-          </Typography>
+        <Box
+          key={task.id}
+          sx={{
+            display: "flex",
+            mb: 1,
+            p: 1,
+            bgcolor: "#FFFFFF",
+            border: "1px solid #DFDFDF",
+            borderRadius: 2,
+            flexDirection: "column",
+            justifyContent: "flex-start",
+          }}
+        >
+          <Typography sx={{ mr: 1 }}>client name</Typography>
         </Box>
       ))}
     </Box>
@@ -30,5 +36,3 @@ const SingleDayTasksContainer = (props: {
 };
 
 export default SingleDayTasksContainer;
-
-

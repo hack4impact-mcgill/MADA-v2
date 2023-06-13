@@ -24,9 +24,9 @@ const generateClient = async () => {
   const client = (await generateStaffUser()) as any;
   client.address = faker.address.streetAddress();
   client.mealType = faker.helpers.arrayElement([
-    'vegetarian',
-    'nofish',
-    'nomeat'
+    'Vegetarian',
+    'No Fish',
+    'No Meat'
   ]);
   client.sts = faker.datatype.boolean();
   client.map = !client.sts ? true : faker.datatype.boolean();
