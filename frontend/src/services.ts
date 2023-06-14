@@ -72,7 +72,7 @@ export const createTask = async () => {
 export const login = async (credentials: CredentialInterface) => {
   try {
     const response = await axios.post(
-      `${TASK_API_URL}/volunteer/login/`,
+      `${API_URL}/volunteer/login/`,
       credentials
     );
     return response.data;
@@ -115,10 +115,6 @@ export const editVolunteer = async (
   updatedVolunteer: Partial<VolunteerType>
 ) => {
   try {
-    const response = await axios.put(
-      `${TASK_API_URL}/volunteers/${id}/edit`,
-      updatedVolunteer
-    );
     const response = await axios.put(`${API_URL}/volunteers/${id}/edit`, updatedVolunteer);
     return response.data.volunteer;
   } catch (error) {

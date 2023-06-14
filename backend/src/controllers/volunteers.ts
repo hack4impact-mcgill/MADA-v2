@@ -75,8 +75,7 @@ export default class VolunteerController {
       where: { email: email }
     });
 
-    // if (volunteer && (await bcrypt.compare(password, volunteer.password))) { // bad login info
-    if (volunteer && password === volunteer.password) {
+    if (volunteer && (await bcrypt.compare(password, volunteer.password))) { // bad login info
       const token = jwt.sign(
         volunteer.id.toString(),
         process.env.JWT_PRIVATE_KEY

@@ -22,7 +22,6 @@ const RouterComponent = () => {
           <Route path="/volunteer/login" element={<LoginContainer />} />
           <Route path="/password" element={<ForgotPasswordContainer />} />
           <Route path="/" element={<LoginContainer />} />
-          <Route path="/password" element={<ForgotPasswordContainer />} />
           <Route
             path="/volunteers/:id/edit"
             element={<UserProfileContainer />}
