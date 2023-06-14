@@ -16,6 +16,7 @@ const generateVolunteer = async () => {
   volunteer.startDate = faker.date.past(2);
   volunteer.profilePicture = faker.internet.avatar();
   volunteer.availabilities = generateAvailabilities();
+  volunteer.availabilitiesLastUpdated = faker.date.recent(15);
   return volunteer;
 };
 
@@ -24,9 +25,7 @@ const generateAvailabilities = () => {
   for (let i = 0; i < 7; i++) {
     availabilities.availabilities.push({
       day: indexedDayOfWeek[i],
-      time: indexedTimeSlots[
-        faker.random.numeric(1, { bannedDigits: ['5', '6', '7', '8', '9'] })
-      ]
+      time: 1 + faker.random.numeric(1, { bannedDigits: ['1', '8', '9'] })
     });
   }
   return JSON.stringify(availabilities.availabilities);

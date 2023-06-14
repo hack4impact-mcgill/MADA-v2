@@ -50,7 +50,7 @@ export const indexedTimeSlots: { [index: number]: TimeSlots } = {
 
 export interface Availability {
   day: DayOfWeek;
-  time: TimeSlots;
+  time: string;
 }
 
 export interface Availabilities {
@@ -67,6 +67,9 @@ export class VolunteerEntity extends UserEntity {
 
   @Column()
   availabilities: string;
+
+  @Column()
+  availabilitiesLastUpdated: Date;
 
   @OneToMany(() => TaskEntity, (task) => task.volunteer, {
     cascade: true

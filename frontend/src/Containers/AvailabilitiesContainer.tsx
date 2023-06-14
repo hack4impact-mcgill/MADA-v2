@@ -11,7 +11,7 @@ import {
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import "../Styles/Availabilities.css";
 import { useNavigate } from "react-router-dom";
-import { editVolunteerAvailabilities, getOneVolunteer } from "../services";
+import { editVolunteerAvailabilities, getOneVolunteer, editAvailabilitiesLastUpdated } from "../services";
 import { Availability, TimeSlots, DayOfWeek } from "../Contexts/Volunteer";
 
 type TimePickerAccordionProps = {
@@ -370,7 +370,11 @@ const MarkAvailability = () => {
     const avails = {
     "availabilities": `[{\"day\":\"monday\",\"time\":\"${saveMonday.current}\"},{\"day\":\"tuesday\",\"time\":\"${saveTuesday.current}\"},{\"day\":\"wednesday\",\"time\":\"${saveWednesday.current}\"},{\"day\":\"thursday\",\"time\":\"${saveThursday.current}\"},{\"day\":\"friday\",\"time\":\"${saveFriday.current}\"},{\"day\":\"saturday\",\"time\":\"${saveSaturday.current}\"},{\"day\":\"sunday\",\"time\":\"${saveSunday.current}\"}]`
     }
+    const date = {
+      "availabilitiesLastUpdated": new Date()
+    }
     editVolunteerAvailabilities(volunteerId, avails) //todo
+    editAvailabilitiesLastUpdated(volunteerId, date)
  }
   return (
     <Box className="center1">
