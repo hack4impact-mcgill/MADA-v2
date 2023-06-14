@@ -1,29 +1,41 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import { Box, FormControlLabel, Checkbox, Typography } from "@mui/material";
 import DeliveryLabel from "./DeliveryLabel";
 import {
   TaskContext,
   TaskContextType,
   TaskInterface,
+  MealDeliveryInterface,
 } from "../../Contexts/Tasks";
-import { updateTask } from "../../services";
+import { updateMealDelivery, updateTask } from "../../services";
 import { MdOutlineArrowForwardIos } from "react-icons/md";
 import { IoIosArrowForward } from "react-icons/io";
 import { Link } from "react-router-dom";
 
-const Delivery = (props: { task: TaskInterface }) => {
-  // const { tasks, setTasks } = React.useContext(TaskContext) as TaskContextType;
+const Delivery = (props: {
+  task: TaskInterface | null;
+  delivery: MealDeliveryInterface;
+}) => {
+  const tasksContext = useContext(TaskContext);
 
-  // // handle delivery checkbox toggle
-  // const onCheckToggle = async () => {
-  //   // !props.task.isCompleted will toggle the checkbox state
-  //   const {updatedTask} = await updateTask({...props.task, isCompleted: !props.task.isCompleted} as TaskInterface);
-
-  //   // instead of fetching the whole updated tasks to set context, set context just by changing the only updated task
-  //   const taskIndex = tasks.findIndex(task => task.id === props.task.id)
-  //   const updatedTasks = [...tasks.slice(0, taskIndex), updatedTask, ...tasks.slice(taskIndex + 1)];
-  //   setTasks(updatedTasks); // update context
-  // }
+  // Handle delivery checkbox toggle
+  // Not only mealDelivery has to be updated, but Task entity that has relationship with it must be updated too!
+  // Also, trigger refetching from database in tasks Context by changing shouldReFetch state in the context.
+  const onCheckToggle = async () => {
+    // !props.delivery.isCompleted will toggle the checkbox state
+    const updatedDelivery = await updateMealDelivery({
+      ...props.delivery,
+      isCompleted: !props.delivery.isCompleted,
+    } as MealDeliveryInterface);
+    console.log("updated isCompleted in delivery: ", updatedDelivery);
+    const updatedTask = await updateTask({
+      ...props.task,
+      delivery: updatedDelivery,
+    } as TaskInterface);
+    console.log("updated Task as well as delivery! ", updatedTask);
+    // toggle shouldReFetch state to trigger rerendering of tasks Context, so that refetching happens from database.
+    tasksContext?.setShouldReFetch(!tasksContext.shouldReFetch);
+  };
 
   return (
     <Box
@@ -32,8 +44,8 @@ const Delivery = (props: { task: TaskInterface }) => {
         justifyContent: "space-between",
         alignItems: "center",
         fontFamily: "Poppins",
-        bgcolor: !props.task.isCompleted ? "#FFFFFF" : "#DFDFDF",
-        opacity: !props.task.isCompleted ? 1 : 0.7,
+        bgcolor: !props.delivery.isCompleted ? "#FFFFFF" : "#DFDFDF",
+        opacity: !props.delivery.isCompleted ? 1 : 0.7,
         height: 99,
         width: "100%",
         mb: 1,
@@ -50,25 +62,23 @@ const Delivery = (props: { task: TaskInterface }) => {
                 color: "white",
               },
             }}
-            checked={props.task.isCompleted} /*onChange*/
+            checked={props.delivery.isCompleted}
+            onChange={onCheckToggle}
           />
         }
         label={
           <DeliveryLabel
-            isCompleted={props.task.isCompleted}
-            deliveryTime={props.task.deliveryTime}
-            name={props.task.name} // name should be passed???
+            isCompleted={props.delivery.isCompleted}
+            name={props.delivery.client.name}
           />
         }
       />
-      {/* <MdOutlineArrowForwardIos size="30" style={{ marginRight: 20 }}></MdOutlineArrowForwardIos> */}
-      <Link to="/delivery-details" state={{ task: props.task }}>
+      <Link to="/delivery-details" state={{ delivery: props.delivery }}>
         <IoIosArrowForward
           size="35"
           style={{ marginRight: 20 }}
         ></IoIosArrowForward>
       </Link>
-      {/* </Link> */}
     </Box>
   );
 };
