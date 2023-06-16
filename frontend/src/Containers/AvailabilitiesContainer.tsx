@@ -20,7 +20,7 @@ type TimePickerAccordionProps = {
 
 const MarkAvailability = () => {
   const navigate = useNavigate();
-  let volunteerId = 1; //todo
+  let volunteerId = 5; //todo
   const daysOfWeek = [
     "Monday",
     "Tuesday",
@@ -31,17 +31,17 @@ const MarkAvailability = () => {
     "Sunday",
   ];
 
-  //use these refs to keep track of which times have been selected without having to 
+  //use these refs to keep track of which times have been selected without having to
   //rerender each time a time is selected
   const saveMonday = useRef<string>("");
-  const saveTuesday= useRef<string>("");
-  const saveWednesday= useRef<string>("");
+  const saveTuesday = useRef<string>("");
+  const saveWednesday = useRef<string>("");
   const saveThursday = useRef<string>("");
   const saveFriday = useRef<string>("");
   const saveSaturday = useRef<string>("");
   const saveSunday = useRef<string>("");
-  
-  //if the user clicks on a time that is already selected, 
+
+  //if the user clicks on a time that is already selected,
   //it removes the selection
   function removeSave(dayOfWeek: string) {
     switch (dayOfWeek) {
@@ -68,10 +68,9 @@ const MarkAvailability = () => {
         break;
     }
   }
-  
+
   // pass in day of week as prop, containing the accordion associated to that day
   const TimePickerAccordion = ({ dayOfWeek }: TimePickerAccordionProps) => {
-    
     const [monday, setMonday] = useState<string>();
     const [tuesday, setTuesday] = useState<string>();
     const [wednesday, setWednesday] = useState<string>();
@@ -79,7 +78,7 @@ const MarkAvailability = () => {
     const [friday, setFriday] = useState<string>();
     const [saturday, setSaturday] = useState<string>();
     const [sunday, setSunday] = useState<string>();
-   
+
     function setTimes(dayOfWeek: string, time: string) {
       switch (dayOfWeek) {
         case "Monday":
@@ -136,7 +135,8 @@ const MarkAvailability = () => {
 
     //Get the current saved availabilities when the page loads
     useEffect(() => {
-      getOneVolunteer(volunteerId).then((res) => { //todo get the correct volunteer ID
+      getOneVolunteer(volunteerId).then((res) => {
+        //todo get the correct volunteer ID
         setMonday(JSON.parse(res.volunteer.availabilities)[0].time);
         setTuesday(JSON.parse(res.volunteer.availabilities)[1].time);
         setWednesday(JSON.parse(res.volunteer.availabilities)[2].time);
@@ -145,10 +145,9 @@ const MarkAvailability = () => {
         setSaturday(JSON.parse(res.volunteer.availabilities)[5].time);
         setSunday(JSON.parse(res.volunteer.availabilities)[6].time);
       });
-    }, []); 
+    }, []);
 
     const TimeSelect = () => {
-       
       const [clicked, setClicked] = React.useState(false);
       const [clicked1, setClicked1] = React.useState(false);
       const [clicked2, setClicked2] = React.useState(false);
@@ -165,7 +164,7 @@ const MarkAvailability = () => {
         setClicked5(false);
         switch (buttonNumber) {
           case 0:
-            setClicked(true)
+            setClicked(true);
             break;
           case 1:
             setClicked1(true);
@@ -185,92 +184,92 @@ const MarkAvailability = () => {
         }
       }
       const handleClick = () => {
-        if (clicked) { //if the button is clicked again to remove the time selected
+        if (clicked) {
+          //if the button is clicked again to remove the time selected
           setClicked(false);
           removeSave(dayOfWeek);
-        }
-        else {
+        } else {
           setButtonsClicked(0);
           setTimes(dayOfWeek, "12");
         }
       };
       const handleClick1 = () => {
-        if (clicked1) { //if the button is clicked again to remove the time selected
+        if (clicked1) {
+          //if the button is clicked again to remove the time selected
           setClicked1(false);
           removeSave(dayOfWeek);
-        }
-        else {
+        } else {
           setButtonsClicked(1);
           setTimes(dayOfWeek, "13");
         }
       };
       const handleClick2 = () => {
-        if (clicked2) { //if the button is clicked again to remove the time selected
+        if (clicked2) {
+          //if the button is clicked again to remove the time selected
           setClicked2(false);
           removeSave(dayOfWeek);
-        }
-        else {
+        } else {
           setButtonsClicked(2);
           setTimes(dayOfWeek, "14");
         }
       };
       const handleClick3 = () => {
-        if (clicked3) { //if the button is clicked again to remove the time selected
+        if (clicked3) {
+          //if the button is clicked again to remove the time selected
           setClicked3(false);
           removeSave(dayOfWeek);
-        }
-        else {
+        } else {
           setButtonsClicked(3);
           setTimes(dayOfWeek, "15");
         }
       };
       const handleClick4 = () => {
-        if (clicked4) { //if the button is clicked again to remove the time selected
+        if (clicked4) {
+          //if the button is clicked again to remove the time selected
           setClicked4(false);
           removeSave(dayOfWeek);
-        }
-        else {
+        } else {
           setButtonsClicked(4);
           setTimes(dayOfWeek, "16");
         }
       };
       const handleClick5 = () => {
-        if (clicked5) { //if the button is clicked again to remove the time selected
+        if (clicked5) {
+          //if the button is clicked again to remove the time selected
           setClicked5(false);
           removeSave(dayOfWeek);
-        }
-        else {
+        } else {
           setButtonsClicked(5);
           setTimes(dayOfWeek, "17");
         }
       };
-      
-    useEffect(() => {
-      if (GetTimes(dayOfWeek) != "") {
-        switch (GetTimes(dayOfWeek)) {
-          case "12":
-            handleClick()
-            break;
-          case "13":
-            handleClick1()
-            break;
-          case "14":
-            handleClick2()
-            break;
-          case "15":
-            handleClick3()
-            break;
-          case "16":
-            handleClick4()
-            break;
-          case "17":
-            handleClick5()
-            break;
-          default:
-            break;
+
+      useEffect(() => {
+        if (GetTimes(dayOfWeek) != "") {
+          switch (GetTimes(dayOfWeek)) {
+            case "12":
+              handleClick();
+              break;
+            case "13":
+              handleClick1();
+              break;
+            case "14":
+              handleClick2();
+              break;
+            case "15":
+              handleClick3();
+              break;
+            case "16":
+              handleClick4();
+              break;
+            case "17":
+              handleClick5();
+              break;
+            default:
+              break;
+          }
         }
-      }
-    }, []);
+      }, []);
 
       return (
         <LocalizationProvider>
@@ -332,9 +331,7 @@ const MarkAvailability = () => {
     };
 
     return (
-      <Accordion
-        expanded={true}
-      >
+      <Accordion expanded={true}>
         <Box
           sx={{
             display: "flex",
@@ -365,13 +362,13 @@ const MarkAvailability = () => {
       </Accordion>
     );
   };
-  
+
   const save = () => {
     const avails = {
-    "availabilities": `[{\"day\":\"monday\",\"time\":\"${saveMonday.current}\"},{\"day\":\"tuesday\",\"time\":\"${saveTuesday.current}\"},{\"day\":\"wednesday\",\"time\":\"${saveWednesday.current}\"},{\"day\":\"thursday\",\"time\":\"${saveThursday.current}\"},{\"day\":\"friday\",\"time\":\"${saveFriday.current}\"},{\"day\":\"saturday\",\"time\":\"${saveSaturday.current}\"},{\"day\":\"sunday\",\"time\":\"${saveSunday.current}\"}]`
-    }
-    editVolunteerAvailabilities(volunteerId, avails) //todo
- }
+      availabilities: `[{\"day\":\"monday\",\"time\":\"${saveMonday.current}\"},{\"day\":\"tuesday\",\"time\":\"${saveTuesday.current}\"},{\"day\":\"wednesday\",\"time\":\"${saveWednesday.current}\"},{\"day\":\"thursday\",\"time\":\"${saveThursday.current}\"},{\"day\":\"friday\",\"time\":\"${saveFriday.current}\"},{\"day\":\"saturday\",\"time\":\"${saveSaturday.current}\"},{\"day\":\"sunday\",\"time\":\"${saveSunday.current}\"}]`,
+    };
+    editVolunteerAvailabilities(volunteerId, avails); //todo
+  };
   return (
     <Box className="center1">
       <Typography
@@ -393,7 +390,7 @@ const MarkAvailability = () => {
           return <TimePickerAccordion dayOfWeek={day} />;
         })}
       </LocalizationProvider>
-      
+
       <Box display="flex" justifyContent="center" mt="10%">
         <Button
           sx={{

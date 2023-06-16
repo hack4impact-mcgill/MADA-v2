@@ -29,6 +29,7 @@ export interface MealDeliveryInterface {
   task: TaskInterface;
   client: ClientInterface;
   isCompleted: boolean;
+  routePosition: number;
 }
 
 export interface ClientInterface {

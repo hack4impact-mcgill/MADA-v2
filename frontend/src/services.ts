@@ -133,7 +133,7 @@ export const editVolunteer = async (
 
 export const getOneVolunteer = async (id: number) => {
   try {
-    const response = await axios.get(`${TASK_API_URL}/volunteers/${id}`);
+    const response = await axios.get(`${API_URL}/volunteers/${id}`);
     return response.data;
   } catch (e) {
     throw new Error("Error in Axios get query to /volunteers/<id>");
@@ -146,7 +146,7 @@ export const editVolunteerAvailabilities = async (
 ) => {
   try {
     const response = await axios.put(
-      `${TASK_API_URL}/volunteers/${id}/edit`,
+      `${API_URL}/volunteers/${id}/edit`,
       availabilities
     );
     return response.data;
@@ -157,7 +157,7 @@ export const editVolunteerAvailabilities = async (
 
 export const getVolunteerTasks = async (id: number) => {
   try {
-    const response = await axios.get(`${TASK_API_URL}/volunteers/${id}/tasks`);
+    const response = await axios.get(`${API_URL}/volunteers/${id}/tasks`);
     return response.data;
   } catch (e) {
     throw new Error("Error in Axios get query to /volunteers/<id>/tasks");

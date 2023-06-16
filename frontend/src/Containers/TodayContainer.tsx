@@ -8,17 +8,17 @@ import { getVolunteerTasks } from "../services";
 import { useState, useEffect } from "react";
 
 const TodayContainer = () => {
-  let volunteerId = 1;
+  let volunteerId = 5;
 
   const [noDeliveries, setNoDeliveries] = useState(false);
 
-  //if there isn't a task assigned to this volunteer for today  
+  //if there isn't a task assigned to this volunteer for today
   useEffect(() => {
     //todo get the volunteer task and check for today's date
-    getVolunteerTasks(volunteerId).then((res) => { 
-      setNoDeliveries(res.tasks.length === 0); 
+    getVolunteerTasks(volunteerId).then((res) => {
+      setNoDeliveries(res.tasks.length === 0);
     });
-  }, [])
+  }, []);
 
   const handleClick = async () => {
     window.location.href = "/tasks";
@@ -35,7 +35,6 @@ const TodayContainer = () => {
           >
             Welcome back!
           </Typography>
-         
           <Typography
             sx={{
               font: "Poppins",
@@ -46,8 +45,7 @@ const TodayContainer = () => {
           >
             Today's Deliveries
           </Typography>
-          {!noDeliveries && 
-          <DeliveryTimeline />}{" "}
+          {!noDeliveries && <DeliveryTimeline />}{" "}
         </Box>
       </Box>
       {noDeliveries && <NoDeliveries />}{" "}
