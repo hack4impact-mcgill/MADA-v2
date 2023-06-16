@@ -62,6 +62,7 @@ export default class MealDeliveryController {
       response.status(StatusCode.OK).json({ mealDelivery: mealDelivery });
     } else {
       await this.MealDeliveryRepository.save({
+        // edited to work with newly adopted entities
         id: parseInt(request.params.id),
         isCompleted: request.body.isCompleted,
         routePosition: request.body.routePosition,

@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, Button } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const HistoryButton = () => {
   return (
@@ -14,12 +15,8 @@ const HistoryButton = () => {
         color: "#666666",
         fontSize: 10,
       }}
-      onClick={() => {
-        // redirect to History page when button clicked
-        window.location.href = "/history";
-      }}
     >
-      View History
+      <Link to="/history" style={{ color: 'inherit', textDecoration: 'inherit'}}>View History</Link>
     </Button>
   );
 };

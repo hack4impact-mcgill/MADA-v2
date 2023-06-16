@@ -1,18 +1,18 @@
-
 .header {
-    display: flex; 
-    justify-content: flex-end;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .help-button {
-    background: #2E5CD3;
-    border: 1px solid #3A71FF;
-    box-shadow: 3px 6px 10px rgba(0, 0, 0, 0.25);
-    border-radius: 10px;
-    color: #FFFFFF;
-    position: absolute;
-    width: 67px;
-    height: 29px;
-    margin-top: 34px; 
-    margin-right: 32px;
+  background: #2e5cd3;
+  border: 1px solid #3a71ff;
+  box-shadow: 3px 6px 10px rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  color: #ffffff;
+  position: absolute;
+  width: 67px;
+  height: 29px;
+  margin-top: 34px;
+  z-index: 5;
+  margin-right: 32px;
 }
