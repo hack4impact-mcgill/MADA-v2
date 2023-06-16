@@ -31,7 +31,7 @@ export const generateTask = async (
 ) => {
   const task = new TaskEntity();
   task.isCompleted = false;
-  task.date = faker.date.future(0.1);
+  task.date = faker.date.future(0.01);
   const repository = dataSource.getRepository(TaskEntity);
   await repository.insert(task);
   await dataSource
@@ -71,7 +71,11 @@ export default class ClientSeeder implements Seeder {
     const volunteers = await volunteerRepo.find();
     volunteers?.forEach(async (volunteer) => {
       const task = await generateTask(dataSource, volunteer);
+      const task2 = await generateTask(dataSource, volunteer);
+      const task3 = await generateTask(dataSource, volunteer);
       await repository.insert(task);
+      await repository.insert(task2);
+      await repository.insert(task3);
     });
   }
 }

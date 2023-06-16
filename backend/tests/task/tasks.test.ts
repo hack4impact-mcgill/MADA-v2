@@ -81,23 +81,23 @@ describe('Tasks tests', () => {
     });
   });
 
-// Will be replaced with create task from route
-//   it('should create a task', async () => {
-//     const date: Date = new Date('April 20, 2001 04:20:00');
-//     const res = await request(app).put(`/api/tasks`).send({
-//       date: date.toISOString(),
-//       isCompleted: false,
-//     });
-//     expect(res.statusCode).toBe(StatusCode.OK);
-//     expect(res.body).toEqual({
-//       task: {
-//         id: expect.any(Number),
-//         date: date.toISOString(),
-//         isCompleted: false,
-//         deliveries: []
-//       }
-//     });
-//   });
+  // Will be replaced with create task from route
+  //   it('should create a task', async () => {
+  //     const date: Date = new Date('April 20, 2001 04:20:00');
+  //     const res = await request(app).put(`/api/tasks`).send({
+  //       date: date.toISOString(),
+  //       isCompleted: false,
+  //     });
+  //     expect(res.statusCode).toBe(StatusCode.OK);
+  //     expect(res.body).toEqual({
+  //       task: {
+  //         id: expect.any(Number),
+  //         date: date.toISOString(),
+  //         isCompleted: false,
+  //         deliveries: []
+  //       }
+  //     });
+  //   });
 
   it('should delete task', async () => {
     await DataSourceHelper.clearDataSource();
