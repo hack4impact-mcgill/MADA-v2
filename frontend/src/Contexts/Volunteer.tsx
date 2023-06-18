@@ -1,3 +1,5 @@
+import React from "react";
+
 export enum DayOfWeek {
   MONDAY = "monday",
   TUESDAY = "tuesday",
@@ -33,3 +35,7 @@ export interface Volunteer {
   phone: string;
   availabilities: Availabilities;
 }
+
+const userContext = React.createContext({ user: {} });
+
+export { userContext };

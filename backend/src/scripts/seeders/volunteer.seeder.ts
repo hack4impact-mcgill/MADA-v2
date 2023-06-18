@@ -13,18 +13,18 @@ import { generateStaffUser } from './user';
 import * as bcrypt from 'bcryptjs';
 
 const DEFAULT_VOLUNTEER = {
-    password: process.env.TEST_VOLUNTEER_PASSWORD,
-    email: process.env.TEST_VOLUNTEER_EMAIL,
-  };
-  
+  password: process.env.TEST_VOLUNTEER_PASSWORD,
+  email: process.env.TEST_VOLUNTEER_EMAIL
+};
+
 const generateDefaultVolunteer = async () => {
-    const volunteer = (await generateStaffUser()) as any;
-    volunteer.password = await bcrypt.hash(DEFAULT_VOLUNTEER.password, 10);
-    volunteer.email = DEFAULT_VOLUNTEER.email;
-    volunteer.startDate = faker.date.past(2);
-    volunteer.profilePicture = faker.internet.avatar();
-    volunteer.availabilities = generateAvailabilities();
-    return volunteer;
+  const volunteer = (await generateStaffUser()) as any;
+  volunteer.password = await bcrypt.hash(DEFAULT_VOLUNTEER.password, 10);
+  volunteer.email = DEFAULT_VOLUNTEER.email;
+  volunteer.startDate = faker.date.past(2);
+  volunteer.profilePicture = faker.internet.avatar();
+  volunteer.availabilities = generateAvailabilities();
+  return volunteer;
 };
 
 const generateVolunteer = async () => {

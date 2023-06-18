@@ -53,22 +53,18 @@ const LogInForm = () => {
   async function handleClickLogIn() {
     //Prevent page reload
     // e.preventDefault();
-    console.log("sign in");
-    console.log(username);
-    console.log(password);
 
     // console.log(rememberMe);
     //TODO backend
     const response = await login({ email: username, password: password });
-    console.log(response);
 
     // parse response
     if (response.user) {
-      console.log(response.user.id);
-      dispatch({
-        type: "setUserId",
-        payload: response.user.id,
-      });
+      if (rememberMe) {
+        localStorage.setItem("userId", response.user.id);
+      } else {
+        localStorage.clear();
+      }
       window.location.href = "/today";
     } else {
       alert("Incorrect username or password. Please try again.");

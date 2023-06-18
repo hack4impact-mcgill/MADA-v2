@@ -19,14 +19,10 @@ const RouterComponent = () => {
       <DateProvider>
         <Routes>
           <Route path="/today" element={<TodayContainer />} />
-          <Route path="/volunteer/login" element={<LoginContainer />} />
           <Route path="/password" element={<ForgotPasswordContainer />} />
           <Route path="/" element={<LoginContainer />} />
-          <Route
-            path="/volunteers/:id/edit"
-            element={<UserProfileContainer />}
-          />
-          <Route path="/volunteers/:id" element={<UserContainer />} />
+          <Route path="/profile/edit" element={<UserProfileContainer />} />
+          <Route path="/profile/" element={<UserContainer />} />
           <Route path="/history" element={<HistoryContainer />} />
           <Route path="/tasks" element={<TasksContainer />} />
           <Route path="/availabilities" element={<AvailabilitiesContainer />} />
