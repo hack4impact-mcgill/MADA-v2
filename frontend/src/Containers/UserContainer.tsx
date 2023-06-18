@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../Styles/User.css";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import { getVolunteer } from "../services";
 import { getCurrentUserId } from "../helper";
@@ -104,6 +104,15 @@ const User = () => {
           <label className="phoneNumber">Primary Phone Number: </label>
           <span className="phoneNumberValue">{volunteer.phoneNumber}</span>
         </Box>
+        <Button
+          onClick={() => {
+            window.location.href = "/";
+            localStorage.clear();
+            sessionStorage.clear();
+          }}
+        >
+          Log out
+        </Button>
       </Box>
     </Box>
   );

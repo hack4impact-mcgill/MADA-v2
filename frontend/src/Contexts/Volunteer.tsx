@@ -35,7 +35,3 @@ export interface Volunteer {
   phone: string;
   availabilities: Availabilities;
 }
-
-const userContext = React.createContext({ user: {} });
-
-export { userContext };

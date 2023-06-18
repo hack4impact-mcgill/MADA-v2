@@ -2,7 +2,7 @@ import { Volunteer } from "./Contexts/Volunteer";
 
 export function getCurrentUserId(): string | null | undefined {
   try {
-    const user = localStorage.getItem("userId");
+    const user = sessionStorage.getItem("userId");
     if (!user) {
       window.location.href = "/";
       return null;

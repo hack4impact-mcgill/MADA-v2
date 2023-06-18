@@ -13,7 +13,7 @@ export default function App() {
     if (userId && window.location.pathname === "/") {
       window.location.href = "/today"; // Redirect to "/today" if user is logged in
     }
-  }, []);
+  });
 
   return (
     <Box className="app">

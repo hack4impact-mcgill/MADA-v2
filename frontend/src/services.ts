@@ -2,10 +2,11 @@ import axios from "axios";
 import { CredentialInterface } from "./Components/LogIn/Main/LogInForm";
 import { MealDeliveryInterface, TaskInterface } from "./Contexts/Tasks";
 import { VolunteerType } from "./Containers/UserContainer";
+import { getCurrentUserId } from "./helper";
 
 // URL to which requests will be sent
 const API_URL = "http://localhost:3001/api";
-const VOLUNTEER_ID = localStorage.getItem("userId"); // will need to be replaced with actual logged in volunteer's id.
+const VOLUNTEER_ID = getCurrentUserId(); // will need to be replaced with actual logged in volunteer's id.
 
 export const getAllTasks = async () => {
   try {

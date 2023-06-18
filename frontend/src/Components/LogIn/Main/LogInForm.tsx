@@ -65,6 +65,7 @@ const LogInForm = () => {
       } else {
         localStorage.clear();
       }
+      sessionStorage.setItem("userId", response.user.id);
       window.location.href = "/today";
     } else {
       alert("Incorrect username or password. Please try again.");
