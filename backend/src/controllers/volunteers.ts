@@ -5,6 +5,11 @@ import { VolunteerEntity } from '../entities/VolunteerEntity';
 import { StatusCode } from './statusCode';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
+import { ResetTokenEntity } from '../entities/ResetTokenEntity';
+const crypto = require("crypto");
+import { sendEmail } from '../utils/sendEmail';
+
+const URL = "http://localhost:3000"
 
 export default class VolunteerController {
   private VolunteerRepository = AppDataSource.getRepository(VolunteerEntity);
@@ -84,5 +89,40 @@ export default class VolunteerController {
       return res.status(200).json({ token: token, user: volunteer });
     }
     return res.status(400).json({ error: 'bad login informations' });
+  };
+
+  requestPasswordReset = async (req: Request, res: Response) => {
+    const { email }: { email: string } = req.body;
+    const volunteerRepo = AppDataSource.getRepository(VolunteerEntity);
+    const volunteer: VolunteerEntity = await volunteerRepo.findOne({
+      where: { email: email }
+    });
+
+    if (!volunteer) throw new Error("Email does not exist");
+    
+    const resetTokenRepo = AppDataSource.getRepository(ResetTokenEntity);
+    let foundToken = await resetTokenRepo.findOne({ where: {userId: volunteer.id} });
+    if (foundToken) await resetTokenRepo.remove(foundToken);
+
+    let resetToken = crypto.randomBytes(32).toString("hex");
+    const hash = await bcrypt.hash(resetToken, 10); // 10 is arbitrary
+
+    const newToken = await resetTokenRepo.save({
+      userId: volunteer.id,
+      token: hash,
+    });
+
+    const link = `${URL}/passwordReset?token=${resetToken}&id=${volunteer.id}`;
+
+    sendEmail(
+      "sophearah.suy-puth@mail.mcgill.ca",
+      "Password Reset Request",
+      {
+        name: volunteer.name,
+        link: link,
+      },
+      "./template/requestResetPassword.handlebars"
+    );
+    return { link };
   };
 }
