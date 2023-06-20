@@ -1,4 +1,4 @@
-import { TaskInterface } from "./Tasks";
+import React from "react";
 
 export enum DayOfWeek {
   MONDAY = "monday",
