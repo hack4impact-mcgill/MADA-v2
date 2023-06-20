@@ -17,7 +17,7 @@ const SingleDayTasksContainer = (props: {
       <HistoryTaskDate date={props.date} />
       {props.historyTasks.map((task) => (
         <Box key={task.id} sx={{ display: "flex", mb: 1, p: 1, bgcolor: "#FFFFFF", border: "1px solid #DFDFDF", borderRadius: 2, flexDirection: "column", justifyContent: "flex-start" }}>
-           <Typography sx={{ mr: 1 }}>{task.id}</Typography>  {/*USING ID FOR NOW */}
+           <Typography sx={{ mr: 1 }}>{task.volunteer ? task.volunteer.name : task.id}</Typography>  {/*USING ID FOR NOW */}
           <Typography variant="caption">
             {"Delivered at " + new Date(task.date).toLocaleTimeString()} 
           </Typography>

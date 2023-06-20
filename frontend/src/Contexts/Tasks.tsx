@@ -1,5 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import { getAllTasks } from "../services";
+import { Volunteer } from "./Volunteer";
 // define interfaces and define Task context provider
 
 // expecting deliveries field to be populatd with MealDeliveryEntity's fields and not just their ids.
@@ -11,7 +12,7 @@ export interface TaskInterface {
   id: number;
   date: Date;
   isCompleted: boolean;
-  volunteer: string; // REPLACE WITH VOLUNTEER TYPE WHEN EVERYTHING IS FIXED
+  volunteer: Volunteer
   deliveries: MealDeliveryInterface[];
 }
 
