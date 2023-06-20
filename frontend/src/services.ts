@@ -140,3 +140,17 @@ export const editVolunteer = async (
     alert(`Error in Axios put to /volunteers/${id}/edit`);
   }
 };
+
+export const requestPasswordReset = async (
+  email: string,
+) => {
+  try {
+    const response = await axios.post(
+      `${API_URL}/volunteer/request-password-reset`,
+      {email: email}
+    );
+    return response.data;
+  } catch (error) {
+    alert(`Error in Axios put to /volunteer/request-password-reset`);
+  }
+};
