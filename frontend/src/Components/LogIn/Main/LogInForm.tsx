@@ -51,23 +51,23 @@ const LogInForm = () => {
   };
 
   async function handleClickLogIn() {
-    //Prevent page reload
-    // e.preventDefault();
+    try {
+      // todo make better
+      const response = await login({ email: username, password: password });
 
-    // console.log(rememberMe);
-    //TODO backend
-    const response = await login({ email: username, password: password });
-
-    // parse response
-    if (response.user) {
-      if (rememberMe) {
-        localStorage.setItem("userId", response.user.id);
+      // parse response
+      if (response.user) {
+        if (rememberMe) {
+          localStorage.setItem("userId", response.user.id);
+        } else {
+          localStorage.clear();
+        }
+        sessionStorage.setItem("userId", response.user.id);
+        window.location.href = "/today";
       } else {
-        localStorage.clear();
+        alert("Incorrect username or password. Please try again.");
       }
-      sessionStorage.setItem("userId", response.user.id);
-      window.location.href = "/today";
-    } else {
+    } catch (error) {
       alert("Incorrect username or password. Please try again.");
     }
   }
