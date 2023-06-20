@@ -9,7 +9,7 @@ import { ResetTokenEntity } from '../entities/ResetTokenEntity';
 const crypto = require("crypto");
 import { sendEmail } from '../utils/sendEmail';
 
-const URL = "http://localhost:3000"
+const URL = "localhost:3000"
 
 export default class VolunteerController {
   private VolunteerRepository = AppDataSource.getRepository(VolunteerEntity);
@@ -115,7 +115,7 @@ export default class VolunteerController {
     const link = `${URL}/passwordReset?token=${resetToken}&id=${volunteer.id}`;
 
     sendEmail(
-      "sophearah.suy-puth@mail.mcgill.ca",
+      "sophearahspsp@gmail.com",
       "Password Reset Request",
       {
         name: volunteer.name,
@@ -124,5 +124,47 @@ export default class VolunteerController {
       "./template/requestResetPassword.handlebars"
     );
     return { link };
+  };
+
+  resetPassword = async (req: Request, res: Response) => {
+    const { userId, token, password }: { userId: number, token: string, password: string } = req.body;
+    const resetTokenRepo = AppDataSource.getRepository(ResetTokenEntity);
+
+    const passwordResetToken = await resetTokenRepo.findOne({ where: {userId: userId} });
+  
+    if (!passwordResetToken) {
+      throw new Error("Invalid or expired password reset token");
+    }
+  
+    console.log(passwordResetToken.token, token);
+  
+    const isValid = await bcrypt.compare(token, passwordResetToken.token);
+  
+    if (!isValid) {
+      throw new Error("Invalid or expired password reset token");
+    }
+  
+    const hash = await bcrypt.hash(password, 10); // 10 is arbitrary
+
+    const volunteerRepo = AppDataSource.getRepository(VolunteerEntity);
+  
+    await volunteerRepo.save(
+      { id: userId, password: hash },
+    );
+  
+    const volunteer = await volunteerRepo.findOne({ where: {id: userId} });
+  
+    sendEmail(
+      volunteer.email,
+      "Password Reset Successfully",
+      {
+        name: volunteer.name,
+      },
+      "./template/resetPassword.handlebars"
+    );
+  
+    await resetTokenRepo.remove(passwordResetToken);
+  
+    return { message: "Password reset was successful" };
   };
 }
