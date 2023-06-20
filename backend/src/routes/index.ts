@@ -4,6 +4,7 @@ import { router as mealDelivery } from './mealDelivery.routes';
 import { router as routeDelivery } from './routeDelivery.routes';
 import { router as volunteers } from './volunteer.routes';
 import { router as clients } from './client.routes';
+import { router as authentication } from './authentication.routes';
 // import { auth } from '../middleware/auth';
 
 // Create a router object
@@ -15,3 +16,4 @@ api.use(mealDelivery);
 api.use(routeDelivery);
 api.use(volunteers);
 api.use(clients);
+api.use(authentication);
