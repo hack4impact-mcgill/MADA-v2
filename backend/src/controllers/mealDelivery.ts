@@ -50,14 +50,18 @@ export default class MealDeliveryController {
       response.status(StatusCode.OK).json({ mealDelivery: mealDelivery });
     } else {
       await this.MealDeliveryRepository.save({
+        // edited to work with newly adopted entities
         id: parseInt(request.params.id),
+        isCompleted: request.body.isCompleted,
+        routePosition: request.body.routePosition,
         mealType: request.body.mealType,
-        quantity: request.body.quantity,
+        program: request.body.program,
         task: request.body.task
-          ? await this.MealDeliveryRepository.findOneBy({
+          ? await this.TaskRepository.findOneBy({
               id: parseInt(request.body.task.id)
             })
-          : null
+          : null,
+        client: request.body.client
       });
       const mealDelivery = await this.MealDeliveryRepository.findOne({
         where: {

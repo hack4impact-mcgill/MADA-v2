@@ -1,10 +1,16 @@
 import React, { useState } from "react";
+import { useContext } from "react";
 import Delivery from "./Delivery";
-import { TaskInterface } from "../../Contexts/Tasks";
+import {
+  TaskContext,
+  TaskInterface,
+  MealDeliveryInterface,
+} from "../../Contexts/Tasks";
+import { DateContext } from "../../Contexts/Date";
+import { TaskCompletionOption } from "./TaskCompletionFilter";
 import { FormGroup } from "@mui/material";
 
 const DeliveriesContainer = (props: {
-  dateFilter: string;
   completionFilter: string;
 }) => {
   // will use context later on
@@ -312,11 +318,45 @@ const DeliveriesContainer = (props: {
     filteredTasks = dateFilteredTasks.filter((task) => !task.isCompleted);
   }
 
+  let filteredDeliveries: MealDeliveryInterface[] = [];
+
+  // filtering based on completion
+  if (oneDayTask) {
+    // only if there is a task assigned for the current day
+    filteredDeliveries = oneDayTask.deliveries; // ALLDELIVERIES filter by default
+    if (props.completionFilter === TaskCompletionOption.Completed) {
+      // if filter is set as COMPLETED, apply filter
+      filteredDeliveries = oneDayTask.deliveries.filter(
+        (delivery) => delivery.isCompleted
+      );
+    } else if (props.completionFilter === TaskCompletionOption.Upcoming) {
+      // if filter is set as UPCOMING, apply filter
+      filteredDeliveries = oneDayTask.deliveries.filter(
+        (delivery) => !delivery.isCompleted
+      );
+    }
+  }
+
+  console.log(
+    "filtered deliveries for selected date, without sorting: ",
+    filteredDeliveries
+  );
+
+  // sort deliveries
+  filteredDeliveries.sort(compareDeliveries);
+
+  console.log("sorted deliveries", filteredDeliveries);
+
   return (
     <FormGroup sx={{ mr: "22px", ml: "22px", borderRadius: 3 }}>
-      {/* {use dummy tasks for now} */}
-      {filteredTasks.map((task: TaskInterface) => {
-        return <Delivery task={task} key={task.id} />;
+      {filteredDeliveries.map((mealDelivery: MealDeliveryInterface) => {
+        return (
+          <Delivery
+            task={oneDayTask}
+            delivery={mealDelivery}
+            key={mealDelivery.id}
+          />
+        );
       })}
     </FormGroup>
   );

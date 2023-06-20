@@ -3,21 +3,21 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { TaskInterface } from "../../Contexts/Tasks";
+import { MealDeliveryInterface, TaskInterface } from "../../Contexts/Tasks";
 import { useLocation } from "react-router-dom";
 import CloseButton from "../MyHistory/CloseButton";
 import { isBrowser } from "react-device-detect";
 
-export default function DeliveryDetails(props: { task: TaskInterface | null }) {
-  console.log(props.task);
+export default function DeliveryDetails(props: {
+  delivery: MealDeliveryInterface | null;
+}) {
+  console.log(props.delivery);
   const location = useLocation();
-  const task = location.state?.task;
+  const delivery = location.state?.delivery; // allows passing state value through Link
 
-  return task ? (
+  return delivery ? (
     <Box>
-      {/* <Box sx={{ position: "fixed" }}> */}
-      <CloseButton></CloseButton>
-      {/* </Box> */}
+      <CloseButton />
       <Box
         sx={{
           justifyContent: "center",
@@ -42,13 +42,14 @@ export default function DeliveryDetails(props: { task: TaskInterface | null }) {
           >
             Delivery Information
           </Typography>
+          <br></br>
 
           <Typography
             sx={{
               fontFamily: "Poppins",
               fontWeight: 600,
               fontSize: 17,
-              ml: "22px",
+              ml: "14px",
               mb: 1,
             }}
           >
@@ -63,19 +64,67 @@ export default function DeliveryDetails(props: { task: TaskInterface | null }) {
               mb: 1,
             }}
           >
-            {task.name}
+            {delivery.client.name}
           </Typography>
+          <br></br>
           <Typography
             sx={{
               fontFamily: "Poppins",
               fontWeight: 600,
               fontSize: 17,
+              ml: "14px",
+              mb: 1,
+            }}
+          >
+            Meal Type
+          </Typography>
+          <Typography
+            sx={{
+              fontFamily: "Poppins",
+              fontWeight: 300,
+              fontSize: 17,
               ml: "22px",
+              mb: 1,
+            }}
+          >
+            {delivery.client.mealType}
+          </Typography>
+          <br></br>
+          <Typography
+            sx={{
+              fontFamily: "Poppins",
+              fontWeight: 600,
+              fontSize: 17,
+              ml: "14px",
+              mb: 1,
+            }}
+          >
+            Program
+          </Typography>
+          <Typography
+            sx={{
+              fontFamily: "Poppins",
+              fontWeight: 300,
+              fontSize: 17,
+              ml: "22px",
+              mb: 1,
+            }}
+          >
+            {delivery.program}
+          </Typography>
+          <br></br>
+          <Typography
+            sx={{
+              fontFamily: "Poppins",
+              fontWeight: 600,
+              fontSize: 17,
+              ml: "14px",
               mb: 1,
             }}
           >
             Address
           </Typography>
+
           <Typography
             sx={{
               fontFamily: "Poppins",
@@ -85,36 +134,17 @@ export default function DeliveryDetails(props: { task: TaskInterface | null }) {
               mb: 1,
             }}
           >
-            3380 Bd Robert-Bourassa Montreal QC
+            {delivery.client.address}
           </Typography>
-          {/* <Typography>{task.address}</Typography> */}
-          <Typography
-            sx={{
-              fontFamily: "Poppins",
-              fontWeight: 600,
-              fontSize: 17,
-              ml: "22px",
-              mb: 1,
-            }}
-          >
-            Date and Time
-          </Typography>
-          <Typography
-            sx={{
-              fontFamily: "Poppins",
-              fontWeight: 300,
-              fontSize: 17,
-              ml: "22px",
-              mb: 1,
-            }}
-          >
-            April 27, 2023 2:55PM
-          </Typography>
-          {/* <Typography>{task.deliveryTime}</Typography> */}
         </Box>
+
         <div className="google-map-code">
           <iframe
-            src="https://maps.google.com/maps?q=3380+Bd+Robert-Bourassa+Montreal+QC&output=embed"
+            src={
+              "https://maps.google.com/maps?q=" +
+              encodeURIComponent(delivery.client.address) +
+              "&output=embed"
+            }
             width={isBrowser ? "600" : "350"}
             height={isBrowser ? "450" : "300"}
             // frameborder="0"

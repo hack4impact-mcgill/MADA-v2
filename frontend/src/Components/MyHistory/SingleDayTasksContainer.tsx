@@ -13,7 +13,7 @@ const SingleDayTasksContainer = (props: {
 
   if (props.historyTasks.length > 0){
   return (
-    <Box sx={{display: "flex", flexDirection: "column"}}>
+    <Box sx={{ display: "flex", flexDirection: "column" }}>
       <HistoryTaskDate date={props.date} />
       {props.historyTasks.map((task) => (
         <Box key={task.id} sx={{ display: "flex", mb: 1, p: 1, bgcolor: "#FFFFFF", border: "1px solid #DFDFDF", borderRadius: 2, flexDirection: "column", justifyContent: "flex-start" }}>
@@ -32,5 +32,3 @@ else {
 }
 
 export default SingleDayTasksContainer;
-
-
