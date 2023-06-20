@@ -3,7 +3,11 @@ import { Volunteer } from "./Contexts/Volunteer";
 export function getCurrentUserId(): string | null | undefined {
   try {
     const user = sessionStorage.getItem("userId");
-    if (!user && window.location.pathname !== "/") {
+    if (
+      !user &&
+      window.location.pathname !== "/" &&
+      window.location.pathname !== "/password"
+    ) {
       window.location.href = "/";
       return null;
     }
