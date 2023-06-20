@@ -15,7 +15,7 @@ const HistoryTasksContainer = (props: {
     const fetchTasks = async () => {
       try {
         const response = await getAllTasks(); // Fetch tasks from the backend
-        const tasks = response.tasks;
+        const tasks = response;
         
         const tasksByDate: { [date: string]: TaskInterface[] } = {};
   
