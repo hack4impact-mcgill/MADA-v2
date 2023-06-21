@@ -9,10 +9,11 @@ import { useNavigate, useParams } from "react-router-dom";
 import { VolunteerType } from "./UserContainer";
 import { editVolunteer, getVolunteer } from "../services";
 import { setDefaultResultOrder } from "dns";
+import { getCurrentUserId } from "../helper";
 
 const UserProfileContainer = () => {
   const navigate = useNavigate();
-  const id = localStorage.getItem("userId");
+  const id = Number(getCurrentUserId());
   const [volunteer, setVolunteer] = useState<VolunteerType | undefined>();
   const [email, setEmail] = useState<string>("");
   const [validEmail, setValidEmail] = useState(false);
@@ -26,7 +27,7 @@ const UserProfileContainer = () => {
 
   const fetchVolunteer = async () => {
     try {
-      const volunteerData = await getVolunteer(Number(id));
+      const volunteerData = await getVolunteer(id);
       setVolunteer(volunteerData.volunteer);
       console.log(volunteerData);
       console.log(volunteer);
@@ -71,12 +72,12 @@ const UserProfileContainer = () => {
     } else {
       try {
         const updatedVolunteer = {
-          id: volunteer?.id,
+          id: id,
           email,
           phoneNumber,
         };
 
-        await editVolunteer(volunteer?.id, updatedVolunteer);
+        await editVolunteer(id, updatedVolunteer);
         navigate(`/profile`);
       } catch (error) {
         console.error("Error updating volunteer:", error);

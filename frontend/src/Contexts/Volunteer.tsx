@@ -29,9 +29,13 @@ export interface Availabilities {
 }
 
 export interface Volunteer {
+  availabilities: Availabilities[];
+  email: string;
   id: number;
   name: string;
-  email: string;
-  phone: string;
-  availabilities: Availabilities;
+  password: string;
+  phoneNumber: string;
+  profilePicture: string;
+  startDate: Date;
+  token: string;
 }

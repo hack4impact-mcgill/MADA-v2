@@ -1,6 +1,7 @@
 import React from "react";
 import { createContext, useState, useEffect } from "react";
-import { getOneVolunteerTasks } from "../services";
+import { getAllTasks, getOneVolunteerTasks } from "../services";
+import { Volunteer } from "./Volunteer";
 // define interfaces and define Task context provider
 
 const enum ProgramType {
@@ -18,7 +19,7 @@ export interface TaskInterface {
   id: number;
   date: Date;
   isCompleted: boolean;
-  volunteer: any;
+  volunteer: Volunteer
   deliveries: MealDeliveryInterface[];
 }
 
@@ -26,8 +27,8 @@ export interface MealDeliveryInterface {
   id: number;
   isCompleted: boolean;
   routePosition: number;
-  mealType: MealType;
-  program: ProgramType;
+  mealType: string;
+  program: any
   task: any;
   client: any;
 }
