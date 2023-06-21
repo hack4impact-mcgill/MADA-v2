@@ -154,3 +154,23 @@ export const requestPasswordReset = async (
     alert(`Error in Axios put to /volunteer/request-password-reset`);
   }
 };
+
+export const resetPassword = async (
+  userId: number,
+  token: string,
+  password: string
+) => {
+  try {
+    const response = await axios.post(
+      `${API_URL}/volunteer/reset-password`,
+      {
+        userId: userId,
+        token: token,
+        password: password
+      }
+    );
+    return response.data;
+  } catch (error) {
+    alert(`Error in Axios put to /volunteer/reset-password`);
+  }
+};

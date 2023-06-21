@@ -21,7 +21,7 @@ export default function App() {
       <Box
         sx={{
           maxHeight:
-            location.pathname !== "/" && location.pathname !== "/password"
+            location.pathname !== "/" && location.pathname !== "/password" && location.pathname !== "/passwordreset"
               ? "85vh"
               : "none",
           overflowY: "auto",
@@ -29,7 +29,7 @@ export default function App() {
       >
         <RouterComponent />
       </Box>
-      {location.pathname !== "/" && location.pathname !== "/password" && (
+      {location.pathname !== "/" && location.pathname !== "/password" && location.pathname !== "/passwordreset" && (
         <NavBar />
       )}
     </Box>
