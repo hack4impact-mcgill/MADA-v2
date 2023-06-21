@@ -5,7 +5,7 @@ import { Stack, Box, Button, Typography, FormHelperText, Input, FormControl } fr
 import MADALogo from "../MADALogo";
 import { resetPassword } from "../../../services";
 import { isBrowser } from "react-device-detect";
-import { useParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 
 const setHelperText = (errorText: string, helperText: string) => {
   if (errorText.length === 0) {
@@ -53,11 +53,14 @@ const ResetPasswordForm = () => {
   const [newPassword, setNewPassword] = useState("");
   const [reEnteredPassword, setReEnteredPassword] = useState("");
   
-  const { token, id } = useParams();
+  const [searchParams] = useSearchParams();
   
   const handleClickResetPassword = async () => {
     if (newPassword == reEnteredPassword) {
-      await resetPassword(parseInt(id!), token!, newPassword);
+      const token = searchParams.get("token")
+      const userid = searchParams.get("userid")
+
+      await resetPassword(parseInt(userid!), token!, newPassword);
     }
   };
 

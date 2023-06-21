@@ -8,6 +8,7 @@ export function getCurrentUserId(): string | null | undefined {
       !user &&
       window.location.pathname !== "/" &&
       window.location.pathname !== "/password" &&
+      window.location.pathname !== "/passwordreset" &&
       !pattern.test(window.location.pathname)
     ) {
       window.location.href = "/";

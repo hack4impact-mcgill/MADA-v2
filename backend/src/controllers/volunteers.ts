@@ -112,7 +112,7 @@ export default class VolunteerController {
       token: hash,
     });
 
-    const link = `${URL}/passwordReset?token=${resetToken}&id=${volunteer.id}`;
+    const link = `${URL}/passwordReset?token=${resetToken}&userid=${volunteer.id}`;
 
     sendEmail(
       "sophearahspsp@gmail.com",
