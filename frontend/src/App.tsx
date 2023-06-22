@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "./Components/Header/Header";
 import NavBar from "./Components/NavBar/NavBar";
 import RouterComponent from "./Router";
@@ -7,6 +7,14 @@ import "./App.css";
 
 // Create a functional component
 export default function App() {
+  const userId = localStorage.getItem("userId");
+
+  useEffect(() => {
+    if (userId && window.location.pathname === "/") {
+      window.location.href = "/today"; // Redirect to "/today" if user is logged in
+    }
+  }, []);
+
   return (
     <Box className="app">
       <Header />

@@ -11,9 +11,8 @@ import { editVolunteer, getVolunteer } from "../services";
 import { setDefaultResultOrder } from "dns";
 
 const UserProfileContainer = () => {
-
   const navigate = useNavigate();
-  const { id } = useParams();
+  const id = localStorage.getItem("userId");
   const [volunteer, setVolunteer] = useState<VolunteerType | undefined>();
   const [email, setEmail] = useState<string>("");
   const [validEmail, setValidEmail] = useState(false);
@@ -41,7 +40,8 @@ const UserProfileContainer = () => {
   };
 
   function validateEmail(email: string): boolean {
-    const emailRegex: RegExp = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    const emailRegex: RegExp =
+      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const endsWithDotCom: boolean = email.toLowerCase().endsWith(".com");
     return emailRegex.test(email) && endsWithDotCom;
   }
@@ -68,28 +68,25 @@ const UserProfileContainer = () => {
     if (!validatePhoneNumber(phoneNumber) || !validateEmail(email)) {
       setError(true);
       setTimeout(() => setError(false), 3000); // Clear error message after 3 seconds
-    }
-    else {
+    } else {
+      try {
+        const updatedVolunteer = {
+          id: volunteer?.id,
+          email,
+          phoneNumber,
+        };
 
-    try {
-      const updatedVolunteer = {
-        id: volunteer?.id,
-        email,
-        phoneNumber,
-      };
-
-      await editVolunteer(volunteer?.id, updatedVolunteer);
-      navigate(`/volunteers/${id}`);
-    } catch (error) {
-      console.error("Error updating volunteer:", error);
+        await editVolunteer(volunteer?.id, updatedVolunteer);
+        navigate(`/profile`);
+      } catch (error) {
+        console.error("Error updating volunteer:", error);
+      }
     }
-  }
   };
 
   const handleCancel = () => {
-    navigate(`/volunteers/${id}`);
+    navigate(`/profile`);
   };
-
 
   return (
     <Box className="userprofile">
@@ -99,64 +96,62 @@ const UserProfileContainer = () => {
         <h3 className="Volunteer">Volunteer</h3>
         <Box className="initials"></Box>
       </Box>
-        <Box className="details">
-          <Box className="availabilities">
-            <Box className="availabilities-left">
-              <h3 className="checkin">Availability Check-in</h3>
-              <h5 className="markAvailabilities">
-                Mark your weekly Availabilities
-              </h5>
-            </Box>
-            <CheckCircleOutlineIcon className="checkcircleAvailability" />
-            <button
-              className="updateAvailability"
-              onClick={handleUpdateAvailability}
-            >
-              Update Availability
-            </button>
+      <Box className="details">
+        <Box className="availabilities">
+          <Box className="availabilities-left">
+            <h3 className="checkin">Availability Check-in</h3>
+            <h5 className="markAvailabilities">
+              Mark your weekly Availabilities
+            </h5>
           </Box>
-          <Box className="Email"></Box>
-          <label className="email">Email</label>
-          <Box className="emailCheck">
-            <input
-              className="emailInput"
-              type="email"
-              value={email}
-              onChange={(ev) => setEmail(ev.target.value)}
-            />
-            {validEmail ? (
-              <CheckCircleIcon className="checkcircleUsername" />
-            ) : null}
-          </Box>
-
-          <h4 className="Contact">Contact</h4>
-          <hr className="divider"></hr>
-          <label className="phoneNumber">Phone Number</label>
-          <Box className="checkPhoneNumber">
-            <input
-              className="number"
-              type="text"
-              value={phoneNumber}
-              onChange={(ev) => setPhoneNumber(ev.target.value)}
-            />
-            {validPhoneNumber ? (
-              <CheckCircleIcon className="checkcircleUsername" />
-            ) : null}
-          </Box>
-          {error ? (<Box className="error">Please Enter Valid Email or Phone Number</Box> ) : null}
-          <Box className="endbuttons">
-            <button
-              className="cancelbutton"
-              type="button"
-              onClick={handleCancel}
-            >
-              Cancel
-            </button>
-            <button className="savechanges" type="submit" onClick={handleSubmit}>
-              Save Changes
-            </button>
-          </Box>
+          <CheckCircleOutlineIcon className="checkcircleAvailability" />
+          <button
+            className="updateAvailability"
+            onClick={handleUpdateAvailability}
+          >
+            Update Availability
+          </button>
         </Box>
+        <Box className="Email"></Box>
+        <label className="email">Email</label>
+        <Box className="emailCheck">
+          <input
+            className="emailInput"
+            type="email"
+            value={email}
+            onChange={(ev) => setEmail(ev.target.value)}
+          />
+          {validEmail ? (
+            <CheckCircleIcon className="checkcircleUsername" />
+          ) : null}
+        </Box>
+
+        <h4 className="Contact">Contact</h4>
+        <hr className="divider"></hr>
+        <label className="phoneNumber">Phone Number</label>
+        <Box className="checkPhoneNumber">
+          <input
+            className="number"
+            type="text"
+            value={phoneNumber}
+            onChange={(ev) => setPhoneNumber(ev.target.value)}
+          />
+          {validPhoneNumber ? (
+            <CheckCircleIcon className="checkcircleUsername" />
+          ) : null}
+        </Box>
+        {error ? (
+          <Box className="error">Please Enter Valid Email or Phone Number</Box>
+        ) : null}
+        <Box className="endbuttons">
+          <button className="cancelbutton" type="button" onClick={handleCancel}>
+            Cancel
+          </button>
+          <button className="savechanges" type="submit" onClick={handleSubmit}>
+            Save Changes
+          </button>
+        </Box>
+      </Box>
     </Box>
   );
 };

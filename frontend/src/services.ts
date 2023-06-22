@@ -1,10 +1,12 @@
 import axios from "axios";
+import { CredentialInterface } from "./Components/LogIn/Main/LogInForm";
 import { MealDeliveryInterface, TaskInterface } from "./Contexts/Tasks";
 import { VolunteerType } from "./Containers/UserContainer";
+import { getCurrentUserId } from "./helper";
 
 // URL to which requests will be sent
 const API_URL = "http://localhost:3001/api";
-const VOLUNTEER_ID = "5"; // will need to be replaced with actual logged in volunteer's id.
+const VOLUNTEER_ID = getCurrentUserId(); // will need to be replaced with actual logged in volunteer's id.
 
 //Task services
 
@@ -79,6 +81,18 @@ export const createTask = async () => {
     return response.data.task;
   } catch (e) {
     alert("Error in Axios put query to /tasks. Could not create a task.");
+  }
+};
+
+export const login = async (credentials: CredentialInterface) => {
+  try {
+    const response = await axios.post(
+      `${API_URL}/volunteer/login/`,
+      credentials
+    );
+    return response.data;
+  } catch (e) {
+    throw new Error("Error in response");
   }
 };
 
@@ -163,3 +177,21 @@ export const getVolunteerTasks = async (id: number) => {
     throw new Error("Error in Axios get query to /volunteers/<id>/tasks");
   }
 };
+
+export const getVolunteerTodayTask = async (id: number) => {
+  let today = new Date();
+  today.setHours(0, 0, 0, 0);
+  try {
+    const allVolunteerTasks = await getVolunteerTasks(id);
+    for (var task of allVolunteerTasks.tasks) {
+      let taskDate = new Date(task.date); //TODO verify if this is in local time or in UTC on admin panel 
+      taskDate.setHours(0, 0, 0, 0);
+      if (today.getTime() === taskDate.getTime()) { //if the dates are the same, return the task that has to be displayed today
+        return task.id
+      }
+    }
+    return null; //if there are no tasks for today return null
+  } catch (e) {
+    throw new Error("Error getting today's task");
+  }
+}

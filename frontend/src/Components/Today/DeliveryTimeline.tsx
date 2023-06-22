@@ -46,14 +46,15 @@ function timelineItems(name: String, time: String, done: Boolean) {
     );
 }
 
-export function DeliveryTimeline() {
+export function DeliveryTimeline(props: { taskId: number; }) {
   const [deliveryData, setDeliveryData] = useState([]);
   useEffect(() => {
-    getOneTask(1).then((res) => { //todo get the correct task ID
+    if (props.taskId != -1) {
+    getOneTask(props.taskId).then((res) => { 
       setDeliveryData(res.task.deliveries.map((delivery: any) => timelineItems(delivery.client.name, delivery.client.address, delivery.isCompleted)));
-      console.log(res.task.deliveries.length)
     });
-  }, [])
+  }
+  }, [props.taskId])
 
   return (
     <Timeline className="timeline">
