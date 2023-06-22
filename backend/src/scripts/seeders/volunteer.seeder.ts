@@ -24,6 +24,7 @@ const generateDefaultVolunteer = async () => {
   volunteer.startDate = faker.date.past(2);
   volunteer.profilePicture = faker.internet.avatar();
   volunteer.availabilities = generateAvailabilities();
+  volunteer.availabilitiesLastUpdated = faker.date.recent(15);
   return volunteer;
 };
 

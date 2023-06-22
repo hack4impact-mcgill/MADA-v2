@@ -7,12 +7,14 @@ import {
   AccordionDetails,
   Typography,
   Button,
+  Alert,
 } from "@mui/material";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import "../Styles/Availabilities.css";
 import { useNavigate } from "react-router-dom";
 import { editVolunteerAvailabilities, getOneVolunteer, editAvailabilitiesLastUpdated } from "../services";
 import { Availability, TimeSlots, DayOfWeek } from "../Contexts/Volunteer";
+import {getCurrentUserId} from "../helper"
 
 type TimePickerAccordionProps = {
   dayOfWeek: string;
@@ -20,7 +22,7 @@ type TimePickerAccordionProps = {
 
 const MarkAvailability = () => {
   const navigate = useNavigate();
-  let volunteerId = 1; //todo
+  let volunteerId = getCurrentUserId(); //todo
   const daysOfWeek = [
     "Monday",
     "Tuesday",
@@ -136,15 +138,17 @@ const MarkAvailability = () => {
 
     //Get the current saved availabilities when the page loads
     useEffect(() => {
-      getOneVolunteer(volunteerId).then((res) => { //todo get the correct volunteer ID
-        setMonday(JSON.parse(res.volunteer.availabilities)[0].time);
-        setTuesday(JSON.parse(res.volunteer.availabilities)[1].time);
-        setWednesday(JSON.parse(res.volunteer.availabilities)[2].time);
-        setThursday(JSON.parse(res.volunteer.availabilities)[3].time);
-        setFriday(JSON.parse(res.volunteer.availabilities)[4].time);
-        setSaturday(JSON.parse(res.volunteer.availabilities)[5].time);
-        setSunday(JSON.parse(res.volunteer.availabilities)[6].time);
-      });
+      if (volunteerId != null && volunteerId != undefined){
+        getOneVolunteer(parseInt(volunteerId)).then((res) => { //todo get the correct volunteer ID
+          setMonday(JSON.parse(res.volunteer.availabilities)[0].time);
+          setTuesday(JSON.parse(res.volunteer.availabilities)[1].time);
+          setWednesday(JSON.parse(res.volunteer.availabilities)[2].time);
+          setThursday(JSON.parse(res.volunteer.availabilities)[3].time);
+          setFriday(JSON.parse(res.volunteer.availabilities)[4].time);
+          setSaturday(JSON.parse(res.volunteer.availabilities)[5].time);
+          setSunday(JSON.parse(res.volunteer.availabilities)[6].time);
+        });
+      }
     }, []); 
 
     const TimeSelect = () => {
@@ -366,6 +370,7 @@ const MarkAvailability = () => {
     );
   };
   
+  const [saveSuccess, setSaveSuccess] = useState(0)
   const save = () => {
     const avails = {
     "availabilities": `[{\"day\":\"monday\",\"time\":\"${saveMonday.current}\"},{\"day\":\"tuesday\",\"time\":\"${saveTuesday.current}\"},{\"day\":\"wednesday\",\"time\":\"${saveWednesday.current}\"},{\"day\":\"thursday\",\"time\":\"${saveThursday.current}\"},{\"day\":\"friday\",\"time\":\"${saveFriday.current}\"},{\"day\":\"saturday\",\"time\":\"${saveSaturday.current}\"},{\"day\":\"sunday\",\"time\":\"${saveSunday.current}\"}]`
@@ -373,8 +378,17 @@ const MarkAvailability = () => {
     const date = {
       "availabilitiesLastUpdated": new Date()
     }
-    editVolunteerAvailabilities(volunteerId, avails) //todo
-    editAvailabilitiesLastUpdated(volunteerId, date)
+    try {
+      if (volunteerId != null && volunteerId != undefined) {
+      editVolunteerAvailabilities(parseInt(volunteerId), avails) 
+        editAvailabilitiesLastUpdated(parseInt(volunteerId), date)
+        setSaveSuccess(1)
+      } 
+    } catch (e) {
+      setSaveSuccess(2)
+      console.log(e)
+    }
+    
  }
   return (
     <Box className="center1">
@@ -390,6 +404,8 @@ const MarkAvailability = () => {
       >
         Availability
       </Typography>
+      {saveSuccess==1 && <Alert severity="success">Availabilities saved successfully </Alert>}
+      {saveSuccess==2 && <Alert severity="error">Error saving availabilities</Alert>}
 
       <LocalizationProvider>
         {/* iterate through list of days of week and create accordion for each day */}
@@ -397,7 +413,6 @@ const MarkAvailability = () => {
           return <TimePickerAccordion dayOfWeek={day} />;
         })}
       </LocalizationProvider>
-      
       <Box display="flex" justifyContent="center" mt="10%">
         <Button
           sx={{
@@ -411,6 +426,7 @@ const MarkAvailability = () => {
           Save
         </Button>
       </Box>
+      
     </Box>
   );
 };
