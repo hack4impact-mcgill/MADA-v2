@@ -3,6 +3,8 @@ import { AppDataSource } from '../data-source';
 import { VolunteerEntity } from '../entities/VolunteerEntity';
 // import { TaskEntity } from '../entities/TaskEntity';
 import { StatusCode } from './statusCode';
+import * as bcrypt from 'bcrypt';
+import * as jwt from 'jsonwebtoken';
 
 export default class VolunteerController {
   private VolunteerRepository = AppDataSource.getRepository(VolunteerEntity);
@@ -75,5 +77,24 @@ export default class VolunteerController {
       : response
           .status(StatusCode.OK)
           .json({ availabilities: volunteer.availabilities });
+  };
+
+  login = async (req: Request, res: Response) => {
+    const { email, password }: { email: string; password: string } = req.body;
+    const repository = AppDataSource.getRepository(VolunteerEntity);
+    console.log(process.env.JWT_PRIVATE_KEY);
+    const volunteer: VolunteerEntity = await repository.findOne({
+      where: { email: email }
+    });
+
+    if (volunteer && (await bcrypt.compare(password, volunteer.password))) {
+      // bad login info
+      const token = jwt.sign(
+        volunteer.id.toString(),
+        process.env.JWT_PRIVATE_KEY
+      );
+      return res.status(200).json({ token: token, user: volunteer });
+    }
+    return res.status(400).json({ error: 'bad login informations' });
   };
 }

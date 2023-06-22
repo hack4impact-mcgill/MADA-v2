@@ -10,6 +10,22 @@ import {
 import { faker } from '@faker-js/faker';
 import { generateTask } from './task.seeder';
 import { generateStaffUser } from './user';
+import * as bcrypt from 'bcryptjs';
+
+const DEFAULT_VOLUNTEER = {
+  password: process.env.TEST_VOLUNTEER_PASSWORD,
+  email: process.env.TEST_VOLUNTEER_EMAIL
+};
+
+const generateDefaultVolunteer = async () => {
+  const volunteer = (await generateStaffUser()) as any;
+  volunteer.password = await bcrypt.hash(DEFAULT_VOLUNTEER.password, 10);
+  volunteer.email = DEFAULT_VOLUNTEER.email;
+  volunteer.startDate = faker.date.past(2);
+  volunteer.profilePicture = faker.internet.avatar();
+  volunteer.availabilities = generateAvailabilities();
+  return volunteer;
+};
 
 const generateVolunteer = async () => {
   const volunteer = (await generateStaffUser()) as any;
@@ -58,7 +74,9 @@ export default class VolunteerSeeder implements Seeder {
     factoryManager: SeederFactoryManager
   ): Promise<any> {
     const repository = dataSource.getRepository(VolunteerEntity);
+    const defaultVolunteer = await generateDefaultVolunteer();
     const volunteers = await generateVolunteers(10);
+    await repository.insert(defaultVolunteer);
     await repository.insert(volunteers);
     // generateTasks(dataSource, volunteers);
   }

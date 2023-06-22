@@ -5,6 +5,9 @@ import * as cors from 'cors';
 
 // Import from other .ts files
 import { api } from './routes/index';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 // Create express app
 const app = express();

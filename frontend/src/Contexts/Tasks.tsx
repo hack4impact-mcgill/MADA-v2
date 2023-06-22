@@ -21,16 +21,15 @@ export interface TaskInterface {
   volunteer: any;
   deliveries: MealDeliveryInterface[];
 }
-
 export interface MealDeliveryInterface {
   id: number;
-  quantity: number;
-  mealType: string;
-  task: TaskInterface;
-  client: ClientInterface;
   isCompleted: boolean;
+  routePosition: number;
+  mealType: MealType;
+  program: ProgramType;
+  task: any;
+  client: any;
 }
-
 export interface ClientInterface {
   name: string;
   address: string;

@@ -4,6 +4,7 @@ import React, { useReducer } from "react";
 type State = {
   username: string;
   password: string;
+  userId?: number;
   showPassword: boolean;
   rememberMe: boolean;
 };
@@ -18,6 +19,7 @@ export const initialState: State = {
 type Action =
   | { type: "setUsername"; payload: string }
   | { type: "setPassword"; payload: string }
+  | { type: "setUserId"; payload: number | undefined }
   | { type: "showPassword"; payload: boolean }
   | { type: "rememberMe"; payload: boolean };
 
