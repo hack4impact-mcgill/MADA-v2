@@ -1,0 +1,23 @@
+version: '3'
+services:
+  postgres:
+    image: 'postgres'
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: 'test'
+      POSTGRES_PASSWORD: 'test'
+      POSTGRES_DB: 'test'
+    command: -p 5432
+  backend:
+    image: 'mada-backend'
+    build: 'backend'
+    depends_on:
+      - postgres
+    ports:
+      - '3001:3001'
+  frontend:
+    image: 'mada-frontend'
+    build: 'frontend'
+    ports:
+      - '3000:3000'
