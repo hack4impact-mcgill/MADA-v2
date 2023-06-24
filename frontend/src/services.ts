@@ -147,6 +147,9 @@ export const requestPasswordReset = async (email: string) => {
       `${API_URL}/volunteer/request-password-reset`,
       { email: email }
     );
+    alert(
+      "An email with your password and username will be sent to your account"
+    );
     return response.data;
   } catch (error) {
     alert(`Error in Axios put to /volunteer/request-password-reset`);
