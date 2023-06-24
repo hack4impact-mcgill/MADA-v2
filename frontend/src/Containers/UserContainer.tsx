@@ -74,8 +74,8 @@ const User = () => {
   }
 
   const sendResetPasswordRequest = async () => {
-    await requestPasswordReset(volunteer.email)
-  }
+    await requestPasswordReset(volunteer.email);
+  };
 
   return (
     <Box className="user-container">
@@ -118,9 +118,7 @@ const User = () => {
           Log out
         </Button>
 
-        <Button onClick={sendResetPasswordRequest}>
-          Reset password
-        </Button>
+        <Button onClick={sendResetPasswordRequest}>Reset password</Button>
       </Box>
     </Box>
   );

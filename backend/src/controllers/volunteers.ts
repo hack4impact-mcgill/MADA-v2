@@ -97,6 +97,7 @@ export default class VolunteerController {
       where: { email: email }
     });
 
+    console.log(email);
     if (!volunteer) throw new Error('Email does not exist');
 
     const resetTokenRepo = AppDataSource.getRepository(ResetTokenEntity);
