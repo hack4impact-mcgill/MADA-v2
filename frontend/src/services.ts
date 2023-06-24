@@ -6,7 +6,7 @@ import { getCurrentUserId } from "./helper";
 
 // URL to which requests will be sent
 const API_URL = "http://localhost:3001/api";
-const VOLUNTEER_ID = getCurrentUserId(); // will need to be replaced with actual logged in volunteer's id.
+const VOLUNTEER_ID = getCurrentUserId(); // may return null, which occurs when user is not logged in but tries to access other pages.
 
 //Task services
 
@@ -27,6 +27,9 @@ export const getAllTasks = async () => {
 export const getOneVolunteerTasks = async () => {
   try {
     // Uses axios to make a get request at "http://localhost:3001/api/tasks"
+    if (!VOLUNTEER_ID) {
+      return {} // getCurrentUserId() can return null, which causes error. Do not send request to backend with null.
+    }
     const response = await axios.get(
       `${API_URL}/tasks/volunteer/${VOLUNTEER_ID}`
     );
