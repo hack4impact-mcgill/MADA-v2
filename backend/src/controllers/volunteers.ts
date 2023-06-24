@@ -6,10 +6,10 @@ import { StatusCode } from './statusCode';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import { ResetTokenEntity } from '../entities/ResetTokenEntity';
-const crypto = require("crypto");
+const crypto = require('crypto');
 import { sendEmail } from '../utils/sendEmail';
 
-const URL = "localhost:3000"
+const URL = 'localhost:3000';
 
 export default class VolunteerController {
   private VolunteerRepository = AppDataSource.getRepository(VolunteerEntity);
@@ -75,7 +75,6 @@ export default class VolunteerController {
   login = async (req: Request, res: Response) => {
     const { email, password }: { email: string; password: string } = req.body;
     const repository = AppDataSource.getRepository(VolunteerEntity);
-    console.log(process.env.JWT_PRIVATE_KEY);
     const volunteer: VolunteerEntity = await repository.findOne({
       where: { email: email }
     });
@@ -98,73 +97,79 @@ export default class VolunteerController {
       where: { email: email }
     });
 
-    if (!volunteer) throw new Error("Email does not exist");
-    
+    if (!volunteer) throw new Error('Email does not exist');
+
     const resetTokenRepo = AppDataSource.getRepository(ResetTokenEntity);
-    let foundToken = await resetTokenRepo.findOne({ where: {userId: volunteer.id} });
+    let foundToken = await resetTokenRepo.findOne({
+      where: { userId: volunteer.id }
+    });
     if (foundToken) await resetTokenRepo.remove(foundToken);
 
-    let resetToken = crypto.randomBytes(32).toString("hex");
+    let resetToken = crypto.randomBytes(32).toString('hex');
     const hash = await bcrypt.hash(resetToken, 10); // 10 is arbitrary
 
     const newToken = await resetTokenRepo.save({
       userId: volunteer.id,
-      token: hash,
+      token: hash
     });
 
     const link = `${URL}/passwordReset?token=${resetToken}&userid=${volunteer.id}`;
 
     sendEmail(
-      "sophearahspsp@gmail.com",
-      "Password Reset Request",
+      volunteer.email,
+      'Password Reset Request',
       {
         name: volunteer.name,
-        link: link,
+        link: link
       },
-      "./template/requestResetPassword.handlebars"
+      './template/requestResetPassword.handlebars'
     );
     return { link };
   };
 
   resetPassword = async (req: Request, res: Response) => {
-    const { userId, token, password }: { userId: number, token: string, password: string } = req.body;
+    const {
+      userId,
+      token,
+      password
+    }: { userId: number; token: string; password: string } = req.body;
     const resetTokenRepo = AppDataSource.getRepository(ResetTokenEntity);
 
-    const passwordResetToken = await resetTokenRepo.findOne({ where: {userId: userId} });
-  
+    const passwordResetToken = await resetTokenRepo.findOne({
+      where: { userId: userId }
+    });
+
     if (!passwordResetToken) {
-      throw new Error("Invalid or expired password reset token");
+      throw new Error('Invalid or expired password reset token');
     }
-  
+
     console.log(passwordResetToken.token, token);
-  
+
     const isValid = await bcrypt.compare(token, passwordResetToken.token);
-  
+
     if (!isValid) {
-      throw new Error("Invalid or expired password reset token");
+      throw new Error('Invalid or expired password reset token');
     }
-  
+
     const hash = await bcrypt.hash(password, 10); // 10 is arbitrary
 
     const volunteerRepo = AppDataSource.getRepository(VolunteerEntity);
-  
-    await volunteerRepo.save(
-      { id: userId, password: hash },
-    );
-  
-    const volunteer = await volunteerRepo.findOne({ where: {id: userId} });
-  
+
+    await volunteerRepo.save({ id: userId, password: hash });
+
+    const volunteer = await volunteerRepo.findOne({ where: { id: userId } });
+
     sendEmail(
       volunteer.email,
-      "Password Reset Successfully",
+      'Password Reset Successfully',
       {
-        name: volunteer.name,
+        name: volunteer.name
       },
-      "./template/resetPassword.handlebars"
+      './template/resetPassword.handlebars'
     );
-  
+
     await resetTokenRepo.remove(passwordResetToken);
-  
-    return { message: "Password reset was successful" };
+
+    return { message: 'Password reset was successful' };
   };
 }

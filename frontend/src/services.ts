@@ -141,13 +141,11 @@ export const editVolunteer = async (
   }
 };
 
-export const requestPasswordReset = async (
-  email: string,
-) => {
+export const requestPasswordReset = async (email: string) => {
   try {
     const response = await axios.post(
       `${API_URL}/volunteer/request-password-reset`,
-      {email: email}
+      { email: email }
     );
     return response.data;
   } catch (error) {
@@ -161,14 +159,11 @@ export const resetPassword = async (
   password: string
 ) => {
   try {
-    const response = await axios.post(
-      `${API_URL}/volunteer/reset-password`,
-      {
-        userId: userId,
-        token: token,
-        password: password
-      }
-    );
+    const response = await axios.post(`${API_URL}/volunteer/reset-password`, {
+      userId: userId,
+      token: token,
+      password: password,
+    });
     return response.data;
   } catch (error) {
     alert(`Error in Axios put to /volunteer/reset-password`);
