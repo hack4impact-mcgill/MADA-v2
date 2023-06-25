@@ -65,6 +65,7 @@ describe('Volunteers tests', () => {
           id: 1,
           name: 'name1',
           profilePicture: 'link to profile',
+          lastUpdated: lastUpdated.toISOString(),
           startDate: date.toISOString(),
           password: 'password1',
           tasks: [],
@@ -74,7 +75,7 @@ describe('Volunteers tests', () => {
     });
   });
 
-  it('should return a volutneer', async () => {
+  it('should return a volunteer', async () => {
     const date: Date = new Date('April 20, 2001 04:20:00');
     const lastUpdated: Date = new Date('April 20, 2002 04:20:00');
     const volunteer = await volunteerHelper.createVolunteer(
@@ -98,6 +99,7 @@ describe('Volunteers tests', () => {
         id: 1,
         name: 'name1',
         profilePicture: 'link to profile',
+        lastUpdated: lastUpdated.toISOString(),
         startDate: date.toISOString(),
         password: 'password1',
         tasks: [],
