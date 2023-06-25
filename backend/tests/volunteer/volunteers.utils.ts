@@ -14,6 +14,7 @@ export default class VolunteerEntityHelper {
     email: string,
     phoneNumber: string,
     password: string,
+    availabilitiesLastUpdated: string,
     startDate: string,
     profilePicture: string,
     availabilities: string,
@@ -24,6 +25,7 @@ export default class VolunteerEntityHelper {
     newVolunteer.phoneNumber = phoneNumber;
     newVolunteer.name = name;
     newVolunteer.password = password;
+    newVolunteer.availabilitiesLastUpdated = new Date(availabilitiesLastUpdated);
     newVolunteer.startDate = new Date(startDate);
     newVolunteer.profilePicture = profilePicture;
     newVolunteer.availabilities = availabilities;
