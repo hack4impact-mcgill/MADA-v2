@@ -55,6 +55,7 @@ describe('Volunteers tests', () => {
       []
     );
     const res = await request(app).get('/api/volunteers');
+    console.log(res.body)
     expect(res.status).toBe(StatusCode.OK);
     expect(res.body).toEqual({
       volunteers: [
