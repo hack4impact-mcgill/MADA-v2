@@ -55,7 +55,6 @@ describe('Volunteers tests', () => {
       []
     );
     const res = await request(app).get('/api/volunteers');
-    console.log(res.body)
     expect(res.status).toBe(StatusCode.OK);
     expect(res.body).toEqual({
       volunteers: [
@@ -66,7 +65,7 @@ describe('Volunteers tests', () => {
           id: 1,
           name: 'name1',
           profilePicture: 'link to profile',
-          lastUpdated: lastUpdated.toISOString(),
+          availabilitiesLastUpdated: lastUpdated.toISOString(),
           startDate: date.toISOString(),
           password: 'password1',
           tasks: [],
@@ -100,7 +99,7 @@ describe('Volunteers tests', () => {
         id: 1,
         name: 'name1',
         profilePicture: 'link to profile',
-        lastUpdated: lastUpdated.toISOString(),
+        availabilitiesLastUpdated: lastUpdated.toISOString(),
         startDate: date.toISOString(),
         password: 'password1',
         tasks: [],
