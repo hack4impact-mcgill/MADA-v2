@@ -51,7 +51,8 @@ describe('Tasks tests', () => {
         id: savedTask.id,
         isCompleted: false,
         date: null,
-        deliveries: []
+        deliveries: [],
+        volunteer: null
       }
     });
   });

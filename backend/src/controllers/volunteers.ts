@@ -63,13 +63,25 @@ export default class VolunteerController {
   };
 
   getVolunteerTasks = async (request: Request, response: Response) => {
-    const task = await this.VolunteerRepository.findOne({
+    const volunteer = await this.VolunteerRepository.findOne({
       where: { id: parseInt(request.params.id) },
       relations: ['tasks', 'tasks.deliveries']
     });
-    task == null
+    volunteer == null
       ? response.status(StatusCode.NOT_FOUND).json({})
-      : response.status(StatusCode.OK).json({ tasks: task.tasks });
+      : response.status(StatusCode.OK).json({ tasks: volunteer.tasks });
+  };
+
+  getVolunteerAvailabilities = async (request: Request, response: Response) => {
+    const volunteer = await this.VolunteerRepository.findOne({
+      where: { id: parseInt(request.params.id) },
+      relations: ['availabilities']
+    });
+    volunteer == null
+      ? response.status(StatusCode.NOT_FOUND).json({})
+      : response
+          .status(StatusCode.OK)
+          .json({ availabilities: volunteer.availabilities });
   };
 
   login = async (req: Request, res: Response) => {

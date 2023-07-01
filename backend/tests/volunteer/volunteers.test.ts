@@ -1,5 +1,5 @@
 import { describe, it } from '@jest/globals';
-import { DayOfWeek, VolunteerEntity } from '../../src/entities/VolunteerEntity';
+import { VolunteerEntity } from '../../src/entities/VolunteerEntity';
 import { AppDataSource } from '../../src/data-source';
 import * as request from 'supertest';
 import VolunteerEntityHelper from './volunteers.utils';
@@ -42,11 +42,13 @@ describe('Volunteers tests', () => {
 
   it('should return all volunteers', async () => {
     const date: Date = new Date('April 20, 2001 04:20:00');
+    const lastUpdated: Date = new Date('April 20, 2002 04:20:00');
     volunteerHelper.createVolunteer(
       'name1',
       'email1',
       '0123456789',
       'password1',
+      lastUpdated.toISOString(),
       date.toISOString(),
       'link to profile',
       '',
@@ -63,6 +65,7 @@ describe('Volunteers tests', () => {
           id: 1,
           name: 'name1',
           profilePicture: 'link to profile',
+          availabilitiesLastUpdated: lastUpdated.toISOString(),
           startDate: date.toISOString(),
           password: 'password1',
           tasks: [],
@@ -72,13 +75,15 @@ describe('Volunteers tests', () => {
     });
   });
 
-  it('should return a volutneer', async () => {
+  it('should return a volunteer', async () => {
     const date: Date = new Date('April 20, 2001 04:20:00');
+    const lastUpdated: Date = new Date('April 20, 2002 04:20:00');
     const volunteer = await volunteerHelper.createVolunteer(
       'name1',
       'email1',
       '0123456789',
       'password1',
+      lastUpdated.toISOString(),
       date.toISOString(),
       'link to profile',
       '',
@@ -94,6 +99,7 @@ describe('Volunteers tests', () => {
         id: 1,
         name: 'name1',
         profilePicture: 'link to profile',
+        availabilitiesLastUpdated: lastUpdated.toISOString(),
         startDate: date.toISOString(),
         password: 'password1',
         tasks: [],
@@ -204,6 +210,7 @@ describe('Volunteers tests', () => {
 
   it('should get volunteer tasks', async () => {
     const date: Date = new Date('April 20, 2001 04:20:00');
+    const lastUpdated: Date = new Date('April 20, 2002 04:20:00');
     const savedTask = await taskHelper.createTask([], false);
 
     const savedVolunteer = await volunteerHelper.createVolunteer(
@@ -211,6 +218,7 @@ describe('Volunteers tests', () => {
       'email1',
       '0123456789',
       'password1',
+      lastUpdated.toISOString(),
       date.toISOString(),
       'link to profile',
       '',
@@ -235,11 +243,13 @@ describe('Volunteers tests', () => {
 
   it('should delete task', async () => {
     const date: Date = new Date('April 20, 2001 04:20:00');
+    const lastUpdated: Date = new Date('April 20, 2002 04:20:00');
     const savedVolunteer = await volunteerHelper.createVolunteer(
       'name1',
       'email1',
       '0123456789',
       'password1',
+      lastUpdated.toISOString(),
       date.toISOString(),
       'link to profile',
       '',

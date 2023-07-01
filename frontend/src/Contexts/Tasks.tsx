@@ -4,14 +4,14 @@ import { getOneVolunteerTasks } from "../services";
 // define interfaces and define Task context provider
 
 const enum ProgramType {
-  MAP = 'MAP',
-  STS = 'STS'
+  MAP = "MAP",
+  STS = "STS",
 }
 
 const enum MealType {
-  VEGETARIAN = 'Vegetarian',
-  NOFISH = 'No Fish',
-  NOMEAT = 'No Meat'
+  VEGETARIAN = "Vegetarian",
+  NOFISH = "No Fish",
+  NOMEAT = "No Meat",
 }
 
 export interface TaskInterface {
@@ -21,7 +21,6 @@ export interface TaskInterface {
   volunteer: any;
   deliveries: MealDeliveryInterface[];
 }
-
 export interface MealDeliveryInterface {
   id: number;
   isCompleted: boolean;
@@ -30,6 +29,10 @@ export interface MealDeliveryInterface {
   program: ProgramType;
   task: any;
   client: any;
+}
+export interface ClientInterface {
+  name: string;
+  address: string;
 }
 
 // create a type for TaskContext
@@ -55,13 +58,14 @@ export const TaskProvider = (props: { children: React.ReactNode }) => {
     };
 
     fetchTasks();
-  },
-  [shouldReFetch]); // refetching happens when shouldReFetch is toggled
+  }, [shouldReFetch]); // refetching happens when shouldReFetch is toggled
 
   return (
     <>
       {/* Anything passed into value can be used by the children of this Provider */}
-      <TaskContext.Provider value={{ tasks, setTasks, shouldReFetch, setShouldReFetch }}>
+      <TaskContext.Provider
+        value={{ tasks, setTasks, shouldReFetch, setShouldReFetch }}
+      >
         {props.children}
       </TaskContext.Provider>
     </>

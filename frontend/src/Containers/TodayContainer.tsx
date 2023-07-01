@@ -4,9 +4,22 @@ import {
   NoDeliveries,
 } from "../Components/Today/DeliveryTimeline";
 import "../Styles/Delivery.css";
+import { getVolunteerTasks } from "../services";
+import { useState, useEffect } from "react";
 
 const TodayContainer = () => {
-  let noDeliveries = false;
+  let volunteerId = 1;
+
+  const [noDeliveries, setNoDeliveries] = useState(false);
+
+  //if there isn't a task assigned to this volunteer for today  
+  useEffect(() => {
+    //todo get the volunteer task and check for today's date
+    getVolunteerTasks(volunteerId).then((res) => { 
+      setNoDeliveries(res.tasks.length === 0); 
+    });
+  }, [])
+
   const handleClick = async () => {
     window.location.href = "/tasks";
   };
@@ -20,13 +33,9 @@ const TodayContainer = () => {
           <Typography
             sx={{ font: "Poppins", color: "#666666", "font-weight": "400" }}
           >
-            Welcome back,
+            Welcome back!
           </Typography>
-          <Typography
-            sx={{ font: "Poppins", color: "#666666", "font-weight": "500" }}
-          >
-            John
-          </Typography>
+         
           <Typography
             sx={{
               font: "Poppins",
@@ -37,12 +46,11 @@ const TodayContainer = () => {
           >
             Today's Deliveries
           </Typography>
-          {!noDeliveries && <DeliveryTimeline />}{" "}
-          {/* display the screen of the timeline */}
+          {!noDeliveries && 
+          <DeliveryTimeline />}{" "}
         </Box>
       </Box>
       {noDeliveries && <NoDeliveries />}{" "}
-      {/* display the screen for no deliveries  */}
       <Box display="flex" width={"100%"} justifyContent="center">
         <Button
           sx={{ backgroundColor: "#33BE41", margin: 0 }}
