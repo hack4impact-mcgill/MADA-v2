@@ -1,82 +1,28 @@
 import React, { useEffect } from "react";
-import { useState } from "react";
-import { Dayjs } from "dayjs";
+import { useRef, useState } from "react";
 import {
   Box,
-  TextField,
   Accordion,
   AccordionSummary,
   AccordionDetails,
   Typography,
-  Switch,
   Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
+  Alert,
 } from "@mui/material";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { TimePicker } from "@mui/x-date-pickers/TimePicker";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-
-import { MdDeleteOutline, MdExpandMore } from "react-icons/md";
-import { IoIosAddCircleOutline } from "react-icons/io";
 import "../Styles/Availabilities.css";
-import { Route, Link, Routes, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { editVolunteerAvailabilities, getOneVolunteer, editAvailabilitiesLastUpdated } from "../services";
+import { Availability, TimeSlots, DayOfWeek } from "../Contexts/Volunteer";
+import {getCurrentUserId} from "../helper"
 
 type TimePickerAccordionProps = {
   dayOfWeek: string;
 };
-type TimeRange = {
-  startTime: Dayjs | null;
-  endTime: Dayjs | null;
-};
 
 const MarkAvailability = () => {
   const navigate = useNavigate();
-  const [monday, setMonday] = useState<TimeRange[]>([
-    {
-      startTime: null,
-      endTime: null,
-    },
-  ]);
-  const [tuesday, setTuesday] = useState<TimeRange[]>([
-    {
-      startTime: null,
-      endTime: null,
-    },
-  ]);
-  const [wednesday, setWednesday] = useState<TimeRange[]>([
-    {
-      startTime: null,
-      endTime: null,
-    },
-  ]);
-  const [thursday, setThursday] = useState<TimeRange[]>([
-    {
-      startTime: null,
-      endTime: null,
-    },
-  ]);
-  const [friday, setFriday] = useState<TimeRange[]>([
-    {
-      startTime: null,
-      endTime: null,
-    },
-  ]);
-  const [saturday, setSaturday] = useState<TimeRange[]>([
-    {
-      startTime: null,
-      endTime: null,
-    },
-  ]);
-  const [sunday, setSunday] = useState<TimeRange[]>([
-    {
-      startTime: null,
-      endTime: null,
-    },
-  ]);
-
+  let volunteerId = getCurrentUserId(); //todo
   const daysOfWeek = [
     "Monday",
     "Tuesday",
@@ -87,191 +33,320 @@ const MarkAvailability = () => {
     "Sunday",
   ];
 
-  function setTimes(dayOfWeek: string, time: TimeRange[]) {
+  //use these refs to keep track of which times have been selected without having to 
+  //rerender each time a time is selected
+  const saveMonday = useRef<string>("");
+  const saveTuesday= useRef<string>("");
+  const saveWednesday= useRef<string>("");
+  const saveThursday = useRef<string>("");
+  const saveFriday = useRef<string>("");
+  const saveSaturday = useRef<string>("");
+  const saveSunday = useRef<string>("");
+  
+  //if the user clicks on a time that is already selected, 
+  //it removes the selection
+  function removeSave(dayOfWeek: string) {
     switch (dayOfWeek) {
       case "Monday":
-        setMonday(time);
+        saveMonday.current = "";
         break;
       case "Tuesday":
-        setTuesday(time);
+        saveTuesday.current = "";
         break;
       case "Wednesday":
-        setWednesday(time);
+        saveWednesday.current = "";
         break;
       case "Thursday":
-        setThursday(time);
+        saveThursday.current = "";
         break;
       case "Friday":
-        setFriday(time);
+        saveFriday.current = "";
         break;
       case "Saturday":
-        setSaturday(time);
+        saveSaturday.current = "";
         break;
       case "Sunday":
-        setSunday(time);
+        saveSunday.current = "";
         break;
     }
   }
-
-  function GetTimes(dayOfWeek: string) {
-    switch (dayOfWeek) {
-      case "Monday":
-        return monday;
-      case "Tuesday":
-        return tuesday;
-      case "Wednesday":
-        return wednesday;
-      case "Thursday":
-        return thursday;
-      case "Friday":
-        return friday;
-      case "Saturday":
-        return saturday;
-      case "Sunday":
-        return sunday;
-      default:
-        return monday;
-    }
-  }
-
-  var timeError = false;
+  
   // pass in day of week as prop, containing the accordion associated to that day
   const TimePickerAccordion = ({ dayOfWeek }: TimePickerAccordionProps) => {
-    const [shouldRender, setShouldRender] = React.useState<boolean>(false);
-
-    useEffect(() => {
-      if (shouldRender) {
-        setShouldRender(false);
+    
+    const [monday, setMonday] = useState<string>();
+    const [tuesday, setTuesday] = useState<string>();
+    const [wednesday, setWednesday] = useState<string>();
+    const [thursday, setThursday] = useState<string>();
+    const [friday, setFriday] = useState<string>();
+    const [saturday, setSaturday] = useState<string>();
+    const [sunday, setSunday] = useState<string>();
+   
+    function setTimes(dayOfWeek: string, time: string) {
+      switch (dayOfWeek) {
+        case "Monday":
+          setMonday(time);
+          saveMonday.current = time;
+          break;
+        case "Tuesday":
+          setTuesday(time);
+          saveTuesday.current = time;
+          break;
+        case "Wednesday":
+          setWednesday(time);
+          saveWednesday.current = time;
+          break;
+        case "Thursday":
+          setThursday(time);
+          saveThursday.current = time;
+          break;
+        case "Friday":
+          setFriday(time);
+          saveFriday.current = time;
+          break;
+        case "Saturday":
+          setSaturday(time);
+          saveSaturday.current = time;
+          break;
+        case "Sunday":
+          setSunday(time);
+          saveSunday.current = time;
+          break;
       }
-    }, [shouldRender]);
+    }
 
-    // contains a pair of time pickers, and the icons associated to them
-    const TimeRange = ({ index }: { index: number }) => {
-      const [startTime, setStartTime] = React.useState<Dayjs | null>(
-        GetTimes(dayOfWeek)[index].startTime
-      );
-      const [endTime, setEndTime] = React.useState<Dayjs | null>(
-        GetTimes(dayOfWeek)[index].endTime
-      );
+    function GetTimes(dayOfWeek: string) {
+      switch (dayOfWeek) {
+        case "Monday":
+          return monday;
+        case "Tuesday":
+          return tuesday;
+        case "Wednesday":
+          return wednesday;
+        case "Thursday":
+          return thursday;
+        case "Friday":
+          return friday;
+        case "Saturday":
+          return saturday;
+        case "Sunday":
+          return sunday;
+        default:
+          return monday;
+      }
+    }
+
+    //Get the current saved availabilities when the page loads
+    useEffect(() => {
+      if (volunteerId != null && volunteerId != undefined){
+        getOneVolunteer(parseInt(volunteerId)).then((res) => { //todo get the correct volunteer ID
+          setMonday(JSON.parse(res.volunteer.availabilities)[0].time);
+          setTuesday(JSON.parse(res.volunteer.availabilities)[1].time);
+          setWednesday(JSON.parse(res.volunteer.availabilities)[2].time);
+          setThursday(JSON.parse(res.volunteer.availabilities)[3].time);
+          setFriday(JSON.parse(res.volunteer.availabilities)[4].time);
+          setSaturday(JSON.parse(res.volunteer.availabilities)[5].time);
+          setSunday(JSON.parse(res.volunteer.availabilities)[6].time);
+        });
+      }
+    }, []); 
+
+    const TimeSelect = () => {
+       
+      const [clicked, setClicked] = React.useState(false);
+      const [clicked1, setClicked1] = React.useState(false);
+      const [clicked2, setClicked2] = React.useState(false);
+      const [clicked3, setClicked3] = React.useState(false);
+      const [clicked4, setClicked4] = React.useState(false);
+      const [clicked5, setClicked5] = React.useState(false);
+
+      function setButtonsClicked(buttonNumber: number) {
+        setClicked(false);
+        setClicked1(false);
+        setClicked2(false);
+        setClicked3(false);
+        setClicked4(false);
+        setClicked5(false);
+        switch (buttonNumber) {
+          case 0:
+            setClicked(true)
+            break;
+          case 1:
+            setClicked1(true);
+            break;
+          case 2:
+            setClicked2(true);
+            break;
+          case 3:
+            setClicked3(true);
+            break;
+          case 4:
+            setClicked4(true);
+            break;
+          case 5:
+            setClicked5(true);
+            break;
+        }
+      }
+      const handleClick = () => {
+        if (clicked) { //if the button is clicked again to remove the time selected
+          setClicked(false);
+          removeSave(dayOfWeek);
+        }
+        else {
+          setButtonsClicked(0);
+          setTimes(dayOfWeek, "12");
+        }
+      };
+      const handleClick1 = () => {
+        if (clicked1) { //if the button is clicked again to remove the time selected
+          setClicked1(false);
+          removeSave(dayOfWeek);
+        }
+        else {
+          setButtonsClicked(1);
+          setTimes(dayOfWeek, "13");
+        }
+      };
+      const handleClick2 = () => {
+        if (clicked2) { //if the button is clicked again to remove the time selected
+          setClicked2(false);
+          removeSave(dayOfWeek);
+        }
+        else {
+          setButtonsClicked(2);
+          setTimes(dayOfWeek, "14");
+        }
+      };
+      const handleClick3 = () => {
+        if (clicked3) { //if the button is clicked again to remove the time selected
+          setClicked3(false);
+          removeSave(dayOfWeek);
+        }
+        else {
+          setButtonsClicked(3);
+          setTimes(dayOfWeek, "15");
+        }
+      };
+      const handleClick4 = () => {
+        if (clicked4) { //if the button is clicked again to remove the time selected
+          setClicked4(false);
+          removeSave(dayOfWeek);
+        }
+        else {
+          setButtonsClicked(4);
+          setTimes(dayOfWeek, "16");
+        }
+      };
+      const handleClick5 = () => {
+        if (clicked5) { //if the button is clicked again to remove the time selected
+          setClicked5(false);
+          removeSave(dayOfWeek);
+        }
+        else {
+          setButtonsClicked(5);
+          setTimes(dayOfWeek, "17");
+        }
+      };
+      
+    useEffect(() => {
+      if (GetTimes(dayOfWeek) != "") {
+        switch (GetTimes(dayOfWeek)) {
+          case "12":
+            handleClick()
+            break;
+          case "13":
+            handleClick1()
+            break;
+          case "14":
+            handleClick2()
+            break;
+          case "15":
+            handleClick3()
+            break;
+          case "16":
+            handleClick4()
+            break;
+          case "17":
+            handleClick5()
+            break;
+          default:
+            break;
+        }
+      }
+    }, []);
 
       return (
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          {endTime?.isBefore(startTime) && (
-            <Typography
-              sx={{
-                font: "Poppins",
-                color: "#f55442",
-                fontSize: "0.8rem",
-                fontWeight: "400",
-              }}
-            >
-              Start time must be before end time
-            </Typography>
-          )}
-          <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-            <TimePicker
-              label="Start time"
-              value={startTime}
-              onChange={(startTime) => {
-                var tmp: TimeRange[] = GetTimes(dayOfWeek);
-                tmp[index].startTime = startTime;
-                if (endTime?.isBefore(startTime)) {
-                  timeError = true;
-                } else {
-                  timeError = false;
-                }
-                setTimes(dayOfWeek, tmp);
-                setStartTime(startTime);
-              }}
-              // renderInput={(params: any) => <TextField {...params} />}
-            />
-            <TimePicker
-              label="End time"
-              value={endTime}
-              onChange={(endTime) => {
-                var tmp: TimeRange[] = GetTimes(dayOfWeek);
-                tmp[index].endTime = endTime;
-                if (endTime?.isBefore(startTime)) {
-                  timeError = true;
-                } else {
-                  timeError = false;
-                }
-                setTimes(dayOfWeek, tmp);
-                setEndTime(endTime);
-              }}
-              // renderInput={(params) => <TextField {...params} />}
-            />
-            {/* delete button */}
-            <MdDeleteOutline
-              size="40"
-              cursor="pointer"
-              color="#ed4040"
-              onClick={() => {
-                var tmp: TimeRange[] = GetTimes(dayOfWeek);
-                if (tmp.length == 1) {
-                  tmp[0].startTime = null;
-                  tmp[0].endTime = null;
-                } else {
-                  tmp.splice(index, 1);
-                }
-                setTimes(dayOfWeek, tmp);
-                setStartTime(null);
-                setEndTime(null);
-                setShouldRender(true);
-              }}
-            />
-            {/* add button  if it's the last element*/}
-            <IoIosAddCircleOutline
-              size="40"
-              cursor="pointer"
-              color="#1976d2"
-              visibility={
-                index == GetTimes(dayOfWeek).length - 1 ? "visible" : "hidden"
-              }
-              onClick={() => {
-                var tmp: TimeRange[] = GetTimes(dayOfWeek);
-                tmp.push({
-                  startTime: null,
-                  endTime: null,
-                });
-                setTimes(dayOfWeek, tmp);
-                setShouldRender(true);
-              }}
-            />
+        <LocalizationProvider>
+          <Box className="time-selection-buttons">
+            <Box className="col">
+              <Button
+                sx={{ whiteSpace: "nowrap", width: "30%" }}
+                onClick={handleClick}
+                variant={clicked ? "contained" : "outlined"}
+              >
+                12 pm
+              </Button>
+
+              <Button
+                sx={{ whiteSpace: "nowrap", width: "30%", ml: "5%" }}
+                onClick={handleClick1}
+                variant={clicked1 ? "contained" : "outlined"}
+              >
+                1 pm
+              </Button>
+
+              <Button
+                sx={{ whiteSpace: "nowrap", width: "30%", ml: "5%" }}
+                onClick={handleClick2}
+                variant={clicked2 ? "contained" : "outlined"}
+              >
+                2 pm
+              </Button>
+            </Box>
+
+            <Box className="col">
+              <Button
+                sx={{ whiteSpace: "nowrap", width: "30%" }}
+                onClick={handleClick3}
+                variant={clicked3 ? "contained" : "outlined"}
+              >
+                3 pm
+              </Button>
+
+              <Button
+                sx={{ whiteSpace: "nowrap", width: "30%", ml: "5%" }}
+                onClick={handleClick4}
+                variant={clicked4 ? "contained" : "outlined"}
+              >
+                4 pm
+              </Button>
+
+              <Button
+                sx={{ whiteSpace: "nowrap", width: "30%", ml: "5%" }}
+                onClick={handleClick5}
+                variant={clicked5 ? "contained" : "outlined"}
+              >
+                5 pm
+              </Button>
+            </Box>
           </Box>
         </LocalizationProvider>
       );
     };
 
-    const [disabled, setDisabled] = useState(false);
-    const [expanded, setExpanded] = useState(false);
-
-    const ToggleAccordionDisability = (
-      event: React.ChangeEvent<HTMLInputElement>
-    ) => {
-      setDisabled(!event.target.checked);
-      if (!event.target.checked) setExpanded(false);
-    };
-
-    const handleChange = (event: React.SyntheticEvent, isExpanded: boolean) => {
-      setExpanded(isExpanded);
-    };
-
     return (
       <Accordion
-        disabled={disabled}
-        expanded={expanded}
-        onChange={handleChange}
+        expanded={true}
       >
         <Box
           sx={{
             display: "flex",
             alignItems: "center",
+            padding: "6px 8px 8px",
           }}
         >
-          <Switch checked={!disabled} onChange={ToggleAccordionDisability} />
           <AccordionSummary
-            expandIcon={<MdExpandMore />}
             aria-controls="panel1a-content"
             id="panel1a-header"
             sx={{ flexGrow: 1 }}
@@ -288,96 +363,35 @@ const MarkAvailability = () => {
               gap: 2,
             }}
           >
-            {GetTimes(dayOfWeek).map((day, i) => {
-              return <TimeRange index={i} />;
-            })}
+            <TimeSelect />
           </Box>
         </AccordionDetails>
       </Accordion>
     );
   };
-
-  const DateRangerPicker = () => {
-    const [startDate, setStartDate] = useState<Dayjs | null>(null);
-    const [endDate, setEndDate] = useState<Dayjs | null>(null);
-
-    return (
-      <>
-        <div className="date-error">
-          {endDate?.isBefore(startDate) && (
-            <Typography
-              sx={{
-                font: "Poppins",
-                color: "#f55442",
-                fontSize: "0.8rem",
-                fontWeight: "400",
-                pl: 2,
-                pr: 2,
-              }}
-            >
-              Start date must be before end date.
-            </Typography>
-          )}
-        </div>
-
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            mt: "10%",
-            mb: "10%",
-          }}
-        >
-          <DatePicker
-            label="Start Date"
-            value={startDate}
-            onChange={(newValue) => {
-              if (endDate?.isBefore(newValue)) {
-                timeError = true;
-              } else {
-                timeError = false;
-              }
-              setStartDate(newValue);
-            }}
-            // renderInput={(params) => <TextField {...params} />}
-          />
-
-          <div className="end-date">
-            <DatePicker
-              label="End Date"
-              value={endDate}
-              onChange={(newValue) => {
-                if (newValue?.isBefore(startDate)) {
-                  timeError = true;
-                } else {
-                  timeError = false;
-                }
-                setEndDate(newValue);
-              }}
-              // renderInput={(params) => <TextField {...params} />}
-            />
-          </div>
-        </Box>
-      </>
-    );
-  };
-  const [open, setOpen] = React.useState(false);
-
-  const handleClickOpen = () => {
-    if (timeError) {
-      setOpen(true);
-    } else {
-      console.log("go back");
-      navigate(-1);
+  
+  const [saveSuccess, setSaveSuccess] = useState(0)
+  const save = () => {
+    const avails = {
+    "availabilities": `[{\"day\":\"monday\",\"time\":\"${saveMonday.current}\"},{\"day\":\"tuesday\",\"time\":\"${saveTuesday.current}\"},{\"day\":\"wednesday\",\"time\":\"${saveWednesday.current}\"},{\"day\":\"thursday\",\"time\":\"${saveThursday.current}\"},{\"day\":\"friday\",\"time\":\"${saveFriday.current}\"},{\"day\":\"saturday\",\"time\":\"${saveSaturday.current}\"},{\"day\":\"sunday\",\"time\":\"${saveSunday.current}\"}]`
     }
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
+    const date = {
+      "availabilitiesLastUpdated": new Date()
+    }
+    try {
+      if (volunteerId != null && volunteerId != undefined) {
+      editVolunteerAvailabilities(parseInt(volunteerId), avails) 
+        editAvailabilitiesLastUpdated(parseInt(volunteerId), date)
+        setSaveSuccess(1)
+      } 
+    } catch (e) {
+      setSaveSuccess(2)
+      console.log(e)
+    }
+    
+ }
   return (
-    <Box className="center">
+    <Box className="center1">
       <Typography
         sx={{
           font: "Poppins",
@@ -385,19 +399,20 @@ const MarkAvailability = () => {
           fontWeight: "600",
           textAlign: "center",
           fontSize: "1.5rem",
+          marginBottom: "3%",
         }}
       >
         Availability
       </Typography>
+      {saveSuccess==1 && <Alert severity="success">Availabilities saved successfully </Alert>}
+      {saveSuccess==2 && <Alert severity="error">Error saving availabilities</Alert>}
 
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <DateRangerPicker></DateRangerPicker>
+      <LocalizationProvider>
         {/* iterate through list of days of week and create accordion for each day */}
         {daysOfWeek.map((day) => {
           return <TimePickerAccordion dayOfWeek={day} />;
         })}
       </LocalizationProvider>
-
       <Box display="flex" justifyContent="center" mt="10%">
         <Button
           sx={{
@@ -406,33 +421,12 @@ const MarkAvailability = () => {
             marginBottom: "100%",
           }}
           variant="contained"
-          onClick={handleClickOpen}
+          onClick={save}
         >
           Save
         </Button>
       </Box>
-
-      <div>
-        <Dialog open={open} onClose={handleClose}>
-          <DialogContent>
-            <Typography
-              sx={{
-                font: "Poppins",
-                color: "#666666",
-                fontWeight: "600",
-                textAlign: "center",
-                fontSize: "1.5rem",
-                mt: "10%",
-              }}
-            >
-              Unable to save. Start times must be before end times.
-            </Typography>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose}>Ok</Button>
-          </DialogActions>
-        </Dialog>
-      </div>
+      
     </Box>
   );
 };

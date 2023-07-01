@@ -140,3 +140,59 @@ export const editVolunteer = async (
     alert(`Error in Axios put to /volunteers/${id}/edit`);
   }
 };
+
+//Volunteer services
+
+export const getOneVolunteer = async (id: number) => {
+  try {
+    const response = await axios.get(`${API_URL}/volunteers/${id}`);
+    return response.data;
+  } catch (e) {
+    throw new Error("Error in Axios get query to /volunteers/<id>");
+  }
+};
+
+export const editVolunteerAvailabilities = async (
+  id: number,
+  availabilities: { availabilities: string }
+) => {
+  try {
+    const response = await axios.put(
+      `${API_URL}/volunteers/${id}/edit`,
+      availabilities
+    );
+    return response.data;
+  } catch (e) {
+    throw new Error("Error in Axios put query to /volunteers/<id>/edit");
+  }
+};
+
+export const getVolunteerTasks = async (id: number) => {
+  try {
+    const response = await axios.get(`${API_URL}/volunteers/${id}/tasks`);
+    return response.data;
+  } catch (e) {
+    throw new Error("Error in Axios get query to /volunteers/<id>/tasks");
+  }
+};
+
+export const getAvailabilitiesLastUpdated = async (id: number) => {
+  try {
+    const response = await axios.get(`${API_URL}/volunteers/${id}`);
+    return response.data.volunteer.availabilitiesLastUpdated;
+  } catch (e) {
+    throw new Error("Error in Axios get query to /volunteers/<id>/");
+  }
+};
+
+export const editAvailabilitiesLastUpdated = async (
+  id: number,
+  date: { availabilitiesLastUpdated: Date }
+) => {
+  try {
+    const response = await axios.put(`${API_URL}/volunteers/${id}/edit`, date);
+    return response.data;
+  } catch (e) {
+    throw new Error("Error in Axios put query to /volunteers/<id>/edit");
+  }
+};
