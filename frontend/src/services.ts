@@ -8,6 +8,8 @@ import { getCurrentUserId } from "./helper";
 const API_URL = "http://localhost:3001/api";
 const VOLUNTEER_ID = getCurrentUserId(); // will need to be replaced with actual logged in volunteer's id.
 
+//Task services
+
 export const getAllTasks = async () => {
   try {
     // Uses axios to make a get request at "http://localhost:3001/api/tasks"
@@ -194,7 +196,8 @@ export const editVolunteerAvailabilities = async (
     );
     return response.data;
   } catch (e) {
-    throw new Error("Error in Axios put query to /volunteers/<id>/edit");
+    throw new Error("Error in Axios get query to /volunteers/<id>/edit");
+
   }
 };
 
@@ -206,6 +209,24 @@ export const getVolunteerTasks = async (id: number) => {
     throw new Error("Error in Axios get query to /volunteers/<id>/tasks");
   }
 };
+
+export const getVolunteerTodayTask = async (id: number) => {
+  let today = new Date();
+  today.setHours(0, 0, 0, 0);
+  try {
+    const allVolunteerTasks = await getVolunteerTasks(id);
+    for (var task of allVolunteerTasks.tasks) {
+      let taskDate = new Date(task.date); //TODO verify if this is in local time or in UTC on admin panel 
+      taskDate.setHours(0, 0, 0, 0);
+      if (today.getTime() === taskDate.getTime()) { //if the dates are the same, return the task that has to be displayed today
+        return task.id
+      }
+    }
+    return null; //if there are no tasks for today return null
+  } catch (e) {
+    throw new Error("Error getting today's task");
+  }
+}
 
 export const getAvailabilitiesLastUpdated = async (id: number) => {
   try {

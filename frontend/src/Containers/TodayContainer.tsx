@@ -4,21 +4,26 @@ import {
   NoDeliveries,
 } from "../Components/Today/DeliveryTimeline";
 import "../Styles/Delivery.css";
-import { getVolunteerTasks } from "../services";
+import { getVolunteerTodayTask } from "../services";
 import { useState, useEffect } from "react";
+import {getCurrentUserId} from "../helper"
 
 const TodayContainer = () => {
-  let volunteerId = 1;
+  let volunteerId = getCurrentUserId();
 
   const [noDeliveries, setNoDeliveries] = useState(false);
+  const [taskId, setTaskId] = useState(-1);
 
-  //if there isn't a task assigned to this volunteer for today  
   useEffect(() => {
-    //todo get the volunteer task and check for today's date
-    getVolunteerTasks(volunteerId).then((res) => { 
-      setNoDeliveries(res.tasks.length === 0); 
+    if (volunteerId != null && volunteerId != undefined) {
+      getVolunteerTodayTask(parseInt(volunteerId)).then((res) => { //this returns either the task to display for today or null
+        setNoDeliveries(res == null);
+        if (res != null) {
+          setTaskId(res)
+        }
     });
-  }, [])
+    }
+  }, [taskId]);
 
   const handleClick = async () => {
     window.location.href = "/tasks";
@@ -46,8 +51,7 @@ const TodayContainer = () => {
           >
             Today's Deliveries
           </Typography>
-          {!noDeliveries && 
-          <DeliveryTimeline />}{" "}
+          {!noDeliveries && <DeliveryTimeline taskId={taskId} />}{" "}
         </Box>
       </Box>
       {noDeliveries && <NoDeliveries />}{" "}
