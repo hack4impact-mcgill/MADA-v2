@@ -69,6 +69,15 @@ export function DeliveryTimeline(props: { taskId: number; }) {
   }
   }, [props.taskId])
 
+export function DeliveryTimeline() {
+  const [deliveryData, setDeliveryData] = useState([]);
+  useEffect(() => {
+    getOneTask(1).then((res) => { //todo get the correct task ID
+      setDeliveryData(res.task.deliveries.map((delivery: any) => timelineItems(delivery.client.name, delivery.client.address, delivery.isCompleted)));
+      console.log(res.task.deliveries.length)
+    });
+  }, [])
+
   return (
     <Timeline className="timeline">
       {deliveryData}

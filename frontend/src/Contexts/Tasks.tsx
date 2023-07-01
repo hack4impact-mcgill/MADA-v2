@@ -21,7 +21,6 @@ export interface TaskInterface {
   volunteer: any;
   deliveries: MealDeliveryInterface[];
 }
-
 export interface MealDeliveryInterface {
   id: number;
   quantity: number;
@@ -32,6 +31,10 @@ export interface MealDeliveryInterface {
   routePosition: number;
 }
 
+export interface ClientInterface {
+  name: string;
+  address: string;
+}
 export interface ClientInterface {
   name: string;
   address: string;

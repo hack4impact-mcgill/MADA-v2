@@ -166,6 +166,7 @@ export const editVolunteerAvailabilities = async (
     return response.data;
   } catch (e) {
     throw new Error("Error in Axios get query to /volunteers/<id>/edit");
+
   }
 };
 
@@ -195,3 +196,24 @@ export const getVolunteerTodayTask = async (id: number) => {
     throw new Error("Error getting today's task");
   }
 }
+
+export const getAvailabilitiesLastUpdated = async (id: number) => {
+  try {
+    const response = await axios.get(`${API_URL}/volunteers/${id}`);
+    return response.data.volunteer.availabilitiesLastUpdated;
+  } catch (e) {
+    throw new Error("Error in Axios get query to /volunteers/<id>/");
+  }
+};
+
+export const editAvailabilitiesLastUpdated = async (
+  id: number,
+  date: { availabilitiesLastUpdated: Date }
+) => {
+  try {
+    const response = await axios.put(`${API_URL}/volunteers/${id}/edit`, date);
+    return response.data;
+  } catch (e) {
+    throw new Error("Error in Axios put query to /volunteers/<id>/edit");
+  }
+};
