@@ -7,6 +7,7 @@ import TimelineContent from "@mui/lab/TimelineContent";
 import TimelineDot from "@mui/lab/TimelineDot";
 import { getOneTask } from "../../services";
 import { useState, useEffect } from "react";
+import {MealDeliveryInterface} from "../../Contexts/Tasks"
 
 export function NoDeliveries() {
   return (
@@ -46,12 +47,24 @@ function timelineItems(name: String, time: String, done: Boolean) {
     );
 }
 
+const compareDeliveries = (
+  delivery1: MealDeliveryInterface,
+  delivery2: MealDeliveryInterface
+) => {
+  if (delivery1.routePosition < delivery2.routePosition) {
+    return -1;
+  } else if (delivery1.routePosition > delivery2.routePosition) {
+    return 1;
+  }
+  return 0;
+};
+
 export function DeliveryTimeline(props: { taskId: number; }) {
   const [deliveryData, setDeliveryData] = useState([]);
   useEffect(() => {
     if (props.taskId != -1) {
     getOneTask(props.taskId).then((res) => { 
-      setDeliveryData(res.task.deliveries.map((delivery: any) => timelineItems(delivery.client.name, delivery.client.address, delivery.isCompleted)));
+      setDeliveryData(res.task.deliveries.sort(compareDeliveries).map((delivery: any) => timelineItems(delivery.client.name, delivery.client.address, delivery.isCompleted)));
     });
   }
   }, [props.taskId])
