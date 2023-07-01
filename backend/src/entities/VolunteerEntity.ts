@@ -70,7 +70,7 @@ export class VolunteerEntity extends UserEntity {
 
   @Column()
   availabilitiesLastUpdated: Date;
-  
+
   @OneToMany(() => TaskEntity, (task) => task.volunteer, {
     cascade: true
   })
