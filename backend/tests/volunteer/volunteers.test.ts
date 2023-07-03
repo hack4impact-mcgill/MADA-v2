@@ -1,5 +1,5 @@
 import { describe, it } from '@jest/globals';
-import { DayOfWeek, VolunteerEntity } from '../../src/entities/VolunteerEntity';
+import { VolunteerEntity } from '../../src/entities/VolunteerEntity';
 import { AppDataSource } from '../../src/data-source';
 import * as request from 'supertest';
 import VolunteerEntityHelper from './volunteers.utils';
@@ -42,15 +42,16 @@ describe('Volunteers tests', () => {
 
   it('should return all volunteers', async () => {
     const date: Date = new Date('April 20, 2001 04:20:00');
+    const lastUpdated: Date = new Date('April 20, 2002 04:20:00');
     volunteerHelper.createVolunteer(
-      'username1',
       'name1',
       'email1',
+      '0123456789',
       'password1',
-      123,
+      lastUpdated.toISOString(),
       date.toISOString(),
       'link to profile',
-      [DayOfWeek.MONDAY],
+      '',
       []
     );
     const res = await request(app).get('/api/volunteers');
@@ -58,44 +59,51 @@ describe('Volunteers tests', () => {
     expect(res.body).toEqual({
       volunteers: [
         {
-          availabilities: ['monday'],
+          availabilities: '',
           email: 'email1',
+          phoneNumber: '0123456789',
           id: 1,
           name: 'name1',
-          phoneNumber: 123,
           profilePicture: 'link to profile',
+          availabilitiesLastUpdated: lastUpdated.toISOString(),
           startDate: date.toISOString(),
-          username: 'username1'
+          password: 'password1',
+          tasks: [],
+          token: null
         }
       ]
     });
   });
 
-  it('should return a volutneer', async () => {
+  it('should return a volunteer', async () => {
     const date: Date = new Date('April 20, 2001 04:20:00');
+    const lastUpdated: Date = new Date('April 20, 2002 04:20:00');
     const volunteer = await volunteerHelper.createVolunteer(
-      'username1',
       'name1',
       'email1',
+      '0123456789',
       'password1',
-      123,
+      lastUpdated.toISOString(),
       date.toISOString(),
       'link to profile',
-      [DayOfWeek.MONDAY],
+      '',
       []
     );
     const res = await request(app).get(`/api/volunteers/${volunteer.id}`);
     expect(res.status).toBe(StatusCode.OK);
     expect(res.body).toEqual({
       volunteer: {
-        availabilities: ['monday'],
+        availabilities: '',
         email: 'email1',
+        phoneNumber: '0123456789',
         id: 1,
         name: 'name1',
-        phoneNumber: 123,
         profilePicture: 'link to profile',
+        availabilitiesLastUpdated: lastUpdated.toISOString(),
         startDate: date.toISOString(),
-        username: 'username1'
+        password: 'password1',
+        tasks: [],
+        token: null
       }
     });
   });
@@ -202,21 +210,18 @@ describe('Volunteers tests', () => {
 
   it('should get volunteer tasks', async () => {
     const date: Date = new Date('April 20, 2001 04:20:00');
-    const savedTask = await taskHelper.createTask(
-      date.toISOString(),
-      [],
-      false
-    );
+    const lastUpdated: Date = new Date('April 20, 2002 04:20:00');
+    const savedTask = await taskHelper.createTask([], false);
 
     const savedVolunteer = await volunteerHelper.createVolunteer(
-      'username1',
       'name1',
       'email1',
+      '0123456789',
       'password1',
-      123,
+      lastUpdated.toISOString(),
       date.toISOString(),
       'link to profile',
-      [DayOfWeek.MONDAY],
+      '',
       [savedTask]
     );
 
@@ -228,7 +233,7 @@ describe('Volunteers tests', () => {
       tasks: [
         {
           deliveries: [],
-          deliveryTime: date.toISOString(),
+          date: null,
           id: 1,
           isCompleted: false
         }
@@ -238,15 +243,16 @@ describe('Volunteers tests', () => {
 
   it('should delete task', async () => {
     const date: Date = new Date('April 20, 2001 04:20:00');
+    const lastUpdated: Date = new Date('April 20, 2002 04:20:00');
     const savedVolunteer = await volunteerHelper.createVolunteer(
-      'username1',
       'name1',
       'email1',
+      '0123456789',
       'password1',
-      123,
+      lastUpdated.toISOString(),
       date.toISOString(),
       'link to profile',
-      [DayOfWeek.MONDAY],
+      '',
       []
     );
     const res = await request(app).delete(

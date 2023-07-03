@@ -5,58 +5,83 @@ import TimelineSeparator from "@mui/lab/TimelineSeparator";
 import TimelineConnector from "@mui/lab/TimelineConnector";
 import TimelineContent from "@mui/lab/TimelineContent";
 import TimelineDot from "@mui/lab/TimelineDot";
+import { getOneTask } from "../../services";
+import { useState, useEffect } from "react";
+import { MealDeliveryInterface } from "../../Contexts/Tasks";
 
 export function NoDeliveries() {
   return (
-    <Typography textAlign={'center'}>
+    <Typography textAlign={"center"}>
       <Typography sx={{ color: "#666666", marginTop: "15%" }}>
-        Congratulations!
+        No deliveries for today.
       </Typography>
-      <Typography sx={{ color: "#666666", marginBottom: "15%"}}>
-        You're all done for today!
+      <Typography sx={{ color: "#666666", marginBottom: "15%" }}>
+        Check back tomorrow!
       </Typography>
     </Typography>
   );
 }
 
-function timelineItems(name: String, time: String, last: Boolean, done: Boolean) {
-    return (
-      <TimelineItem
-        sx={{ [`& .${timelineItems}:before`]: {flex: 0, padding: 0 },}}// remove padding from the timeline items
-      >
-        <TimelineSeparator>
-          <TimelineDot sx={{ backgroundColor: done ? "#33BE41" : "#ffffff", borderColor: done ? "#33BE41" : "#aaaaaa " }} />
-          {!last && <TimelineConnector />}
-        </TimelineSeparator>
+function timelineItems(name: String, time: String, done: Boolean) {
+  return (
+    <TimelineItem
+      sx={{ [`& .${timelineItems}:before`]: { flex: 0, padding: 0 } }} // remove padding from the timeline items
+    >
+      <TimelineSeparator>
+        <TimelineDot
+          sx={{
+            backgroundColor: done ? "#33BE41" : "#ffffff",
+            borderColor: done ? "#33BE41" : "#aaaaaa ",
+          }}
+        />
+        <TimelineConnector />
+      </TimelineSeparator>
 
-        <TimelineContent>
-          <Typography
-            sx={{ color: "#666666", fontWeight: "bold" }}
-            variant="body2"
-          >
-            {name}
-          </Typography>
-          <Typography sx={{ color: "#666666" }} variant="body2">
-            {time}
-          </Typography>
-        </TimelineContent>
-      </TimelineItem>
-    );
+      <TimelineContent>
+        <Typography
+          sx={{ color: "#666666", fontWeight: "bold" }}
+          variant="body2"
+        >
+          {name}
+        </Typography>
+        <Typography sx={{ color: "#666666" }} variant="body2">
+          {time}
+        </Typography>
+      </TimelineContent>
+    </TimelineItem>
+  );
 }
 
-export function DeliveryTimeline() {
-  let testDeliveryData = [
-    { "name": "Leopold Bennett", "Time": "8:00 AM - 9:00 AM", "isLast": false, "done": true },
-    { "name": "Samuel Ranch", "Time": "11:30 AM - 12:30 PM", "isLast": false, "done": false },
-    { "name": "Zahara Lott", "Time": "3:00 PM - 4:00 PM", "isLast": true, "done": false },
-  ];  
-  const items = [];
-  for (let i = 0; i < testDeliveryData.length; i++) {
-      items.push(timelineItems(testDeliveryData[i].name, testDeliveryData[i].Time, testDeliveryData[i].isLast, testDeliveryData[i].done))
+const compareDeliveries = (
+  delivery1: MealDeliveryInterface,
+  delivery2: MealDeliveryInterface
+) => {
+  if (delivery1.routePosition < delivery2.routePosition) {
+    return -1;
+  } else if (delivery1.routePosition > delivery2.routePosition) {
+    return 1;
   }
-  return (
-    <Timeline className="timeline">
-      {items}
-    </Timeline>
-  );
+  return 0;
+};
+
+export function DeliveryTimeline(props: { taskId: number }) {
+  const [deliveryData, setDeliveryData] = useState([]);
+  useEffect(() => {
+    if (props.taskId != -1) {
+      getOneTask(props.taskId).then((res) => {
+        setDeliveryData(
+          res.task.deliveries
+            .sort(compareDeliveries)
+            .map((delivery: any) =>
+              timelineItems(
+                delivery.client.name,
+                delivery.client.address,
+                delivery.isCompleted
+              )
+            )
+        );
+      });
+    }
+  }, [props.taskId]);
+  return <Timeline className="timeline">{deliveryData}</Timeline>;
 }

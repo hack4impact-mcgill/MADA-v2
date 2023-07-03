@@ -4,16 +4,24 @@ import { ClientEntity } from '../../entities/ClientEntity';
 import { VolunteerEntity } from '../../entities/VolunteerEntity';
 import { MealDeliveryEntity } from '../../entities/MealDeliveryEntity';
 import { faker } from '@faker-js/faker';
+import { MealType, ProgramType } from '../../entities/types';
+import { Seeder, SeederFactoryManager } from 'typeorm-extension';
 
-const generateMeal = (task, client) => {
-  const type = Math.random() > 0.5 ? 'Regular' : 'Vegan';
-  const quantity = 1 + Math.floor(Math.random() * 4);
+const generateMeal = (task, client, position) => {
+  let type = MealType.VEGETARIAN;
+  if (Math.random() > 0.66) {
+    type = MealType.NOFISH;
+  } else if (Math.random() < 0.33) {
+    type = MealType.NOMEAT;
+  }
 
   const meal = new MealDeliveryEntity();
-  meal.quantity = quantity;
   meal.mealType = type;
   meal.task = task;
   meal.client = client;
+  meal.routePosition = position;
+  meal.isCompleted = false;
+  meal.program = faker.helpers.arrayElement([ProgramType.STS, ProgramType.MAP]);
   return meal;
 };
 
@@ -23,10 +31,7 @@ export const generateTask = async (
 ) => {
   const task = new TaskEntity();
   task.isCompleted = false;
-  task.deliveryTime = faker.date.between(
-    '2021-01-01T00:00:00.000Z',
-    '2023-01-01T00:00:00.000Z'
-  );
+  task.date = faker.date.future(0.01);
   const repository = dataSource.getRepository(TaskEntity);
   await repository.insert(task);
   await dataSource
@@ -49,9 +54,28 @@ export const generateTask = async (
   for (let i = 0; i <= num; i++) {
     const n = Math.floor(Math.random() * clients.length);
     const client = clients[n];
-    const meal = generateMeal(task, client);
+    const meal = generateMeal(task, client, i);
     await mealRepository.insert(meal);
   }
 
   return task;
 };
+
+export default class ClientSeeder implements Seeder {
+  public async run(
+    dataSource: DataSource,
+    factoryManager: SeederFactoryManager
+  ): Promise<any> {
+    const volunteerRepo = dataSource.getRepository(VolunteerEntity);
+    const repository = dataSource.getRepository(TaskEntity);
+    const volunteers = await volunteerRepo.find();
+    volunteers?.forEach(async (volunteer) => {
+      const task = await generateTask(dataSource, volunteer);
+      const task2 = await generateTask(dataSource, volunteer);
+      const task3 = await generateTask(dataSource, volunteer);
+      await repository.insert(task);
+      await repository.insert(task2);
+      await repository.insert(task3);
+    });
+  }
+}

@@ -1,6 +1,6 @@
 import { Input, Box, FormHelperText, FormControl, Stack } from "@mui/material";
 import "../../Styles/LogIn.css";
-
+import { isBrowser } from "react-device-detect";
 const setHelperText = (errorText: string, helperText: string) => {
   if (errorText.length === 0) {
     return "";
@@ -31,7 +31,7 @@ const UsernameTextField = (props: {
               fontFamily: "Poppins",
               fontStyle: "normal",
               fontWeight: "400",
-              fontSize: "17px",
+              fontSize: isBrowser ? "17px" : "12px",
             }}
             onChange={props.updateUsername}
             value={props.username}

@@ -13,7 +13,7 @@ const CloseButton = () => {
       }}
       onClick={() => {
         // redirect back to Tasks page when clicked
-        window.location.href = "/tasks";
+        history.back();
       }}
     >
         <AiFillCloseCircle style={{ color: "#2E5CD3" }} size="29"></AiFillCloseCircle>

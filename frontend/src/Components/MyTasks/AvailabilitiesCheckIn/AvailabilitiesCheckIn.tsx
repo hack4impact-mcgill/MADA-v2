@@ -18,7 +18,6 @@ const AvailabilitiesCheckIn = () => {
         left: "50%",
         display: "flex",
         justifyContent: "space-between",
-        alignItems: "center",
       }}
     >
       <Box

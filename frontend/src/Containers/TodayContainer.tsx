@@ -1,29 +1,46 @@
-import { Typography, Button, Box } from "@mui/material";
+import { Typography, Button, Box, Stack } from "@mui/material";
 import {
   DeliveryTimeline,
   NoDeliveries,
 } from "../Components/Today/DeliveryTimeline";
 import "../Styles/Delivery.css";
+import { getVolunteerTodayTask } from "../services";
+import { useState, useEffect } from "react";
+import {getCurrentUserId} from "../helper"
 
 const TodayContainer = () => {
-  let noDeliveries = false;
+  let volunteerId = getCurrentUserId();
+
+  const [noDeliveries, setNoDeliveries] = useState(false);
+  const [taskId, setTaskId] = useState(-1);
+
+  useEffect(() => {
+    if (volunteerId != null && volunteerId != undefined) {
+      getVolunteerTodayTask(parseInt(volunteerId)).then((res) => { //this returns either the task to display for today or null
+        setNoDeliveries(res == null);
+        if (res != null) {
+          setTaskId(res)
+        }
+    });
+    }
+  }, [taskId]);
+
+  const handleClick = async () => {
+    window.location.href = "/tasks";
+  };
   return (
-    <Box className="today-wrapper">
+    <Stack className="today-wrapper" spacing={0}>
       <Box className="center">
         <Box
           className="welcome"
-          sx={{ display: "flex", flexDirection: "column", "margin-top": "15%" }}
+          sx={{ display: "flex", flexDirection: "column" }}
         >
           <Typography
             sx={{ font: "Poppins", color: "#666666", "font-weight": "400" }}
           >
-            Welcome back,
+            Welcome back!
           </Typography>
-          <Typography
-            sx={{ font: "Poppins", color: "#666666", "font-weight": "500" }}
-          >
-            John
-          </Typography>
+         
           <Typography
             sx={{
               font: "Poppins",
@@ -34,18 +51,20 @@ const TodayContainer = () => {
           >
             Today's Deliveries
           </Typography>
-          {!noDeliveries && <DeliveryTimeline />}{" "}
-          {/* display the screen of the timeline */}
+          {!noDeliveries && <DeliveryTimeline taskId={taskId} />}{" "}
         </Box>
       </Box>
       {noDeliveries && <NoDeliveries />}{" "}
-      {/* display the screen for no deliveries  */}
       <Box display="flex" width={"100%"} justifyContent="center">
-        <Button sx={{ backgroundColor: "#33BE41" }} variant="contained">
+        <Button
+          sx={{ backgroundColor: "#33BE41", margin: 0 }}
+          variant="contained"
+          onClick={handleClick}
+        >
           Start Delivery
         </Button>
       </Box>
-    </Box>
+    </Stack>
   );
 };
 

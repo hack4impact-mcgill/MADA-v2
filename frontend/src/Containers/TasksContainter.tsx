@@ -6,36 +6,13 @@ import AvailabilitiesCheckIn from "../Components/MyTasks/AvailabilitiesCheckIn/A
 import CheckInButton from "../Components/MyTasks/AvailabilitiesCheckIn/CheckInButton";
 import HistoryButtonContainer from "../Components/MyTasks/HistoryButton/HistoryButtonContainer";
 import { TaskProvider } from "../Contexts/Tasks";
-import { Typography, Modal } from "@mui/material";
+import { Typography, Modal, Box } from "@mui/material";
 import { useState } from "react";
 
 const TasksContainer = () => {
-  // dateFilter and completionFilter state will be used to filter tasks. Current date is used to initialize dateFilter.
-  // dateFilter and completionFilter state will be passed down to DeliviesContainer.
-  // NOTE that dataFilter is in STRING type and not DATE type.
-  const [completionFilter, setCompletionFilter] = useState("ALLTASKS"); // set ALLTASKS as default
-  const [dateFilter, setDateFilter] = useState(new Date().toLocaleString("en-GB", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  }));
-  // const [isModalOpen, setIsModalOpen] = useState(false); // for history container modal
-
-  // const modalCloseHandler = () => {
-  //   setIsModalOpen(false);
-  //   console.log("history modal closed");
-  // };
-
-  // const modalOpenHandler = () => {
-  //   setIsModalOpen(true);
-  //   console.log("history modal opened");
-  // };
-
-  // this function will be passed down using props
-  const dateFilterUpdateHandler = (date: string) => {
-    setDateFilter(date); // update dateFilter
-    console.log("dateFilter updated!", date);
-  };
+  // dateFilter and completionFilter state will be used to filter tasks. Current date is used to initialize dateFilter in its context.
+  // completionFilter state will be passed down to DeliviesContainer.
+  const [completionFilter, setCompletionFilter] = useState("ALLDELIVERIES"); // set ALLDELIVERIES as default
 
   // this function will be passed down using props
   const completionFilterUpdateHandler = (completionType: string) => {
@@ -47,9 +24,11 @@ const TasksContainer = () => {
     <div className="tasks-container">
       {/* enable accessing Task Context by using TaskProvider */}
       <TaskProvider>
-        <TopRectangle />
-        <AvailabilitiesCheckIn />
-        <CheckInButton />
+        <Box sx={{ position: "relative" }}>
+          <TopRectangle />
+          <AvailabilitiesCheckIn />
+          <CheckInButton />
+        </Box>
         <HistoryButtonContainer />
         <Typography
           sx={{
@@ -63,11 +42,9 @@ const TasksContainer = () => {
           My Deliveries
         </Typography>
         <FiltersContainer
-          updateDateFilter={dateFilterUpdateHandler}
           updateCompletionFilter={completionFilterUpdateHandler}
         />
         <DeliveriesContainer
-          dateFilter={dateFilter}
           completionFilter={completionFilter}
         />
       </TaskProvider>
