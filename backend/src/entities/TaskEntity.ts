@@ -13,10 +13,10 @@ export class TaskEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ nullable: true })
   date: Date;
 
-  @Column()
+  @Column({ default: false })
   isCompleted: boolean;
 
   @ManyToOne(() => VolunteerEntity, (volunteer) => volunteer.tasks)

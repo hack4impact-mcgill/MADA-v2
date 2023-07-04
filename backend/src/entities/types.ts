@@ -1,11 +1,10 @@
-
 export enum ProgramType {
-    MAP = 'map',
-    STS = 'sts'
+  MAP = 'MAP',
+  STS = 'STS'
 }
 
 export enum MealType {
-    VEGETARIAN = 'vegetarian',
-    NOFISH = 'nofish',
-    NOMEAT = 'nomeat',
+  VEGETARIAN = 'Vegetarian',
+  NOFISH = 'No Fish',
+  NOMEAT = 'No Meat'
 }

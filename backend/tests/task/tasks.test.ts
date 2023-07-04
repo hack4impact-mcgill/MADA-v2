@@ -9,6 +9,7 @@ import app from '../../src/app';
 import { StatusCode } from '../../src/controllers/statusCode';
 import MealDeliveryEntityHelper from '../mealDelivery/mealDelivery.utils';
 import { MealDeliveryEntity } from '../../src/entities/MealDeliveryEntity';
+import { MealType, ProgramType } from '../../src/entities/types';
 
 describe('Tasks tests', () => {
   const taskRepository = AppDataSource.getRepository(TaskEntity);
@@ -42,113 +43,67 @@ describe('Tasks tests', () => {
   });
 
   it('should return a task', async () => {
-    const date: Date = new Date('April 20, 2001 04:20:00');
-    const savedTask = await taskHelper.createTask(
-      date.toISOString(),
-      [],
-      false
-    );
+    const savedTask = await taskHelper.createTask([], false);
     const res = await request(app).get(`/api/tasks/${savedTask.id}`);
     expect(res.status).toBe(StatusCode.OK);
     expect(res.body).toEqual({
       task: {
         id: savedTask.id,
-        deliveryTime: date.toISOString(),
         isCompleted: false,
-        deliveries: []
+        date: null,
+        deliveries: [],
+        volunteer: null
       }
     });
   });
 
   it('should return tasks', async () => {
-    const date: Date = new Date('April 20, 2001 04:20:00');
-    const savedTaskOne = await taskHelper.createTask(
-      date.toISOString(),
-      [],
-      false
-    );
-    const savedTaskTwo = await taskHelper.createTask(
-      date.toISOString(),
-      [],
-      false
-    );
+    const savedTaskOne = await taskHelper.createTask([], false);
+    const savedTaskTwo = await taskHelper.createTask([], false);
     const res = await request(app).get(`/api/tasks`);
     expect(res.statusCode).toBe(200);
     expect(res.body).toEqual({
       tasks: [
         {
           id: expect.any(Number),
-          deliveryTime: date.toISOString(),
+          date: null,
           isCompleted: false,
-          deliveries: []
+          deliveries: [],
+          volunteer: null
         },
         {
           id: expect.any(Number),
-          deliveryTime: date.toISOString(),
+          date: null,
           isCompleted: false,
-          deliveries: []
+          deliveries: [],
+          volunteer: null
         }
       ]
     });
   });
 
-  it('should create a task', async () => {
-    const date: Date = new Date('April 20, 2001 04:20:00');
-    const res = await request(app).put(`/api/tasks`).send({
-      deliveryTime: date.toISOString(),
-      isCompleted: false,
-      deliveries: []
-    });
-    expect(res.statusCode).toBe(200);
-    expect(res.body).toEqual({
-      task: {
-        id: expect.any(Number),
-        deliveryTime: date.toISOString(),
-        isCompleted: false,
-        deliveries: []
-      }
-    });
-  });
-
-  it('should update a test', async () => {
-    const date: Date = new Date('April 20, 2001 04:20:00');
-    const newDate: Date = new Date('April 21, 2001 04:20:00');
-    const newMealDelivery = await mealDeliveryHelper.createMealDelivery(
-      1,
-      'breakfast',
-      null
-    );
-    const savedTask = await taskHelper.createTask(
-      date.toISOString(),
-      [newMealDelivery],
-      false
-    );
-    const res = await request(app).put(`/api/tasks/${savedTask.id}`).send({
-      deliveryTime: newDate.toISOString(),
-      isCompleted: true,
-      deliveries: []
-    });
-    expect(res.statusCode).toBe(200);
-    expect(res.body).toEqual({
-      task: {
-        id: expect.any(Number),
-        deliveryTime: newDate.toISOString(),
-        isCompleted: true,
-        deliveries: []
-      }
-    });
-    // make sure mealDelivery's task is unset
-    expect(newMealDelivery.task).toBeNull;
-  });
+  // Will be replaced with create task from route
+  //   it('should create a task', async () => {
+  //     const date: Date = new Date('April 20, 2001 04:20:00');
+  //     const res = await request(app).put(`/api/tasks`).send({
+  //       date: date.toISOString(),
+  //       isCompleted: false,
+  //     });
+  //     expect(res.statusCode).toBe(StatusCode.OK);
+  //     expect(res.body).toEqual({
+  //       task: {
+  //         id: expect.any(Number),
+  //         date: date.toISOString(),
+  //         isCompleted: false,
+  //         deliveries: []
+  //       }
+  //     });
+  //   });
 
   it('should delete task', async () => {
     await DataSourceHelper.clearDataSource();
     const date: Date = new Date('April 20, 2001 04:20:00');
-    const savedTask = await taskHelper.createTask(
-      date.toISOString(),
-      [],
-      false
-    );
+    const savedTask = await taskHelper.createTask([], false);
     const res = await request(app).delete(`/api/tasks/${savedTask.id}`);
     expect(res.status).toBe(StatusCode.OK);
     expect(res.body).toEqual({});

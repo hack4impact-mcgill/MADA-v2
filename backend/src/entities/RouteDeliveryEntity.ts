@@ -1,13 +1,8 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  ManyToOne,
-} from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 import { ClientEntity } from './ClientEntity';
 import { ProgramType, MealType } from './types';
 
-@Entity() 
+@Entity()
 export class RouteDeliveryEntity {
   @PrimaryGeneratedColumn()
   id: number;
@@ -22,7 +17,7 @@ export class RouteDeliveryEntity {
   mealType: MealType;
 
   @Column()
-  program: ProgramType
+  program: ProgramType;
 
   @ManyToOne(() => ClientEntity)
   client: ClientEntity;
