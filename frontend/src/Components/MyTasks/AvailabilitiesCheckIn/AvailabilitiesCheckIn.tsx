@@ -1,8 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Typography } from "@mui/material";
 import { CgDanger } from "react-icons/cg";
+import { getAvailabilitiesLastUpdated } from "../../../services";
+import { getCurrentUserId } from "../../../helper";
 
 const AvailabilitiesCheckIn = () => {
+  const userId : string | null | undefined = getCurrentUserId();
+  const intUserId : number = userId ? parseInt(userId) : -1;
+  console.log("mee", userId, intUserId)
+  const [availabilityLastUpdated, setAvailabilityLastUpdated] = useState("");
+
+  useEffect(() => {
+    const getLastUpdatedDate = async () => {
+      const lastUpdatedDate = await getAvailabilitiesLastUpdated(
+        intUserId
+      );
+      console.log("lastUpdated Date is: ", lastUpdatedDate);
+      setAvailabilityLastUpdated(lastUpdatedDate);
+    };
+
+    getLastUpdatedDate();
+  }, []);
+
   return (
     <Box
       sx={{
