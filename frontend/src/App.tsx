@@ -3,11 +3,12 @@ import Header from "./Components/Header/Header";
 import NavBar from "./Components/NavBar/NavBar";
 import RouterComponent from "./Router";
 import { Box } from "@mui/material";
+import { getCurrentUserId } from "./helper";
 import "./App.css";
 
 // Create a functional component
 export default function App() {
-  const userId = localStorage.getItem("userId");
+  const userId = getCurrentUserId();
 
   useEffect(() => {
     if (userId && window.location.pathname === "/") {
