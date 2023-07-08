@@ -1,25 +1,37 @@
 import React, { useEffect, useState } from "react";
 import { Box, Typography } from "@mui/material";
-import { CgDanger } from "react-icons/cg";
+import { CgDanger, CgCheckO } from "react-icons/cg";
 import { getAvailabilitiesLastUpdated } from "../../../services";
 import { getCurrentUserId } from "../../../helper";
+import dayjs from "dayjs";
+import weekOfYear from "dayjs/plugin/weekOfYear";
+dayjs.extend(weekOfYear); // enable using plugin for dayjs
 
 const AvailabilitiesCheckIn = () => {
-  const userId : string | null | undefined = getCurrentUserId();
-  const intUserId : number = userId ? parseInt(userId) : -1;
-  console.log("mee", userId, intUserId)
-  const [availabilityLastUpdated, setAvailabilityLastUpdated] = useState("");
+  const [isAvailabilityUpdatedThisWeek, setIsAvailabilityUpdatedThisWeek] =
+    useState(false);
+  const userId: string | null | undefined = getCurrentUserId();
+  const intUserId: number = userId ? parseInt(userId) : -1;
+  console.log("mee", userId, intUserId);
 
   useEffect(() => {
-    const getLastUpdatedDate = async () => {
-      const lastUpdatedDate = await getAvailabilitiesLastUpdated(
+    const isAvailUpdated = async () => {
+      const availabilityLastUpdated = await getAvailabilitiesLastUpdated(
         intUserId
       );
-      console.log("lastUpdated Date is: ", lastUpdatedDate);
-      setAvailabilityLastUpdated(lastUpdatedDate);
+      console.log("lastUpdated Date is: ", availabilityLastUpdated);
+      const weekOfLastUpdatedDate = dayjs("2023-07-07").week();
+      const currentWeek = dayjs(new Date()).week()
+      console.log(
+        "this week: ",
+        currentWeek,
+        "last week: ",
+        weekOfLastUpdatedDate
+      );
+      setIsAvailabilityUpdatedThisWeek(currentWeek === weekOfLastUpdatedDate);
     };
 
-    getLastUpdatedDate();
+    isAvailUpdated();
   }, []);
 
   return (
@@ -44,28 +56,53 @@ const AvailabilitiesCheckIn = () => {
           marginLeft: 2,
         }}
       >
-        <Typography
-          sx={{
-            fontFamily: "Poppins",
-            fontWeight: 400,
-            fontSize: 10,
-            color: "#FB4B4B",
-          }}
-        >
-          Not Completed
-        </Typography>
+        {isAvailabilityUpdatedThisWeek ? (
+          <Typography
+            sx={{
+              fontFamily: "Poppins",
+              fontWeight: 400,
+              fontSize: 10,
+              color: "#85CF27",
+            }}
+          >
+            Completed
+          </Typography>
+        ) : (
+          <Typography
+            sx={{
+              fontFamily: "Poppins",
+              fontWeight: 400,
+              fontSize: 10,
+              color: "#FB4B4B",
+            }}
+          >
+            Not Completed
+          </Typography>
+        )}
         <Typography
           sx={{ fontFamily: "Poppins", fontWeight: 600, fontSize: 18 }}
         >
           Availability Check-In
         </Typography>
-        <Typography
-          sx={{ fontFamily: "Poppins", fontWeight: 400, fontSize: 12 }}
-        >
-          Mark Your Weekly Availabilities
-        </Typography>
+        {isAvailabilityUpdatedThisWeek ? (
+          <Typography
+            sx={{ fontFamily: "Poppins", fontWeight: 400, fontSize: 12 }}
+          >
+            Edit Your Weekly Availabilities
+          </Typography>
+        ) : (
+          <Typography
+            sx={{ fontFamily: "Poppins", fontWeight: 400, fontSize: 12 }}
+          >
+            Mark Your Weekly Availabilities
+          </Typography>
+        )}
       </Box>
-      <CgDanger size="45" style={{ marginRight: 20, color: "#FB4B4B" }} />
+      {isAvailabilityUpdatedThisWeek ? (
+        <CgCheckO size="45" style={{ marginTop: 10, marginRight: 20, color: "#85CF27" }} />
+      ) : (
+        <CgDanger size="45" style={{ marginTop: 10, marginRight: 20, color: "#FB4B4B" }} />
+      )}
     </Box>
   );
 };
