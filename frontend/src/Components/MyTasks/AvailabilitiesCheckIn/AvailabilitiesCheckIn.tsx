@@ -21,7 +21,7 @@ const AvailabilitiesCheckIn = () => {
       );
       console.log("lastUpdated Date is: ", availabilityLastUpdated);
       const weekOfLastUpdatedDate = dayjs("2023-07-07").week();
-      const currentWeek = dayjs(new Date()).week()
+      const currentWeek = dayjs(new Date()).week();
       console.log(
         "this week: ",
         currentWeek,
@@ -99,9 +99,15 @@ const AvailabilitiesCheckIn = () => {
         )}
       </Box>
       {isAvailabilityUpdatedThisWeek ? (
-        <CgCheckO size="45" style={{ marginTop: 10, marginRight: 20, color: "#85CF27" }} />
+        <CgCheckO
+          size="45"
+          style={{ marginTop: 10, marginRight: 20, color: "#85CF27" }}
+        />
       ) : (
-        <CgDanger size="45" style={{ marginTop: 10, marginRight: 20, color: "#FB4B4B" }} />
+        <CgDanger
+          size="45"
+          style={{ marginTop: 10, marginRight: 20, color: "#FB4B4B" }}
+        />
       )}
     </Box>
   );
