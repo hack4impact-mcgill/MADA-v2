@@ -21,3 +21,9 @@ services:
     build: 'frontend'
     ports:
       - '3000:3000'
+      - '8080:80'
+
+  # networks:
+  #   mada-network:
+  #     driver: brdige
+  
