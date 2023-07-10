@@ -20,7 +20,7 @@ const AvailabilitiesCheckIn = () => {
         intUserId
       );
       console.log("lastUpdated Date is: ", availabilityLastUpdated);
-      const weekOfLastUpdatedDate = dayjs("2023-07-07").week();
+      const weekOfLastUpdatedDate = dayjs(availabilityLastUpdated).week();
       const currentWeek = dayjs(new Date()).week();
       console.log(
         "this week: ",
