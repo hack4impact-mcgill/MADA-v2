@@ -14,7 +14,7 @@ import { VolunteerEntity } from './entities/VolunteerEntity';
 // Create a data source i.e connection settings: https://orkhan.gitbook.io/typeorm/docs/data-source#what-is-datasource
 export const AppDataSource = new DataSource({
   type: 'postgres',
-  host: 'postgres',
+  host: 'postgres', // set to localhost when seeding from your terminal! hostname 'postgres' is needed for backend container within docker network to access the database container.
   port: 5432,
   username: 'test',
   password: 'test',

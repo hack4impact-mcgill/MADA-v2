@@ -9,6 +9,9 @@ services:
       POSTGRES_PASSWORD: 'test'
       POSTGRES_DB: 'test'
     command: -p 5432
+    container_name: postgres
+    networks:
+      - mada-network
   backend:
     image: 'kihyeokk/mada-backend'
     build: 'backend'
@@ -16,14 +19,20 @@ services:
       - postgres
     ports:
       - '3001:3001'
+    container_name: backend
+    networks:
+      - mada-network
   frontend:
     image: 'kihyeokk/mada-frontend'
     build: 'frontend'
     ports:
       - '3000:3000'
-      - '8080:80'
+      - '8080:80' # react application can send request to backend by sending request to localhost:8080, then nginx will redirect and handle the request to backend for us.
+    container_name: frontend
+    networks:
+      - mada-network
 
-  # networks:
-  #   mada-network:
-  #     driver: brdige
+networks:
+  mada-network: # user defined bridge network will allow us to use container name and not only ip to target each other, unlike default bridge network.
+    driver: bridge
   

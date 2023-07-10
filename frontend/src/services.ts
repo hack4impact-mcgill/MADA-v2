@@ -3,8 +3,9 @@ import { MealDeliveryInterface, TaskInterface } from "./Contexts/Tasks";
 import { VolunteerType } from "./Containers/UserContainer";
 
 // URL to which requests will be sent
-const API_URL = "http://mada-v2-backend-1/api";
+const API_URL = "http://localhost:8080/api";
 const VOLUNTEER_ID = "5"; // will need to be replaced with actual logged in volunteer's id.
+console.log("why");
 
 export const getAllTasks = async () => {
   try {
