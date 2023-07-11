@@ -9,6 +9,14 @@ services:
       POSTGRES_PASSWORD: 'test'
       POSTGRES_DB: 'test'
     command: -p 5432
+    # since postgres takes long to start and backend tries to run before postgres is ready,
+    # we need to make sure postgres is ready before starting backend container.
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 3s
+      timeout: 2s
+      retries: 5
+      start_period: 1s
     container_name: postgres
     networks:
       - mada-network
@@ -16,7 +24,8 @@ services:
     image: 'kihyeokk/mada-backend'
     build: 'backend'
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy # make sure to start backend only when postgres is ready.
     ports:
       - '3001:3001'
     container_name: backend
@@ -25,6 +34,8 @@ services:
   frontend:
     image: 'kihyeokk/mada-frontend'
     build: 'frontend'
+    depends_on:
+      - backend
     ports:
       - '3000:3000'
       - '8080:80' # react application can send request to backend by sending request to localhost:8080, then nginx will redirect and handle the request to backend for us.
