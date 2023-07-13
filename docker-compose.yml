@@ -13,7 +13,7 @@ services:
     # we need to make sure postgres is ready before starting backend container.
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 3s
+      interval: 5s
       timeout: 2s
       retries: 5
       start_period: 1s
@@ -37,8 +37,9 @@ services:
     depends_on:
       - backend
     ports:
-      - '3000:3000'
-      - '8080:80' # react application can send request to backend by sending request to localhost:8080, then nginx will redirect and handle the request to backend for us.
+      - target: 8080 # react application can send request to backend by sending request to localhost:8080, then nginx will redirect and handle the request to backend for us.
+        x-aws-protocol: http
+        protocol: http # this will create an ALB instead of NLB.
     container_name: frontend
     networks:
       - mada-network
@@ -46,4 +47,3 @@ services:
 networks:
   mada-network: # user defined bridge network will allow us to use container name and not only ip to target each other, unlike default bridge network.
     driver: bridge
-  

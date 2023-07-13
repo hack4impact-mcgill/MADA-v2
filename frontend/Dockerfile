@@ -12,7 +12,7 @@ RUN npm install
 CMD ["npm", "run", "build"]
 
 # stage 2 - build the final image and copy the react build files to serve using nginx
-FROM nginx:1.17.8-alpine
+FROM --platform=linux/amd64 nginx:1.17.8-alpine
 
 COPY --from=build /app/build /usr/share/nginx/html
 
