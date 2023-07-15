@@ -12,7 +12,7 @@ import { useState } from "react";
 const TasksContainer = () => {
   // dateFilter and completionFilter state will be used to filter tasks. Current date is used to initialize dateFilter in its context.
   // completionFilter state will be passed down to DeliviesContainer.
-  const [completionFilter, setCompletionFilter] = useState("ALLDELIVERIES"); // set ALLDELIVERIES as default
+  const [completionFilter, setCompletionFilter] = useState("UPCOMING"); // set Upcomming as default
 
   // this function will be passed down using props
   const completionFilterUpdateHandler = (completionType: string) => {

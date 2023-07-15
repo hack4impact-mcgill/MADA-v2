@@ -13,7 +13,7 @@ enum TaskCompletionOption {
 
 const TaskCompletionFilter = (props: { updateCompletionFilter: Function }) => {
   const [taskCompletionType, setTaskCompletionType] = useState(
-    TaskCompletionOption.AllDeliveries as string
+    TaskCompletionOption.Upcoming as string // set upcoming as default option for filtering deliveries
   );
 
   const taskCompletionChangeHandler = (event: SelectChangeEvent<string>) => {
