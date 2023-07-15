@@ -381,6 +381,7 @@ const MarkAvailability = () => {
         editVolunteerAvailabilities(parseInt(volunteerId), avails);
         editAvailabilitiesLastUpdated(parseInt(volunteerId), date);
         setSaveSuccess(1);
+        window.location.href = "/tasks"; // redirect to my deliveries page once availability is updated.
       }
     } catch (e) {
       setSaveSuccess(2);
