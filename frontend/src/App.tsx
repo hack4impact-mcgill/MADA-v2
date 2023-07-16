@@ -8,11 +8,8 @@ import "./App.css";
 
 // Create a functional component
 export default function App() {
-  const userId = localStorage.getItem("userId");
+  const userId = getCurrentUserId();
   var pattern = /^\/passwordReset/;
-
-  // const userId = getCurrentUserId();
-
   useEffect(() => {
     if (userId && window.location.pathname === "/") {
       window.location.href = "/today"; // Redirect to "/today" if user is logged in

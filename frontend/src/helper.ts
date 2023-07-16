@@ -3,7 +3,8 @@ import { Volunteer } from "./Contexts/Volunteer";
 export function getCurrentUserId(): string | null | undefined {
   var pattern = /^\/passwordReset/;
   try {
-    const user = sessionStorage.getItem("userId");
+    const user =
+      sessionStorage.getItem("userId") || localStorage.getItem("userId");
     if (
       !user &&
       window.location.pathname !== "/" &&
