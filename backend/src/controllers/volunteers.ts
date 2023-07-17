@@ -137,7 +137,7 @@ export default class VolunteerController {
       },
       './template/requestResetPassword.handlebars'
     );
-    return { link };
+    return res.status(200).json({ messsage: "Password request sent" });
   };
 
   resetPassword = async (req: Request, res: Response) => {

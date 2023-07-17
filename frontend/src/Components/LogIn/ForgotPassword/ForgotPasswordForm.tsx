@@ -22,8 +22,6 @@ const ForgotPasswordForm = () => {
   const handleClickContinue = async (e: React.FormEvent<HTMLFormElement>) => {
     //Prevent page reload
     e.preventDefault();
-    console.log("continue");
-    console.log(username);
     await requestPasswordReset(username)
     window.location.href = "/";
   };
