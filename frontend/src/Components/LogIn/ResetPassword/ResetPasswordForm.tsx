@@ -74,6 +74,7 @@ const ResetPasswordForm = () => {
       } catch (error) {
         alert("Oops! Something went wrong. Please try again.");
       }
+      window.location.href = "/";
     } else {
       alert("Passwords do not match!");
     }

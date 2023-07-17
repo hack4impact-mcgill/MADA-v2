@@ -183,6 +183,6 @@ export default class VolunteerController {
 
     await resetTokenRepo.remove(passwordResetToken);
 
-    return { message: 'Password reset was successful' };
+    return res.status(200).json({ messsage: "Password reset was successful" });
   };
 }
