@@ -39,7 +39,7 @@ services:
     ports:
       - target: 8080 # react application can send request to backend by sending request to localhost:8080, then nginx will redirect and handle the request to backend for us.
         x-aws-protocol: http
-        protocol: http # this will create an ALB instead of NLB.
+        protocol: tcp
     container_name: frontend
     networks:
       - mada-network
