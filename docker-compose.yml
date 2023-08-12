@@ -1,13 +1,13 @@
-version: '3'
+version: "3"
 services:
   postgres:
-    image: 'postgres'
+    image: "postgres"
     ports:
-      - '5432:5432'
+      - "5432:5432"
     environment:
-      POSTGRES_USER: 'test'
-      POSTGRES_PASSWORD: 'test'
-      POSTGRES_DB: 'test'
+      POSTGRES_USER: "test"
+      POSTGRES_PASSWORD: "test"
+      POSTGRES_DB: "test"
     command: -p 5432
     # since postgres takes long to start and backend tries to run before postgres is ready,
     # we need to make sure postgres is ready before starting backend container.
@@ -21,26 +21,31 @@ services:
     networks:
       - mada-network
   backend:
-    image: 'kihyeokk/mada-backend'
-    build: 'backend'
+    image: "kihyeokk/mada-backend"
+    build: "backend"
     depends_on:
       postgres:
         condition: service_healthy # make sure to start backend only when postgres is ready.
     ports:
-      - '3001:3001'
+      - "3001:3001"
     container_name: backend
+    # entrypoint: ["npm", "run", "seed"]
     networks:
       - mada-network
   frontend:
-    image: 'kihyeokk/mada-frontend'
-    build: 'frontend'
+    image: "kihyeokk/mada-frontend"
+    build: "frontend"
     depends_on:
       - backend
     ports:
-      - target: 8080 # react application can send request to backend by sending request to localhost:8080, then nginx will redirect and handle the request to backend for us.
-        x-aws-protocol: http
-        protocol: tcp
+      - "8080:8080" # react application can send request to backend by sending request to localhost:8080, then nginx will redirect and handle the request to backend for us.
     container_name: frontend
+    networks:
+      - mada-network
+  db-seeder:
+    image: "kihyeokk/mada-db-seeder"
+    depends_on:
+      - frontend # run only when all the other containers are running
     networks:
       - mada-network
 
