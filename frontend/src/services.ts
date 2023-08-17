@@ -3,7 +3,7 @@ import { MealDeliveryInterface, TaskInterface } from "./Contexts/Tasks";
 import { VolunteerType } from "./Containers/UserContainer";
 
 // URL to which requests will be sent
-const API_URL = "http://localhost:8080/api";
+const API_URL = "https://<HOST_DOMAIN_NAME>/api"; // should be replaced by real host domain name. e.g. https://madaapp.com/api
 const VOLUNTEER_ID = "5"; // will need to be replaced with actual logged in volunteer's id.
 console.log("why");
 

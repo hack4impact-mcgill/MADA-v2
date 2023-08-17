@@ -16,9 +16,9 @@ export const AppDataSource = new DataSource({
   type: 'postgres',
   host: 'postgres', // set to localhost when seeding from your terminal! hostname 'postgres' is needed for backend container within docker network to access the database container.
   port: 5432,
-  username: 'test',
-  password: 'test',
-  database: 'test',
+  username: 'postgres',
+  password: '>7>?cqME+G{r>1pi0(s}7E+2>7>?>jh!2',
+  database: 'mada',
   synchronize: true,
   logging: false,
   entities: [

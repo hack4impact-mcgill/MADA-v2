@@ -20,7 +20,7 @@ RUN rm /etc/nginx/conf.d/default.conf
 
 COPY nginx/nginx.conf /etc/nginx/conf.d
 
-EXPOSE 80
+EXPOSE 8080
 
 # nginx needs to stay running in foreground for docker container to run without stopping immediately.
 # for reference: https://hub.docker.com/_/nginx

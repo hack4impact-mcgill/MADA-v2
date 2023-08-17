@@ -1,4 +1,4 @@
-FROM node:18-alpine
+FROM --platform=linux/amd64 node:18-alpine
 
 ENV NODE_ENV=production
 
@@ -10,5 +10,5 @@ RUN npm install --production
 
 COPY ./backend .
 
-# This container will terminate after seeding.
-ENTRYPOINT ["npm", "run", "seed"] 
+# This container should continue running after seeding, as AWS ECS Fargate resource creation will terminate if any of the container exits.
+CMD ["sh", "-c", "npm run seed && tail -f /dev/null"]
