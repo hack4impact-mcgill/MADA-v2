@@ -76,10 +76,6 @@ export class VolunteerEntity extends UserEntity {
   })
   tasks: TaskEntity[];
 
-  // Account info
-  @Column()
-  password: string;
-
   @Column({ nullable: true })
   token: string;
 }
