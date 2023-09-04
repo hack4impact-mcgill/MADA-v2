@@ -95,7 +95,7 @@ export const EditModal = () => {
   };
 
   return (
-    <BaseModal title={"Create volunteer"}>
+    <BaseModal title={"Edit volunteer"}>
       <ModalTextInput
         {...{
           label: "Name",
@@ -132,6 +132,7 @@ export const EditModal = () => {
         {...{
           label: "Meal Type",
           options: [
+            { value: MealType.REGULAR, label: "Regular" },
             { value: MealType.VEGETARIAN, label: "Vegetarian" },
             { value: MealType.NOFISH, label: "No Fish" },
             { value: MealType.NOMEAT, label: "No Meat" },
