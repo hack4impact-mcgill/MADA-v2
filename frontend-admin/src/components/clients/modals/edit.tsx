@@ -12,7 +12,7 @@ import { ModalTextInput } from "src/components/common/modal/inputs/text";
 import { useQuery, useMutation, QueryClient } from "@tanstack/react-query";
 import { MealType, getMealTypeFromString } from "src/components/common/types";
 
-export const EditModal = () => {
+export const EditModal = (props: { handleClose: any }) => {
   const id = useEditClientStore((state: EditClientState) => state.id);
   const setId = useEditClientStore((state: EditClientState) => state.setId);
 
@@ -88,14 +88,16 @@ export const EditModal = () => {
       },
     });
     setId(-1);
+    props.handleClose();
   };
 
   const handleCancel = () => {
     setId(-1);
+    props.handleClose();
   };
 
   return (
-    <BaseModal title={"Edit volunteer"}>
+    <BaseModal title={"Edit client"}>
       <ModalTextInput
         {...{
           label: "Name",

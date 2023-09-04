@@ -17,7 +17,7 @@ export type SelectOptionProps = {
 export type ModalInputProps = {
   label: string;
   type?: string;
-  stateValue: MealType;
+  stateValue: any;
   stateSetter: any;
   options?: Array<{
     value: string;

@@ -85,7 +85,7 @@ const ClientsPage = () => {
         {...{
           status: editModal,
           handleClose: handleCloseEditModal,
-          children: <EditModal />,
+          children: <EditModal handleClose={handleCloseEditModal} />,
         }}
       />
     );
