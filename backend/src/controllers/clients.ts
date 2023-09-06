@@ -63,7 +63,15 @@ export default class ClientController {
   editClient = async (request: Request, response: Response) => {
     const client = await this.ClientRepository.update(
       { id: parseInt(request.params.id) },
-      request.body
+      {
+        name: request.body.name,
+        email: request.body.email,
+        phoneNumber: request.body.phoneNumber,
+        address: request.body.address,
+        mealType: request.body.mealType,
+        sts: request.body.sts,
+        map: request.body.map
+      }
     );
     response.status(StatusCode.OK).json({ client });
   };

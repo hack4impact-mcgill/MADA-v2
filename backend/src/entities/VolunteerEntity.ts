@@ -7,6 +7,7 @@ import {
 } from 'typeorm';
 import { TaskEntity } from './TaskEntity';
 import { UserEntity } from './UserEntity';
+import { Neighbourhood } from './types';
 
 export enum DayOfWeek {
   MONDAY = 'monday',
@@ -76,10 +77,9 @@ export class VolunteerEntity extends UserEntity {
   })
   tasks: TaskEntity[];
 
-  // Account info
-  @Column()
-  password: string;
-
   @Column({ nullable: true })
   token: string;
+
+  @Column('text', { nullable: true, array: true })
+  preferredNeighbourhoods: Neighbourhood[];
 }

@@ -17,5 +17,8 @@ export abstract class UserEntity {
   email: string;
 
   @Column()
+  password: string;
+
+  @Column()
   phoneNumber: string;
 }

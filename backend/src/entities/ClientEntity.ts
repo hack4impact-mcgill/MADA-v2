@@ -1,6 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { UserEntity } from './UserEntity';
-import { MealType } from './types';
+import { MealType, Neighbourhood } from './types';
 
 @Entity()
 export class ClientEntity extends UserEntity {
