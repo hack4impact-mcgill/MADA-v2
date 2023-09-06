@@ -1,4 +1,5 @@
 import { Button } from "@mui/material";
+import { isBrowser } from "react-device-detect";
 
 const handleClickCancel = async () => {
   window.location.href = "/";
@@ -13,11 +14,11 @@ const CancelButton = () => {
         fontFamily: "Poppins",
         fontStyle: "normal",
         fontWeight: 600,
-        fontSize: "17px",
+        fontSize: isBrowser ? "17px" : "12px",
         color: "#666666",
         backgroundColor: "#FFFFFF;",
         borderRadius: "5px",
-        height: "60px",
+        height: isBrowser ? "60px" : "40px",
         width: "90%",
         marginTop: "5%",
         marginLeft: "5%",

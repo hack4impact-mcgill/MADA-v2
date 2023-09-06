@@ -2,14 +2,19 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: auto;
-  margin-bottom: 5%;
   align-self: center;
 }
 
 .today-wrapper {
-  padding-top: 5%;
-  padding-bottom: 5%;
+  margin: "auto";
   align-items: center;
+  align-content: "center";
+  align-self: "center";
   justify-content: center;
+}
+
+@media only screen and (max-width: 600px) {
+  .center {
+    margin-top: 15vh;
+  }
 }

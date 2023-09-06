@@ -6,16 +6,14 @@ import { CgEnter } from "react-icons/cg";
 
 // use enum to define named constants used for filtering by task completion type
 enum TaskCompletionOption {
-  AllTasks = "ALLTASKS",
+  AllDeliveries = "ALLDELIVERIES",
   Upcoming = "UPCOMING",
   Completed = "COMPLETED",
 }
 
 const TaskCompletionFilter = (props: { updateCompletionFilter: Function }) => {
-  // will use context later on
-  // const {tasks} = React.useContext(TaskContext) as TaskContextType;
   const [taskCompletionType, setTaskCompletionType] = useState(
-    TaskCompletionOption.AllTasks as string
+    TaskCompletionOption.Upcoming as string // set upcoming as default option for filtering deliveries
   );
 
   const taskCompletionChangeHandler = (event: SelectChangeEvent<string>) => {
@@ -44,7 +42,7 @@ const TaskCompletionFilter = (props: { updateCompletionFilter: Function }) => {
           height: 50,
         }}
       >
-        <MenuItem value={TaskCompletionOption.AllTasks}>All Tasks</MenuItem>
+        <MenuItem value={TaskCompletionOption.AllDeliveries}>All</MenuItem>
         <MenuItem value={TaskCompletionOption.Upcoming}>Upcoming</MenuItem>
         <MenuItem value={TaskCompletionOption.Completed}>Completed</MenuItem>
       </Select>
@@ -52,4 +50,4 @@ const TaskCompletionFilter = (props: { updateCompletionFilter: Function }) => {
   );
 };
 
-export default TaskCompletionFilter;
+export {TaskCompletionOption, TaskCompletionFilter}

@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext, useState } from "react";
+import { DateContext } from "../../Contexts/Date";
 import { SelectChangeEvent } from "@mui/material/Select";
 import {
   Box,
@@ -8,12 +9,8 @@ import {
   FormControl,
   InputLabel,
 } from "@mui/material";
-import { useState } from "react";
 
-const TaskDateFilter = (props: {
-  updateDateFilter: Function;
-  updateDayOfWeek: Function;
-}) => {
+const TaskDateFilter = () => {
   // function that formats date to desired form: e.g. 8 Dec 2023
   const formatDate = (date: Date) => {
     return date.toLocaleString("en-GB", {
@@ -23,36 +20,24 @@ const TaskDateFilter = (props: {
     });
   };
 
-  const [displayedDate, setDisplayedDate] = useState(formatDate(new Date())); // use current date as default
+  const dateContext = useContext(DateContext);
+  const displayedDate = dateContext?.dateFilter; // uses the current date as default selected date.
 
-  // get 7 upcoming days (including current date) that can be displayed
-  // not sure if there is a better way to get dates for the current day and the next 6 days.
+  // function that gets 7 upcoming days (including current date) that can be displayed
   const getUpcoming7Days = () => {
     const date = new Date(); // date variable is used to get the following 6 days.
-    const today = new Date(); // today's date
     const upcoming7Days = [];
     for (let numOfDaysfromToday = 0; numOfDaysfromToday < 7; numOfDaysfromToday++) {
-      date.setDate(today.getDate() + numOfDaysfromToday);
-      const followingDay = new Date(date);
-      upcoming7Days.push(followingDay);
+      const currentDay = new Date(date);
+      upcoming7Days.push(currentDay);
+      date.setDate(date.getDate() + 1);
     }
     return upcoming7Days;
   }
 
   const taskDateChangeHandler = (event: SelectChangeEvent<string>) => {
     console.log("date changed");
-    setDisplayedDate(event.target.value); // update date state with currently selected value
-    props.updateDateFilter(event.target.value); // update date filter in the TasksContainer component!
-    props.updateDayOfWeek(
-      new Intl.DateTimeFormat("en-US", { weekday: "short" }).format(
-        new Date(event.target.value)
-      )
-    ); // update selectedDayOfWeek in FiltersCotainer component!
-    console.log(
-      new Intl.DateTimeFormat("en-US", { weekday: "short" }).format(
-        new Date(event.target.value)
-      )
-    );
+    dateContext?.setDateFilter(event.target.value); // update date context with new date filter
   };
 
   return (
@@ -76,7 +61,7 @@ const TaskDateFilter = (props: {
       >
         {/* Display upcoming 7 days as options, including current day */}
         {getUpcoming7Days().map((date : Date) => {
-          return <MenuItem value={formatDate(date)}>{formatDate(date)}</MenuItem>
+          return <MenuItem value={formatDate(date)} key={date.toString()}>{formatDate(date)}</MenuItem>
         })}
       </Select>
     </FormControl>
