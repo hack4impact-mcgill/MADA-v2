@@ -47,22 +47,52 @@ export default class RouteDeliveryController {
   };
 
   incrementRoutePosition = async (request: Request, response: Response) => {
+    const r = await this.getRouteFromId(parseInt(request.params.id))
+    
+    await this.RouteDeliveryRepository.decrement(
+      { routeNumber: r.routeNumber, routePosition: r.routePosition + 1 },
+      'routePosition',
+      1
+    );
+
     const route = await this.RouteDeliveryRepository.increment(
       { id: parseInt(request.params.id) },
       'routePosition',
       1
     );
+    
     response.status(StatusCode.OK).json({ route });
   };
 
   decrementRoutePosition = async (request: Request, response: Response) => {
+    const r = await this.getRouteFromId(parseInt(request.params.id))
+    
+    await this.RouteDeliveryRepository.increment(
+      { routeNumber: r.routeNumber, routePosition: r.routePosition - 1 },
+      'routePosition',
+      1
+    );
+
     const route = await this.RouteDeliveryRepository.decrement(
       { id: parseInt(request.params.id) },
       'routePosition',
       1
     );
+    
     response.status(StatusCode.OK).json({ route });
   };
+
+  // Helper Functions
+
+  getRouteFromId = async (id: number) => {
+    const route = await this.RouteDeliveryRepository.findOne({
+      where: {
+        id: id
+      }
+    });
+
+    return route
+  }
 
   // Get the next route number
   getNextRouteNumber = async (routeNumber) => {

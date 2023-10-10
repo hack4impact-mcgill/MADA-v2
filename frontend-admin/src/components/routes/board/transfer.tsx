@@ -97,10 +97,18 @@ export const TransferBoard = () => {
 
     const handleIncrementPosition = async () => {
         await incrementRoutePositionMutation.mutate()
+        setSelectedRouteDelivery(null)
+        
+        setDisabledTransferRight(true)
+        setDisabledTransferLeft(true)
     }
 
     const handleDecrementPosition = async () => {
         await decrementRoutePositionMutation.mutate()
+        setSelectedRouteDelivery(null)
+        
+        setDisabledTransferRight(true)
+        setDisabledTransferLeft(true)
     }
     
     // Button handlers for EditRouteButtons
