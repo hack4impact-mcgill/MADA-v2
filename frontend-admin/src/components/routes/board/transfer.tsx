@@ -34,6 +34,8 @@ export const TransferBoard = () => {
     const [selectedRouteDelivery, setSelectedRouteDelivery] = useState<routeDelivery | null>(null)
     const [disabledTransferLeft, setDisabledTransferLeft] = useState(true)
     const [disabledTransferRight, setDisabledTransferRight] = useState(true)
+    const [disabledDecrementPosition, setDisabledDecrementPosition] = useState(true)
+    const [disabledIncrementPosition, setDisabledIncrementPosition] = useState(true)
     
     const queryClient = new QueryClient()
 
@@ -132,6 +134,15 @@ export const TransferBoard = () => {
         } else if (route.routeNumber != 0) {
             setDisabledTransferRight(true)
             setDisabledTransferLeft(false)
+
+            if (route.routePosition == 0){
+                setDisabledDecrementPosition(true)
+            } else if (route.routePosition == transferRoutes.length - 1) {
+                setDisabledIncrementPosition(true)
+            } else {
+                setDisabledIncrementPosition(false)
+                setDisabledDecrementPosition(false)
+            }
         }
     }
 
@@ -173,8 +184,8 @@ export const TransferBoard = () => {
                 disabledDeleteRoute={disabledDeleteRoute}
                 handleIncrementPosition={handleIncrementPosition}
                 handleDecrementPosition={handleDecrementPosition}
-                disabledDecrementPosition={false}
-                disabledIncrementPosition={false}
+                disabledDecrementPosition={disabledDecrementPosition}
+                disabledIncrementPosition={disabledIncrementPosition}
             />
         </Box>
     )

@@ -36,9 +36,11 @@ export default class RouteDeliveryController {
   };
 
   setRouteNumber = async (request: Request, response: Response) => {
+    const routePosition = request.body.routeNumber == 0 ? 0 : await this.getNextRouteNumber(request.body.routeNumber)
+
     const route = await this.RouteDeliveryRepository.update(
       { id: parseInt(request.params.id) },
-      { routeNumber: request.body.routeNumber }
+      { routeNumber: request.body.routeNumber, routePosition: routePosition}
     );
 
     response.status(StatusCode.OK).json({ route });
@@ -61,4 +63,15 @@ export default class RouteDeliveryController {
     );
     response.status(StatusCode.OK).json({ route });
   };
+
+  // Get the next route number
+  getNextRouteNumber = async (routeNumber) => {
+    const routes = await this.RouteDeliveryRepository.find({
+      where: {
+        routeNumber: routeNumber
+      }
+    });
+    
+    return routes.length || 0;
+  }
 }
