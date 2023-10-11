@@ -66,10 +66,10 @@ export class VolunteerEntity extends UserEntity {
   @Column()
   profilePicture: string;
 
-  @Column()
+  @Column({ nullable: true })
   availabilities: string;
 
-  @Column()
+  @Column({ nullable: true })
   availabilitiesLastUpdated: Date;
 
   @OneToMany(() => TaskEntity, (task) => task.volunteer, {
