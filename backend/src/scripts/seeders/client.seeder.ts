@@ -36,7 +36,8 @@ const generateClient = async () => {
       'No Meat'
     ]),
     sts: false,
-    map: false
+    map: false,
+    softDelete: false
   };
   user.sts = faker.datatype.boolean();
   user.map = !user.sts ? true :faker.datatype.boolean();

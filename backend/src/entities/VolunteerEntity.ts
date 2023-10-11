@@ -82,4 +82,7 @@ export class VolunteerEntity extends UserEntity {
 
   @Column('text', { nullable: true, array: true })
   preferredNeighbourhoods: Neighbourhood[];
+
+  @Column()
+  softDelete: boolean = false;
 }

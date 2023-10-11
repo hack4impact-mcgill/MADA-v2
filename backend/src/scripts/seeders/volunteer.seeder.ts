@@ -25,6 +25,7 @@ const generateDefaultVolunteer = async () => {
   volunteer.profilePicture = faker.internet.avatar();
   volunteer.availabilities = generateAvailabilities();
   volunteer.availabilitiesLastUpdated = faker.date.recent(15);
+  volunteer.softDelete = false;
   return volunteer;
 };
 
@@ -35,6 +36,7 @@ const generateVolunteer = async () => {
   volunteer.availabilities = generateAvailabilities();
   volunteer.availabilitiesLastUpdated = faker.date.recent(15);
   volunteer.preferredNeighbourhoods = ['Lachine', 'Montreal', 'Downtown'];
+  volunteer.softDelete = false;
   return volunteer;
 };
 

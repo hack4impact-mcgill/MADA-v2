@@ -30,4 +30,7 @@ export class ClientEntity {
 
   @Column()
   map: boolean;
+
+  @Column()
+  softDelete: boolean = false;
 }

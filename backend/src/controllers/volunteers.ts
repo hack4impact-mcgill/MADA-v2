@@ -13,6 +13,9 @@ export default class VolunteerController {
     const volunteers = await this.VolunteerRepository.find({
       relations: {
         tasks: true
+      },
+      where: {
+        softDelete: false
       }
     });
     response.status(StatusCode.OK).json({ volunteers: volunteers });
@@ -20,7 +23,10 @@ export default class VolunteerController {
 
   getVolunteer = async (request: Request, response: Response) => {
     const volunteer = await this.VolunteerRepository.findOne({
-      where: { id: parseInt(request.params.id) },
+      where: {
+        id: parseInt(request.params.id),
+        softDelete: false
+      },
       relations: {
         tasks: true
       }

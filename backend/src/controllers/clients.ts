@@ -12,7 +12,11 @@ export default class ClientController {
     AppDataSource.getRepository(RouteDeliveryEntity);
 
   getClients = async (request: Request, response: Response) => {
-    const clients = await this.ClientRepository.find();
+    const clients = await this.ClientRepository.find({
+      where: {
+        softDelete: false
+      }
+    });
     response.status(StatusCode.OK).json({ clients: clients });
   };
 
@@ -55,7 +59,10 @@ export default class ClientController {
 
   getClient = async (request: Request, response: Response) => {
     const client = await this.ClientRepository.findOne({
-      where: { id: parseInt(request.params.id) }
+      where: {
+          id: parseInt(request.params.id),
+          softDelete: false
+       }
     });
     response.status(StatusCode.OK).json({ client: client });
   };
