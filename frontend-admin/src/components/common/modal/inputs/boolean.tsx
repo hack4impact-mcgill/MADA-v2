@@ -10,7 +10,7 @@ export const ModalBooleanInput = (props: ModalInputProps) => {
         <>
             <Box>
                 <FormLabel>{props.label}</FormLabel>
-                <Switch value={props.stateValue} onChange={props.stateSetter} />
+                <Switch checked={props.stateValue} onChange={props.stateSetter} />
             </Box>
         </>
     )
