@@ -10,6 +10,8 @@ import { isValidEmail, isValidPhone } from "src/components/common/validators";
 import { ModalActionBar } from "src/components/common/modal/actionbar";
 import { ModalPhoneInput } from "src/components/common/modal/inputs/phone";
 import { ModalTextInput } from "src/components/common/modal/inputs/text";
+import { ModalMultiselectInput } from "src/components/common/modal/inputs/multiselect";
+import { Neighbourhood } from "src/components/common/types";
 
 import { useQuery, useMutation, QueryClient } from "@tanstack/react-query";
 
@@ -40,21 +42,21 @@ export const EditModal = (props: { handleClose: any }) => {
   const handlePhoneChange = (value: any) => {
     setPhone(value);
   };
+  const [preferredNeighbourhoods, setPreferredNeighbourhoods] = React.useState<string[]>([]);
 
   useEffect(() => {
     if (data) {
       setName(data!.data.volunteer.name);
       setEmail(data!.data.volunteer.email);
       setPhone(data!.data.volunteer.phoneNumber);
+      setPreferredNeighbourhoods(data!.data.volunteer.preferredNeighbourhoods || [])
     }
   }, [data]);
 
   useEffect(() => {
-    console.log("useEffect");
     const valid = isAllValid([name, isValidEmail(email), isValidPhone(phone)]);
-    console.log(valid);
     setValid(valid);
-  }, [name, email, phone]);
+  }, [name, email, phone, preferredNeighbourhoods]);
 
   const queryClient = new QueryClient();
 
@@ -72,6 +74,7 @@ export const EditModal = (props: { handleClose: any }) => {
         name: name,
         email: email,
         phoneNumber: phone,
+        preferredNeighbourhoods: preferredNeighbourhoods
       },
     });
     setId(-1);
@@ -108,6 +111,28 @@ export const EditModal = (props: { handleClose: any }) => {
           label: "Phone Number",
           stateValue: phone,
           stateSetter: handlePhoneChange,
+        }}
+      />
+
+      <ModalMultiselectInput
+        {...{
+          label: "Neighborhood",
+          stateValue: preferredNeighbourhoods,
+          stateSetter: (event: any) => setPreferredNeighbourhoods(event.target.value),
+          key: "value",
+          options: [
+            { value: Neighbourhood.COTEDENEIGES, label: "Côte De Neiges" },
+            { value: Neighbourhood.COTESTLUC, label: "Côte St-Luc" },
+            { value: Neighbourhood.DOWNTOWN, label: "Downtown" },
+            { value: Neighbourhood.LACHINE, label: "Lachine" },
+            { value: Neighbourhood.LAVAL, label: "Laval" },
+            { value: Neighbourhood.MONTREAL, label: "Montreal" },
+            { value: Neighbourhood.MONTREALWEST, label: "Montreal West" },
+            { value: Neighbourhood.TMR, label: "Town of Mount Royal" },
+            { value: Neighbourhood.VERDUN, label: "Verdun" },
+            { value: Neighbourhood.VILLESTLAURENT, label: "Ville St-Laurent" },
+            { value: Neighbourhood.WESTISLAND, label: "West Island" },
+          ]
         }}
       />
 
