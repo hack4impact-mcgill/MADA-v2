@@ -9,6 +9,8 @@ import { ModalActionBar } from "src/components/common/modal/actionbar";
 import { ModalDateInput } from "src/components/common/modal/inputs/date";
 import { ModalPhoneInput } from "src/components/common/modal/inputs/phone";
 import { ModalTextInput } from "src/components/common/modal/inputs/text";
+import { ModalMultiselectInput } from "src/components/common/modal/inputs/multiselect";
+import { Neighbourhood } from "src/components/common/types";
 
 export const CreateModal = (props: { handleClose: any }) => {
   const queryClient = useQueryClient();
@@ -27,6 +29,8 @@ export const CreateModal = (props: { handleClose: any }) => {
   const { state: password, handler: handlePasswordChange } =
     useStateSetupHandler("");
 
+  const [preferredNeighbourhoods, setPreferredNeighbourhoods] = React.useState<string[]>([]);
+
   const [phone, setPhone] = React.useState("");
   const handlePhoneChange = (value: any) => {
     setPhone(value);
@@ -41,6 +45,7 @@ export const CreateModal = (props: { handleClose: any }) => {
       email: email,
       phoneNumber: phone,
       date: dayjs(date).toDate(),
+      preferredNeighbourhoods: preferredNeighbourhoods
     });
     props.handleClose();
   };
@@ -93,6 +98,28 @@ export const CreateModal = (props: { handleClose: any }) => {
           label: "Phone Number",
           stateValue: phone,
           stateSetter: handlePhoneChange,
+        }}
+      />
+
+      <ModalMultiselectInput
+        {...{
+          label: "Neighborhood",
+          stateValue: preferredNeighbourhoods,
+          stateSetter: (event: any) => setPreferredNeighbourhoods(event.target.value),
+          key: "value",
+          options: [
+            { value: Neighbourhood.COTEDENEIGES, label: "Côte De Neiges" },
+            { value: Neighbourhood.COTESTLUC, label: "Côte St-Luc" },
+            { value: Neighbourhood.DOWNTOWN, label: "Downtown" },
+            { value: Neighbourhood.LACHINE, label: "Lachine" },
+            { value: Neighbourhood.LAVAL, label: "Laval" },
+            { value: Neighbourhood.MONTREAL, label: "Montreal" },
+            { value: Neighbourhood.MONTREALWEST, label: "Montreal West" },
+            { value: Neighbourhood.TMR, label: "Town of Mount Royal" },
+            { value: Neighbourhood.VERDUN, label: "Verdun" },
+            { value: Neighbourhood.VILLESTLAURENT, label: "Ville St-Laurent" },
+            { value: Neighbourhood.WESTISLAND, label: "West Island" },
+          ]
         }}
       />
 

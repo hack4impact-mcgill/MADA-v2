@@ -5,6 +5,7 @@ import { VolunteerEntity } from '../entities/VolunteerEntity';
 import { StatusCode } from './statusCode';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
+import {getNeighbourhoodFromString} from '../entities/types';
 
 export default class VolunteerController {
   private VolunteerRepository = AppDataSource.getRepository(VolunteerEntity);
@@ -49,7 +50,8 @@ export default class VolunteerController {
       phoneNumber: request.body.phoneNumber,
       startDate: request.body.date,
       profilePicture: '',
-      availabilities: request.body.availabilities
+      availabilities: request.body.availabilities,
+      preferredNeighbourhoods: request.body.preferredNeighbourhoods ? request.body.preferredNeighbourhoods.map(neighborhood => getNeighbourhoodFromString(neighborhood)) : []
     });
     await this.VolunteerRepository.save(volunteer);
     response.status(StatusCode.OK).json({ volunteer });
