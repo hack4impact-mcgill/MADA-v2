@@ -68,6 +68,15 @@ export default class ClientController {
   };
 
   editClient = async (request: Request, response: Response) => {
+
+    const originalClient = await this.ClientRepository.findOne({
+      where: {id: parseInt(request.params.id)}
+    })
+
+    const editedMealType = !(request.body.mealType == originalClient.mealType)
+    const editedSTS = !(request.body.sts == originalClient.sts)
+    const editedMAP = !(request.body.map == originalClient.map)
+    
     const client = await this.ClientRepository.update(
       { id: parseInt(request.params.id) },
       {
@@ -80,6 +89,64 @@ export default class ClientController {
         map: request.body.map
       }
     );
+
+    const savedClient = await this.ClientRepository.findOne({
+      where: {id: parseInt(request.params.id)}
+    })
+
+    if (editedSTS) {
+      if (request.body.sts) {
+        const stsRouteDelivery = new RouteDeliveryEntity();
+        stsRouteDelivery.client = savedClient;
+        stsRouteDelivery.routeNumber = 0;
+        stsRouteDelivery.routePosition = 0;
+        stsRouteDelivery.mealType = savedClient.mealType;
+        stsRouteDelivery.program = ProgramType.STS;
+
+        await this.RouteDeliveryRepository.save(stsRouteDelivery);
+      } else {
+        const stsRouteDelivery = await this.RouteDeliveryRepository.find({
+          relations: { client: true },
+          where: {client: {id: parseInt(request.params.id)}, program: ProgramType.STS}
+        })
+
+        await this.RouteDeliveryRepository.remove(stsRouteDelivery)
+      }
+    }
+
+    if (editedMAP) {
+      if (request.body.map) {
+        const mapRouteDelivery = new RouteDeliveryEntity();
+        mapRouteDelivery.client = savedClient;
+        mapRouteDelivery.routeNumber = 0;
+        mapRouteDelivery.routePosition = 0;
+        mapRouteDelivery.mealType = savedClient.mealType;
+        mapRouteDelivery.program = ProgramType.MAP;
+
+        await this.RouteDeliveryRepository.save(mapRouteDelivery);
+      } else {
+        const mapRouteDelivery = await this.RouteDeliveryRepository.find({
+          relations: { client: true },
+          where: {client: {id: parseInt(request.params.id)}, program: ProgramType.MAP}
+        })
+
+        await this.RouteDeliveryRepository.remove(mapRouteDelivery)
+      }
+    }
+
+    if (editedMealType){
+      const routeDeliveries = await this.RouteDeliveryRepository.find({
+        relations: { client: true },
+        where: {client: {id: parseInt(request.params.id)}}
+      })
+
+      routeDeliveries.forEach(routeDelivery => {
+        routeDelivery.mealType = savedClient.mealType
+      })
+      
+      this.RouteDeliveryRepository.save(routeDeliveries)
+    }
+
     response.status(StatusCode.OK).json({ client });
   };
 }
