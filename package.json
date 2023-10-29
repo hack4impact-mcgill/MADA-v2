@@ -2,5 +2,9 @@
   "dependencies": {
     "@types/supertest": "^2.0.12",
     "supertest": "^6.3.1"
+  },
+  "scripts": {
+    "build": "react-scripts build",
+    "start": "cd ./backend && npm install && npm run build && node ./build/src/index.js && cd ../frontend && npm install && npm run build && react-scripts start"
   }
 }
