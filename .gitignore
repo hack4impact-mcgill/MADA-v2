@@ -3,3 +3,4 @@ node_modules/
 *.lock
 backend/build/
 frontend/build/
+backend/.env

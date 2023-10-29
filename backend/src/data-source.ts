@@ -10,15 +10,16 @@ import { MealDeliveryEntity } from './entities/MealDeliveryEntity';
 import { TaskEntity } from './entities/TaskEntity';
 import { UserEntity } from './entities/UserEntity';
 import { VolunteerEntity } from './entities/VolunteerEntity';
+require('dotenv').config();
 
 // Create a data source i.e connection settings: https://orkhan.gitbook.io/typeorm/docs/data-source#what-is-datasource
 export const AppDataSource = new DataSource({
   type: 'postgres',
-  host: 'localhost',
-  port: 5432,
-  username: 'test',
-  password: 'test',
-  database: 'test',
+  host: process.env.DATABASE_URL,
+  port: parseInt(process.env.DATABASE_PORT),
+  username: process.env.DATABASE_USERNAME,
+  password: process.env.DATABASE_PASSWORD,
+  database: process.env.DATABASE_NAME,
   synchronize: true,
   logging: false,
   entities: [
