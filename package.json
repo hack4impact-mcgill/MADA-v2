@@ -5,6 +5,6 @@
   },
   "scripts": {
     "build": "react-scripts build",
-    "start": "cd ./backend && npm install && npm run build && node ./build/src/index.js && cd ../frontend && npm install && npm run build && react-scripts start"
+    "start": "cd ./backend && npm install && npm run build && node ./build/src/index.js && cd ../frontend && npm install --only=dev && npm install && npm run build && react-scripts start"
   }
 }
