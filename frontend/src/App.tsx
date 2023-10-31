@@ -9,7 +9,7 @@ import "./App.css";
 // Create a functional component
 export default function App() {
   const userId = getCurrentUserId();
-
+  var pattern = /^\/passwordReset/;
   useEffect(() => {
     if (userId && window.location.pathname === "/") {
       window.location.href = "/today"; // Redirect to "/today" if user is logged in
@@ -22,7 +22,10 @@ export default function App() {
       <Box
         sx={{
           maxHeight:
-            location.pathname !== "/" && location.pathname !== "/password"
+            !pattern.test(window.location.pathname) &&
+            location.pathname !== "/" &&
+            location.pathname !== "/password" &&
+            location.pathname !== "/passwordreset"
               ? "85vh"
               : "none",
           overflowY: "auto",
@@ -30,9 +33,10 @@ export default function App() {
       >
         <RouterComponent />
       </Box>
-      {location.pathname !== "/" && location.pathname !== "/password" && (
-        <NavBar />
-      )}
+      {!pattern.test(window.location.pathname) &&
+        location.pathname !== "/" &&
+        location.pathname !== "/password" &&
+        location.pathname !== "/passwordreset" && <NavBar />}
     </Box>
   );
 }

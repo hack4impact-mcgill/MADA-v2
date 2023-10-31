@@ -6,6 +6,7 @@ import UsernameTextField from "../UsernameTextField";
 import MADALogo from "../MADALogo";
 import ContinueButton from "./ContinueButton";
 import CancelButton from "./CancelButton";
+import { requestPasswordReset } from "../../../services";
 
 const ForgotPasswordForm = () => {
   const [state, dispatch] = useReducer(Reducer, initialState);
@@ -21,9 +22,7 @@ const ForgotPasswordForm = () => {
   const handleClickContinue = async (e: React.FormEvent<HTMLFormElement>) => {
     //Prevent page reload
     e.preventDefault();
-    console.log("continue");
-    console.log(username);
-    //TODO backend that sends email to user with password and username
+    await requestPasswordReset(username)
     window.location.href = "/";
   };
 

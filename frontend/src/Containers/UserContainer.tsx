@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../Styles/User.css";
 import { Box, Button } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
-import { getVolunteer } from "../services";
+import { getVolunteer, requestPasswordReset } from "../services";
 import { getCurrentUserId } from "../helper";
 
 export interface VolunteerType {
@@ -73,6 +73,10 @@ const User = () => {
     return <p>Loading volunteer...</p>;
   }
 
+  const sendResetPasswordRequest = async () => {
+    await requestPasswordReset(volunteer.email);
+  };
+
   return (
     <Box className="user-container">
       <Box className="User">
@@ -113,6 +117,8 @@ const User = () => {
         >
           Log out
         </Button>
+
+        <Button onClick={sendResetPasswordRequest}>Reset password</Button>
       </Box>
     </Box>
   );

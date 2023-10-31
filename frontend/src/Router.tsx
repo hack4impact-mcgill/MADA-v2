@@ -12,6 +12,7 @@ import UserContainer from "./Containers/UserContainer";
 import DeliveryDetails from "./Components/DeliveryDetails/DeliveryDetails";
 import { TaskInterface } from "./Contexts/Tasks";
 import { DateProvider } from "./Contexts/Date";
+import ResetPasswordContainer from "./Containers/ResetPasswordContainer";
 
 const RouterComponent = () => {
   return (
@@ -20,6 +21,7 @@ const RouterComponent = () => {
         <Routes>
           <Route path="/today" element={<TodayContainer />} />
           <Route path="/password" element={<ForgotPasswordContainer />} />
+          <Route path="/passwordreset" element={<ResetPasswordContainer />} />
           <Route path="/" element={<LoginContainer />} />
           <Route path="/profile/edit" element={<UserProfileContainer />} />
           <Route path="/profile/" element={<UserContainer />} />

@@ -12,3 +12,8 @@ router.delete('/volunteers/:id', volunteerController.removeVolunteer);
 router.post('/volunteers', volunteerController.createVolunteer);
 router.put('/volunteers/:id/edit', volunteerController.editVolunteer);
 router.post('/volunteer/login', volunteerController.login);
+router.post(
+  '/volunteer/request-password-reset',
+  volunteerController.requestPasswordReset
+);
+router.post('/volunteer/reset-password', volunteerController.resetPassword);
