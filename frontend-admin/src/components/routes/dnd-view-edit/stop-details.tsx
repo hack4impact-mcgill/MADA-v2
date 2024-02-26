@@ -1,12 +1,17 @@
 import { useSortable } from "@dnd-kit/sortable";
 import {RouteDelivery} from './types';
 import { CSS } from "@dnd-kit/utilities";
-import {Box, Typography, CardContent, Card} from '@mui/material';
+import {Typography, CardContent, Card} from '@mui/material';
 
-export default function SortableCard(props: {data: RouteDelivery, editEnabled: boolean}) {
+type SortableStopDetailsProps = {
+	data: RouteDelivery;
+	editEnabled: boolean
+};
+
+export default function SortableStopDetails({data, editEnabled}: SortableStopDetailsProps) {
     const { attributes, listeners, setNodeRef, transform } = useSortable({
-        id: props.data.id,
-        disabled: !props.editEnabled
+        id: data.id,
+        disabled: !editEnabled
     });
 
     const style = {
@@ -14,22 +19,22 @@ export default function SortableCard(props: {data: RouteDelivery, editEnabled: b
     };
 
     return <div ref={setNodeRef} {...attributes} {...listeners} style={style}>
-        <DesignCard {...{
-                id: props.data.id,
-                mealType: props.data.mealType,
-                program: props.data.program,
+        <StopDetails {...{
+                id: data.id,
+                mealType: data.mealType,
+                program: data.program,
             }}
         />
     </div>;
 }
 
-export type ItemType = {
+type StopDetailsProps = {
 	id: number;
 	mealType: string;
 	program: string
 };
 
-export function DesignCard({ id, mealType, program }: ItemType) {
+function StopDetails({ id, mealType, program }: StopDetailsProps) {
 	return (
         <Card variant="outlined">
             <CardContent>

@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import Column from './column';
+import SortableRouteDetails from './route-details';
 import {
     closestCorners,
     DndContext,
@@ -414,7 +414,7 @@ export default function Board(props: {data: any, editEnabled: boolean}) {
 			>
 				{
 					Object.entries(columns).map(([column, data]) => (
-						<Column key={column} editEnabled={props.editEnabled} column={column} data={data} />
+						<SortableRouteDetails key={column} editEnabled={props.editEnabled} column={column} data={data} />
 					))
 				} 
 			</Stack>
