@@ -4,7 +4,7 @@ import { useDroppable } from "@dnd-kit/core";
 import SortableCard from './card';
 import {Box, Typography, Paper, Stack, Divider} from '@mui/material';
 
-export default function Column(props: {column: string, data: RouteDelivery[]}) {
+export default function Column(props: {column: string, data: RouteDelivery[], editEnabled: boolean}) {
     const { setNodeRef } = useDroppable({ id: props.column });
 
     return (
@@ -26,7 +26,7 @@ export default function Column(props: {column: string, data: RouteDelivery[]}) {
                 <Divider sx={{borderColor: '#e9e9e9'}}/>
                 <Stack spacing={2} sx={{height: '100%', overflow: 'auto', p: 2, backgroundColor: "#f6f6f6"}}>
                     {
-                        props.data.map((d: RouteDelivery) => <SortableCard key={d.id} data={d}></SortableCard>)
+                        props.data.map((d: RouteDelivery) => <SortableCard key={d.id} data={d} editEnabled={props.editEnabled}></SortableCard>)
                     }
                 </Stack>
             </Paper>

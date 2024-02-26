@@ -3,10 +3,10 @@ import {RouteDelivery} from './types';
 import { CSS } from "@dnd-kit/utilities";
 import {Box, Typography, CardContent, Card} from '@mui/material';
 
-export default function SortableCard(props: {data: RouteDelivery}) {
+export default function SortableCard(props: {data: RouteDelivery, editEnabled: boolean}) {
     const { attributes, listeners, setNodeRef, transform } = useSortable({
         id: props.data.id,
-        // disabled: true // how to disable
+        disabled: !props.editEnabled
     });
 
     const style = {

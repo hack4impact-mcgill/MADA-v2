@@ -20,16 +20,15 @@ NOTES:
 
 const RoutesPage = () => {
     const { isLoading, isError, data, error } = useQuery(['routeDeliveries'], () => getRouteDeliveries())
-    
-    const [mode, setMode] = useState("view")
+    const [editEnabled, setEditEnabled] = useState(false)
 
     const Header = () => {
         return (
             <Box sx={{display: 'flex', width: '100%'}}>
-                <Box sx={{display: 'flex', width: '100%'}}>Mode: {mode}</Box>
+                <Box sx={{display: 'flex', width: '100%'}}>Mode: {editEnabled.toString()}</Box>
                 <ActionBar actions={[{
-                    handler: () => mode == "view" ? setMode("transfer") : setMode("view"),
-                    label: "Edit"
+                    handler: () => editEnabled == false ? setEditEnabled(true) : setEditEnabled(false),
+                    label: editEnabled == false ? "Edit" : "View"
                 }]}/>
             </Box>
         )
@@ -39,7 +38,7 @@ const RoutesPage = () => {
         <BasePage header={<Header/>}>
             <Box sx={{display: 'flex', flexDirection: 'column', width: '100%', height: '85%'}}> 
                 {!isLoading && <>
-                    <Board data={data?.data.routes}/>
+                    <Board data={data?.data.routes} editEnabled={editEnabled}/>
                 </>}
             </Box>
         </BasePage>

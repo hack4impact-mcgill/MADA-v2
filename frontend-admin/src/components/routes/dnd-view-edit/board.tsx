@@ -278,7 +278,7 @@ import {Box, Typography, Stack, Grid} from '@mui/material';
 // 	  ]
 // }
 
-export default function Board(props: {data: any}) {
+export default function Board(props: {data: any, editEnabled: boolean}) {
     // const [columns, setColumns] = useState(response_data);
     const [columns, setColumns] = useState(props.data as ResponseData);
     const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
@@ -414,7 +414,7 @@ export default function Board(props: {data: any}) {
 			>
 				{
 					Object.entries(columns).map(([column, data]) => (
-						<Column key={column} column={column} data={data} />
+						<Column key={column} editEnabled={props.editEnabled} column={column} data={data} />
 					))
 				} 
 			</Stack>
