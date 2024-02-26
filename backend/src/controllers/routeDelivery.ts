@@ -115,4 +115,8 @@ export default class RouteDeliveryController {
     
     return routes.length || 0;
   }
+
+  saveAllRouteDeliveries = async (routes) => {
+    console.log("routes ", routes);
+  }
 }

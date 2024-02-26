@@ -21,15 +21,40 @@ NOTES:
 const RoutesPage = () => {
     const { isLoading, isError, data, error } = useQuery(['routeDeliveries'], () => getRouteDeliveries())
     const [editEnabled, setEditEnabled] = useState(false)
+    
+    const handleEnableEdit = () => {
+        setEditEnabled(true)
+    }
+
+    const handleCancelEdit = () => {
+        setEditEnabled(false)
+        console.log("CANCEL EDITS")
+    }
+
+    const handleSaveEdit = () => {
+        setEditEnabled(false)
+        console.log("SAVE EDITS")
+    }
 
     const Header = () => {
         return (
             <Box sx={{display: 'flex', width: '100%'}}>
                 <Box sx={{display: 'flex', width: '100%'}}>Mode: {editEnabled.toString()}</Box>
-                <ActionBar actions={[{
-                    handler: () => editEnabled == false ? setEditEnabled(true) : setEditEnabled(false),
-                    label: editEnabled == false ? "Edit" : "View"
-                }]}/>
+                
+                {editEnabled == false ? <>
+                    <ActionBar actions={[{
+                        handler: handleEnableEdit,
+                        label: "Edit"
+                    }]}/>
+                </> : <>
+                    <ActionBar actions={[{
+                        handler: handleCancelEdit,
+                        label: "Cancel"
+                    },{
+                        handler: handleSaveEdit,
+                        label: "Save"
+                    }]}/>
+                </>}
             </Box>
         )
     }
