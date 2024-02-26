@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {
     useQuery,
 } from '@tanstack/react-query'
@@ -8,6 +8,15 @@ import {ActionBar} from 'src/components/common/page-actionbar'
 import {ViewBoard} from './board/view'
 import {TransferBoard} from './board/transfer'
 import {Box} from '@mui/material'
+import Board from './dnd-view-edit/board';
+import { ResponseData } from './dnd-view-edit/types'
+
+/*
+NOTES:
+    routes/board: annoying click to transfer
+    dnd: bad implementation of dnd-kit?
+    dnd-view-edit: good implementation of dnd-kit
+*/
 
 const RoutesPage = () => {
     const { isLoading, isError, data, error } = useQuery(['routeDeliveries'], () => getRouteDeliveries())
@@ -30,11 +39,7 @@ const RoutesPage = () => {
         <BasePage header={<Header/>}>
             <Box sx={{display: 'flex', flexDirection: 'column', width: '100%', height: '85%'}}> 
                 {!isLoading && <>
-                    {mode == "view" ?
-                        <ViewBoard groupedRoutes={data ? data.data.routes : []}/>
-                    :
-                        <TransferBoard/>
-                    }
+                    <Board data={data?.data.routes}/>
                 </>}
             </Box>
         </BasePage>

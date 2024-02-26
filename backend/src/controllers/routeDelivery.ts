@@ -8,6 +8,17 @@ export default class RouteDeliveryController {
   private RouteDeliveryRepository =
     AppDataSource.getRepository(RouteDeliveryEntity);
 
+  // TODO: review this? v
+  getRouteDeliveriesSimple = async (request: Request, response: Response) => {
+    const routes = await this.RouteDeliveryRepository.find({
+      relations: {
+        client: true
+      }
+    });
+
+    response.status(StatusCode.OK).json({ routes: routes });
+  };
+
   getRouteDeliveries = async (request: Request, response: Response) => {
     const routes = await this.RouteDeliveryRepository.find({
       relations: {

@@ -9,6 +9,16 @@ export const getRouteDeliveries = async () => {
     return response
 }
 
+// TODO: review this
+export const getRouteDeliveriesSimple = async () => {
+    const response = await AxiosInstance({
+        method: "get",
+        url: "/route_delivery_simple",
+    });
+    
+    return response
+}
+
 export const setRouteDeliveryNumber = async (id: number, routeNumber: number) => {
     const response = await AxiosInstance({
         method: "put",
