@@ -116,7 +116,20 @@ export default class RouteDeliveryController {
     return routes.length || 0;
   }
 
-  saveAllRouteDeliveries = async (routes) => {
-    console.log("routes ", routes);
+  saveAllRouteDeliveries = async (request: Request, response: Response) => {
+    const routes = request.body.routes
+    
+    // for each column
+    Object.entries(routes).map(([column, data]) => {
+      // for each stop
+      routes[column].map(async (stop, index) => {
+        const updatedStop = await this.RouteDeliveryRepository.update(
+          { id: parseInt(stop.id) },
+          { routeNumber: parseInt(column), routePosition: index}
+        );
+      })
+    })
+
+    response.status(StatusCode.OK).json({ routes: "fd" });
   }
 }

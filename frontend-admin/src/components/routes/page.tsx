@@ -18,22 +18,31 @@ NOTES:
     dnd-view-edit: good implementation of dnd-kit
 */
 
+export enum BoardAction {
+    VIEW = "view",
+    EDIT = "edit",
+    CANCEL = "cancel",
+    SAVE = "save",
+}
+
 const RoutesPage = () => {
-    const { isLoading, isError, data, error } = useQuery(['routeDeliveries'], () => getRouteDeliveries())
+    const { isLoading, isError, data, error, refetch } = useQuery(['routeDeliveries'], () => getRouteDeliveries())
     const [editEnabled, setEditEnabled] = useState(false)
-    
+    const [boardAction, setBoardAction] = useState(BoardAction.VIEW)
+
     const handleEnableEdit = () => {
         setEditEnabled(true)
+        setBoardAction(BoardAction.EDIT)
     }
 
     const handleCancelEdit = () => {
         setEditEnabled(false)
-        console.log("CANCEL EDITS")
+        setBoardAction(BoardAction.CANCEL)
     }
 
     const handleSaveEdit = () => {
         setEditEnabled(false)
-        console.log("SAVE EDITS")
+        setBoardAction(BoardAction.SAVE)
     }
 
     const Header = () => {
@@ -63,7 +72,7 @@ const RoutesPage = () => {
         <BasePage header={<Header/>}>
             <Box sx={{display: 'flex', flexDirection: 'column', width: '100%', height: '85%'}}> 
                 {!isLoading && <>
-                    <Board data={data?.data.routes} editEnabled={editEnabled}/>
+                    <Board data={data?.data.routes} editEnabled={editEnabled} boardAction={boardAction} setBoardAction={setBoardAction} refetch={refetch}/>
                 </>}
             </Box>
         </BasePage>

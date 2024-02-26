@@ -47,10 +47,11 @@ export const decreaseRouteDeliveryPosition = async (id: number) => {
     return response
 }
 
-export const saveAllRouteDeliveries = async () => {
+export const saveAllRouteDeliveries = async (editRoutes: any) => {
     const response = await AxiosInstance({
         method: "post",
         url: "/route_delivery",
+        data: {routes: editRoutes}
     });
     
     return response

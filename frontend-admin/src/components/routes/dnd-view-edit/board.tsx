@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import SortableRouteDetails from './route-details';
 import {
     closestCorners,
@@ -19,6 +19,9 @@ import {
 import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 import { RouteDelivery, ResponseData } from "./types";
 import {Box, Typography, Stack, Grid} from '@mui/material';
+import {BoardAction} from '../page';
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import {saveAllRouteDeliveries} from 'src/api/route-deliveries'
 
 // export const response_data: ResponseData = {
 // 	"0": [
@@ -278,11 +281,55 @@ import {Box, Typography, Stack, Grid} from '@mui/material';
 // 	  ]
 // }
 
-export default function Board(props: {data: any, editEnabled: boolean}) {
-    // const [columns, setColumns] = useState(response_data);
-    const [columns, setColumns] = useState(props.data as ResponseData);
+
+type BoardProps = {
+	data: any;
+	editEnabled: boolean;
+    boardAction: BoardAction;
+    setBoardAction: any;
+    refetch: any;
+};
+
+export default function Board({data, editEnabled, boardAction, setBoardAction, refetch}: BoardProps) {
+    const [viewRoutes, setViewRoutes] = useState<ResponseData | null>(null);
+    const [editRoutes, setEditRoutes] = useState<ResponseData | null>(null);
+    
     const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
     const [clonedItems, setClonedItems] = useState<ResponseData | null>(null);
+
+    const queryClient = useQueryClient();
+    
+    const saveAllRouteDeliveriesMutation = useMutation({
+        mutationFn: async (data: any) => await saveAllRouteDeliveries(data),
+        onSuccess: async () => {
+            return queryClient.invalidateQueries(['routeDeliveries'])
+        },
+    });
+
+    // board action
+    useEffect(() => {
+        if (boardAction == BoardAction.VIEW) {
+            setViewRoutes(data)
+            setEditRoutes(null)
+        } else if (boardAction == BoardAction.EDIT) {
+            setEditRoutes(data)
+        } else if (boardAction == BoardAction.CANCEL) {
+            setViewRoutes(data)
+            setEditRoutes(null)
+            setBoardAction(BoardAction.VIEW)
+        } else if (boardAction == BoardAction.SAVE) {
+            const req = async () => {
+                // TODO: not updating immediately,
+                // must refresh page for changes to show
+                await saveAllRouteDeliveriesMutation.mutate(editRoutes)
+                setBoardAction(BoardAction.VIEW)
+                setViewRoutes(data)
+                setEditRoutes(null)
+            }
+
+            req()
+        } 
+    }, [boardAction])
 
     const sensors = useSensors(
         useSensor(PointerSensor),
@@ -304,7 +351,7 @@ export default function Board(props: {data: any, editEnabled: boolean}) {
     const handleDragStart = (event: DragStartEvent) => {
         const { active } = event;
         setActiveId(active.id);
-        setClonedItems(columns);
+        setClonedItems(editRoutes);
     }
 
     const handleDragEnd = (event: DragEndEvent) => {
@@ -318,15 +365,15 @@ export default function Board(props: {data: any, editEnabled: boolean}) {
             return null;
         }
         
-        const activeIndex = columns[activeColumnId].findIndex((i) => i.id === activeId);
-        const overIndex = columns[overColumnId].findIndex((i) => i.id === overId);
+        const activeIndex = editRoutes![activeColumnId].findIndex((i) => i.id === activeId);
+        const overIndex = editRoutes![overColumnId].findIndex((i) => i.id === overId);
         
         if (activeIndex !== overIndex) {
-            setColumns((prevState) => {
+            setEditRoutes((prevState) => {
                 const d:ResponseData = {}
-                Object.entries(prevState).map(([column, data]) => {
+                Object.entries(prevState!).map(([column, data]) => {
                     if (column === activeColumnId) {
-                        data = arrayMove(columns[overColumnId], activeIndex, overIndex);
+                        data = arrayMove(editRoutes![overColumnId], activeIndex, overIndex);
                         d[column] = data
                     } else {
                         d[column] = data
@@ -349,9 +396,9 @@ export default function Board(props: {data: any, editEnabled: boolean}) {
             return null;
         }
         
-        setColumns((prevState) => {
-            const activeItems = columns[activeColumnId];
-            const overItems = columns[overColumnId];
+        setEditRoutes((prevState) => {
+            const activeItems = editRoutes![activeColumnId];
+            const overItems = editRoutes![overColumnId];
             const activeIndex = activeItems.findIndex((i) => i.id === activeId);
             const overIndex = overItems.findIndex((i) => i.id === overId);
 
@@ -364,7 +411,7 @@ export default function Board(props: {data: any, editEnabled: boolean}) {
 
             const d: ResponseData = {}
 
-            Object.entries(prevState).map(([column, data]) => {
+            Object.entries(prevState!).map(([column, data]) => {
                 if (column === activeColumnId) {
                     data = activeItems.filter((i) => i.id !== activeId);
                     d[column] = data
@@ -387,7 +434,7 @@ export default function Board(props: {data: any, editEnabled: boolean}) {
         if (clonedItems) {
             // Reset items to their original state in case items have been
             // Dragged across containers
-            setColumns(clonedItems);
+            setEditRoutes(clonedItems);
         }
         
         setActiveId(null);
@@ -412,11 +459,18 @@ export default function Board(props: {data: any, editEnabled: boolean}) {
 					overflow: 'auto'
 				}}
 			>
-				{
-					Object.entries(columns).map(([column, data]) => (
-						<SortableRouteDetails key={column} editEnabled={props.editEnabled} column={column} data={data} />
+				{ boardAction == BoardAction.VIEW && viewRoutes &&
+					Object.entries(viewRoutes).map(([column, data]) => (
+						<SortableRouteDetails key={column} editEnabled={editEnabled} column={column} data={data} />
 					))
-				} 
+				}
+
+                { boardAction == BoardAction.EDIT && editRoutes &&
+					Object.entries(editRoutes).map(([column, data]) => (
+						<SortableRouteDetails key={column} editEnabled={editEnabled} column={column} data={data} />
+					))
+				}
+
 			</Stack>
             <DragOverlay>
                 {
