@@ -18,155 +18,268 @@ import {
 } from "@dnd-kit/core";
 import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 import { RouteDelivery, ResponseData } from "./types";
+import {Box, Typography, Stack, Grid} from '@mui/material';
 
-export const response_data: ResponseData = {
-	"0": [
-		{
-			"id": 851060,
-			"routeNumber": 0,
-			"routePosition": 0,
-			"mealType": "No Meat",
-			"program": "STS"
-		},
-		{
-			"id": 742492,
-			"routeNumber": 0,
-			"routePosition": 0,
-			"mealType": "Vegetarian",
-			"program": "MAP"
-		},
-		{
-			"id": 327428,
-			"routeNumber": 0,
-			"routePosition": 0,
-			"mealType": "Vegetarian",
-			"program": "STS"
-		},
-		{
-			"id": 444406,
-			"routeNumber": 0,
-			"routePosition": 0,
-			"mealType": "Regular",
-			"program": "STS"
-		},
-		{
-			"id": 943595,
-			"routeNumber": 0,
-			"routePosition": 0,
-			"mealType": "No Fish",
-			"program": "MAP"
-		},
-		{
-			"id": 115110,
-			"routeNumber": 0,
-			"routePosition": 0,
-			"mealType": "No Meat",
-			"program": "STS"
-		},
-		{
-			"id": 658877,
-			"routeNumber": 0,
-			"routePosition": 0,
-			"mealType": "No Meat",
-			"program": "MAP"
-		},
-		{
-			"id": 510872,
-			"routeNumber": 0,
-			"routePosition": 0,
-			"mealType": "Vegetarian",
-			"program": "STS"
-		},
-		{
-			"id": 557078,
-			"routeNumber": 0,
-			"routePosition": 0,
-			"mealType": "Regular",
-			"program": "STS"
-		},
-		{
-			"id": 868287,
-			"routeNumber": 0,
-			"routePosition": 0,
-			"mealType": "No Fish",
-			"program": "MAP"
-		}
-	],
-	"1": [
-		{
-			"id": 111064,
-			"routeNumber": 0,
-			"routePosition": 0,
-			"mealType": "Vegetarian",
-			"program": "STS"
-		},
-		{
-			"id": 265140,
-			"routeNumber": 0,
-			"routePosition": 0,
-			"mealType": "Vegetarian",
-			"program": "STS"
-		},
-		{
-			"id": 664684,
-			"routeNumber": 0,
-			"routePosition": 0,
-			"mealType": "No Meat",
-			"program": "MAP"
-		},
-		{
-			"id": 817055,
-			"routeNumber": 0,
-			"routePosition": 0,
-			"mealType": "Regular",
-			"program": "MAP"
-		},
-		{
-			"id": 654993,
-			"routeNumber": 0,
-			"routePosition": 0,
-			"mealType": "No Meat",
-			"program": "STS"
-		},
-		{
-			"id": 565347,
-			"routeNumber": 0,
-			"routePosition": 0,
-			"mealType": "No Fish",
-			"program": "STS"
-		},
-		{
-			"id": 525509,
-			"routeNumber": 0,
-			"routePosition": 0,
-			"mealType": "No Meat",
-			"program": "MAP"
-		},
-		{
-			"id": 724160,
-			"routeNumber": 0,
-			"routePosition": 0,
-			"mealType": "No Fish",
-			"program": "STS"
-		},
-		{
-			"id": 238324,
-			"routeNumber": 0,
-			"routePosition": 0,
-			"mealType": "No Fish",
-			"program": "MAP"
-		},
-		{
-			"id": 613813,
-			"routeNumber": 0,
-			"routePosition": 0,
-			"mealType": "Regular",
-			"program": "STS"
-		}  
-	]
-}
+// export const response_data: ResponseData = {
+// 	"0": [
+// 		{
+// 			"id": 851060,
+// 			"routeNumber": 0,
+// 			"routePosition": 0,
+// 			"mealType": "No Meat",
+// 			"program": "STS"
+// 		},
+// 		{
+// 			"id": 742492,
+// 			"routeNumber": 0,
+// 			"routePosition": 0,
+// 			"mealType": "Vegetarian",
+// 			"program": "MAP"
+// 		},
+// 		{
+// 			"id": 327428,
+// 			"routeNumber": 0,
+// 			"routePosition": 0,
+// 			"mealType": "Vegetarian",
+// 			"program": "STS"
+// 		},
+// 		{
+// 			"id": 444406,
+// 			"routeNumber": 0,
+// 			"routePosition": 0,
+// 			"mealType": "Regular",
+// 			"program": "STS"
+// 		},
+// 		{
+// 			"id": 943595,
+// 			"routeNumber": 0,
+// 			"routePosition": 0,
+// 			"mealType": "No Fish",
+// 			"program": "MAP"
+// 		},
+// 		{
+// 			"id": 115110,
+// 			"routeNumber": 0,
+// 			"routePosition": 0,
+// 			"mealType": "No Meat",
+// 			"program": "STS"
+// 		},
+// 		{
+// 			"id": 658877,
+// 			"routeNumber": 0,
+// 			"routePosition": 0,
+// 			"mealType": "No Meat",
+// 			"program": "MAP"
+// 		},
+// 		{
+// 			"id": 510872,
+// 			"routeNumber": 0,
+// 			"routePosition": 0,
+// 			"mealType": "Vegetarian",
+// 			"program": "STS"
+// 		},
+// 		{
+// 			"id": 557078,
+// 			"routeNumber": 0,
+// 			"routePosition": 0,
+// 			"mealType": "Regular",
+// 			"program": "STS"
+// 		},
+// 		{
+// 			"id": 868287,
+// 			"routeNumber": 0,
+// 			"routePosition": 0,
+// 			"mealType": "No Fish",
+// 			"program": "MAP"
+// 		}
+// 	],
+// 	"1": [
+// 		{
+// 			"id": 111064,
+// 			"routeNumber": 0,
+// 			"routePosition": 0,
+// 			"mealType": "Vegetarian",
+// 			"program": "STS"
+// 		},
+// 		{
+// 			"id": 265140,
+// 			"routeNumber": 0,
+// 			"routePosition": 0,
+// 			"mealType": "Vegetarian",
+// 			"program": "STS"
+// 		},
+// 		{
+// 			"id": 664684,
+// 			"routeNumber": 0,
+// 			"routePosition": 0,
+// 			"mealType": "No Meat",
+// 			"program": "MAP"
+// 		},
+// 		{
+// 			"id": 817055,
+// 			"routeNumber": 0,
+// 			"routePosition": 0,
+// 			"mealType": "Regular",
+// 			"program": "MAP"
+// 		},
+// 		{
+// 			"id": 654993,
+// 			"routeNumber": 0,
+// 			"routePosition": 0,
+// 			"mealType": "No Meat",
+// 			"program": "STS"
+// 		},
+// 		{
+// 			"id": 565347,
+// 			"routeNumber": 0,
+// 			"routePosition": 0,
+// 			"mealType": "No Fish",
+// 			"program": "STS"
+// 		},
+// 		{
+// 			"id": 525509,
+// 			"routeNumber": 0,
+// 			"routePosition": 0,
+// 			"mealType": "No Meat",
+// 			"program": "MAP"
+// 		},
+// 		{
+// 			"id": 724160,
+// 			"routeNumber": 0,
+// 			"routePosition": 0,
+// 			"mealType": "No Fish",
+// 			"program": "STS"
+// 		},
+// 		{
+// 			"id": 238324,
+// 			"routeNumber": 0,
+// 			"routePosition": 0,
+// 			"mealType": "No Fish",
+// 			"program": "MAP"
+// 		},
+// 		{
+// 			"id": 613813,
+// 			"routeNumber": 0,
+// 			"routePosition": 0,
+// 			"mealType": "Regular",
+// 			"program": "STS"
+// 		}  
+// 	],
+// 	"2": [
+// 			{
+// 			"id": 440557,
+// 			"routeNumber": 0,
+// 			"routePosition": 0,
+// 			"mealType": "No Fish",
+// 			"program": "STS"
+// 			},
+// 			{
+// 			"id": 634464,
+// 			"routeNumber": 0,
+// 			"routePosition": 0,
+// 			"mealType": "Regular",
+// 			"program": "STS"
+// 			},
+// 			{
+// 			"id": 740684,
+// 			"routeNumber": 0,
+// 			"routePosition": 0,
+// 			"mealType": "Vegetarian",
+// 			"program": "MAP"
+// 			},
+// 			{
+// 			"id": 757312,
+// 			"routeNumber": 0,
+// 			"routePosition": 0,
+// 			"mealType": "Vegetarian",
+// 			"program": "STS"
+// 			},
+// 			{
+// 			"id": 954959,
+// 			"routeNumber": 0,
+// 			"routePosition": 0,
+// 			"mealType": "Regular",
+// 			"program": "MAP"
+// 		}
+// 	],
+// 	"3": [
+// 		{
+// 		  "id": 124694,
+// 		  "routeNumber": 0,
+// 		  "routePosition": 0,
+// 		  "mealType": "No Fish",
+// 		  "program": "STS"
+// 		},
+// 		{
+// 		  "id": 621723,
+// 		  "routeNumber": 0,
+// 		  "routePosition": 0,
+// 		  "mealType": "Regular",
+// 		  "program": "MAP"
+// 		},
+// 		{
+// 		  "id": 422920,
+// 		  "routeNumber": 0,
+// 		  "routePosition": 0,
+// 		  "mealType": "No Meat",
+// 		  "program": "STS"
+// 		},
+// 		{
+// 		  "id": 334091,
+// 		  "routeNumber": 0,
+// 		  "routePosition": 0,
+// 		  "mealType": "No Fish",
+// 		  "program": "STS"
+// 		},
+// 		{
+// 		  "id": 681240,
+// 		  "routeNumber": 0,
+// 		  "routePosition": 0,
+// 		  "mealType": "No Fish",
+// 		  "program": "STS"
+// 		}
+// 	  ],
+// 	"4": [
+// 		{
+// 		  "id": 744614,
+// 		  "routeNumber": 0,
+// 		  "routePosition": 0,
+// 		  "mealType": "Regular",
+// 		  "program": "STS"
+// 		},
+// 		{
+// 		  "id": 846544,
+// 		  "routeNumber": 0,
+// 		  "routePosition": 0,
+// 		  "mealType": "No Fish",
+// 		  "program": "MAP"
+// 		},
+// 		{
+// 		  "id": 727924,
+// 		  "routeNumber": 0,
+// 		  "routePosition": 0,
+// 		  "mealType": "No Meat",
+// 		  "program": "STS"
+// 		},
+// 		{
+// 		  "id": 984339,
+// 		  "routeNumber": 0,
+// 		  "routePosition": 0,
+// 		  "mealType": "No Fish",
+// 		  "program": "STS"
+// 		},
+// 		{
+// 		  "id": 293449,
+// 		  "routeNumber": 0,
+// 		  "routePosition": 0,
+// 		  "mealType": "No Fish",
+// 		  "program": "MAP"
+// 		}
+// 	  ]
+// }
 
 export default function Board(props: {data: any}) {
+    // const [columns, setColumns] = useState(response_data);
     const [columns, setColumns] = useState(props.data as ResponseData);
     const [activeId, setActiveId] = useState<UniqueIdentifier | null>(null);
     const [clonedItems, setClonedItems] = useState<ResponseData | null>(null);
@@ -281,7 +394,7 @@ export default function Board(props: {data: any}) {
         setClonedItems(null);
     };
 
-    return (<div>
+    return (
         <DndContext
             sensors={sensors}
             collisionDetection={closestCorners}
@@ -290,13 +403,21 @@ export default function Board(props: {data: any}) {
             onDragCancel={handleDragCancelled}
             onDragStart={handleDragStart}
         >
-            <div style={{display: "flex"}}>
-                {
-                    Object.entries(columns).map(([column, data]) => (
-                        <Column key={column} column={column} data={data} />
-                    ))
-                }
-            </div>
+			<Stack
+				direction={"row"}
+				spacing={2}
+				sx={{
+					height: '100%',
+					width: '100%',
+					overflow: 'auto'
+				}}
+			>
+				{
+					Object.entries(columns).map(([column, data]) => (
+						<Column key={column} column={column} data={data} />
+					))
+				} 
+			</Stack>
             <DragOverlay>
                 {
                     // how to set overlay
@@ -304,5 +425,5 @@ export default function Board(props: {data: any}) {
                 }
             </DragOverlay>
         </DndContext>
-    </div>);
+    );
 }
