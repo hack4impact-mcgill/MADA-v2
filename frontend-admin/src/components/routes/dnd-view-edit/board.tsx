@@ -22,6 +22,10 @@ import {Box, Typography, Stack, Grid} from '@mui/material';
 import {BoardAction} from '../page';
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {saveAllRouteDeliveries} from 'src/api/route-deliveries'
+import {
+    useQuery,
+} from '@tanstack/react-query'
+import {getRouteDeliveries} from 'src/api/route-deliveries'
 
 // export const response_data: ResponseData = {
 // 	"0": [
@@ -281,16 +285,14 @@ import {saveAllRouteDeliveries} from 'src/api/route-deliveries'
 // 	  ]
 // }
 
-
 type BoardProps = {
-	data: any;
-	editEnabled: boolean;
     boardAction: BoardAction;
     setBoardAction: any;
-    refetch: any;
 };
 
-export default function Board({data, editEnabled, boardAction, setBoardAction, refetch}: BoardProps) {
+export default function Board({boardAction, setBoardAction}: BoardProps) {
+    const { isLoading, isError, data, error, refetch, isStale } = useQuery(['routeDeliveries'], () => getRouteDeliveries())
+
     const [viewRoutes, setViewRoutes] = useState<ResponseData | null>(null);
     const [editRoutes, setEditRoutes] = useState<ResponseData | null>(null);
     
@@ -301,35 +303,28 @@ export default function Board({data, editEnabled, boardAction, setBoardAction, r
     
     const saveAllRouteDeliveriesMutation = useMutation({
         mutationFn: async (data: any) => await saveAllRouteDeliveries(data),
-        onSuccess: async () => {
-            return queryClient.invalidateQueries(['routeDeliveries'])
+        onSuccess: () => {
+            queryClient.invalidateQueries(['routeDeliveries'])
+            refetch()
+            const d = data
         },
     });
 
-    // board action
     useEffect(() => {
         if (boardAction == BoardAction.VIEW) {
-            setViewRoutes(data)
+            setViewRoutes(data?.data.routes)
             setEditRoutes(null)
         } else if (boardAction == BoardAction.EDIT) {
-            setEditRoutes(data)
+            setEditRoutes(data?.data.routes)
         } else if (boardAction == BoardAction.CANCEL) {
-            setViewRoutes(data)
+            setViewRoutes(data?.data.routes)
             setEditRoutes(null)
             setBoardAction(BoardAction.VIEW)
         } else if (boardAction == BoardAction.SAVE) {
-            const req = async () => {
-                // TODO: not updating immediately,
-                // must refresh page for changes to show
-                await saveAllRouteDeliveriesMutation.mutate(editRoutes)
-                setBoardAction(BoardAction.VIEW)
-                setViewRoutes(data)
-                setEditRoutes(null)
-            }
-
-            req()
-        } 
-    }, [boardAction])
+            saveAllRouteDeliveriesMutation.mutate(editRoutes)
+            setBoardAction(BoardAction.VIEW)
+        }
+    }, [boardAction, data])
 
     const sensors = useSensors(
         useSensor(PointerSensor),
@@ -461,13 +456,13 @@ export default function Board({data, editEnabled, boardAction, setBoardAction, r
 			>
 				{ boardAction == BoardAction.VIEW && viewRoutes &&
 					Object.entries(viewRoutes).map(([column, data]) => (
-						<SortableRouteDetails key={column} editEnabled={editEnabled} column={column} data={data} />
+						<SortableRouteDetails key={column} editEnabled={false} column={column} data={data} />
 					))
 				}
 
                 { boardAction == BoardAction.EDIT && editRoutes &&
 					Object.entries(editRoutes).map(([column, data]) => (
-						<SortableRouteDetails key={column} editEnabled={editEnabled} column={column} data={data} />
+						<SortableRouteDetails key={column} editEnabled={true} column={column} data={data} />
 					))
 				}
 

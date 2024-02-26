@@ -27,30 +27,26 @@ export enum BoardAction {
 
 const RoutesPage = () => {
     const { isLoading, isError, data, error, refetch } = useQuery(['routeDeliveries'], () => getRouteDeliveries())
-    const [editEnabled, setEditEnabled] = useState(false)
     const [boardAction, setBoardAction] = useState(BoardAction.VIEW)
 
     const handleEnableEdit = () => {
-        setEditEnabled(true)
         setBoardAction(BoardAction.EDIT)
     }
 
     const handleCancelEdit = () => {
-        setEditEnabled(false)
         setBoardAction(BoardAction.CANCEL)
     }
 
     const handleSaveEdit = () => {
-        setEditEnabled(false)
         setBoardAction(BoardAction.SAVE)
     }
 
     const Header = () => {
         return (
             <Box sx={{display: 'flex', width: '100%'}}>
-                <Box sx={{display: 'flex', width: '100%'}}>Mode: {editEnabled.toString()}</Box>
+                <Box sx={{display: 'flex', width: '100%'}}>Mode: {boardAction.toString()}</Box>
                 
-                {editEnabled == false ? <>
+                {boardAction == BoardAction.VIEW ? <>
                     <ActionBar actions={[{
                         handler: handleEnableEdit,
                         label: "Edit"
@@ -67,12 +63,12 @@ const RoutesPage = () => {
             </Box>
         )
     }
-
+ 
     return (
         <BasePage header={<Header/>}>
             <Box sx={{display: 'flex', flexDirection: 'column', width: '100%', height: '85%'}}> 
                 {!isLoading && <>
-                    <Board data={data?.data.routes} editEnabled={editEnabled} boardAction={boardAction} setBoardAction={setBoardAction} refetch={refetch}/>
+                    <Board boardAction={boardAction} setBoardAction={setBoardAction}/>
                 </>}
             </Box>
         </BasePage>
