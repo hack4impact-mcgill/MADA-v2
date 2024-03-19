@@ -18,7 +18,8 @@ import {
 } from "@dnd-kit/core";
 import { arrayMove, sortableKeyboardCoordinates } from "@dnd-kit/sortable";
 import { RouteDelivery, ResponseData } from "./types";
-import {Box, Typography, Stack, Grid} from '@mui/material';
+import {Box, Typography, Stack, Grid, IconButton, Button} from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
 import {BoardAction} from '../page';
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import {saveAllRouteDeliveries} from 'src/api/route-deliveries'
@@ -26,264 +27,6 @@ import {
     useQuery,
 } from '@tanstack/react-query'
 import {getRouteDeliveries} from 'src/api/route-deliveries'
-
-// export const response_data: ResponseData = {
-// 	"0": [
-// 		{
-// 			"id": 851060,
-// 			"routeNumber": 0,
-// 			"routePosition": 0,
-// 			"mealType": "No Meat",
-// 			"program": "STS"
-// 		},
-// 		{
-// 			"id": 742492,
-// 			"routeNumber": 0,
-// 			"routePosition": 0,
-// 			"mealType": "Vegetarian",
-// 			"program": "MAP"
-// 		},
-// 		{
-// 			"id": 327428,
-// 			"routeNumber": 0,
-// 			"routePosition": 0,
-// 			"mealType": "Vegetarian",
-// 			"program": "STS"
-// 		},
-// 		{
-// 			"id": 444406,
-// 			"routeNumber": 0,
-// 			"routePosition": 0,
-// 			"mealType": "Regular",
-// 			"program": "STS"
-// 		},
-// 		{
-// 			"id": 943595,
-// 			"routeNumber": 0,
-// 			"routePosition": 0,
-// 			"mealType": "No Fish",
-// 			"program": "MAP"
-// 		},
-// 		{
-// 			"id": 115110,
-// 			"routeNumber": 0,
-// 			"routePosition": 0,
-// 			"mealType": "No Meat",
-// 			"program": "STS"
-// 		},
-// 		{
-// 			"id": 658877,
-// 			"routeNumber": 0,
-// 			"routePosition": 0,
-// 			"mealType": "No Meat",
-// 			"program": "MAP"
-// 		},
-// 		{
-// 			"id": 510872,
-// 			"routeNumber": 0,
-// 			"routePosition": 0,
-// 			"mealType": "Vegetarian",
-// 			"program": "STS"
-// 		},
-// 		{
-// 			"id": 557078,
-// 			"routeNumber": 0,
-// 			"routePosition": 0,
-// 			"mealType": "Regular",
-// 			"program": "STS"
-// 		},
-// 		{
-// 			"id": 868287,
-// 			"routeNumber": 0,
-// 			"routePosition": 0,
-// 			"mealType": "No Fish",
-// 			"program": "MAP"
-// 		}
-// 	],
-// 	"1": [
-// 		{
-// 			"id": 111064,
-// 			"routeNumber": 0,
-// 			"routePosition": 0,
-// 			"mealType": "Vegetarian",
-// 			"program": "STS"
-// 		},
-// 		{
-// 			"id": 265140,
-// 			"routeNumber": 0,
-// 			"routePosition": 0,
-// 			"mealType": "Vegetarian",
-// 			"program": "STS"
-// 		},
-// 		{
-// 			"id": 664684,
-// 			"routeNumber": 0,
-// 			"routePosition": 0,
-// 			"mealType": "No Meat",
-// 			"program": "MAP"
-// 		},
-// 		{
-// 			"id": 817055,
-// 			"routeNumber": 0,
-// 			"routePosition": 0,
-// 			"mealType": "Regular",
-// 			"program": "MAP"
-// 		},
-// 		{
-// 			"id": 654993,
-// 			"routeNumber": 0,
-// 			"routePosition": 0,
-// 			"mealType": "No Meat",
-// 			"program": "STS"
-// 		},
-// 		{
-// 			"id": 565347,
-// 			"routeNumber": 0,
-// 			"routePosition": 0,
-// 			"mealType": "No Fish",
-// 			"program": "STS"
-// 		},
-// 		{
-// 			"id": 525509,
-// 			"routeNumber": 0,
-// 			"routePosition": 0,
-// 			"mealType": "No Meat",
-// 			"program": "MAP"
-// 		},
-// 		{
-// 			"id": 724160,
-// 			"routeNumber": 0,
-// 			"routePosition": 0,
-// 			"mealType": "No Fish",
-// 			"program": "STS"
-// 		},
-// 		{
-// 			"id": 238324,
-// 			"routeNumber": 0,
-// 			"routePosition": 0,
-// 			"mealType": "No Fish",
-// 			"program": "MAP"
-// 		},
-// 		{
-// 			"id": 613813,
-// 			"routeNumber": 0,
-// 			"routePosition": 0,
-// 			"mealType": "Regular",
-// 			"program": "STS"
-// 		}  
-// 	],
-// 	"2": [
-// 			{
-// 			"id": 440557,
-// 			"routeNumber": 0,
-// 			"routePosition": 0,
-// 			"mealType": "No Fish",
-// 			"program": "STS"
-// 			},
-// 			{
-// 			"id": 634464,
-// 			"routeNumber": 0,
-// 			"routePosition": 0,
-// 			"mealType": "Regular",
-// 			"program": "STS"
-// 			},
-// 			{
-// 			"id": 740684,
-// 			"routeNumber": 0,
-// 			"routePosition": 0,
-// 			"mealType": "Vegetarian",
-// 			"program": "MAP"
-// 			},
-// 			{
-// 			"id": 757312,
-// 			"routeNumber": 0,
-// 			"routePosition": 0,
-// 			"mealType": "Vegetarian",
-// 			"program": "STS"
-// 			},
-// 			{
-// 			"id": 954959,
-// 			"routeNumber": 0,
-// 			"routePosition": 0,
-// 			"mealType": "Regular",
-// 			"program": "MAP"
-// 		}
-// 	],
-// 	"3": [
-// 		{
-// 		  "id": 124694,
-// 		  "routeNumber": 0,
-// 		  "routePosition": 0,
-// 		  "mealType": "No Fish",
-// 		  "program": "STS"
-// 		},
-// 		{
-// 		  "id": 621723,
-// 		  "routeNumber": 0,
-// 		  "routePosition": 0,
-// 		  "mealType": "Regular",
-// 		  "program": "MAP"
-// 		},
-// 		{
-// 		  "id": 422920,
-// 		  "routeNumber": 0,
-// 		  "routePosition": 0,
-// 		  "mealType": "No Meat",
-// 		  "program": "STS"
-// 		},
-// 		{
-// 		  "id": 334091,
-// 		  "routeNumber": 0,
-// 		  "routePosition": 0,
-// 		  "mealType": "No Fish",
-// 		  "program": "STS"
-// 		},
-// 		{
-// 		  "id": 681240,
-// 		  "routeNumber": 0,
-// 		  "routePosition": 0,
-// 		  "mealType": "No Fish",
-// 		  "program": "STS"
-// 		}
-// 	  ],
-// 	"4": [
-// 		{
-// 		  "id": 744614,
-// 		  "routeNumber": 0,
-// 		  "routePosition": 0,
-// 		  "mealType": "Regular",
-// 		  "program": "STS"
-// 		},
-// 		{
-// 		  "id": 846544,
-// 		  "routeNumber": 0,
-// 		  "routePosition": 0,
-// 		  "mealType": "No Fish",
-// 		  "program": "MAP"
-// 		},
-// 		{
-// 		  "id": 727924,
-// 		  "routeNumber": 0,
-// 		  "routePosition": 0,
-// 		  "mealType": "No Meat",
-// 		  "program": "STS"
-// 		},
-// 		{
-// 		  "id": 984339,
-// 		  "routeNumber": 0,
-// 		  "routePosition": 0,
-// 		  "mealType": "No Fish",
-// 		  "program": "STS"
-// 		},
-// 		{
-// 		  "id": 293449,
-// 		  "routeNumber": 0,
-// 		  "routePosition": 0,
-// 		  "mealType": "No Fish",
-// 		  "program": "MAP"
-// 		}
-// 	  ]
-// }
 
 type BoardProps = {
     boardAction: BoardAction;
@@ -436,6 +179,22 @@ export default function Board({boardAction, setBoardAction}: BoardProps) {
         setClonedItems(null);
     };
 
+    const handleCreateRoute = (event: React.MouseEvent<HTMLButtonElement>) => {
+        const editRouteLength = Object.keys(editRoutes!).length;
+
+        setEditRoutes((prevState) => {
+            const d: ResponseData = {}
+
+            Object.entries(prevState!).map(([column, data]) => {
+                d[column] = data
+            })
+            
+            d[editRouteLength] = []
+
+            return d
+        });
+    }
+
     return (
         <DndContext
             sensors={sensors}
@@ -461,15 +220,22 @@ export default function Board({boardAction, setBoardAction}: BoardProps) {
 				}
 
                 { boardAction == BoardAction.EDIT && editRoutes &&
-					Object.entries(editRoutes).map(([column, data]) => (
-						<SortableRouteDetails key={column} editEnabled={true} column={column} data={data} />
-					))
+                    <>
+					{
+                        Object.entries(editRoutes).map(([column, data]) => (
+                            <SortableRouteDetails key={column} editEnabled={true} column={column} data={data} />
+                        ))
+                    }
+                        <Box>
+                            <Button variant='outlined' onClick={handleCreateRoute}>
+                                <AddIcon/>
+                            </Button>
+                        </Box>
+                    </>
 				}
-
 			</Stack>
             <DragOverlay>
                 {
-                    // how to set overlay
                     activeId ? <div>OVERLAY {activeId}</div>: null
                 }
             </DragOverlay>
