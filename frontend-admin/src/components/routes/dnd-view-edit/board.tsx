@@ -27,6 +27,7 @@ import {
     useQuery,
 } from '@tanstack/react-query'
 import {getRouteDeliveries} from 'src/api/route-deliveries'
+import {StopDetails} from "./stop-details";
 
 type BoardProps = {
     boardAction: BoardAction;
@@ -76,16 +77,6 @@ export default function Board({boardAction, setBoardAction}: BoardProps) {
         })
     )
 
-    const findColumnIdFromActive = (item: Active): string => {
-        if (!item.data.current) return "";
-        return item.data.current.sortable.containerId
-    }
-
-    const findColumnIdFromOver = (item: Over): string => {
-        if (!item.data.current) return "";
-        return item.data.current.sortable.containerId
-    }
-
     function findContainer(id: UniqueIdentifier) {
         // Route Id
         if (Object.keys(editRoutes!).find((key) => key == id)) {
@@ -97,6 +88,12 @@ export default function Board({boardAction, setBoardAction}: BoardProps) {
             editRoutes![key].findIndex(route => route.id === id) !== -1
         );
         return foundId?.toString()
+    }
+
+    function findStop(id: UniqueIdentifier) {
+        const containerId = findContainer(id)
+        const stop = editRoutes![containerId!].find((stop) => stop.id == id)
+        return stop
     }
 
     const handleDragStart = (event: DragStartEvent) => {
@@ -265,7 +262,7 @@ export default function Board({boardAction, setBoardAction}: BoardProps) {
 			</Stack>
             <DragOverlay>
                 {
-                    activeId ? <div>OVERLAY {activeId}</div>: null
+                    activeId ? <StopDetails {...{id: activeId as string, mealType: findStop(activeId)!.mealType, program: findStop(activeId)!.program}}/>: null
                 }
             </DragOverlay>
         </DndContext>

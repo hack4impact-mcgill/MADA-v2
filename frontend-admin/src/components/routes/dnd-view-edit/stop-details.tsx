@@ -29,12 +29,12 @@ export default function SortableStopDetails({data, editEnabled}: SortableStopDet
 }
 
 type StopDetailsProps = {
-	id: number;
+	id: string;
 	mealType: string;
 	program: string
 };
 
-function StopDetails({ id, mealType, program }: StopDetailsProps) {
+export function StopDetails({ id, mealType, program }: StopDetailsProps) {
 	return (
         <Card variant="outlined">
             <CardContent>
