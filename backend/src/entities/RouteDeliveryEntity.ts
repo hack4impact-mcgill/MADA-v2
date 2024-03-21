@@ -4,7 +4,7 @@ import { ProgramType, MealType } from './types';
 
 @Entity()
 export class RouteDeliveryEntity {
-  @PrimaryGeneratedColumn("uuid")
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()

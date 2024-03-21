@@ -36,7 +36,7 @@ const neighbourhoodReverseMapping: { [key: string]: Neighbourhood } = {
   [Neighbourhood.TMR]: Neighbourhood.TMR,
   [Neighbourhood.VERDUN]: Neighbourhood.VERDUN,
   [Neighbourhood.VILLESTLAURENT]: Neighbourhood.VILLESTLAURENT,
-  [Neighbourhood.WESTISLAND]: Neighbourhood.WESTISLAND,
+  [Neighbourhood.WESTISLAND]: Neighbourhood.WESTISLAND
 };
 
 export function getNeighbourhoodFromString(str: string): Neighbourhood {

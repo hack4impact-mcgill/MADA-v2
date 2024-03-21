@@ -60,23 +60,22 @@ export default class ClientController {
   getClient = async (request: Request, response: Response) => {
     const client = await this.ClientRepository.findOne({
       where: {
-          id: parseInt(request.params.id),
-          softDelete: false
-       }
+        id: parseInt(request.params.id),
+        softDelete: false
+      }
     });
     response.status(StatusCode.OK).json({ client: client });
   };
 
   editClient = async (request: Request, response: Response) => {
-
     const originalClient = await this.ClientRepository.findOne({
-      where: {id: parseInt(request.params.id)}
-    })
+      where: { id: parseInt(request.params.id) }
+    });
 
-    const editedMealType = !(request.body.mealType == originalClient.mealType)
-    const editedSTS = !(request.body.sts == originalClient.sts)
-    const editedMAP = !(request.body.map == originalClient.map)
-    
+    const editedMealType = !(request.body.mealType == originalClient.mealType);
+    const editedSTS = !(request.body.sts == originalClient.sts);
+    const editedMAP = !(request.body.map == originalClient.map);
+
     const client = await this.ClientRepository.update(
       { id: parseInt(request.params.id) },
       {
@@ -91,8 +90,8 @@ export default class ClientController {
     );
 
     const savedClient = await this.ClientRepository.findOne({
-      where: {id: parseInt(request.params.id)}
-    })
+      where: { id: parseInt(request.params.id) }
+    });
 
     if (editedSTS) {
       if (request.body.sts) {
@@ -107,10 +106,13 @@ export default class ClientController {
       } else {
         const stsRouteDelivery = await this.RouteDeliveryRepository.find({
           relations: { client: true },
-          where: {client: {id: parseInt(request.params.id)}, program: ProgramType.STS}
-        })
+          where: {
+            client: { id: parseInt(request.params.id) },
+            program: ProgramType.STS
+          }
+        });
 
-        await this.RouteDeliveryRepository.remove(stsRouteDelivery)
+        await this.RouteDeliveryRepository.remove(stsRouteDelivery);
       }
     }
 
@@ -127,24 +129,27 @@ export default class ClientController {
       } else {
         const mapRouteDelivery = await this.RouteDeliveryRepository.find({
           relations: { client: true },
-          where: {client: {id: parseInt(request.params.id)}, program: ProgramType.MAP}
-        })
+          where: {
+            client: { id: parseInt(request.params.id) },
+            program: ProgramType.MAP
+          }
+        });
 
-        await this.RouteDeliveryRepository.remove(mapRouteDelivery)
+        await this.RouteDeliveryRepository.remove(mapRouteDelivery);
       }
     }
 
-    if (editedMealType){
+    if (editedMealType) {
       const routeDeliveries = await this.RouteDeliveryRepository.find({
         relations: { client: true },
-        where: {client: {id: parseInt(request.params.id)}}
-      })
+        where: { client: { id: parseInt(request.params.id) } }
+      });
 
-      routeDeliveries.forEach(routeDelivery => {
-        routeDelivery.mealType = savedClient.mealType
-      })
-      
-      this.RouteDeliveryRepository.save(routeDeliveries)
+      routeDeliveries.forEach((routeDelivery) => {
+        routeDelivery.mealType = savedClient.mealType;
+      });
+
+      this.RouteDeliveryRepository.save(routeDeliveries);
     }
 
     response.status(StatusCode.OK).json({ client });

@@ -8,7 +8,10 @@ const routeDeliveryController = new RouteDeliveryController();
 router.get('/route_delivery/', routeDeliveryController.getRouteDeliveries);
 router.post('/route_delivery/', routeDeliveryController.saveAllRouteDeliveries);
 // TODO: review this? v
-router.get('/route_delivery_simple/', routeDeliveryController.getRouteDeliveriesSimple);
+router.get(
+  '/route_delivery_simple/',
+  routeDeliveryController.getRouteDeliveriesSimple
+);
 router.put('/route_delivery/:id/set', routeDeliveryController.setRouteNumber);
 router.put(
   '/route_delivery/:id/increment',

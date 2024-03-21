@@ -18,7 +18,7 @@ export class ClientEntity {
 
   @Column()
   phoneNumber: string;
-  
+
   @Column()
   address: string;
 

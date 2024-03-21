@@ -40,7 +40,7 @@ const generateClient = async () => {
     softDelete: false
   };
   user.sts = faker.datatype.boolean();
-  user.map = !user.sts ? true :faker.datatype.boolean();
+  user.map = !user.sts ? true : faker.datatype.boolean();
 
   return user;
 };

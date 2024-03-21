@@ -47,19 +47,22 @@ export default class RouteDeliveryController {
   };
 
   setRouteNumber = async (request: Request, response: Response) => {
-    const routePosition = request.body.routeNumber == 0 ? 0 : await this.getNextRouteNumber(request.body.routeNumber)
+    const routePosition =
+      request.body.routeNumber == 0
+        ? 0
+        : await this.getNextRouteNumber(request.body.routeNumber);
 
     const route = await this.RouteDeliveryRepository.update(
       { id: request.params.id },
-      { routeNumber: request.body.routeNumber, routePosition: routePosition}
+      { routeNumber: request.body.routeNumber, routePosition: routePosition }
     );
 
     response.status(StatusCode.OK).json({ route });
   };
 
   incrementRoutePosition = async (request: Request, response: Response) => {
-    const r = await this.getRouteFromId(request.params.id)
-    
+    const r = await this.getRouteFromId(request.params.id);
+
     await this.RouteDeliveryRepository.decrement(
       { routeNumber: r.routeNumber, routePosition: r.routePosition + 1 },
       'routePosition',
@@ -71,13 +74,13 @@ export default class RouteDeliveryController {
       'routePosition',
       1
     );
-    
+
     response.status(StatusCode.OK).json({ route });
   };
 
   decrementRoutePosition = async (request: Request, response: Response) => {
-    const r = await this.getRouteFromId(request.params.id)
-    
+    const r = await this.getRouteFromId(request.params.id);
+
     await this.RouteDeliveryRepository.increment(
       { routeNumber: r.routeNumber, routePosition: r.routePosition - 1 },
       'routePosition',
@@ -89,7 +92,7 @@ export default class RouteDeliveryController {
       'routePosition',
       1
     );
-    
+
     response.status(StatusCode.OK).json({ route });
   };
 
@@ -102,8 +105,8 @@ export default class RouteDeliveryController {
       }
     });
 
-    return route
-  }
+    return route;
+  };
 
   // Get the next route number
   getNextRouteNumber = async (routeNumber) => {
@@ -112,24 +115,24 @@ export default class RouteDeliveryController {
         routeNumber: routeNumber
       }
     });
-    
+
     return routes.length || 0;
-  }
+  };
 
   saveAllRouteDeliveries = async (request: Request, response: Response) => {
-    const routes = request.body.routes
-    
+    const routes = request.body.routes;
+
     // for each column
     Object.entries(routes).map(([column, data]) => {
       // for each stop
       routes[column].map(async (stop, index) => {
         const updatedStop = await this.RouteDeliveryRepository.update(
           { id: stop.id },
-          { routeNumber: parseInt(column), routePosition: index}
+          { routeNumber: parseInt(column), routePosition: index }
         );
-      })
-    })
+      });
+    });
 
-    response.status(StatusCode.OK).json({ routes: "fd" });
-  }
+    response.status(StatusCode.OK).json({ routes: 'fd' });
+  };
 }
