@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {Container, Box} from '@mui/material';
-import NavigationDrawer from './drawer/drawer';
+import NavigationDrawer from '../drawer/drawer';
 import {PageHeader} from './page-actionbar';
 
 export const BasePage = (props: {header: any, children: any}) => {

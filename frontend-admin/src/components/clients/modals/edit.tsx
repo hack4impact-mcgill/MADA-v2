@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { EditClientState, useEditClientStore } from "../client.store";
 import { getClient, editClient } from "src/api/clients";
 import { BaseModal } from "src/components/common/modal/modal";
-import { useStateSetupHandler } from "src/components/common/use-state-setup-handler";
+import { useStateSetupHandler } from "src/components/common/modal/use-state-setup-handler";
 import { ModalActionBar } from "src/components/common/modal/actionbar";
 import { ModalSelectInput } from "src/components/common/modal/inputs/select";
 import { ModalPhoneInput } from "src/components/common/modal/inputs/phone";

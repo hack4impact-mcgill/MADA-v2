@@ -23,3 +23,22 @@ export enum Neighbourhood {
   VILLESTLAURENT = 'Ville St-Laurent',
   WESTISLAND = 'West Island'
 }
+
+// Create a reverse mapping object
+const neighbourhoodReverseMapping: { [key: string]: Neighbourhood } = {
+  [Neighbourhood.COTEDENEIGES]: Neighbourhood.COTEDENEIGES,
+  [Neighbourhood.COTESTLUC]: Neighbourhood.COTESTLUC,
+  [Neighbourhood.DOWNTOWN]: Neighbourhood.DOWNTOWN,
+  [Neighbourhood.LACHINE]: Neighbourhood.LACHINE,
+  [Neighbourhood.LAVAL]: Neighbourhood.LAVAL,
+  [Neighbourhood.MONTREAL]: Neighbourhood.MONTREAL,
+  [Neighbourhood.MONTREALWEST]: Neighbourhood.MONTREALWEST,
+  [Neighbourhood.TMR]: Neighbourhood.TMR,
+  [Neighbourhood.VERDUN]: Neighbourhood.VERDUN,
+  [Neighbourhood.VILLESTLAURENT]: Neighbourhood.VILLESTLAURENT,
+  [Neighbourhood.WESTISLAND]: Neighbourhood.WESTISLAND
+};
+
+export function getNeighbourhoodFromString(str: string): Neighbourhood {
+  return neighbourhoodReverseMapping[str];
+}

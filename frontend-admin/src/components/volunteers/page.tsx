@@ -5,7 +5,7 @@ import { GridRowId, GridActionsCellItem } from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
 
 import { volunteerColumns } from "./columns";
-import { useModalState } from "src/components/common/use-modal-state";
+import { useModalState } from "src/components/common/modal/use-modal-state";
 
 import { CreateModal, EditModal } from "./modals";
 import { ModalControl } from "src/components/common/modal/control";
@@ -16,8 +16,8 @@ import {
 } from "src/components/volunteers/volunteer.store";
 import { Box } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import { BasePage } from "src/components/common/base-page";
-import { ActionBar } from "src/components/common/page-actionbar";
+import { BasePage } from "src/components/common/layout/base-page";
+import { ActionBar } from "src/components/common/layout/page-actionbar";
 
 const VolunteersPage = () => {
   const navigate = useNavigate();

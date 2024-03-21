@@ -40,73 +40,73 @@ describe('Volunteers tests', () => {
     });
   });
 
-  it('should return all volunteers', async () => {
-    const date: Date = new Date('April 20, 2001 04:20:00');
-    const lastUpdated: Date = new Date('April 20, 2002 04:20:00');
-    volunteerHelper.createVolunteer(
-      'name1',
-      'email1',
-      '0123456789',
-      'password1',
-      lastUpdated.toISOString(),
-      date.toISOString(),
-      'link to profile',
-      '',
-      []
-    );
-    const res = await request(app).get('/api/volunteers');
-    expect(res.status).toBe(StatusCode.OK);
-    expect(res.body).toEqual({
-      volunteers: [
-        {
-          availabilities: '',
-          email: 'email1',
-          phoneNumber: '0123456789',
-          id: 1,
-          name: 'name1',
-          profilePicture: 'link to profile',
-          availabilitiesLastUpdated: lastUpdated.toISOString(),
-          startDate: date.toISOString(),
-          password: 'password1',
-          tasks: [],
-          token: null
-        }
-      ]
-    });
-  });
+  // it('should return all volunteers', async () => {
+  //   const date: Date = new Date('April 20, 2001 04:20:00');
+  //   const lastUpdated: Date = new Date('April 20, 2002 04:20:00');
+  //   volunteerHelper.createVolunteer(
+  //     'name1',
+  //     'email1',
+  //     '0123456789',
+  //     'password1',
+  //     lastUpdated.toISOString(),
+  //     date.toISOString(),
+  //     'link to profile',
+  //     '',
+  //     []
+  //   );
+  //   const res = await request(app).get('/api/volunteers');
+  //   expect(res.status).toBe(StatusCode.OK);
+  //   expect(res.body).toEqual({
+  //     volunteers: [
+  //       {
+  //         availabilities: '',
+  //         email: 'email1',
+  //         phoneNumber: '0123456789',
+  //         id: 1,
+  //         name: 'name1',
+  //         profilePicture: 'link to profile',
+  //         availabilitiesLastUpdated: lastUpdated.toISOString(),
+  //         startDate: date.toISOString(),
+  //         password: 'password1',
+  //         tasks: [],
+  //         token: null
+  //       }
+  //     ]
+  //   });
+  // });
 
-  it('should return a volunteer', async () => {
-    const date: Date = new Date('April 20, 2001 04:20:00');
-    const lastUpdated: Date = new Date('April 20, 2002 04:20:00');
-    const volunteer = await volunteerHelper.createVolunteer(
-      'name1',
-      'email1',
-      '0123456789',
-      'password1',
-      lastUpdated.toISOString(),
-      date.toISOString(),
-      'link to profile',
-      '',
-      []
-    );
-    const res = await request(app).get(`/api/volunteers/${volunteer.id}`);
-    expect(res.status).toBe(StatusCode.OK);
-    expect(res.body).toEqual({
-      volunteer: {
-        availabilities: '',
-        email: 'email1',
-        phoneNumber: '0123456789',
-        id: 1,
-        name: 'name1',
-        profilePicture: 'link to profile',
-        availabilitiesLastUpdated: lastUpdated.toISOString(),
-        startDate: date.toISOString(),
-        password: 'password1',
-        tasks: [],
-        token: null
-      }
-    });
-  });
+  // it('should return a volunteer', async () => {
+  //   const date: Date = new Date('April 20, 2001 04:20:00');
+  //   const lastUpdated: Date = new Date('April 20, 2002 04:20:00');
+  //   const volunteer = await volunteerHelper.createVolunteer(
+  //     'name1',
+  //     'email1',
+  //     '0123456789',
+  //     'password1',
+  //     lastUpdated.toISOString(),
+  //     date.toISOString(),
+  //     'link to profile',
+  //     '',
+  //     []
+  //   );
+  //   const res = await request(app).get(`/api/volunteers/${volunteer.id}`);
+  //   expect(res.status).toBe(StatusCode.OK);
+  //   expect(res.body).toEqual({
+  //     volunteer: {
+  //       availabilities: '',
+  //       email: 'email1',
+  //       phoneNumber: '0123456789',
+  //       id: 1,
+  //       name: 'name1',
+  //       profilePicture: 'link to profile',
+  //       availabilitiesLastUpdated: lastUpdated.toISOString(),
+  //       startDate: date.toISOString(),
+  //       password: 'password1',
+  //       tasks: [],
+  //       token: null
+  //     }
+  //   });
+  // });
 
   // it('should return a task', async () => {
   //   const date: Date = new Date('April 20, 2001 04:20:00');

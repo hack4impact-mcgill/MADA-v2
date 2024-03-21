@@ -5,11 +5,11 @@ import { getClients } from "src/api/clients";
 import { useEditClientStore, EditClientState } from "./client.store";
 import { useQuery } from "@tanstack/react-query";
 import { clientColumns } from "./columns";
-import { useModalState } from "src/components/common/use-modal-state";
+import { useModalState } from "src/components/common/modal/use-modal-state";
 import { ModalControl } from "src/components/common/modal/control";
 
-import { BasePage } from "src/components/common/base-page";
-import { ActionBar } from "src/components/common/page-actionbar";
+import { BasePage } from "src/components/common/layout/base-page";
+import { ActionBar } from "src/components/common/layout/page-actionbar";
 import { DataGrid } from "@mui/x-data-grid";
 import { Box } from "@mui/system";
 

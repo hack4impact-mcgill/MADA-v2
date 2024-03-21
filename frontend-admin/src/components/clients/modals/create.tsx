@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { isAllValid, BaseModal } from "src/components/common/modal/modal";
-import { useStateSetupHandler } from "src/components/common/use-state-setup-handler";
-import { isValidEmail, isValidPhone } from "src/components/common/validators";
+import { useStateSetupHandler } from "src/components/common/modal/use-state-setup-handler";
+import { isValidEmail, isValidPhone } from "src/components/common/modal/validators";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createClient } from "src/api/clients";
 import { ModalActionBar } from "src/components/common/modal/actionbar";

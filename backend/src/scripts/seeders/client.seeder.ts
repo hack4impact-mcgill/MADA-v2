@@ -21,20 +21,32 @@ const generateRouteDelivery = async (
 };
 
 const generateClient = async () => {
-  const client = (await generateStaffUser()) as any;
-  client.address = faker.address.streetAddress();
-  client.mealType = faker.helpers.arrayElement([
-    'Vegetarian',
-    'No Fish',
-    'No Meat'
-  ]);
-  client.sts = faker.datatype.boolean();
-  client.map = !client.sts ? true : faker.datatype.boolean();
-  return client;
+  const firstName = faker.name.firstName();
+  const lastName = faker.name.lastName();
+
+  const user = {
+    name: firstName + ' ' + lastName,
+    email: faker.internet.email(firstName, lastName),
+    phoneNumber: faker.phone.number(),
+    address: faker.address.streetAddress(),
+    mealType: faker.helpers.arrayElement([
+      'Regular',
+      'Vegetarian',
+      'No Fish',
+      'No Meat'
+    ]),
+    sts: false,
+    map: false,
+    softDelete: false
+  };
+  user.sts = faker.datatype.boolean();
+  user.map = !user.sts ? true : faker.datatype.boolean();
+
+  return user;
 };
 
 const generateClients = async (num: number) => {
-  const clients: ClientEntity[] = [];
+  const clients: any[] = [];
   for (let i = 0; i < num; i++) {
     const c = await generateClient();
     clients.push(c);
