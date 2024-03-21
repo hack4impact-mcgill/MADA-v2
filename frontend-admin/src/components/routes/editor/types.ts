@@ -3,7 +3,7 @@ export type ResponseData = {
 }
 
 export type RouteDelivery = {
-    id: number;
+    id: string;
     routeNumber: number;
     routePosition: number;
     mealType: string;

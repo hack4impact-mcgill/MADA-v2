@@ -5,18 +5,9 @@ import {
 import {getRouteDeliveries} from 'src/api/route-deliveries'
 import {BasePage} from 'src/components/common/base-page'
 import {ActionBar} from 'src/components/common/page-actionbar'
-import {ViewBoard} from './board/view'
-import {TransferBoard} from './board/transfer'
 import {Box} from '@mui/material'
-import Board from './dnd-view-edit/board';
-import { ResponseData } from './dnd-view-edit/types'
-
-/*
-NOTES:
-    routes/board: annoying click to transfer
-    dnd: bad implementation of dnd-kit?
-    dnd-view-edit: good implementation of dnd-kit
-*/
+import Board from './editor/board';
+import { ResponseData } from './editor/types'
 
 export enum BoardAction {
     VIEW = "view",
