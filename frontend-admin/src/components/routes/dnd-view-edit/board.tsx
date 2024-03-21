@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import SortableRouteDetails from './route-details';
 import {
-    closestCorners,
+    closestCenter,
     DndContext,
     KeyboardSensor,
     PointerSensor,
@@ -86,6 +86,19 @@ export default function Board({boardAction, setBoardAction}: BoardProps) {
         return item.data.current.sortable.containerId
     }
 
+    function findContainer(id: UniqueIdentifier) {
+        // Route Id
+        if (Object.keys(editRoutes!).find((key) => key == id)) {
+            return id.toString();
+        }
+        
+        // Stop Id
+        const foundId = Object.keys(editRoutes!).find(key =>
+            editRoutes![key].findIndex(route => route.id === id) !== -1
+        );
+        return foundId?.toString()
+    }
+
     const handleDragStart = (event: DragStartEvent) => {
         const { active } = event;
         setActiveId(active.id);
@@ -94,24 +107,29 @@ export default function Board({boardAction, setBoardAction}: BoardProps) {
 
     const handleDragEnd = (event: DragEndEvent) => {
         const { active, over } = event;
-        const activeId = active.id;
-        const overId = over ? over.id : null;
-        const activeColumnId = findColumnIdFromActive(active);
-        const overColumnId = over ? findColumnIdFromOver(over) : "";
-        
-        if (!activeColumnId || !overColumnId || activeColumnId !== overColumnId) {
-            return null;
+        const { id } = active;
+        const overId = over!.id!
+
+        const activeContainer = findContainer(id);
+        const overContainer = findContainer(overId);
+
+        if (
+            !activeContainer ||
+            !overContainer ||
+            activeContainer !== overContainer
+        ) {
+            return;
         }
-        
-        const activeIndex = editRoutes![activeColumnId].findIndex((i) => i.id === activeId);
-        const overIndex = editRoutes![overColumnId].findIndex((i) => i.id === overId);
-        
+
+        const activeIndex = editRoutes![activeContainer].findIndex((i) => i.id === activeId);
+        const overIndex = editRoutes![overContainer].findIndex((i) => i.id === overId);
+
         if (activeIndex !== overIndex) {
             setEditRoutes((prevState) => {
                 const d:ResponseData = {}
                 Object.entries(prevState!).map(([column, data]) => {
-                    if (column === activeColumnId) {
-                        data = arrayMove(editRoutes![overColumnId], activeIndex, overIndex);
+                    if (column === overContainer) {
+                        data = arrayMove(editRoutes![overContainer], activeIndex, overIndex);
                         d[column] = data
                     } else {
                         d[column] = data
@@ -121,42 +139,53 @@ export default function Board({boardAction, setBoardAction}: BoardProps) {
                 return d
             });
         }
+
+        setActiveId(null);
     };
 
     const handleDragOver = (event: DragOverEvent) => {
         const { active, over, delta } = event;
-        const activeId = active.id;
-        const overId = over ? over.id : null;
-        const activeColumnId = findColumnIdFromActive(active);
-        const overColumnId = over ? findColumnIdFromOver(over) : null;
-        
-        if (!activeColumnId || !overColumnId || activeColumnId === overColumnId) {
-            return null;
+        const { id } = active;
+        const overId = over!.id
+
+        // Find the containers
+        const activeContainer = findContainer(id);
+        const overContainer = findContainer(overId);
+
+        if (
+            !activeContainer ||
+            !overContainer ||
+            activeContainer === overContainer
+        ) {
+            return;
         }
-        
+
         setEditRoutes((prevState) => {
-            const activeItems = editRoutes![activeColumnId];
-            const overItems = editRoutes![overColumnId];
+            const activeItems = editRoutes![activeContainer];
+            const overItems = editRoutes![overContainer];
             const activeIndex = activeItems.findIndex((i) => i.id === activeId);
             const overIndex = overItems.findIndex((i) => i.id === overId);
 
-            const newIndex = () => {
-                const putOnBelowLastItem =
-                    overIndex === overItems.length - 1 && delta.y > 0;
+            let newIndex: number;
+            if (Object.keys(prevState!).find((key) => key == overId)) {
+                // We're at the root droppable of a container
+                newIndex = overItems.length + 1;
+            } else {
+                const putOnBelowLastItem = overIndex === overItems.length - 1 && delta.y > 0;
                 const modifier = putOnBelowLastItem ? 1 : 0;
-                return overIndex >= 0 ? overIndex + modifier : overItems.length + 1;
-            };
-
+                newIndex = overIndex >= 0 ? overIndex + modifier : overItems.length + 1;
+            }
+            
             const d: ResponseData = {}
 
             Object.entries(prevState!).map(([column, data]) => {
-                if (column === activeColumnId) {
+                if (column === activeContainer) {
                     data = activeItems.filter((i) => i.id !== activeId);
                     d[column] = data
-                } else if (column === overColumnId) {
-                    data = [...overItems.slice(0, newIndex()),
+                } else if (column === overContainer) {
+                    data = [...overItems.slice(0, newIndex),
                         activeItems[activeIndex],
-                        ...overItems.slice(newIndex(), overItems.length),
+                        ...overItems.slice(newIndex, overItems.length),
                     ];
                     d[column] = data
                 } else {
@@ -198,7 +227,7 @@ export default function Board({boardAction, setBoardAction}: BoardProps) {
     return (
         <DndContext
             sensors={sensors}
-            collisionDetection={closestCorners}
+            collisionDetection={closestCenter}
             onDragEnd={handleDragEnd}
             onDragOver={handleDragOver}
             onDragCancel={handleDragCancelled}

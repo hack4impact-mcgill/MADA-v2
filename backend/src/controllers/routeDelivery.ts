@@ -50,7 +50,7 @@ export default class RouteDeliveryController {
     const routePosition = request.body.routeNumber == 0 ? 0 : await this.getNextRouteNumber(request.body.routeNumber)
 
     const route = await this.RouteDeliveryRepository.update(
-      { id: parseInt(request.params.id) },
+      { id: request.params.id },
       { routeNumber: request.body.routeNumber, routePosition: routePosition}
     );
 
@@ -58,7 +58,7 @@ export default class RouteDeliveryController {
   };
 
   incrementRoutePosition = async (request: Request, response: Response) => {
-    const r = await this.getRouteFromId(parseInt(request.params.id))
+    const r = await this.getRouteFromId(request.params.id)
     
     await this.RouteDeliveryRepository.decrement(
       { routeNumber: r.routeNumber, routePosition: r.routePosition + 1 },
@@ -67,7 +67,7 @@ export default class RouteDeliveryController {
     );
 
     const route = await this.RouteDeliveryRepository.increment(
-      { id: parseInt(request.params.id) },
+      { id: request.params.id },
       'routePosition',
       1
     );
@@ -76,7 +76,7 @@ export default class RouteDeliveryController {
   };
 
   decrementRoutePosition = async (request: Request, response: Response) => {
-    const r = await this.getRouteFromId(parseInt(request.params.id))
+    const r = await this.getRouteFromId(request.params.id)
     
     await this.RouteDeliveryRepository.increment(
       { routeNumber: r.routeNumber, routePosition: r.routePosition - 1 },
@@ -85,7 +85,7 @@ export default class RouteDeliveryController {
     );
 
     const route = await this.RouteDeliveryRepository.decrement(
-      { id: parseInt(request.params.id) },
+      { id: request.params.id },
       'routePosition',
       1
     );
@@ -95,7 +95,7 @@ export default class RouteDeliveryController {
 
   // Helper Functions
 
-  getRouteFromId = async (id: number) => {
+  getRouteFromId = async (id: string) => {
     const route = await this.RouteDeliveryRepository.findOne({
       where: {
         id: id
@@ -124,7 +124,7 @@ export default class RouteDeliveryController {
       // for each stop
       routes[column].map(async (stop, index) => {
         const updatedStop = await this.RouteDeliveryRepository.update(
-          { id: parseInt(stop.id) },
+          { id: stop.id },
           { routeNumber: parseInt(column), routePosition: index}
         );
       })
