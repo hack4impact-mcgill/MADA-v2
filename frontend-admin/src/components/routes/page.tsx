@@ -3,8 +3,8 @@ import {
     useQuery,
 } from '@tanstack/react-query'
 import {getRouteDeliveries} from 'src/api/route-deliveries'
-import {BasePage} from 'src/components/common/base-page'
-import {ActionBar} from 'src/components/common/page-actionbar'
+import {BasePage} from 'src/components/common/layout/base-page'
+import {ActionBar} from 'src/components/common/layout/page-actionbar'
 import {Box} from '@mui/material'
 import Board from './editor/board';
 import { ResponseData } from './editor/types'

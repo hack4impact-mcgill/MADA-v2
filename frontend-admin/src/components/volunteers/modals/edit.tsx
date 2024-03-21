@@ -5,8 +5,8 @@ import {
 } from "src/components/volunteers/volunteer.store";
 import { getVolunteer, editVolunteer } from "src/api/volunteers";
 import { isAllValid, BaseModal } from "src/components/common/modal/modal";
-import { useStateSetupHandler } from "src/components/common/use-state-setup-handler";
-import { isValidEmail, isValidPhone } from "src/components/common/validators";
+import { useStateSetupHandler } from "src/components/common/modal/use-state-setup-handler";
+import { isValidEmail, isValidPhone } from "src/components/common/modal/validators";
 import { ModalActionBar } from "src/components/common/modal/actionbar";
 import { ModalPhoneInput } from "src/components/common/modal/inputs/phone";
 import { ModalTextInput } from "src/components/common/modal/inputs/text";

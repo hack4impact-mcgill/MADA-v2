@@ -3,7 +3,7 @@ import {
     useQuery,
 } from '@tanstack/react-query'
 import {getTasks} from 'src/api/tasks'
-import {BasePage} from 'src/components/common/base-page'
+import {BasePage} from 'src/components/common/layout/base-page'
 import {Box} from '@mui/material'
 import {DataGrid} from '@mui/x-data-grid'
 import { taskColumns } from './columns'

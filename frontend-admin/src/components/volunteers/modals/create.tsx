@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createVolunteer } from "src/api/volunteers";
 import * as dayjs from "dayjs";
-import { useStateSetupHandler } from "src/components/common/use-state-setup-handler";
-import { isValidEmail, isValidPhone } from "src/components/common/validators";
+import { useStateSetupHandler } from "src/components/common/modal/use-state-setup-handler";
+import { isValidEmail, isValidPhone } from "src/components/common/modal/validators";
 import { isAllValid, BaseModal } from "src/components/common/modal/modal";
 import { ModalActionBar } from "src/components/common/modal/actionbar";
 import { ModalDateInput } from "src/components/common/modal/inputs/date";
@@ -55,7 +55,6 @@ export const CreateModal = (props: { handleClose: any }) => {
   };
 
   useEffect(() => {
-    console.log("useEffect");
     const valid = isAllValid([
       name,
       isValidEmail(email),
@@ -63,7 +62,6 @@ export const CreateModal = (props: { handleClose: any }) => {
       isValidPhone(phone),
       dayjs(date).isValid(),
     ]);
-    console.log(valid);
     setValid(valid);
   }, [name, email, password, phone, date]);
 
