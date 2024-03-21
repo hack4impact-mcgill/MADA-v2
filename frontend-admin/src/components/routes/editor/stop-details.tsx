@@ -19,12 +19,13 @@ export default function SortableStopDetails({data, editEnabled}: SortableStopDet
     };
 
     return <div ref={setNodeRef} {...attributes} {...listeners} style={style}>
-        <StopDetails {...{
+        <StopDetails stop={data}/>
+        {/* <StopDetails {...{
                 id: data.id,
                 mealType: data.mealType,
                 program: data.program,
             }}
-        />
+        /> */}
     </div>;
 }
 
@@ -34,13 +35,16 @@ type StopDetailsProps = {
 	program: string
 };
 
-export function StopDetails({ id, mealType, program }: StopDetailsProps) {
+export function StopDetails( props: {stop: RouteDelivery}) {
+    const {stop} = props
+
 	return (
         <Card variant="outlined">
             <CardContent>
-                <Typography>{id}</Typography>
-                <Typography>{mealType}</Typography>
-                <Typography>{program}</Typography>
+                <Typography>{stop.client.name}</Typography>
+                <Typography>{stop.mealType}</Typography>
+                <Typography>{stop.program}</Typography>
+                <Typography variant="caption">{stop.id.substring(0,4)}</Typography>
             </CardContent>
         </Card>
 	);
